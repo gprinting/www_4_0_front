@@ -1,0 +1,30 @@
+0608-154549.437 - 19644 - 18060815423110613459 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528440157298]
+0608-154549.473 - 19644 - 18060815423110613459 - MSG : PG_서버_접속__정상
+0608-154549.483 - 19644 - 18060815423110613459 - MSG : PG_서버_요청_전문_전송__정상
+0608-154549.710 - 19644 - 18060815423110613459 - MSG : PG_서버_응답_전문_수신__정상
+0608-154549.710 - 19644 - 18060815423110613459 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18060815423110613459order_no=1528440157298amount=7370auth_no=00978828tran_date=20180608154550card_no=5409268823856483issuer_cd=CNBissuer_nm=OK:00978828acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인van_tid=0700091van_sno=000111000111cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=qLfGOWAP2Fs8TQsbHRP0NUCjae64pdVhJoGkDQJiASE=user_nm=엄준현bk_pay_yn=N]
+0608-155222.155 - 19695 - 18060815514610613494 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528440712330]
+0608-155222.191 - 19695 - 18060815514610613494 - MSG : PG_서버_접속__정상
+0608-155222.201 - 19695 - 18060815514610613494 - MSG : PG_서버_요청_전문_전송__정상
+0608-155222.402 - 19695 - 18060815514610613494 - MSG : PG_서버_응답_전문_수신__정상
+0608-155222.402 - 19695 - 18060815514610613494 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18060815514610613494order_no=1528440712330amount=7370auth_no=00978834tran_date=20180608155223card_no=5409265723725376issuer_cd=CNBissuer_nm=OK:00978834acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인van_tid=0700091van_sno=000111000111cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=4TE9C+5wqSubsYpmTGfdf3bgSrvvpA5jDTFNzg9wpOg=user_nm=엄준현bk_pay_yn=N]
+0608-161716.040 - 19836 - 18060816163410613568 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528442200723]
+0608-161716.078 - 19836 - 18060816163410613568 - MSG : PG_서버_접속__정상
+0608-161716.088 - 19836 - 18060816163410613568 - MSG : PG_서버_요청_전문_전송__정상
+0608-161716.342 - 19836 - 18060816163410613568 - MSG : PG_서버_응답_전문_수신__정상
+0608-161716.342 - 19836 - 18060816163410613568 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18060816163410613568order_no=1528442200723amount=7370auth_no=00978840tran_date=20180608161716card_no=5409261777692178issuer_cd=CNBissuer_nm=OK:00978840acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인van_tid=0700091van_sno=000111000111cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=q6M7gMOklDmShPLjI7EDPSL8pY/KtQx+Ejt1N3hUeQ4=user_nm=엄준현bk_pay_yn=N]
+0608-161916.076 - 19839 - 18060816185510613573 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528442341746]
+0608-161916.113 - 19839 - 18060816185510613573 - MSG : PG_서버_접속__정상
+0608-161916.123 - 19839 - 18060816185510613573 - MSG : PG_서버_요청_전문_전송__정상
+0608-161916.317 - 19839 - 18060816185510613573 - MSG : PG_서버_응답_전문_수신__정상
+0608-161916.317 - 19839 - 18060816185510613573 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18060816185510613573order_no=1528442341746amount=7370auth_no=00978841tran_date=20180608161916card_no=5409268041927096issuer_cd=CNBissuer_nm=OK:00978841acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인van_tid=0700091van_sno=000111000111cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=AhfC3pqkCKk+axlU9My/fh38LD4618f54tIhPqTV8eg=user_nm=엄준현bk_pay_yn=N]
+0608-162325.830 - 19874 - 18060816224910613576 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528442575494]
+0608-162325.870 - 19874 - 18060816224910613576 - MSG : PG_서버_접속__정상
+0608-162325.880 - 19874 - 18060816224910613576 - MSG : PG_서버_요청_전문_전송__정상
+0608-162326.083 - 19874 - 18060816224910613576 - MSG : PG_서버_응답_전문_수신__정상
+0608-162326.083 - 19874 - 18060816224910613576 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18060816224910613576order_no=1528442575494amount=7370auth_no=00978843tran_date=20180608162326card_no=5409264989797262issuer_cd=CNBissuer_nm=OK:00978843acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인van_tid=0700091van_sno=000111000111cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=zlAfZz34hyXCWeIzLNxxkpE7bkEPOqC0xIPa0UBphxQ=user_nm=엄준현bk_pay_yn=N]
+0608-162433.785 - 19876 - 18060816240910613577 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528442655397]
+0608-162433.820 - 19876 - 18060816240910613577 - MSG : PG_서버_접속__정상
+0608-162433.830 - 19876 - 18060816240910613577 - MSG : PG_서버_요청_전문_전송__정상
+0608-162434.090 - 19876 - 18060816240910613577 - MSG : PG_서버_응답_전문_수신__정상
+0608-162434.090 - 19876 - 18060816240910613577 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18060816240910613577order_no=1528442655397amount=7370auth_no=00978845tran_date=20180608162434card_no=5409266406215206issuer_cd=CNBissuer_nm=OK:00978845acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인van_tid=0700091van_sno=000111000111cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=RJ+7vmzIegyGGIQV08KQKCZ/d61Y9d4LmN8NLSx5fIw=user_nm=엄준현bk_pay_yn=N]

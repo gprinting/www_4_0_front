@@ -1,0 +1,5 @@
+0726-191742.608 - 32004 - 17072619163010716776 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1501064191288]
+0726-191742.633 - 32004 - 17072619163010716776 - MSG : PG_서버_접속__정상
+0726-191742.643 - 32004 - 17072619163010716776 - MSG : PG_서버_요청_전문_전송__정상
+0726-191742.892 - 32004 - 17072619163010716776 - MSG : PG_서버_응답_전문_수신__정상
+0726-191742.892 - 32004 - 17072619163010716776 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=17072619163010716776order_no=1501064191288amount=100000auth_no=00003672tran_date=20170726192045card_no=9445420900009419issuer_cd=016issuer_nm=OK:00003672acquirer_cd=016acquirer_nm=Payzone TestCardnoint=00install_period=00escrow_yn=Ncomplex_yn=Njoin_no=00047770307stat_cd=TS03stat_msg=매입요청cc_expr_date=8911pay_type=11memb_id=T5102001part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcardno_hash=jcJCWYqCJd7xq51MBqroOXIx4usU/1nb4wZRm10kK/c=bk_pay_yn=N]

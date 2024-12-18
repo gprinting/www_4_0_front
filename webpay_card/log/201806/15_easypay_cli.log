@@ -1,0 +1,5 @@
+0615-142618.965 -  5282 - 18061514251910618718 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1529040317230]
+0615-142619.000 -  5282 - 18061514251910618718 - MSG : PG_서버_접속__정상
+0615-142619.010 -  5282 - 18061514251910618718 - MSG : PG_서버_요청_전문_전송__정상
+0615-142619.211 -  5282 - 18061514251910618718 - MSG : PG_서버_응답_전문_수신__정상
+0615-142619.211 -  5282 - 18061514251910618718 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18061514251910618718order_no=1529040317230amount=357480auth_no=00980111tran_date=20180615142622card_no=5409265253073029issuer_cd=CNBissuer_nm=OK:00980111acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인van_tid=0700091van_sno=000111000111cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=SOykkQivYlroFh3mE3eDp0e3gOCG6ezscE02/N3djG4=user_nm=엄준현bk_pay_yn=N]

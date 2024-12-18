@@ -1,0 +1,60 @@
+0727-092525.959 -  1220 - 17072709224410716916 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1501114965004]
+0727-092525.974 -  1220 - 17072709224410716916 - MSG : PG_서버_접속__정상
+0727-092525.984 -  1220 - 17072709224410716916 - MSG : PG_서버_요청_전문_전송__정상
+0727-092526.136 -  1220 - 17072709224410716916 - MSG : PG_서버_응답_전문_수신__정상
+0727-092526.136 -  1220 - 17072709224410716916 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=17072709224410716916order_no=1501114965004amount=100000auth_no=00003690tran_date=20170727092829card_no=5409264800002422issuer_cd=016issuer_nm=OK:00003690acquirer_cd=016acquirer_nm=Payzone TestCardnoint=00install_period=00escrow_yn=Ncomplex_yn=Njoin_no=00047770307stat_cd=TS03stat_msg=매입요청cc_expr_date=8911pay_type=11memb_id=T5102001part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcardno_hash=y66K4qv9f/TIDp5N5lka6oas+jB9NFvFovcM1UvgBXs=bk_pay_yn=N]
+0727-102308.267 -  1583 - 17072710224010716961 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1501118558502]
+0727-102308.280 -  1583 - 17072710224010716961 - MSG : PG_서버_접속__정상
+0727-102308.290 -  1583 - 17072710224010716961 - MSG : PG_서버_요청_전문_전송__정상
+0727-102308.349 -  1583 - 17072710224010716961 - MSG : PG_서버_응답_전문_수신__정상
+0727-102308.349 -  1583 - 17072710224010716961 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=17072710224010716961order_no=1501118558502amount=100000tran_date=20170727102307bank_cd=004bank_flag=Ybank_nm=국민은행account_no=T9649078552404deposit_nm=한국정보통신(주) 테expire_date=20170730235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T5102001memb_gubun=2bk_pay_yn=N]
+0727-102408.021 -  1589 - 17072710233710716962 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1501118615197]
+0727-102408.035 -  1589 - 17072710233710716962 - MSG : PG_서버_접속__정상
+0727-102408.045 -  1589 - 17072710233710716962 - MSG : PG_서버_요청_전문_전송__정상
+0727-102408.091 -  1589 - 17072710233710716962 - MSG : PG_서버_응답_전문_수신__정상
+0727-102408.091 -  1589 - 17072710233710716962 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=17072710233710716962order_no=1501118615197amount=100000tran_date=20170727102407bank_cd=020bank_flag=Ybank_nm=우리은행account_no=T1619543418176deposit_nm=한국정보통신(주) 테expire_date=20170730235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T5102001memb_gubun=2bk_pay_yn=N]
+0727-103004.982 -  1751 - 17072710293410716970 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1501118972708]
+0727-103004.993 -  1751 - 17072710293410716970 - MSG : PG_서버_접속__정상
+0727-103005.003 -  1751 - 17072710293410716970 - MSG : PG_서버_요청_전문_전송__정상
+0727-103005.065 -  1751 - 17072710293410716970 - MSG : PG_서버_응답_전문_수신__정상
+0727-103005.065 -  1751 - 17072710293410716970 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=17072710293410716970order_no=1501118972708amount=100000tran_date=20170727103004bank_cd=020bank_flag=Ybank_nm=우리은행account_no=T1619543418192deposit_nm=한국정보통신(주) 테expire_date=20170730235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T5102001memb_gubun=2bk_pay_yn=N]
+0727-113611.861 -  2142 - 17072711323110717028 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1501122753339]
+0727-113611.877 -  2142 - 17072711323110717028 - MSG : PG_서버_접속__정상
+0727-113611.887 -  2142 - 17072711323110717028 - MSG : PG_서버_요청_전문_전송__정상
+0727-113612.010 -  2142 - 17072711323110717028 - MSG : PG_서버_응답_전문_수신__정상
+0727-113612.010 -  2142 - 17072711323110717028 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=17072711323110717028order_no=1501122753339amount=100000auth_no=00003707tran_date=20170727113915card_no=5409265400000077issuer_cd=016issuer_nm=OK:00003707acquirer_cd=016acquirer_nm=Payzone TestCardnoint=00install_period=00escrow_yn=Ncomplex_yn=Njoin_no=00047770307stat_cd=TS03stat_msg=매입요청cc_expr_date=8911pay_type=11memb_id=T5102001part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcardno_hash=t9EsplYl/8JAmQGz6mjXs0jXK8cRDbsuaNcPtBTp3ZI=bk_pay_yn=N]
+0727-153127.275 -  2996 - 17072715223010717212 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1501136550222]
+0727-153127.289 -  2996 - 17072715223010717212 - MSG : PG_서버_접속__정상
+0727-153127.299 -  2996 - 17072715223010717212 - MSG : PG_서버_요청_전문_전송__정상
+0727-153127.416 -  2996 - 17072715223010717212 - MSG : PG_서버_응답_전문_수신__정상
+0727-153127.416 -  2996 - 17072715223010717212 - MSG : ENDED - res=[res_cd=0000res_msg=ISP결제 정상cno=17072715223010717212order_no=1501136550222amount=100000auth_no=00001683tran_date=20170727153127card_no=5409260000000040issuer_cd=016issuer_nm=KB LOCAL 카드acquirer_cd=016acquirer_nm=국민카드noint=00install_period=00escrow_yn=Ncomplex_yn=Njoin_no=00004561234stat_cd=TS03stat_msg=매입요청cc_expr_date=0000pay_type=11memb_id=T5102001part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcardno_hash=kLgYZt9qvwMfNMV1YzC66w/WcOYBpanQIICv88ig8gA=bk_pay_yn=N]
+0727-153930.071 -  2999 - 17072715382310717231 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1501137503593]
+0727-153930.083 -  2999 - 17072715382310717231 - MSG : PG_서버_접속__정상
+0727-153930.093 -  2999 - 17072715382310717231 - MSG : PG_서버_요청_전문_전송__정상
+0727-153930.242 -  2999 - 17072715382310717231 - MSG : PG_서버_응답_전문_수신__정상
+0727-153930.242 -  2999 - 17072715382310717231 - MSG : ENDED - res=[res_cd=0000res_msg=ISP결제 정상cno=17072715382310717231order_no=1501137503593amount=100000auth_no=00001684tran_date=20170727153930card_no=5409260000000040issuer_cd=016issuer_nm=KB LOCAL 카드acquirer_cd=016acquirer_nm=국민카드noint=00install_period=00escrow_yn=Ncomplex_yn=Njoin_no=00004561234stat_cd=TS03stat_msg=매입요청cc_expr_date=0000pay_type=11memb_id=T5102001part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcardno_hash=kLgYZt9qvwMfNMV1YzC66w/WcOYBpanQIICv88ig8gA=bk_pay_yn=N]
+0727-154154.902 -  3005 - 17072715400010717235 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1501137600185]
+0727-154154.918 -  3005 - 17072715400010717235 - MSG : PG_서버_접속__정상
+0727-154154.928 -  3005 - 17072715400010717235 - MSG : PG_서버_요청_전문_전송__정상
+0727-154155.150 -  3005 - 17072715400010717235 - MSG : PG_서버_응답_전문_수신__정상
+0727-154155.150 -  3005 - 17072715400010717235 - MSG : ENDED - res=[res_cd=0000res_msg=ISP결제 정상cno=17072715400010717235order_no=1501137600185amount=100000auth_no=00001685tran_date=20170727154155card_no=5409260000000040issuer_cd=016issuer_nm=KB LOCAL 카드acquirer_cd=016acquirer_nm=국민카드noint=00install_period=00escrow_yn=Ncomplex_yn=Njoin_no=00004561234stat_cd=TS03stat_msg=매입요청cc_expr_date=0000pay_type=11memb_id=T5102001part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcardno_hash=kLgYZt9qvwMfNMV1YzC66w/WcOYBpanQIICv88ig8gA=bk_pay_yn=N]
+0727-154844.536 -  3009 - 17072715474910717247 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1501138069585]
+0727-154844.550 -  3009 - 17072715474910717247 - MSG : PG_서버_접속__정상
+0727-154844.560 -  3009 - 17072715474910717247 - MSG : PG_서버_요청_전문_전송__정상
+0727-154844.718 -  3009 - 17072715474910717247 - MSG : PG_서버_응답_전문_수신__정상
+0727-154844.718 -  3009 - 17072715474910717247 - MSG : ENDED - res=[res_cd=0000res_msg=ISP결제 정상cno=17072715474910717247order_no=1501138069585amount=100000auth_no=00001686tran_date=20170727154844card_no=5409260000000040issuer_cd=016issuer_nm=KB LOCAL 카드acquirer_cd=016acquirer_nm=국민카드noint=00install_period=00escrow_yn=Ncomplex_yn=Njoin_no=00004561234stat_cd=TS03stat_msg=매입요청cc_expr_date=0000pay_type=11memb_id=T5102001part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcardno_hash=kLgYZt9qvwMfNMV1YzC66w/WcOYBpanQIICv88ig8gA=bk_pay_yn=N]
+0727-155451.545 -  3020 - 17072715535010717256 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1501138430478]
+0727-155451.558 -  3020 - 17072715535010717256 - MSG : PG_서버_접속__정상
+0727-155451.568 -  3020 - 17072715535010717256 - MSG : PG_서버_요청_전문_전송__정상
+0727-155451.675 -  3020 - 17072715535010717256 - MSG : PG_서버_응답_전문_수신__정상
+0727-155451.675 -  3020 - 17072715535010717256 - MSG : ENDED - res=[res_cd=0000res_msg=ISP결제 정상cno=17072715535010717256order_no=1501138430478amount=100000auth_no=00001688tran_date=20170727155451card_no=5409260000000040issuer_cd=016issuer_nm=KB LOCAL 카드acquirer_cd=016acquirer_nm=국민카드noint=00install_period=00escrow_yn=Ncomplex_yn=Njoin_no=00004561234stat_cd=TS03stat_msg=매입요청cc_expr_date=0000pay_type=11memb_id=T5102001part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcardno_hash=kLgYZt9qvwMfNMV1YzC66w/WcOYBpanQIICv88ig8gA=bk_pay_yn=N]
+0727-160215.661 -  3117 - 17072716011810717263 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1501138877933]
+0727-160215.675 -  3117 - 17072716011810717263 - MSG : PG_서버_접속__정상
+0727-160215.685 -  3117 - 17072716011810717263 - MSG : PG_서버_요청_전문_전송__정상
+0727-160215.941 -  3117 - 17072716011810717263 - MSG : PG_서버_응답_전문_수신__정상
+0727-160215.941 -  3117 - 17072716011810717263 - MSG : ENDED - res=[res_cd=0000res_msg=ISP결제 정상cno=17072716011810717263order_no=1501138877933amount=100000auth_no=00001689tran_date=20170727160215card_no=5409260000000040issuer_cd=016issuer_nm=KB LOCAL 카드acquirer_cd=016acquirer_nm=국민카드noint=00install_period=00escrow_yn=Ncomplex_yn=Njoin_no=00004561234stat_cd=TS03stat_msg=매입요청cc_expr_date=0000pay_type=11memb_id=T5102001part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcardno_hash=kLgYZt9qvwMfNMV1YzC66w/WcOYBpanQIICv88ig8gA=bk_pay_yn=N]
+0727-171810.596 -  3660 - 17072717165210717342 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1501143412750]
+0727-171810.609 -  3660 - 17072717165210717342 - MSG : PG_서버_접속__정상
+0727-171810.620 -  3660 - 17072717165210717342 - MSG : PG_서버_요청_전문_전송__정상
+0727-171810.793 -  3660 - 17072717165210717342 - MSG : PG_서버_응답_전문_수신__정상
+0727-171810.793 -  3660 - 17072717165210717342 - MSG : ENDED - res=[res_cd=0000res_msg=ISP결제 정상cno=17072717165210717342order_no=1501143412750amount=100000auth_no=00001692tran_date=20170727171810card_no=5409260000000040issuer_cd=016issuer_nm=KB LOCAL 카드acquirer_cd=016acquirer_nm=국민카드noint=00install_period=00escrow_yn=Ncomplex_yn=Njoin_no=00004561234stat_cd=TS03stat_msg=매입요청cc_expr_date=0000pay_type=11memb_id=T5102001part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcardno_hash=kLgYZt9qvwMfNMV1YzC66w/WcOYBpanQIICv88ig8gA=bk_pay_yn=N]

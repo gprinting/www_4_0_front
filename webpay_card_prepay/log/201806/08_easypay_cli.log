@@ -1,0 +1,5 @@
+0608-190250.950 - 20577 - 18060819022310613736 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528452149412]
+0608-190250.985 - 20577 - 18060819022310613736 - MSG : PG_서버_접속__정상
+0608-190250.995 - 20577 - 18060819022310613736 - MSG : PG_서버_요청_전문_전송__정상
+0608-190251.388 - 20577 - 18060819022310613736 - MSG : PG_서버_응답_전문_수신__정상
+0608-190251.388 - 20577 - 18060819022310613736 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18060819022310613736order_no=1528452149412amount=100000auth_no=00978874tran_date=20180608190252card_no=5409267575699487issuer_cd=CNBissuer_nm=OK:00978874acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인van_tid=0700091van_sno=000111000111cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=SUoADChABPpOqvWDwt9zkyWABMIZ4qhLbu5FrBDysvM=user_nm=엄준현bk_pay_yn=N]

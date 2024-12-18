@@ -1,0 +1,15 @@
+0516-095332.811 - 13520 - T00093145GFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[ORDER_201805161526432008677]
+0516-095332.849 - 13520 - T00093145GFmoqMp     - MSG : PG_서버_접속__정상
+0516-095332.859 - 13520 - T00093145GFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0516-095332.909 - 13520 - T00093145GFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0516-095332.910 - 13520 - T00093145GFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051609533310589147order_no=ORDER_201805161526432008677amount=1004tran_date=20180516095333bank_cd=003bank_nm=기업은행account_no=T8201267097683deposit_nm=굿프린팅expire_date=20180516235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0516-105241.725 - 13973 - T00093145GFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[ORDER_201805161526435555815]
+0516-105241.762 - 13973 - T00093145GFmoqMp     - MSG : PG_서버_접속__정상
+0516-105241.773 - 13973 - T00093145GFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0516-105241.833 - 13973 - T00093145GFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0516-105241.834 - 13973 - T00093145GFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051610524210589291order_no=ORDER_201805161526435555815amount=1004tran_date=20180516105242bank_cd=003bank_nm=기업은행account_no=T8201267197040deposit_nm=굿프린팅expire_date=20180516235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0516-143946.782 - 15358 - T00093145GFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[ORDER_201805161526449177688]
+0516-143946.819 - 15358 - T00093145GFmoqMp     - MSG : PG_서버_접속__정상
+0516-143946.829 - 15358 - T00093145GFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0516-143946.901 - 15358 - T00093145GFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0516-143946.901 - 15358 - T00093145GFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051614394610589680order_no=ORDER_201805161526449177688amount=10000tran_date=20180516143946bank_cd=003bank_nm=기업은행account_no=T8201267197616deposit_nm=굿프린팅expire_date=20180516235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]

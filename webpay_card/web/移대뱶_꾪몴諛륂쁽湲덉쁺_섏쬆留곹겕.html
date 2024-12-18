@@ -1,0 +1,40 @@
+<html>
+<head>
+<title> new document </title>
+<meta name="author" content="">
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<script language="javascript">
+<!--
+/**********************************************************************************
+	거래내역  영수증 팝업
+***********************************************************************************/
+function receipt(controlNo, payment)
+{	
+    window.open("","MEMB_POP_RECEIPT", 'toolbar=0,scroll=1,menubar=0,status=0,resizable=0,width=380,height=700');
+    document.form1.action = "http://testoffice.easypay.co.kr/receipt/ReceiptBranch.jsp";    // 테스트
+    // document.form1.action = "https://office.easypay.co.kr/receipt/ReceiptBranch.jsp"; // 운영
+    document.form1.controlNo.value = controlNo;
+    document.form1.payment.value = payment;
+    document.form1.target = "MEMB_POP_RECEIPT";
+    document.form1.submit();
+}
+//-->
+</script>
+<body>
+
+<input type="button" name="card1_receipt" value="신용카드" onclick="javascript:receipt('거래번호 20자리', '01');">
+<input type="button" name="acc1_receipt" value="계좌이체" onclick="javascript:receipt('거래번호 20자리', '02');">
+<input type="button" name="vacc1_receipt" value="가상계좌" onclick="javascript:receipt('거래번호 20자리', '03');">
+<input type="button" name="mobile1_receipt" value="휴대폰" onclick="javascript:receipt('거래번호 20자리', '04');">
+<input type="button" name="ars1_receipt" value="ars" onclick="javascript:receipt('거래번호 20자리', '05');">
+<input type="button" name="bill1_receipt" value="현금영수증" onclick="javascript:receipt('거래번호 20자리', '06');">
+<input type="button" name="escrow1_receipt" value="에스크로" onclick="javascript:receipt('거래번호 20자리', '07');">
+
+<form name="form1" method="get" action=""> 
+    <input type=hidden name=controlNo>
+    <input type=hidden name=payment>
+</form>
+</body>
+</html>

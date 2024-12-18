@@ -1,0 +1,5 @@
+0809-095755.716 - 13174 - 17080909531410733690 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1502239993415]
+0809-095755.738 - 13174 - 17080909531410733690 - MSG : PG_서버_접속__정상
+0809-095755.748 - 13174 - 17080909531410733690 - MSG : PG_서버_요청_전문_전송__정상
+0809-095756.037 - 13174 - 17080909531410733690 - MSG : PG_서버_응답_전문_수신__정상
+0809-095756.037 - 13174 - 17080909531410733690 - MSG : ENDED - res=[res_cd=0000res_msg=MPI결제 정상cno=17080909531410733690order_no=1502239993415amount=500000auth_no=00014609tran_date=20170809095755card_no=9410108700009268issuer_cd=049issuer_nm=OK:00014609acquirer_cd=026acquirer_nm=Payzone TestCardnoint=00install_period=00escrow_yn=Ncomplex_yn=Njoin_no=729112316stat_cd=TS03stat_msg=매입요청cc_expr_date=4912pay_type=11memb_id=T5102001part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcardno_hash=FOpzbhXEsGwdX0COko9UH2ZHNLuoVKvW7ERXXFBZhoY=bk_pay_yn=N]

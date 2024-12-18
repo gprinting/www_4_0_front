@@ -1,0 +1,100 @@
+0518-140732.092 -  1860 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe5f940c5bd]
+0518-140732.125 -  1860 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-140732.135 -  1860 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-140732.263 -  1860 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-140732.264 -  1860 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814073210591856order_no=acc__5afe5f940c5bdamount=0tran_date=20180518140732bank_cd=023bank_nm=SC제일은행account_no=T4016000878265deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-140732.317 -  1862 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe5f9443cf5]
+0518-140732.352 -  1862 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-140732.362 -  1862 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-140732.504 -  1862 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-140732.504 -  1862 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814073210591857order_no=acc__5afe5f9443cf5amount=0tran_date=20180518140732bank_cd=023bank_nm=SC제일은행account_no=T4016000886421deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-140732.557 -  1864 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe5f947ecc4]
+0518-140732.592 -  1864 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-140732.602 -  1864 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-140732.694 -  1864 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-140732.694 -  1864 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814073310591858order_no=acc__5afe5f947ecc4amount=0tran_date=20180518140733bank_cd=023bank_nm=SC제일은행account_no=T4016000886454deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-140732.747 -  1866 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe5f94acc96]
+0518-140732.782 -  1866 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-140732.792 -  1866 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-140732.892 -  1866 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-140732.892 -  1866 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814073310591859order_no=acc__5afe5f94acc96amount=0tran_date=20180518140733bank_cd=023bank_nm=SC제일은행account_no=T4016000886525deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-140732.945 -  1868 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe5f94dd6b4]
+0518-140732.977 -  1868 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-140732.987 -  1868 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-140733.092 -  1868 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-140733.092 -  1868 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814073310591860order_no=acc__5afe5f94dd6b4amount=0tran_date=20180518140733bank_cd=023bank_nm=SC제일은행account_no=T4016000886547deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-140733.144 -  1870 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe5f9519e3c]
+0518-140733.179 -  1870 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-140733.189 -  1870 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-140733.313 -  1870 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-140733.313 -  1870 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814073310591861order_no=acc__5afe5f9519e3camount=0tran_date=20180518140733bank_cd=023bank_nm=SC제일은행account_no=T4016000895740deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-140733.365 -  1872 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe5f954f7b0]
+0518-140733.401 -  1872 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-140733.411 -  1872 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-140733.458 -  1872 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-140733.458 -  1872 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814073310591862order_no=acc__5afe5f954f7b0amount=0tran_date=20180518140733bank_cd=023bank_nm=SC제일은행account_no=T4016000895762deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-140733.511 -  1874 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe5f95735b0]
+0518-140733.544 -  1874 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-140733.554 -  1874 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-140733.702 -  1874 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-140733.702 -  1874 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814073410591863order_no=acc__5afe5f95735b0amount=0tran_date=20180518140734bank_cd=023bank_nm=SC제일은행account_no=T4016000895795deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-140733.756 -  1876 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe5f95aec62]
+0518-140733.794 -  1876 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-140733.804 -  1876 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-140733.873 -  1876 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-140733.873 -  1876 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814073410591864order_no=acc__5afe5f95aec62amount=0tran_date=20180518140734bank_cd=023bank_nm=SC제일은행account_no=T4016000895877deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-140733.928 -  1878 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe5f95d8da7]
+0518-140733.963 -  1878 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-140733.973 -  1878 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-140734.096 -  1878 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-140734.096 -  1878 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814073410591865order_no=acc__5afe5f95d8da7amount=0tran_date=20180518140734bank_cd=023bank_nm=SC제일은행account_no=T4016000895899deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-141013.622 -  1903 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe60358df3b]
+0518-141013.658 -  1903 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-141013.669 -  1903 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-141013.719 -  1903 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-141013.719 -  1903 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814101410591870order_no=acc__5afe60358df3bamount=0tran_date=20180518141014bank_cd=020bank_nm=우리은행account_no=T1619381418354deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-141013.770 -  1905 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe6035b2bb4]
+0518-141013.803 -  1905 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-141013.813 -  1905 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-141013.898 -  1905 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-141013.898 -  1905 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814101410591871order_no=acc__5afe6035b2bb4amount=0tran_date=20180518141014bank_cd=020bank_nm=우리은행account_no=T1619396118508deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-141013.951 -  1907 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe6035def8f]
+0518-141013.986 -  1907 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-141013.996 -  1907 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-141014.100 -  1907 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-141014.100 -  1907 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814101410591872order_no=acc__5afe6035def8famount=0tran_date=20180518141014bank_cd=020bank_nm=우리은행account_no=T1619396118524deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-141014.151 -  1909 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe60361bd05]
+0518-141014.186 -  1909 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-141014.196 -  1909 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-141014.297 -  1909 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-141014.297 -  1909 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814101410591873order_no=acc__5afe60361bd05amount=0tran_date=20180518141014bank_cd=020bank_nm=우리은행account_no=T1619396118613deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-141014.348 -  1911 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe60364c2c3]
+0518-141014.384 -  1911 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-141014.394 -  1911 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-141014.442 -  1911 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-141014.443 -  1911 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814101410591874order_no=acc__5afe60364c2c3amount=0tran_date=20180518141014bank_cd=020bank_nm=우리은행account_no=T1619396118654deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-141014.496 -  1913 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe60366f6d9]
+0518-141014.530 -  1913 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-141014.540 -  1913 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-141014.640 -  1913 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-141014.640 -  1913 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814101510591875order_no=acc__5afe60366f6d9amount=0tran_date=20180518141015bank_cd=020bank_nm=우리은행account_no=T1619396118671deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-141014.696 -  1915 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe6036a01af]
+0518-141014.730 -  1915 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-141014.740 -  1915 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-141014.827 -  1915 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-141014.827 -  1915 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814101510591876order_no=acc__5afe6036a01afamount=0tran_date=20180518141015bank_cd=020bank_nm=우리은행account_no=T1619396118792deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-141014.880 -  1917 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe6036cdaab]
+0518-141014.913 -  1917 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-141014.923 -  1917 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-141015.068 -  1917 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-141015.068 -  1917 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814101510591877order_no=acc__5afe6036cdaabamount=0tran_date=20180518141015bank_cd=020bank_nm=우리은행account_no=T1619396118832deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-141015.120 -  1919 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe603714215]
+0518-141015.150 -  1919 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-141015.160 -  1919 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-141015.297 -  1919 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-141015.297 -  1919 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814101510591878order_no=acc__5afe603714215amount=0tran_date=20180518141015bank_cd=020bank_nm=우리은행account_no=T1619396118890deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0518-141015.349 -  1921 - T00093145IFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[acc__5afe60374be05]
+0518-141015.383 -  1921 - T00093145IFmoqMp     - MSG : PG_서버_접속__정상
+0518-141015.393 -  1921 - T00093145IFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0518-141015.488 -  1921 - T00093145IFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0518-141015.488 -  1921 - T00093145IFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051814101510591879order_no=acc__5afe60374be05amount=0tran_date=20180518141015bank_cd=020bank_nm=우리은행account_no=T1619396118954deposit_nm=굿프린팅expire_date=29991231235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]

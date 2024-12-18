@@ -1,0 +1,15 @@
+0825-135252.890 -  4883 - 17082513515210089285 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1503636711859]
+0825-135252.907 -  4883 - 17082513515210089285 - MSG : PG_서버_접속__정상
+0825-135252.917 -  4883 - 17082513515210089285 - MSG : PG_서버_요청_전문_전송__정상
+0825-135253.119 -  4883 - 17082513515210089285 - MSG : PG_서버_응답_전문_수신__정상
+0825-135253.119 -  4883 - 17082513515210089285 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=17082513515210089285order_no=1503636711859amount=100000auth_no=00016804tran_date=20170825135253card_no=5409266500000421issuer_cd=016issuer_nm=OK:00016804acquirer_cd=016acquirer_nm=Payzone TestCardnoint=00install_period=00escrow_yn=Ncomplex_yn=Njoin_no=00047770307stat_cd=TS03stat_msg=매입요청cc_expr_date=8911pay_type=11memb_id=T5102001part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcardno_hash=fMa6NvpQyeMQ8FgliTdbSx8IbY7JcW9wQnNFT1ZL/Kw=bk_pay_yn=N]
+0825-170020.303 -  6234 - 17082516593810089570 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1503647978207]
+0825-170020.318 -  6234 - 17082516593810089570 - MSG : PG_서버_접속__정상
+0825-170020.328 -  6234 - 17082516593810089570 - MSG : PG_서버_요청_전문_전송__정상
+0825-170020.543 -  6234 - 17082516593810089570 - MSG : PG_서버_응답_전문_수신__정상
+0825-170020.543 -  6234 - 17082516593810089570 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=17082516593810089570order_no=1503647978207amount=100000auth_no=00016916tran_date=20170825170021card_no=5409267400009803issuer_cd=016issuer_nm=OK:00016916acquirer_cd=016acquirer_nm=Payzone TestCardnoint=00install_period=00escrow_yn=Ncomplex_yn=Njoin_no=00047770307stat_cd=TS03stat_msg=매입요청cc_expr_date=8911pay_type=11memb_id=T5102001part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcardno_hash=IDpC4hMA3sJNJjOP50sgfoI/u6wV1l4GgsHMQHnGUdE=bk_pay_yn=N]
+0825-170236.215 -  6282 - 17082517011810089573 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1503648078183]
+0825-170236.229 -  6282 - 17082517011810089573 - MSG : PG_서버_접속__정상
+0825-170236.239 -  6282 - 17082517011810089573 - MSG : PG_서버_요청_전문_전송__정상
+0825-170236.520 -  6282 - 17082517011810089573 - MSG : PG_서버_응답_전문_수신__정상
+0825-170236.520 -  6282 - 17082517011810089573 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=17082517011810089573order_no=1503648078183amount=5000000auth_no=00016917tran_date=20170825170237card_no=5409268100009260issuer_cd=016issuer_nm=OK:00016917acquirer_cd=016acquirer_nm=Payzone TestCardnoint=00install_period=00escrow_yn=Ncomplex_yn=Njoin_no=00047770307stat_cd=TS03stat_msg=매입요청cc_expr_date=8911pay_type=11memb_id=T5102001part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcardno_hash=tp5EcNEAmiC7FwlKIHl1kCSmSK5aLzTXdfVgb31XtdQ=bk_pay_yn=N]

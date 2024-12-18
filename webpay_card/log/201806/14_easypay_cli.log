@@ -1,0 +1,15 @@
+0614-091349.576 -  1926 - 18061409123310616570 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528935152206]
+0614-091349.613 -  1926 - 18061409123310616570 - MSG : PG_서버_접속__정상
+0614-091349.624 -  1926 - 18061409123310616570 - MSG : PG_서버_요청_전문_전송__정상
+0614-091349.944 -  1926 - 18061409123310616570 - MSG : PG_서버_응답_전문_수신__정상
+0614-091349.945 -  1926 - 18061409123310616570 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18061409123310616570order_no=1528935152206amount=7370auth_no=00979673tran_date=20180614091351card_no=5409268753217647issuer_cd=CNBissuer_nm=OK:00979673acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인van_tid=0700091van_sno=000111000111cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=WBuj8HQo1jGyY2xku5Z1GW3m6PQ3S+3NLVclKIWMi1A=user_nm=엄준현bk_pay_yn=N]
+0614-102244.403 -  2320 - 18061410220110616665 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528939320190]
+0614-102244.439 -  2320 - 18061410220110616665 - MSG : PG_서버_접속__정상
+0614-102244.449 -  2320 - 18061410220110616665 - MSG : PG_서버_요청_전문_전송__정상
+0614-102244.718 -  2320 - 18061410220110616665 - MSG : PG_서버_응답_전문_수신__정상
+0614-102244.718 -  2320 - 18061410220110616665 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18061410220110616665order_no=1528939320190amount=7370auth_no=00979697tran_date=20180614102246card_no=5409264551505370issuer_cd=CNBissuer_nm=OK:00979697acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인van_tid=0700091van_sno=000111000111cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=Rd9I99yZbyh5OHZ78RNjV1EbHYa6ujl3SkgeGmJsLzQ=user_nm=엄준현bk_pay_yn=N]
+0614-154256.268 -  3038 - 18061415421810617271 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528958536787]
+0614-154256.306 -  3038 - 18061415421810617271 - MSG : PG_서버_접속__정상
+0614-154256.317 -  3038 - 18061415421810617271 - MSG : PG_서버_요청_전문_전송__정상
+0614-154256.599 -  3038 - 18061415421810617271 - MSG : PG_서버_응답_전문_수신__정상
+0614-154256.599 -  3038 - 18061415421810617271 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18061415421810617271order_no=1528958536787amount=7370auth_no=00979861tran_date=20180614154258card_no=5409262690403984issuer_cd=CNBissuer_nm=OK:00979861acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인van_tid=0700091van_sno=000111000111cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=gnzTs3T3E+fiNSjiyjSi0+Hn6vKKsgmS8YUQghSck5E=user_nm=엄준현bk_pay_yn=N]

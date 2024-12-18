@@ -1,0 +1,45 @@
+0510-090556.101 - 25263 - T00093145AFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[ORDER_201805101525910754003]
+0510-090556.116 - 25263 - T00093145AFmoqMp     - MSG : PG_서버_접속__정상
+0510-090556.127 - 25263 - T00093145AFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0510-090556.266 - 25263 - T00093145AFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0510-090556.266 - 25263 - T00093145AFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051009055910582999order_no=ORDER_201805101525910754003amount=1004tran_date=20180510090559bank_cd=003bank_nm=기업은행account_no=T8201267097886deposit_nm=굿프린팅expire_date=20180510235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0510-101613.067 - 25708 - T00093145AFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[ORDER_201805101525914926009]
+0510-101613.083 - 25708 - T00093145AFmoqMp     - MSG : PG_서버_접속__정상
+0510-101613.093 - 25708 - T00093145AFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0510-101613.264 - 25708 - T00093145AFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0510-101613.264 - 25708 - T00093145AFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051010161610583094order_no=ORDER_201805101525914926009amount=10000tran_date=20180510101616bank_cd=003bank_nm=기업은행account_no=T8201267097886deposit_nm=굿프린팅expire_date=20180510235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0510-103255.180 - 25811 - T00093145AFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[ORDER_201805101525915391758]
+0510-103255.195 - 25811 - T00093145AFmoqMp     - MSG : PG_서버_접속__정상
+0510-103255.205 - 25811 - T00093145AFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0510-103255.290 - 25811 - T00093145AFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0510-103255.290 - 25811 - T00093145AFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051010325810583125order_no=ORDER_201805101525915391758amount=0tran_date=20180510103258bank_cd=004bank_nm=국민은행account_no=T9629078341026deposit_nm=굿프린팅expire_date=20180510235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0510-103741.915 - 25839 - T00093145AFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[ORDER_201805101525916076185]
+0510-103741.926 - 25839 - T00093145AFmoqMp     - MSG : PG_서버_접속__정상
+0510-103741.937 - 25839 - T00093145AFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0510-103742.071 - 25839 - T00093145AFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0510-103742.071 - 25839 - T00093145AFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051010374510583131order_no=ORDER_201805101525916076185amount=1004tran_date=20180510103745bank_cd=003bank_nm=기업은행account_no=T8201267097982deposit_nm=굿프린팅expire_date=20180510235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0510-103805.458 - 25845 - T00093145AFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[ORDER_201805101525916290218]
+0510-103805.472 - 25845 - T00093145AFmoqMp     - MSG : PG_서버_접속__정상
+0510-103805.483 - 25845 - T00093145AFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0510-103805.636 - 25845 - T00093145AFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0510-103805.636 - 25845 - T00093145AFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051010380910583132order_no=ORDER_201805101525916290218amount=1004tran_date=20180510103809bank_cd=003bank_nm=기업은행account_no=T8201267197001deposit_nm=굿프린팅expire_date=20180510235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0510-103815.243 - 25847 - T00093145AFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[ORDER_201805101525916299801]
+0510-103815.255 - 25847 - T00093145AFmoqMp     - MSG : PG_서버_접속__정상
+0510-103815.266 - 25847 - T00093145AFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0510-103815.320 - 25847 - T00093145AFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0510-103815.321 - 25847 - T00093145AFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051010381810583134order_no=ORDER_201805101525916299801amount=1004tran_date=20180510103818bank_cd=003bank_nm=기업은행account_no=T8201267197032deposit_nm=굿프린팅expire_date=20180510235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0510-103832.445 - 25849 - T00093145AFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[ORDER_201805101525916317136]
+0510-103832.460 - 25849 - T00093145AFmoqMp     - MSG : PG_서버_접속__정상
+0510-103832.470 - 25849 - T00093145AFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0510-103832.522 - 25849 - T00093145AFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0510-103832.522 - 25849 - T00093145AFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051010383610583135order_no=ORDER_201805101525916317136amount=1004tran_date=20180510103836bank_cd=003bank_nm=기업은행account_no=T8201267197057deposit_nm=굿프린팅expire_date=20180510235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0510-104940.221 - 25903 - T00093145AFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[ORDER_201805101525916450993]
+0510-104940.236 - 25903 - T00093145AFmoqMp     - MSG : PG_서버_접속__정상
+0510-104940.247 - 25903 - T00093145AFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0510-104940.295 - 25903 - T00093145AFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0510-104940.295 - 25903 - T00093145AFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051010494310583172order_no=ORDER_201805101525916450993amount=1004tran_date=20180510104943bank_cd=003bank_nm=기업은행account_no=T8201267197071deposit_nm=굿프린팅expire_date=20180510235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0510-104951.544 - 25905 - T00093145AFmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[ORDER_201805101525916994243]
+0510-104951.562 - 25905 - T00093145AFmoqMp     - MSG : PG_서버_접속__정상
+0510-104951.573 - 25905 - T00093145AFmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0510-104951.681 - 25905 - T00093145AFmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0510-104951.681 - 25905 - T00093145AFmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18051010495510583173order_no=ORDER_201805101525916994243amount=0tran_date=20180510104955bank_cd=003bank_nm=기업은행account_no=T8201267197096deposit_nm=굿프린팅expire_date=20180510235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]

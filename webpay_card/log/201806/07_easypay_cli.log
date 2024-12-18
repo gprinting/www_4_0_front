@@ -1,0 +1,10 @@
+0607-115338.251 - 16215 - 18060711481910611653 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528339697959]
+0607-115338.284 - 16215 - 18060711481910611653 - MSG : PG_서버_접속__정상
+0607-115338.294 - 16215 - 18060711481910611653 - MSG : PG_서버_요청_전문_전송__정상
+0607-115338.538 - 16215 - 18060711481910611653 - MSG : PG_서버_응답_전문_수신__정상
+0607-115338.538 - 16215 - 18060711481910611653 - MSG : ENDED - res=[res_cd=0000res_msg=MPI결제 정상cno=18060711481910611653order_no=1528339697959amount=32800auth_no=00978071tran_date=20180607115340card_no=9411810041607694issuer_cd=HNBissuer_nm=OK:00978071acquirer_cd=BCCacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인cc_expr_date=4912pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=/UYCg1XZ0PQV1ECN8SE5/12f4+0+Gd9WzVLR18Sz9qo=user_nm=Jay Parkbk_pay_yn=N]
+0607-144222.159 - 16938 - 18060714414510612242 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528350103906]
+0607-144222.193 - 16938 - 18060714414510612242 - MSG : PG_서버_접속__정상
+0607-144222.203 - 16938 - 18060714414510612242 - MSG : PG_서버_요청_전문_전송__정상
+0607-144222.375 - 16938 - 18060714414510612242 - MSG : PG_서버_응답_전문_수신__정상
+0607-144222.375 - 16938 - 18060714414510612242 - MSG : ENDED - res=[res_cd=0000res_msg=MPI결제 정상cno=18060714414510612242order_no=1528350103906amount=32470auth_no=00978513tran_date=20180607144223card_no=9411810041607694issuer_cd=HNBissuer_nm=OK:00978513acquirer_cd=BCCacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인van_tid=0700091van_sno=000111000111cc_expr_date=4912pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=/UYCg1XZ0PQV1ECN8SE5/12f4+0+Gd9WzVLR18Sz9qo=user_nm=Jay Parkbk_pay_yn=N]

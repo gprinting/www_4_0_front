@@ -1,0 +1,85 @@
+td				{ font-size:9pt; font-family:"Tahoma", "malgun gothic", "Seoul", "arial", "helvetica"; text-decoration:none; color:#000000; line-height:12pt }
+a:link			{ font-size:9pt; font-family:"Tahoma", "malgun gothic", "Seoul", "arial", "helvetica"; text-decoration:none; color:#000000; line-height:12pt }
+a:visited		{ font-size:9pt; font-family:"Tahoma", "malgun gothic", "Seoul", "arial", "helvetica"; text-decoration:none; color:#000000; line-height:12pt }
+a:hover			{ font-size:9pt; font-family:"Tahoma", "malgun gothic", "Seoul", "arial", "helvetica"; text-decoration:none; color:#000000; line-height:12pt }
+a.cls0:link		{ color:#000000; font-size:9pt; text-decoration:none; }
+a.cls0:visited	{ color:#000000; font-size:9pt; text-decoration:none; }
+a.cls0:hover	{ color:#000000; font-size:9pt; text-decoration:underline; }
+a.cls1:link		{ color:#000000; font-size:9pt; text-decoration:none; }
+a.cls1:visited	{ color:#000000; font-size:9pt; text-decoration:none; } 
+a.cls1:hover	{ color:#000000; font-size:9pt; text-decoration:none; }
+
+body
+{ 
+	font-size:9pt; 
+	font-family:"Tahoma", "malgun gothic", "Seoul", "arial", "helvetica";
+	text-decoration:none; 
+	color:000000; 
+	line-height:12pt 
+	scrollbar-face-color:#f0f0f0;
+	scrollbar-highlight-color:#ffffff;
+	scrollbar-3dlight-color: #f2f2f2;
+	scrollbar-shadow-color: f9f9f9;
+	scrollbar-darkshadow-color: #cccccc;
+	scrollbar-track-color: #e6e6e6;
+	scrollbar-arrow-color: #4D96BD
+}
+
+.a:link			{ font-size:9pt; font-family:"Tahoma", "malgun gothic", "Seoul", "arial", "helvetica"; text-decoration:none; color:#FFFFFF; line-height:12pt }
+.a:visited		{ font-size:9pt; font-family:"Tahoma", "malgun gothic", "Seoul", "arial", "helvetica"; text-decoration:none; color:#000000; line-height:12pt }
+.a:hover			{ font-size:9pt; font-family:"Tahoma", "malgun gothic", "Seoul", "arial", "helvetica"; text-decoration:none; color:#000000; line-height:12pt }
+.a.cls0:link		{ color:#000000; font-size:9pt; text-decoration:none; }
+.a.cls0:visited	{ color:#000000; font-size:9pt; text-decoration:none; }
+.a.cls0:hover	{ color:#000000; font-size:9pt; text-decoration:underline; }
+.a.cls1:link		{ color:#000000; font-size:9pt; text-decoration:none; }
+.a.cls1:visited	{ color:#000000; font-size:9pt; text-decoration:none; } 
+.a.cls1:hover	{ color:#000000; font-size:9pt; text-decoration:none; }
+
+
+.input_A {Background-Color:#FFFFFF; border:1px solid #B0B0B0; font-size:8pt; font-family:"Tahoma", "malgun gothic", "Seoul", "arial", "helvetica"; line-height:12pt; font-size:9pt; color: #444444; }
+.input_B {Background-Color:#EBEBEB; Border:1px solid #B0B0B0; font-size:8pt; font-family:"Tahoma", "malgun gothic", "Seoul", "arial", "helvetica"; line-height:12pt; font-size:9pt; font-color: #666666 }
+.input_C {Background-Color:#165C23; Border:1px solid #B0B0B0; font-size:8pt; font-family:"Tahoma", "malgun gothic", "Seoul", "arial", "helvetica"; line-height:12pt; font-size:9pt; color: #FFFFFF }
+.input_D {Background-Color:#2D4677; border:1px solid #B0B0B0; font-size:8pt; font-family:"Tahoma", "malgun gothic", "Seoul", "arial", "helvetica"; line-height:12pt; font-size:9pt; color: #FFFFFF; }
+.input_E {Background-Color:#2D4677; border:1px solid #B0B0B0; font-size:8pt; font-family:"Tahoma", "malgun gothic", "Seoul", "arial", "helvetica"; line-height:12pt; font-size:9pt; color: #FFFFFF; }
+.input_F {Background-Color:#667C26; border:1px solid #B0B0B0; font-size:8pt; font-family:"Tahoma", "malgun gothic", "Seoul", "arial", "helvetica"; line-height:12pt; font-size:9pt; color: #FFFFFF; }
+.input_RIGHT {Background-Color:#FFFFFF; border:1px solid #B0B0B0; font-size:8pt; font-family:"Tahoma", "malgun gothic", "Seoul", "arial", "helvetica"; line-height:12pt; font-size:9pt; color: #444444; text-align:right; }
+
+.divLoadCont{position:absolute; width:100%; height:98%; top:0; left:0; background-color:white; layer-background-color:white; font-family:arial,helvetica; z-index:100}
+.copyright  {font-size: 8pt;  }
+
+
+.BtnImg {
+	border-style:none;
+	font-family: "Tahoma", "malgun gothic", "Seoul", "arial", "helvetica";
+	font-size: 9pt;
+	width: 25px;
+	height: 25px;
+	background-color:#f0f0f0;
+}
+
+.SelectBar {
+	border-top-style:none;
+	font-family: "Tahoma", "malgun gothic", "Seoul", "arial", "helvetica";
+	font-size: 9pt;
+	background-color:#f0f0f0;
+}
+
+.TextMenuBar {
+	border-top-style:none;
+	font-family: "Tahoma", "malgun gothic", "Seoul", "arial", "helvetica";
+	font-size: 9pt;
+	background-color:#f0f0f0;
+}
+
+.title {
+	font-size:9pt; 
+	font-family: "Tahoma", "malgun gothic", "Seoul", "arial", "helvetica";
+}
+
+.menuTitle {
+	color:#FFFFFF;
+	background-color:#2D4677;
+	font-weight:bold;
+	font-family: "malgun gothic", "Tahoma", "Seoul", "arial", "helvetica";
+	font-size:20px;
+}

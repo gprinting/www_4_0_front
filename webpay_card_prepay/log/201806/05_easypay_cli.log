@@ -1,0 +1,30 @@
+0605-110652.730 - 11601 - 18060511053410610894 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528164341547]
+0605-110652.765 - 11601 - 18060511053410610894 - MSG : PG_서버_접속__정상
+0605-110652.776 - 11601 - 18060511053410610894 - MSG : PG_서버_요청_전문_전송__정상
+0605-110653.045 - 11601 - 18060511053410610894 - MSG : PG_서버_응답_전문_수신__정상
+0605-110653.045 - 11601 - 18060511053410610894 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18060511053410610894order_no=1528164341547amount=100000auth_no=00977884tran_date=20180605110658card_no=5409269191962941issuer_cd=CNBissuer_nm=OK:00977884acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=o8o/JZz0Tak5WhRbGOiPSgxKLroGPjkTBgizWn0KotI=bk_pay_yn=N]
+0605-114919.484 - 11612 - 18060511481810610968 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528166905762]
+0605-114919.519 - 11612 - 18060511481810610968 - MSG : PG_서버_접속__정상
+0605-114919.530 - 11612 - 18060511481810610968 - MSG : PG_서버_요청_전문_전송__정상
+0605-114919.816 - 11612 - 18060511481810610968 - MSG : PG_서버_응답_전문_수신__정상
+0605-114919.816 - 11612 - 18060511481810610968 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18060511481810610968order_no=1528166905762amount=100000auth_no=00977908tran_date=20180605114925card_no=5409262901149105issuer_cd=CNBissuer_nm=OK:00977908acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=RdYDGxolnifXcinLS9d+G1tChXhvAxwdm5dbgYs41uQ=user_name=엄준현bk_pay_yn=N]
+0605-121529.980 - 11681 - 18060512144910610980 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528168496584]
+0605-121530.013 - 11681 - 18060512144910610980 - MSG : PG_서버_접속__정상
+0605-121530.023 - 11681 - 18060512144910610980 - MSG : PG_서버_요청_전문_전송__정상
+0605-121530.240 - 11681 - 18060512144910610980 - MSG : PG_서버_응답_전문_수신__정상
+0605-121530.240 - 11681 - 18060512144910610980 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18060512144910610980order_no=1528168496584amount=100000auth_no=00977913tran_date=20180605121535card_no=5409262650155360issuer_cd=CNBissuer_nm=OK:00977913acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=dRgEw6dM9oBQoAvjYV5bgefA77PqSGxCEjvJRvMG9qs=user_name=엄준현bk_pay_yn=N]
+0605-164630.517 - 12287 - 18060516445010611220 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528184697635]
+0605-164630.551 - 12287 - 18060516445010611220 - MSG : PG_서버_접속__정상
+0605-164630.561 - 12287 - 18060516445010611220 - MSG : PG_서버_요청_전문_전송__정상
+0605-164630.779 - 12287 - 18060516445010611220 - MSG : PG_서버_응답_전문_수신__정상
+0605-164630.779 - 12287 - 18060516445010611220 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18060516445010611220order_no=1528184697635amount=100000auth_no=00977964tran_date=20180605164636card_no=5409260888195923issuer_cd=CNBissuer_nm=OK:00977964acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=IKfugP2xei4zRMEWqRJ33L4KWADXVLl3KGhvTyGFDWc=user_nm=엄준현bk_pay_yn=N]
+0605-182601.418 - 12609 - 18060518253010611383 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528190737022]
+0605-182601.454 - 12609 - 18060518253010611383 - MSG : PG_서버_접속__정상
+0605-182601.464 - 12609 - 18060518253010611383 - MSG : PG_서버_요청_전문_전송__정상
+0605-182601.709 - 12609 - 18060518253010611383 - MSG : PG_서버_응답_전문_수신__정상
+0605-182601.709 - 12609 - 18060518253010611383 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18060518253010611383order_no=1528190737022amount=100000auth_no=00977988tran_date=20180605182607card_no=5409266479397703issuer_cd=CNBissuer_nm=OK:00977988acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=IJpBq5I/NJmrhkRXemrVBSgTlGaOhvxm/Vz4bdBTius=user_nm=엄준현bk_pay_yn=N]
+0605-183203.596 - 12612 - 18060518313410611390 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1528191092549]
+0605-183203.630 - 12612 - 18060518313410611390 - MSG : PG_서버_접속__정상
+0605-183203.640 - 12612 - 18060518313410611390 - MSG : PG_서버_요청_전문_전송__정상
+0605-183203.906 - 12612 - 18060518313410611390 - MSG : PG_서버_응답_전문_수신__정상
+0605-183203.906 - 12612 - 18060518313410611390 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18060518313410611390order_no=1528191092549amount=100000auth_no=00977992tran_date=20180605183209card_no=5409269871913978issuer_cd=CNBissuer_nm=OK:00977992acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=Ke++2EGnUiVOyCTZbgkF+N8Sxt0EAJ36vGyR7rhezQs=user_nm=엄준현bk_pay_yn=N]

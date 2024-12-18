@@ -1,0 +1,15 @@
+0615-152147.236 -  5421 - 18061515204510618912 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1529043646513]
+0615-152147.271 -  5421 - 18061515204510618912 - MSG : PG_서버_접속__정상
+0615-152147.281 -  5421 - 18061515204510618912 - MSG : PG_서버_요청_전문_전송__정상
+0615-152147.637 -  5421 - 18061515204510618912 - MSG : PG_서버_응답_전문_수신__정상
+0615-152147.637 -  5421 - 18061515204510618912 - MSG : ENDED - res=[res_cd=8373res_msg=카드사 전화요망cno=18061515204510618912order_no=1529043646513issuer_cd=HNBacquirer_cd=BCC]
+0615-152402.864 -  5423 - 18061515232810618924 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1529043809506]
+0615-152402.900 -  5423 - 18061515232810618924 - MSG : PG_서버_접속__정상
+0615-152402.910 -  5423 - 18061515232810618924 - MSG : PG_서버_요청_전문_전송__정상
+0615-152403.068 -  5423 - 18061515232810618924 - MSG : PG_서버_응답_전문_수신__정상
+0615-152403.068 -  5423 - 18061515232810618924 - MSG : ENDED - res=[res_cd=8373res_msg=카드사 전화요망cno=18061515232810618924order_no=1529043809506issuer_cd=HNBacquirer_cd=BCC]
+0615-152706.564 -  5426 - 18061515263710618942 - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[1529043996240]
+0615-152706.598 -  5426 - 18061515263710618942 - MSG : PG_서버_접속__정상
+0615-152706.609 -  5426 - 18061515263710618942 - MSG : PG_서버_요청_전문_전송__정상
+0615-152706.774 -  5426 - 18061515263710618942 - MSG : PG_서버_응답_전문_수신__정상
+0615-152706.775 -  5426 - 18061515263710618942 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18061515263710618942order_no=1529043996240amount=100000auth_no=00980127tran_date=20180615152710card_no=5409268913494722issuer_cd=CNBissuer_nm=OK:00980127acquirer_cd=CNBacquirer_nm=Payzone TestCardnoint=00install_period=00used_pnt=0escrow_yn=Ncomplex_yn=Nstat_cd=TS01stat_msg=승인van_tid=0700091van_sno=000111000111cc_expr_date=8911pay_type=11memb_id=T0009314noti_type=10part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pcpon_flag=Ncardno_hash=YXZtSK6oEkVzrhNGUdWoGrTg0NJpwcKY8yAgCJ9DRsc=user_nm=엄준현bk_pay_yn=N]

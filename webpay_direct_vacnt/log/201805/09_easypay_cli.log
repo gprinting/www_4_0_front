@@ -1,0 +1,25 @@
+0509-192456.205 - 20386 -         59FmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[]+order_no=[ORDER_201805091525861501178]
+0509-192456.220 - 20386 -         59FmoqMp     - MSG : PG_서버_접속__정상
+0509-192456.230 - 20386 -         59FmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0509-192456.258 - 20386 -         59FmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0509-192456.258 - 20386 -         59FmoqMp     - MSG : ENDED - res=[res_cd=E106res_msg=Mall ID 없음]
+0509-192534.173 - 20393 -         59FmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[]+order_no=[ORDER_201805091525861538944]
+0509-192534.186 - 20393 -         59FmoqMp     - MSG : PG_서버_접속__정상
+0509-192534.196 - 20393 -         59FmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0509-192534.224 - 20393 -         59FmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0509-192534.224 - 20393 -         59FmoqMp     - MSG : ENDED - res=[res_cd=E106res_msg=Mall ID 없음]
+0509-192923.924 - 20411 -         59FmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[]+order_no=[ORDER_201805091525861761323]
+0509-192923.938 - 20411 -         59FmoqMp     - MSG : PG_서버_접속__정상
+0509-192923.948 - 20411 -         59FmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0509-192923.977 - 20411 -         59FmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0509-192923.977 - 20411 -         59FmoqMp     - MSG : ENDED - res=[res_cd=E106res_msg=Mall ID 없음]
+0509-193256.092 - 20431 - T000931459FmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[ORDER_201805091525861980814]
+0509-193256.107 - 20431 - T000931459FmoqMp     - MSG : PG_서버_접속__정상
+0509-193256.118 - 20431 - T000931459FmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0509-193256.238 - 20431 - T000931459FmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0509-193256.238 - 20431 - T000931459FmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18050919325910582925order_no=ORDER_201805091525861980814amount=1004tran_date=20180509193259bank_cd=003bank_nm=기업은행account_no=T8201267097830deposit_nm=굿프린팅expire_date=20180509235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]
+0509-193543.888 - 20446 - T000931459FmoqMp     - MSG : START - tr_cd=[00101000]+mall_id=[T0009314]+order_no=[ORDER_201805091525862147852]
+0509-193543.904 - 20446 - T000931459FmoqMp     - MSG : PG_서버_접속__정상
+0509-193543.914 - 20446 - T000931459FmoqMp     - MSG : PG_서버_요청_전문_전송__정상
+0509-193543.971 - 20446 - T000931459FmoqMp     - MSG : PG_서버_응답_전문_수신__정상
+0509-193543.971 - 20446 - T000931459FmoqMp     - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=18050919354710582927order_no=ORDER_201805091525862147852amount=1004tran_date=20180509193547bank_cd=003bank_nm=기업은행account_no=T8201267097854deposit_nm=굿프린팅expire_date=20180509235959escrow_yn=Ncomplex_yn=Nstat_cd=TS07stat_msg=입금대기pay_type=22memb_id=T0009314memb_gubun=2bk_pay_yn=N]

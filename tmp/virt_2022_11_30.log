@@ -1,0 +1,5 @@
+
+  INSERT INTO member_pay_history 
+  (member_seqno, deal_date, dvs, sell_price, depo_price, deal_num, pay_year, pay_mon, prepay_use_yn, cont, depo_bank_code, depo_bank_name, input_typ)
+  VALUES 
+  ('', '20221130114755', '입금증가', '0', '100', '22113011495710364925', '2022', '11', 'N', '가상계좌 입금[100원]', '020', '우리은행', 100) 26bbb26aaa

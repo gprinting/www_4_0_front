@@ -1,0 +1,13 @@
+0808-131154.537 -  1261 - 16080813072511698362 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1470629429761]
+0808-131154.554 -  1261 - 16080813072511698362 - MSG : PG_서버_접속__정상
+0808-131154.565 -  1261 - 16080813072511698362 - MSG : PG_서버_요청_전문_전송__정상
+0808-131154.637 -  1261 - 16080813072511698362 - MSG : PG_서버_응답_전문_수신__정상
+0808-131154.637 -  1261 - 16080813072511698362 - MSG : ENDED - res=[res_cd=0000res_msg=ISP결제 정상cno=16080813072511698362order_no=1470629429761amount=1160504783auth_no=00006194tran_date=20160808130832card_no=5409260042320040issuer_cd=016issuer_nm=KB LOCAL 카드acquirer_cd=016acquirer_nm=국민카드noint=00install_period=00escrow_yn=Ncomplex_yn=Njoin_no=00004561234stat_cd=TS03stat_msg=매입요청cc_expr_date=0000pay_type=11memb_id=T5102001part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pbk_pay_yn=N]
+0808-131420.806 -  1263 - 16080813101811698366 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1470629629758]
+0808-131445.850 -  1263 - 16080813101811698366 - ERR : PG_서버_접속__오류 - 접속정보=[testgw.easypay.co.kr:80]+오류메시지=[No such file or directory]
+0808-131445.850 -  1263 - 16080813101811698366 - MSG : ENDED - res=[res_cd=M102res_msg=PG 서버 접속 오류]
+0808-131600.070 -  1265 - 16080813120211698369 - MSG : START - tr_cd=[00101000]+mall_id=[T5102001]+order_no=[1470629733349]
+0808-131605.087 -  1265 - 16080813120211698369 - MSG : PG_서버_접속__정상
+0808-131605.097 -  1265 - 16080813120211698369 - MSG : PG_서버_요청_전문_전송__정상
+0808-131605.231 -  1265 - 16080813120211698369 - MSG : PG_서버_응답_전문_수신__정상
+0808-131605.231 -  1265 - 16080813120211698369 - MSG : ENDED - res=[res_cd=0000res_msg=정상cno=16080813120211698369order_no=1470629733349amount=100000auth_no=00012449tran_date=20160808131648card_no=5229712769853218issuer_cd=049issuer_nm=OK:00012449acquirer_cd=026acquirer_nm=Payzone TestCardnoint=00install_period=00escrow_yn=Ncomplex_yn=Njoin_no=729112316stat_cd=TS03stat_msg=매입요청cc_expr_date=8911pay_type=11memb_id=T5102001part_cancel_yn=Ymemb_gubun=2card_gubun=Ncard_biz_gubun=Pbk_pay_yn=N]
