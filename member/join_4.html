@@ -1,0 +1,344 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/member/MemberJoinDAO.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/PasswordEncrypt.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new MemberJoinDAO();
+
+$conn->debug=1;
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+// 회원가입중 상태인지 체크, join값이 비어있는 경우 메인페이지로 리동
+if (empty($fb->session("join")) === true) {
+    $err_line = __LINE__;
+    echo "<script>location.replace('/main/main.html');</script>";
+    exit;
+}
+
+$passwd = $fb->form("passwd");
+$passwd = password_hash($passwd, PASSWORD_DEFAULT);
+$recei = $fb->form("member_name");
+$member_id = $fb->form("member_id");
+$sms_yn = $fb->form("sms_yn");
+$mailing_yn = $fb->form("mailing_yn");
+$tel_num = $fb->form("tel_num1") . "-" . $fb->form("tel_num2") . "-" . $fb->form("tel_num3");
+$cel_num = $fb->form("cel_num1") . "-" . $fb->form("cel_num2") . "-" . $fb->form("cel_num3");
+$birth = $fb->form("birth_year") . "-" . $fb->form("birth_month") . "-" . $fb->form("birth_day");
+$email = $fb->form("email_addr") . "@" . $fb->form("email_domain");
+$member_dvs = $fb->form("dvs");
+$member_name = $fb->form("member_name");
+$corp_name = $fb->form("corp_name");
+$crn = $fb->form("crn1") . "-". $fb->form("crn2") . "-" . $fb->form("crn3");
+$repre_name = $fb->form("repre_name");
+$bc = $fb->form("bc");
+$tob = $fb->form("tob");
+$zipcode = $fb->form("zipcode");
+$addr = $fb->form("addr");
+$addr_detail = $fb->form("addr_detail");
+$sms_yn = $fb->form("sms_yn");
+$mailing_yn = $fb->form("mailing_yn");
+$id_over_yn = $fb->form("id_over_yn");
+$certi_yn = $fb->form("certi_yn");
+$bank_name = $fb->form("bank_name");
+
+$check = 1;
+
+$conn->StartTrans();
+$param = array();
+$param["member_id"] = $member_id;
+$param["passwd"] = $passwd;
+$param["zipcode"] = $zipcode;
+$param["addr"] = $addr;
+$param["addr_detail"] = $addr_detail;
+$param["sms_yn"] = $sms_yn;
+$param["mailing_yn"] = $mailing_yn;
+$param["tel_num"] = $tel_num;
+$param["cell_num"] = $cel_num;
+$param["birth"] = $birth;
+$param["member_dvs"] = $member_dvs;
+$param["mail"] = $email;
+$param["cpn_admin_seqno"] = $fb->session("sell_site");
+$param["member_typ"] = "일반회원";
+$param["onefile_etprs_yn"] = "P"; // O = 원파일 / P = 개별
+$param["card_pay_yn"] = "N";
+$param["certi_yn"] = "N";
+$param["dlvr_friend_yn"] = "N";
+$param["dlvr_dvs"] = "택배";
+$param["new_yn"] = "Y";
+$param["grade"] = "10";
+$param["nc_release_resp"] = "29";
+$param["bl_release_resp"] = "63";
+$param["withdraw_dvs"] = "1";
+$param["aprvl_yn"] = "N";
+$param["auto_grade_yn"] = "Y";
+$param["state"] = "1";
+
+if ($fb->form("dvs") == "기업") {
+    $param["member_name"] = $corp_name;
+    $param["office_nick"] = $corp_name;
+} else {
+    $param["member_name"] = $member_name;
+    $param["office_nick"] = $member_name;
+}
+
+$rs = $dao->insertMemberInfo($conn, $param);
+
+if (!$rs) {
+    $err_code = "100";
+    $check = 0;
+}
+
+$member_seqno = $conn->insert_ID();
+
+if ($fb->form("dvs") == "기업") {
+
+    $recei = $corp_name;
+    $param = array();
+    $param["table"] = "licensee_info";
+    $param["col"]["corp_name"] = $corp_name;
+    $param["col"]["crn"] = $crn;
+    $param["col"]["repre_name"] = $repre_name;
+    $param["col"]["bc"] = $bc;
+    $param["col"]["tob"] = $tob;
+   // $param["col"]["tel_num"] = $tel_num;
+    $param["col"]["zipcode"] = $zipcode;
+    $param["col"]["addr"] = $addr;
+    $param["col"]["addr_detail"] = $addr_detail;
+    $param["col"]["member_seqno"] = $member_seqno;
+
+    $rs = $dao->insertData($conn, $param);
+
+    if (!$rs) {
+        $err_code = "101";
+        $check = 0;
+    }
+}
+
+$param = array();
+$param["table"] = "member_dlvr";
+$param["col"]["regi_date"] = date("Y-m-d H:i:s");
+$param["col"]["recei"] = $recei;
+$param["col"]["tel_num"] = $tel_num;
+$param["col"]["cell_num"] = $cel_num;
+$param["col"]["zipcode"] = $zipcode;
+$param["col"]["addr"] = $addr;
+$param["col"]["addr_detail"] = $addr_detail;
+$param["col"]["basic_yn"] = "Y";
+$param["col"]["dlvr_name"] = "기본배송지";
+$param["col"]["member_seqno"] = $member_seqno;
+
+$rs = $dao->insertData($conn, $param);
+
+if (!$rs) {
+    $err_code = "102";
+    $check = 0;
+}
+
+$param = array();
+$param["table"] = "depar_admin";
+$param["col"] = "depar_code";
+$param["where"]["cpn_admin_seqno"] = $fb->session("sell_site");
+
+if ($member_seqno % 2 == 0) {
+    $param["where"]["depar_name"] = "영업2팀";
+} else {
+    $param["where"]["depar_name"] = "영업1팀";
+}
+
+$rs = $dao->selectData($conn, $param);
+
+$depar_code = $rs->fields["depar_code"];
+
+$param = array();
+$param["table"] = "empl";
+$param["col"] = "empl_seqno";
+$param["where"]["name"] = "정지선";
+
+$ca_empl_seqno = $dao->selectData($conn, $param)->fields["empl_seqno"];
+
+$param = array();
+$param["table"] = "empl";
+$param["col"] = "empl_seqno";
+$param["where"]["depar_code"] = $depar_code;
+$param["where"]["oper_sys"] = "MAC";
+$param["order"] = "rand()";
+$param["limit"]["start"] = "0";
+$param["limit"]["end"] = "1";
+
+$mac_empl_seqno = $dao->selectData($conn, $param)->fields["empl_seqno"];
+
+$param = array();
+$param["table"] = "empl";
+$param["col"] = "empl_seqno";
+$param["where"]["depar_code"] = $depar_code;
+$param["where"]["oper_sys"] = "IBM";
+$param["order"] = "rand()";
+$param["limit"]["start"] = "0";
+$param["limit"]["end"] = "1";
+
+$ibm_empl_seqno = $dao->selectData($conn, $param)->fields["empl_seqno"];
+
+$param = array();
+$param["table"] = "member_mng";
+$param["col"]["resp_deparcode"] = $depar_code;
+//$param["col"]["mng_dvs"] = "일반";
+//$param["col"]["tel_mng"] = $tell_empl_seqno;
+//$param["col"]["ibm_mng"] = $ibm_empl_seqno;
+//$param["col"]["mac_mng"] = $mac_empl_seqno;
+$param["col"]["ca"]  = $ca_empl_seqno;
+$param["col"]["ibm"] = $ibm_empl_seqno;
+$param["col"]["mac"] = $mac_empl_seqno;
+$param["col"]["pro"] = null;
+
+$param["col"]["member_seqno"] = $member_seqno;
+
+$rs = $dao->insertData($conn, $param);
+
+if (!$rs) {
+    $err_code = "103";
+    $check = 0;
+}
+
+$param = array();
+$param["table"] = "depar_admin";
+$param["col"] = "depar_code";
+$param["where"]["cpn_admin_seqno"] = $fb->session("sell_site");
+$param["where"]["depar_name"] = "상업인쇄팀";
+
+$rs = $dao->selectData($conn, $param);
+
+$depar_code = $rs->fields["depar_code"];
+
+$param = array();
+$param["table"] = "empl";
+$param["col"] = "empl_seqno";
+$param["where"]["name"] = "정지선";
+
+$ca_empl_seqno = $dao->selectData($conn, $param)->fields["empl_seqno"];
+
+$param = array();
+$param["table"] = "empl";
+$param["col"] = "empl_seqno";
+$param["where"]["depar_code"] = $depar_code;
+$param["where"]["oper_sys"] = "MAC";
+$param["order"] = "rand()";
+$param["limit"]["start"] = "0";
+$param["limit"]["end"] = "1";
+
+$mac_empl_seqno = $dao->selectData($conn, $param)->fields["empl_seqno"];
+
+$param = array();
+$param["table"] = "empl";
+$param["col"] = "empl_seqno";
+$param["where"]["depar_code"] = $depar_code;
+$param["where"]["oper_sys"] = "IBM";
+$param["order"] = "rand()";
+$param["limit"]["start"] = "0";
+$param["limit"]["end"] = "1";
+
+$ibm_empl_seqno = $dao->selectData($conn, $param)->fields["empl_seqno"];
+
+$param = array();
+$param["table"] = "member_mng";
+$param["col"]["resp_deparcode"] = $depar_code;
+//$param["col"]["mng_dvs"] = "상업";
+//$param["col"]["tel_mng"] = $tell_empl_seqno;
+//$param["col"]["ibm_mng"] = $ibm_empl_seqno;
+//$param["col"]["mac_mng"] = $mac_empl_seqno;
+$param["col"]["ca"]  = $ca_empl_seqno;
+$param["col"]["ibm"] = $ibm_empl_seqno;
+$param["col"]["mac"] = $mac_empl_seqno;
+$param["col"]["member_seqno"] = $member_seqno;
+
+$rs = $dao->insertData($conn, $param);
+
+if (!$rs) {
+    $err_code = "104";
+    $check = 0;
+}
+
+$year = date("Y");
+$mon = date("m");
+
+$param = array();
+$param["table"] = "member_grade";
+$param["col"]["year"] = $year;
+$param["col"]["member_seqno"] = $member_seqno;
+if ($mon === '01') {
+    $newMon = "m1";
+} else if ($mon === '02') {
+    $newMon = "m2";
+} else if ($mon === '03') {
+    $newMon = "m3";
+} else if ($mon === '04') {
+    $newMon = "m4";
+} else if ($mon === '05') {
+    $newMon = "m5";
+} else if ($mon === '06') {
+    $newMon = "m6";
+} else if ($mon === '07') {
+    $newMon = "m7";
+} else if ($mon === '08') {
+    $newMon = "m8";
+} else if ($mon === '09') {
+    $newMon = "m9";
+} else if ($mon === '10') {
+    $newMon = "m10";
+} else if ($mon === '11') {
+    $newMon = "m11";
+} else if ($mon === '12') {
+    $newMon = "m12";
+} 
+$param["col"][$newMon] = 1;
+
+$rs = $dao->insertData($conn, $param);
+
+if (!$rs) {
+    $err_code = "105";
+    $check = 0;
+}
+
+//회원 가입 sms 보냄
+$secPass = substr($fb->form("passwd"), 0, -3)."XXX";
+
+$param = array();
+$param["tr_phone"] = $cel_num;
+$param["tr_callback"] = "02-2260-9000";
+$param["tr_msg"] = $crop_name . $member_name . "님 회원가입 감사드립니다.\n -디프린팅-";
+
+$dao->sendSms($conn, $param);
+
+$conn->CompleteTrans();
+
+if ($check == 0) {
+    echo "<script>alert('회원가입을 실패하였습니다.\n에러코드 :"
+        . $err_code . 
+        " + 관리자에게 문의해 주세요');location.href=\"/member/join_3.html?dvs="
+        . $member_dvs . "\";</script>";
+}
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "member"); 
+$template->reg("page", "join_4"); 
+$template->reg("id", $member_id); 
+$template->reg("pw", $fb->form("passwd")); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+unset($_SESSION["join"]);
+$conn->Close();
+exit;
+?>

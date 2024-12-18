@@ -1,0 +1,318 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/common_define/common_info.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/common/MypageCommonDAO.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new MypageCommonDAO();
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+//회원 구분 체크
+include_once($_SERVER["DOCUMENT_ROOT"] . "/mypage/member_dvs_check.php");
+ 
+$order_common_seqno = $_GET['seqno'];
+
+$param = array();
+$param["order_common_seqno"] = $order_common_seqno;
+$rs = $dao->selectOrderDetailInfo($conn, $param);
+
+$template->reg("order_num", $rs->fields['order_num']); 
+
+$order_detail = explode(' / ', $rs->fields['order_detail']);
+
+$template->reg("cate", $order_detail[0]);
+$template->reg("title", $rs->fields['title']);
+$template->reg("count", $rs->fields['count']);
+
+//상태 플로우 생성
+$param = array();
+$param["order_common_seqno"] = $order_common_seqno;
+$rs2 = $dao->selectOrderDetailStateInfo($conn, $param);
+
+$i = 0;
+$state_html = "";
+$accept_regi_date = "";
+while ($rs2 && !$rs2->EOF) {
+    $state_html .= "<li class=\"acceptance_wait\">";
+    $state_html .= "    <span class=\"name\">" . $rs2->fields['front_state_name'] . "</span>";
+    $state_html .= "    <p>" . date("Y-m-d", strtotime($rs2->fields['state_modi_date'])) . "<br>" . date("H:i:s", strtotime($rs2->fields['state_modi_date'])) . "</p>";
+    $state_html .= "</li>";
+
+    if ($i == 1) {
+        $accept_regi_date =  date("Y년m월d일 H시i분s초", strtotime($rs2->fields['state_modi_date']));
+    }
+
+    $i++;
+    $rs2->moveNext();
+}
+
+if ($i == 1) {
+    $state_html .= "<li class=\"acceptance_complete on\">";
+    $state_html .= "    <span class=\"name\">접수완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    $state_html .= "<li class=\"set_wait\">";
+    $state_html .= "    <span class=\"name\">조판대기</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    $state_html .= "<li class=\"set_complete\">";
+    $state_html .= "    <span class=\"name\">조판완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    $state_html .= "<li class=\"print_complete\">";
+    $state_html .= "    <span class=\"name\">출력완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    $state_html .= "<li class=\"process_complete\">";
+    $state_html .= "    <span class=\"name\">인쇄완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    $state_html .= "<li class=\"cutting_complete\">";
+    $state_html .= "    <span class=\"name\">재단완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    // $state_html .= "<li class=\"after_complete\">";
+    // $state_html .= "    <span class=\"name\">후가공1</span>";
+    // $state_html .= "    <p></p>";
+    // $state_html .= "</li>";
+    // $state_html .= "<li class=\"after_complete\">";
+    // $state_html .= "    <span class=\"name\">후가공2</span>";
+    // $state_html .= "    <p></p>";
+    // $state_html .= "</li>";
+    $state_html .= "<li class=\"delivery_complete\">";
+    $state_html .= "    <span class=\"name\">출고/배송</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+} else if ($i == 2) {
+    $state_html .= "<li class=\"set_wait on\">";
+    $state_html .= "    <span class=\"name\">조판대기</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    $state_html .= "<li class=\"set_complete\">";
+    $state_html .= "    <span class=\"name\">조판완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    $state_html .= "<li class=\"print_complete\">";
+    $state_html .= "    <span class=\"name\">출력완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    $state_html .= "<li class=\"process_complete\">";
+    $state_html .= "    <span class=\"name\">인쇄완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    $state_html .= "<li class=\"cutting_complete\">";
+    $state_html .= "    <span class=\"name\">재단완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    // $state_html .= "<li class=\"after_complete\">";
+    // $state_html .= "    <span class=\"name\">후가공1</span>";
+    // $state_html .= "    <p></p>";
+    // $state_html .= "</li>";
+    // $state_html .= "<li class=\"after_complete\">";
+    // $state_html .= "    <span class=\"name\">후가공2</span>";
+    // $state_html .= "    <p></p>";
+    // $state_html .= "</li>";
+    $state_html .= "<li class=\"delivery_complete\">";
+    $state_html .= "    <span class=\"name\">출고/배송</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+} else if ($i == 3) {
+    $state_html .= "<li class=\"set_complete on\">";
+    $state_html .= "    <span class=\"name\">조판완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    $state_html .= "<li class=\"print_complete\">";
+    $state_html .= "    <span class=\"name\">출력완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    $state_html .= "<li class=\"process_complete\">";
+    $state_html .= "    <span class=\"name\">인쇄완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    $state_html .= "<li class=\"cutting_complete\">";
+    $state_html .= "    <span class=\"name\">재단완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    // $state_html .= "<li class=\"after_complete\">";
+    // $state_html .= "    <span class=\"name\">후가공1</span>";
+    // $state_html .= "    <p></p>";
+    // $state_html .= "</li>";
+    // $state_html .= "<li class=\"after_complete\">";
+    // $state_html .= "    <span class=\"name\">후가공2</span>";
+    // $state_html .= "    <p></p>";
+    // $state_html .= "</li>";
+    $state_html .= "<li class=\"delivery_complete\">";
+    $state_html .= "    <span class=\"name\">출고/배송</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+} else if ($i == 4) {
+    $state_html .= "<li class=\"print_complete on\">";
+    $state_html .= "    <span class=\"name\">출력완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    $state_html .= "<li class=\"process_complete\">";
+    $state_html .= "    <span class=\"name\">인쇄완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    $state_html .= "<li class=\"cutting_complete\">";
+    $state_html .= "    <span class=\"name\">재단완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    // $state_html .= "<li class=\"after_complete\">";
+    // $state_html .= "    <span class=\"name\">후가공1</span>";
+    // $state_html .= "    <p></p>";
+    // $state_html .= "</li>";
+    // $state_html .= "<li class=\"after_complete\">";
+    // $state_html .= "    <span class=\"name\">후가공2</span>";
+    // $state_html .= "    <p></p>";
+    // $state_html .= "</li>";
+    $state_html .= "<li class=\"delivery_complete\">";
+    $state_html .= "    <span class=\"name\">출고/배송</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+} else if ($i == 5) {
+    $state_html .= "<li class=\"process_complete on\">";
+    $state_html .= "    <span class=\"name\">인쇄완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    $state_html .= "<li class=\"cutting_complete\">";
+    $state_html .= "    <span class=\"name\">재단완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    // $state_html .= "<li class=\"after_complete\">";
+    // $state_html .= "    <span class=\"name\">후가공1</span>";
+    // $state_html .= "    <p></p>";
+    // $state_html .= "</li>";
+    // $state_html .= "<li class=\"after_complete\">";
+    // $state_html .= "    <span class=\"name\">후가공2</span>";
+    // $state_html .= "    <p></p>";
+    // $state_html .= "</li>";
+    $state_html .= "<li class=\"delivery_complete\">";
+    $state_html .= "    <span class=\"name\">출고/배송</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+} else if ($i == 6) {
+    $state_html .= "<li class=\"cutting_complete on\">";
+    $state_html .= "    <span class=\"name\">재단완료</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+    // $state_html .= "<li class=\"after_complete\">";
+    // $state_html .= "    <span class=\"name\">후가공1</span>";
+    // $state_html .= "    <p></p>";
+    // $state_html .= "</li>";
+    // $state_html .= "<li class=\"after_complete\">";
+    // $state_html .= "    <span class=\"name\">후가공2</span>";
+    // $state_html .= "    <p></p>";
+    // $state_html .= "</li>";
+    $state_html .= "<li class=\"delivery_complete\">";
+    $state_html .= "    <span class=\"name\">출고/배송</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";
+} else if ($i == 7) {
+    // $state_html .= "<li class=\"after_complete\">";
+    // $state_html .= "    <span class=\"name\">후가공1</span>";
+    // $state_html .= "    <p></p>";
+    // $state_html .= "</li>";
+    // $state_html .= "<li class=\"after_complete\">";
+    // $state_html .= "    <span class=\"name\">후가공2</span>";
+    // $state_html .= "    <p></p>";
+    // $state_html .= "</li>";
+    $state_html .= "<li class=\"delivery_complete on\">";
+    $state_html .= "    <span class=\"name\">출고/배송</span>";
+    $state_html .= "    <p></p>";
+    $state_html .= "</li>";    
+}
+
+$template->reg("state_html", $state_html);
+
+if ($i > 0) {
+    $preview_img_html = "";
+    if ($rs->fields["preview_file_name"]) {
+        $preview_img_html .= "<tr>";
+        $preview_img_html .= "<th scope=\"row\">접수이미지</th>";
+        $preview_img_html .= "<td colspan=\"3\">";
+        foreach (explode('||', $rs->fields["preview_file_name"]) as $value) {
+            $preview_img_html .= "<img src=\"" . $rs->fields["preview_file_path"] . $value . "\">";
+        }
+        $preview_img_html .= "</td>";
+        $preview_img_html .= "</tr>";
+    }
+    $template->reg("preview_img_html", $preview_img_html); 
+}
+
+
+$template->reg("order_detail", $order_detail[1] . ' / ' . $order_detail[2] . ' / ' . $order_detail[3] );
+$template->reg("amt", $rs->fields['amt'] . $rs->fields['amt_unit_dvs'] . ' / ' . $rs->fields['count'] . '건');
+
+$after = "후가공 없음";
+if ($order_detail[4]) {
+    $after = $order_detail[4];
+}
+$template->reg("after", $after);
+
+
+$template->reg("file_path", $rs->fields["file_path"] . $rs->fields["save_file_name"]);
+$template->reg("origin_file_name", $rs->fields["origin_file_name"]);
+
+$size = $rs->fields["size"];
+$file_size = "";
+if($size < 1024){
+    $file_size = number_format($size * 1.024).'b';
+}else if(($size > 1024) && ($size < 1024000)){
+    $file_size = number_format($size * 0.001024).'Kb';
+}else if($size > 1024000){
+    $file_size = number_format($size * 0.000001024,2).'Mb';
+}
+$template->reg("file_size", $file_size);
+
+$template->reg("cust_memo", $rs->fields["cust_memo"]);
+$template->reg("work_memo", $rs->fields["work_memo"]);
+
+$order_regi_date =  date("Y년m월d일 H시i분s초", strtotime($rs->fields['order_regi_date']));
+$template->reg("order_regi_date", $order_regi_date);
+$template->reg("accept_regi_date", $accept_regi_date);
+
+$template->reg("order_mng", $rs->fields["order_mng"]);
+
+$template->reg("member_name", $rs->fields["member_name"]);
+$template->reg("tel_num", $rs->fields["tel_num"]);
+$template->reg("cell_num", $rs->fields["cell_num"]);
+$template->reg("mail", $rs->fields["mail"]);
+$template->reg("addr", "[" . $rs->fields["zipcode"] . "] " . $rs->fields["addr"] . $rs->fields["addr_detail"]);
+
+$param = array();
+$param["order_common_seqno"] = $order_common_seqno;
+$param["tsrs_dvs"] = "송신";
+$rs3 = $dao->selectOrderDetailDlvrInfo($conn, $param);
+
+$template->reg("ts_name", $rs3->fields["name"]);
+$template->reg("ts_tel_num", $rs3->fields["tel_num"]);
+
+$param = array();
+$param["order_common_seqno"] = $order_common_seqno;
+$param["tsrs_dvs"] = "수신";
+$rs4 = $dao->selectOrderDetailDlvrInfo($conn, $param);
+
+$template->reg("rs_name", $rs4->fields["name"]);
+$template->reg("rs_recei", $rs4->fields["recei"]);
+$template->reg("rs_tel_num", $rs4->fields["tel_num"]);
+$template->reg("rs_cell_num", $rs4->fields["cell_num"]);
+$template->reg("rs_invo_cpn", $rs4->fields["invo_cpn"]);
+$template->reg("rs_addr", "[" . $rs4->fields["zipcode"] . "] " . $rs4->fields["addr"] . $rs4->fields["addr_detail"]);
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

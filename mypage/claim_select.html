@@ -1,0 +1,102 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/entity/FormBean.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/common/FrontCommonDAO.inc");
+
+if ($is_login === false) {
+    header("Location: /main/main.html");
+    exit;
+}
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new FrontCommonDAO();
+
+//$conn->debug = 1;
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+//회원 구분 체크
+include_once($_SERVER["DOCUMENT_ROOT"] . "/mypage/member_dvs_check.php");
+
+$template->reg("member_dvs", $member_dvs); 
+
+$html = <<<HTML
+            <colgroup>
+                <col style="width:40px">
+                <col style="width:70px">
+                <col style="width:80px">
+                <col style="width:120px">
+                <col>
+                <col style="width:75px">
+                <col style="width:80px">
+                <col style="width:80px">
+                <col style="width:40px">
+            </colgroup>
+            <thead id="list">
+                <tr>
+                    <th>번호</th>
+                    <th>주문일</th>
+                    <th>주문번호</th>
+                    <th>인쇄물제목</th>
+                    <th>상품정보</th>
+                    <th>수량(건)</th>
+                    <th>결제금액</th>
+                    <th>클레임</th>
+                    <th>관리</th>
+                </tr>
+            </thead>
+HTML;
+
+if ($member_dvs == "기업") {
+    $html = <<<HTML
+                <colgroup>
+                    <col style="width:40px">
+                    <col style="width:90px">
+                    <col style="width:130px">
+                    <col style="width:90px">
+                    <col>
+                    <col>
+                    <col style="width:75px">
+                    <col style="width:80px">
+                    <col style="width:80px">
+                    <col style="width:40px">
+                </colgroup>
+                <thead id="list">
+                    <tr>
+                        <th>번호</th>
+                        <th>주문일</th>
+                        <th>주문번호</th>
+                        <th>주문자</th>
+                        <th>인쇄물제목</th>
+                        <th>상품정보</th>
+                        <th>수량(건)</th>
+                        <th>결제금액</th>
+                        <th>클레임</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+HTML;
+}
+
+$template->reg("html", $html); 
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "mypage"); 
+$template->reg("page", "claim_select"); 
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path);
+$template->htmlPrint($html_path);
+
+$conn->Close();
+?>

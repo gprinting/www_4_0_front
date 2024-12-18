@@ -1,0 +1,46 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/common_define/common_info.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/MemberDlvrDAO.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new MemberDlvrDAO();
+
+$html = "\n<option value=\"%s\">%s</option>";
+    
+//전화번호앞자리
+$tel_html = "";
+foreach (TEL_NUM as $val) {
+    $tel_html .= sprintf($html, $val, $val);
+}
+$template->reg("telOpt", $tel_html);
+    
+//휴대전화앞자리
+$cell_html = "";
+foreach (CEL_NUM as $val) {
+    $cell_html .= sprintf($html, $val, $val);
+}
+$template->reg("cellOpt", $cell_html);
+ 
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/mypage/member_dvs_check.php");
+
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "mypage"); 
+$template->reg("page", "businessregistration"); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

@@ -1,0 +1,76 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/common_define/common_info.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/BusinessRegistrationDAO.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new BusinessRegistrationDAO();
+
+$param = array();
+$param["admin_licenseeregi_seqno"] = $fb->form("seq");
+$rs = $dao->selectBusinessRegistrationList($conn, $param);
+
+$tel = explode("-", $rs->fields["tel_num"]);
+$mail = explode("@", $rs->fields["mail"]);
+
+$html = "\n<option value=\"%s\" %s>%s</option>";
+
+//이메일
+$email_html = "<option class=\"_custom\">직접입력</option>";
+foreach (EMAIL_DOMAIN as $val) {
+    $email_html .= sprintf($html, $val, "", $val);
+}
+$template->reg("mailOpt", $email_html);
+
+//전화번호앞자리
+$tel_html = "";
+foreach (TEL_NUM as $val) {
+    if ($val == $tel[0])
+        $selected = "selected";
+    else
+        $selected = "";
+    
+    $tel_html .= sprintf($html, $val, $selected, $val);
+}
+$template->reg("telOpt", $tel_html);
+
+
+$template->reg("seq", $rs->fields["admin_licenseeregi_seqno"]);
+$template->reg("crn", $rs->fields["crn"]);
+$template->reg("corp_name", $rs->fields["corp_name"]);
+$template->reg("repre_name", $rs->fields["repre_name"]);
+$template->reg("bc", $rs->fields["bc"]);
+$template->reg("tob", $rs->fields["tob"]);
+$template->reg("tel_num", $tel[0]);
+$template->reg("tel_num2", $tel[1]);
+$template->reg("tel_num3", $tel[2]);
+$template->reg("zipcode", $rs->fields["zipcode"]);
+$template->reg("addr", $rs->fields["addr"]);
+$template->reg("addr_detail", $rs->fields["addr_detail"]);
+$template->reg("mng_name", $rs->fields["mng_name"]);
+$template->reg("posi", $rs->fields["posi"]);
+$template->reg("mail", $mail[0]);
+$template->reg("mail2", $mail[1]);
+$template->reg("mailOpt", $email_html);
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "mypage"); 
+$template->reg("page", "businessregistration"); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

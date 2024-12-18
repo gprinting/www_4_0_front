@@ -1,0 +1,88 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/common_define/common_info.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/MemberDlvrDAO.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new MemberDlvrDAO();
+
+$dvs = $_GET["dvs"];
+
+$member_seqno     = $fb->session("member_seqno");
+$org_member_seqno = $fb->session("org_member_seqno");
+
+$param = array();
+$param["seq"]   = $fb->form("seqno");
+$param["seqno"] = $member_seqno;
+$param["dvs"]   = $dvs;
+$rs = $dao->selectDlvrList($conn, $param);
+ 
+$tel = explode("-", $rs->fields["tel_num"]);
+$cell = explode("-", $rs->fields["cell_num"]);
+    
+$html = "\n<option value=\"%s\" %s>%s</option>";
+    
+//전화번호앞자리
+$tel_html = "";
+$selected = "";
+foreach (TEL_NUM as $val) {
+    if ($val == $tel[0])
+        $selected = "selected";
+    else
+        $selected = "";
+        
+    $tel_html .= sprintf($html, $val, $selected, $val);
+}
+$template->reg("telOpt", $tel_html);
+    
+//휴대전화앞자리
+$cell_html = "";
+$selected = "";
+foreach (CEL_NUM as $val) {
+    if ($val == $cel[0])
+        $selected = "selected";
+    else
+        $selected = "";
+        
+    $cell_html .= sprintf($html, $val, $selected, $val);
+}
+$template->reg("cellOpt", $cell_html);
+    
+$template->reg("seq", $rs->fields["member_dlvr_seqno"]);
+$template->reg("dlvr_name", $rs->fields["dlvr_name"]);
+$template->reg("regi_date", date("Y-m-d", strtotime($rs->fields["regi_date"])));
+$template->reg("recei", $rs->fields["recei"]);
+$template->reg("tel_num", $tel[0]);
+$template->reg("tel_num2", $tel[1]);
+$template->reg("tel_num3", $tel[2]);
+$template->reg("cell_num", $cell[0]);
+$template->reg("cell_num2", $cell[1]);
+$template->reg("cell_num3", $cell[2]);
+$template->reg("zipcode", $rs->fields["zipcode"]);
+$template->reg("addr", $rs->fields["addr"]);
+$template->reg("addr_detail", $rs->fields["addr_detail"]);
+$template->reg("member_seqno", $rs->fields["member_seqno"]);
+$template->reg("basic_yn", $rs->fields["basic_yn"]);
+$template->reg("dlvr_dvs", $rs->fields["dlvr_dvs"]);
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/mypage/member_dvs_check.php");
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "mypage"); 
+$template->reg("page", "businessregistration"); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

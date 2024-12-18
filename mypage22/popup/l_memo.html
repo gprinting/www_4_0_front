@@ -1,0 +1,40 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/entity/FormBean.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/OrderInfoDAO.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$fb = new FormBean();
+$orderDAO = new OrderInfoDAO();
+
+$seqno = $fb->form("order_seqno");
+//$conn->debug = 1;
+
+$param = array();
+$param["member_seqno"] = $fb->session("org_member_seqno");
+$param["order_seqno"]  = $seqno;
+$result = $orderDAO->selectOrderMemo($conn, $param);
+
+
+$memo = htmlspecialchars_decode($result->fields["cust_memo"], ENT_QUOTES);
+$memo = nl2br($memo);
+
+$html = <<<html
+    <header class="popup">
+        <h2>메모</h2>
+    </header>
+    <article class="popup">
+        <textarea id="cust_memo">{$memo}</textarea>
+        <hr class="end">
+        <footer class="action">
+            <button type="button" class="progress" onclick="modiMemo('{$seqno}');">수정하기</button>
+            <button type="button" class="close">닫기</button>
+        </footer>
+    </article>
+html;
+
+echo $html;
+?>

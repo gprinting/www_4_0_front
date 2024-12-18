@@ -1,0 +1,32 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once(INC_PATH . "/com/nexmotion/common/entity/FormBean.inc");
+
+$fb = new FormBean();
+$order_seqno = $fb->form("order_seqno");
+
+$html = <<<html
+    <button class="btn_popup_close close" title="닫기"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+    <div class="inner_padding">
+        <div class="layerPopup">
+            <div>
+                <h2>주문취소</h2>
+            </div>
+            <div class="layerPopup_contents">
+                <em class="text_st_01">주문을 취소하시겠습니까?</em>
+                <ul class="hyphen notice">
+                    <li>아래 '확인' 버튼을 클릭하면 즉시 취소됩니다.</li>
+                    <li>취소한 주문은 전체 주문 목록에서 확인하실 수 있습니다.</li>
+                    <li>공정 단계가 조판으로 넘어간 상태에서는 주문을 취소하실 수 없습니다.</li>
+                </ul>
+            </div>
+            <div class="btn_wrapper">
+                <button type="button" class="btn_type_02" onclick="cancelOrder('{$order_seqno}');">확인</button>
+                <button type="button" class="btn_type_01 close">취소</button>
+            </div>
+        </div>
+    </div>
+html;
+
+echo $html;
+?>

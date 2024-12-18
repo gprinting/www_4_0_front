@@ -1,0 +1,139 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/common_define/common_info.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/member/MemberJoinDAO.inc");
+include_once(INC_PATH . '/com/nexmotion/doc/front/member/JoinHtml.inc');
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new MemberJoinDAO();
+
+//회원구분
+$dvs = $fb->form("dvs");
+
+$template->reg("dvs", $dvs);
+
+$etprs_html = <<<HTML
+                <tr>
+                    <th>업체명(상호)<span style="color: #f36f23;">(필수)</span></th>
+                    <td><input type="text" id="corp_name" name="corp_name"></td>
+                    <th>사업자등록번호<span style="color: #f36f23;">(필수)</span></th>
+                    <td>
+                        <input type="text" class="letter3" id="crn1" name="crn1" maxlength="3">
+                        <input type="text" class="letter2" id="crn2" name="crn2" maxlength="2">
+                        <input type="text" class="letter5" id="crn3" name="crn3" maxlength="5">
+                    </td>
+                </tr>
+HTML;
+
+$tob_html = <<<HTML
+                <tr>
+                    <th>업태<span style="color: #f36f23;">(필수)</span></th>
+                    <td><input type="text" id="bc" name="bc"></td>
+                    <th>업종<span style="color: #f36f23;">(필수)</span></th>
+                    <td><input type="text" id="tob" name="tob"></td>
+                </tr>
+
+HTML;
+
+$note_html = <<<HTML
+        <p class="note">주문담당자 및 회계담당자는 회원가입 후 마이페이지 > 회원정보 수정에서 설정하실 수 있습니다.</p>
+HTML;
+
+$html = "\n<option value=\"%s\">%s</option>";
+
+$current_year = date('Y') - 19;
+//연
+$year_html = "";
+$year_html = "\n<option value=\"\">선택</option>";
+for ($i=$current_year; $i >= 1926; $i--) {
+    $year_html .= sprintf($html, $i, $i);
+}
+
+//월
+$month_html = "";
+$month_html = "\n<option value=\"\">선택</option>";
+/*
+for ($i=1; $i <= 12; $i++) {
+    $day = str_pad($i,"2","0",STR_PAD_LEFT);
+    $month_html .= sprintf($html, $day, $day);
+}
+*/
+//일
+$day_html = "\n<option value=\"\">선택</option>";
+/*
+$day_html = "";
+for ($i=1; $i <= 31; $i++) {
+    $day = str_pad($i,"2","0",STR_PAD_LEFT);
+    $day_html .= sprintf($html, $day, $day);
+}
+*/
+//이메일
+$email_html = "";
+foreach (EMAIL_DOMAIN as $val) {
+    $email_html .= sprintf($html, $val, $val);
+}
+
+//전화번호
+$tel_html = "";
+foreach (TEL_NUM as $val) {
+    $tel_html .= sprintf($html, $val, $val);
+}
+
+//휴대폰 번호
+$cel_html = "";
+foreach (CEL_NUM as $val) {
+    $cel_html .= sprintf($html, $val, $val);
+}
+/*
+$bank_html = "";
+foreach (BANK_INFO as $val) {
+    $bank_html .= sprintf($html, $val, $val);
+}
+*/
+//회원가입 항목
+$param = array();
+$param["member_dvs"] = $dvs;
+$param["member_name"] = "회원명";
+$param["year_html"] = $year_html;
+$param["month_html"] = $month_html;
+$param["day_html"] = $day_html;
+$param["email_html"] = $email_html;
+$param["tel_html"] = $tel_html;
+$param["cel_html"] = $cel_html;
+$param["member_name_val"] = "member_name";
+
+if ($dvs === "기업") {
+    $param["member_name"] = "대표자";
+    $param["etprs_html"] = $etprs_html;
+    $param["tob_html"] = $tob_html;
+    $param["note_html"] = $note_html;
+    $param["member_name_val"] = "repre_name";
+}
+
+$template->reg("join_html", getJoinHtml($param));
+$template->reg("bank_html", $bank_html);
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+// 회원가입중 상태임을 표시, 가입완료에서 새로고침시 중복처리 되는거 방지용
+$fb->addSession("join", true);
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "member");
+$template->reg("page", "join_3");
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template");
+$template->htmlPrint($_SERVER["PHP_SELF"]);
+
+$conn->Close();
+?>

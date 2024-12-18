@@ -1,0 +1,540 @@
+<?php 
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/entity/FormBean.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/OrderInfoDAO.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$fb = new FormBean();
+$dao = new OrderInfoDAO();
+
+$order_seqno = $fb->form("order_seqno");
+$session     = $fb->getSession();
+$param = array();
+$param["order_seqno"] = $order_seqno;
+$rs = $dao->selectOrderInfoForDlvrChange($conn, $param);
+if (!$rs) {
+    echo "검색 정보가 없습니다.";
+    exit;
+}
+
+// 초기 값 세팅
+$fields       = $rs->fields;
+$dlvr_way     = $fields["dlvr_way"];
+$dlvr_sum_way = $fields["dlvr_sum_way"];
+$dlvr_price   = $fields["dlvr_price"];
+$name         = $fields["name"];
+$recei        = $fields["recei"];
+$tel_num      = $fields["tel_num"];
+$tel_num      = explode('-', $tel_num);
+$tel_num1     = $tel_num[0];
+$tel_num2     = $tel_num[1];
+$tel_num3     = $tel_num[2];
+$cell_num     = $fields["cell_num"];
+$cell_num     = explode('-', $cell_num);
+$cell_num1    = $cell_num[0];
+$cell_num2    = $cell_num[1];
+$cell_num3    = $cell_num[2];
+$zipcode      = $fields["zipcode"];
+$addr         = $fields["addr"];
+$addr_detail  = $fields["addr_detail"];
+$cate_sortcode = $fields["cate_sortcode"];
+$expec_weight  = $fields["expec_weight"];
+
+// 직배회원인지 검색
+$param["member_seqno"] = $session["member_seqno"];
+$rs_dir = $dao->selectDirectDlvrYn($conn, $param);
+if (!$rs_dir) {
+    echo "직배회원 검색에 실패했습니다.";
+    exit;
+}
+$rs_dir_fields = $rs_dir->fields;
+$direct_dlvr_yn = $rs_dir_fields["direct_dlvr_yn"];
+
+if ($direct_dlvr_yn == "Y") {
+    $info_rs = $dao->selectDirectDlvrInfo($conn, $param);
+    
+    if (!$info_rs) {
+        echo "직배정보가 없습니다.";
+        exit;
+    }
+
+    // 직배의 경우 윗 값을 이렇게 변경
+    $info_rs_fields  = $info_rs->fields;
+    $dir_zipcode     = $info_rs_fields["zipcode"];
+    $dir_addr        = $info_rs_fields["addr"];
+    $dir_addr_detail = $info_rs_fields["addr_detail"];
+    $dir_tel_num     = $info_rs_fields["tel_num"];
+    $dir_tel_num     = explode('-', $dir_tel_num);
+    $dir_tel_num1    = $tel_num[0];
+    $dir_tel_num2    = $tel_num[1];
+    $dir_tel_num3    = $tel_num[2];
+    $dir_cell_num    = $info_rs_fields["cell_num"];
+    $dir_cell_num    = explode('-', $dir_cell_num);
+    $dir_cell_num1   = $cell_num[0];
+    $dir_cell_num2   = $cell_num[1];
+    $dir_cell_num3   = $cell_num[2];
+
+}
+
+$html = <<<html
+
+<script>
+    // number_format
+    var numberWithCommas = function(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    $(document).ready(function() {
+        
+        // 초기 값 세팅
+        var dlvrWay    = "{$dlvr_way}";
+        var dlvrSumWay = "{$dlvr_sum_way}";
+        var prevPrice  = "{$dlvr_price}";
+        var name       = "{$name}";
+        var recei      = "{$recei}";
+        var telNum1    = "{$tel_num1}";
+        var telNum2    = "{$tel_num2}";
+        var telNum3    = "{$tel_num3}";
+        var cellNum1   = "{$cell_num1}";
+        var cellNum2   = "{$cell_num2}";
+        var cellNum3   = "{$cell_num3}";
+        var zipcode    = "{$zipcode}";
+        var addr       = "{$addr}";
+        var addrDetail = "{$addr_detail}";
+        var dirDlvrYn  = "{$direct_dlvr_yn}";
+
+        var dirDlvr    = "";
+
+        // 직배회원의 경우 직배옵션이 붙음
+        if (dirDlvrYn == "Y") {
+            var direct = "<option value=\"02\">직배</option>";
+            $("#dlvr_to_way").append(direct);
+        }
+
+        if (checkBlank(dlvrSumWay) && dlvrWay == "02"
+            && dirDlvrYn == "Y") {
+            dirDlvr = "Y";
+        } else {
+            $("input:radio[name=dlvr_sum_way]:input[value="+dlvrSumWay +"]").attr("checked", true);
+        }
+
+        $("#dlvr_name").val(name);
+        $("#recei").val(recei);
+        $("#tel_num1").val(telNum1);
+        $("#tel_num2").val(telNum2);
+        $("#tel_num3").val(telNum3);
+        $("#cell_num1").val(cellNum1);
+        $("#cell_num2").val(cellNum2);
+        $("#cell_num3").val(cellNum3);
+        $("#zipcode").val(zipcode);
+        $("#addr").val(addr);
+        $("#addr_detail").val(addrDetail);
+
+        // 직배의 경우 기본적으로 수정 불가
+        if (dirDlvr == "Y") {
+            $("#dlvr_to_way").val(dlvrWay);
+            $("#dlvr_pv_price").text("0 원");
+            $("#dlvr_new_price").text("0 원");
+            dlvrSumWay = "01";
+            $("input:radio[name=dlvr_sum_way]:input[value="+dlvrSumWay +"]").attr("checked", true);
+            // disabled 처리
+            $("input:radio[name=dlvr_sum_way]").prop("disabled", true);
+            $("#dlvr_name").val("").prop("disabled", true);
+            $("#recei").val("").prop("disabled", true);
+            $("#tel_num1").val("{$dir_tel_num1}").prop("disabled", true);
+            $("#tel_num2").val("{$dir_tel_num2}").prop("disabled", true);
+            $("#tel_num3").val("{$dir_tel_num3}").prop("disabled", true);
+            $("#cell_num1").val("{$dir_cell_num1}").prop("disabled", true);
+            $("#cell_num2").val("{$dir_cell_num2}").prop("disabled", true);
+            $("#cell_num3").val("{$dir_cell_num3}").prop("disabled", true);
+            $("#zipcode").val("{$dir_zipcode}").prop("disabled", true);
+            $("#addr").val("{$dir_addr}").prop("disabled", true);
+            $("#addr_detail").val("{$dir_addr_detail}").prop("disabled", true);
+
+        } else {
+            if (dlvrWay == "06" || dlvrWay == "07") {
+                $("#to_1_addr").hide();
+            } else {
+                $("#to_1_addr").show();
+            }
+            $("#dlvr_to_way").val(dlvrWay);
+            prevPrice = numberWithCommas(prevPrice);
+            $("#dlvr_pv_price").text(prevPrice + " 원");
+            // 처음엔 재계산한게 없으므로 이전 배송비와 같음
+            $("#dlvr_new_price").text(prevPrice + " 원");
+        }
+    });
+
+    // 배송비 재계산
+    var reCalcDlvrPrice = function(zonecode) {
+
+        if (checkBlank(zonecode)) {
+            var zonecode = $("#zipcode").val();
+        }
+        var dlvrWay    = $("#dlvr_to_way").val(); 
+        var dlvrSumWay = $("input:radio[name=dlvr_sum_way]:checked").val();
+        
+
+        // 착불일 경우 기본적으로 계산할 필요가 없음
+        if (dlvrSumWay == "02") {
+            // 퀵일 경우에만 가능한 지역인지 확인
+            if (dlvrWay == "04") {
+            } else {
+                $("#dlvr_new_price").text("0 원");
+                return false;
+            }
+
+        }
+        var zipcode  = "{$zipcode}";
+        var zipcode2 = zonecode;
+        /*
+        if (zipcode == zipcode2) {
+            if (dlvrWay == "04" || dlvrWay == "05") {
+                // 이 경우는 재계산 함
+            } else {
+                var prevSumWay = "{$dlvr_sum_way}";
+                if (prevSumWay == "01") {
+                    $("#dlvr_new_price").text("0 원");
+                    return false;
+                }
+            }
+        }
+        */
+        var url  = "/ajax/mypage/order_all/recalc_dlvr_price.php";
+        var data = {
+            "cate_sortcode" : "{$cate_sortcode}",    
+            "expec_weight"  : "{$expec_weight}",
+            "zipcode"       : zipcode2,
+            "dlvr_way"      : dlvrWay,
+            "dlvr_sum_way"  : dlvrSumWay,
+            "dlvr_price"    : "{$dlvr_price}"
+        };
+        var callback = function(result) {
+            var res = $.trim(result);
+            if (res == "cnuq") {
+                alert("퀵을 이용할 수 없는 지역입니다.");
+                $("#dlvr_to_way").val("01");
+                reCalcDlvrPrice();
+                return false;
+            }
+            res = numberWithCommas(res);
+            $("#dlvr_new_price").text(res + " 원");
+        };
+
+        ajaxCall(url, "html", data, callback);
+    };  
+
+    // 선,착불 전환
+    var chkPrevDlvr = function(val) {
+        var dlvrWay = $("#dlvr_to_way").val();
+        var prevDlvrPrice = "{$dlvr_price}"; 
+        // 방문의 경우엔 재계산 배송비는 0
+        if (dlvrWay == "06" || dlvrWay == "07") {
+            var dlvrP = 0;
+            $("#dlvr_new_price").text(dlvrP + " 원");   
+
+        // 그 외엔 선불의경우 재계산, 착불 배송비는 0
+        } else {
+            if (val == "01") {
+                reCalcDlvrPrice();
+            } else if (val == "02") {
+                if (!checkBlank(prevDlvrPrice)) {
+                    var dlvrP = 0;
+                    $("#dlvr_new_price").text(dlvrP + " 원");   
+                }
+            }
+        }
+    };
+
+    // 배송방법 변경
+    var changeDlvrMethod = {
+        "exec" : function() {
+            changeDlvrMethod.calc();
+        }
+        ,"calc" : function() {
+            // disabled 해제
+            $("input:radio[name=dlvr_sum_way]").prop("disabled", false);
+            $("#dlvr_name").prop("disabled", false);
+            $("#recei").prop("disabled", false);
+            $("#tel_num1").prop("disabled", false);
+            $("#tel_num2").prop("disabled", false);
+            $("#tel_num3").prop("disabled", false);
+            $("#cell_num1").prop("disabled", false);
+            $("#cell_num2").prop("disabled", false);
+            $("#cell_num3").prop("disabled", false);
+            $("#zipcode").prop("disabled", false);
+            $("#addr").prop("disabled", false);
+            $("#addr_detail").prop("disabled", false);
+
+            var seqno = "{$order_seqno}";
+            var expec_weight = 0;
+
+            var dlvr = $("#dlvr_to_way").val();
+
+            if (dlvr == "06" || dlvr == "07") {
+                $("#to_1_addr").hide();
+                var dlvrSumWay = $("input:radio[name=dlvr_sum_way]:checked").val();
+                chkPrevDlvr(dlvrSumWay);
+            } else {
+                $("#to_1_addr").show();
+                reCalcDlvrPrice();
+            }
+
+            if (dlvr === "02") {
+                // 직배일 경우 
+                //setDirectLimitOption();
+                dlvrSumWay = "01";
+                $("input:radio[name=dlvr_sum_way]:input[value="+dlvrSumWay +"]").attr("checked", true);
+                // disabled 처리
+                $("input:radio[name=dlvr_sum_way]").prop("disabled", true);
+                $("#dlvr_name").val("").prop("disabled", true);
+                $("#recei").val("").prop("disabled", true);
+                $("#tel_num1").val("{$dir_tel_num1}").prop("disabled", true);
+                $("#tel_num2").val("{$dir_tel_num2}").prop("disabled", true);
+                $("#tel_num3").val("{$dir_tel_num3}").prop("disabled", true);
+                $("#cell_num1").val("{$dir_cell_num1}").prop("disabled", true);
+                $("#cell_num2").val("{$dir_cell_num2}").prop("disabled", true);
+                $("#cell_num3").val("{$dir_cell_num3}").prop("disabled", true);
+                $("#zipcode").val("{$dir_zipcode}").prop("disabled", true);
+                $("#addr").val("{$dir_addr}").prop("disabled", true);
+                $("#addr_detail").val("{$dir_addr_detail}").prop("disabled", true);
+                $("#dlvr_new_price").text("0 원");
+                return false;
+            }
+        }
+    }
+
+    /**
+     * @brief 배송지변경 버튼 누를시
+     */
+    var editDlvrPlace = function(seqno) {
+        if (checkBlank(seqno)) {
+            return false;
+        }
+        var addr       = $("#addr").val();
+        var addrDetail = $("#addr_detail").val();
+        var dlvrWay    = $("#dlvr_to_way").val();
+        var dlvrSumWay = $("input:radio[name=dlvr_sum_way]:checked").val();
+        if (dlvrWay == "02") {
+            dlvrSumWay = ""; // 직배의 경우에는 비어서 들어감
+        }
+        var dlvrName   = $("#dlvr_name").val();
+        var recei      = $("#recei").val();
+        var zipcode    = $("#zipcode").val();
+        var telNum1    = $("#tel_num1").val();
+        var telNum2    = $("#tel_num2").val();
+        var telNum3    = $("#tel_num3").val();
+        var telNumT    = telNum1 + "-" + telNum2 + "-" + telNum3; 
+
+        var cellNum1   = $("#cell_num1").val();
+        var cellNum2   = $("#cell_num2").val();
+        var cellNum3   = $("#cell_num3").val();
+        var cellNumT   = "";
+        var cellNumT   = cellNum1 + "-" + cellNum2 + "-" + cellNum3; 
+
+        if (dlvrWay == "06" || dlvrWay == "07") {
+            zipcode = "";
+            addr = "";
+            addrDetail = "";
+        }
+    
+        var url = "/proc/mypage/order_all/modi_dlvr_on_progress.php";
+        var data = {
+             "seqno"          : seqno
+            ,"cate_sortcode"  : "{$cate_sortcode}"
+            ,"expec_weight"   : "{$expec_weight}"
+            ,"zipcode"        : zipcode
+            ,"dlvr_way"       : dlvrWay
+            ,"dlvr_sum_way"   : dlvrSumWay
+            ,"dlvr_prev_price": "{$dlvr_price}"
+            ,"dlvr_new_price" : $("#dlvr_new_price").text()
+            ,"name"           : dlvrName
+            ,"recei"          : recei
+            ,"addr"           : addr
+            ,"addr_detail"    : addrDetail
+            ,"tel_num"        : telNumT
+            ,"cell_num"       : cellNumT
+        };
+        var callback = function(result) {
+            res = $.trim(result);
+            //var idle = "<button type=\"button\" id=\"dlvr_modi_btn\" class=\"btn_type_02\" onclick=\"editDlvrPlace({$order_seqno}); return false;\">배송지 수정</button>";
+
+            if (res == "0") {
+                alertReturnFalse("변경가능한 주문상태가 아닙니다."); 
+            } else if (res == "2") {
+                alertReturnFalse("배송이 묶인 주문은 바꿀 수 없습니다."); 
+            } else if (res == "3") {
+                alertReturnFalse("퀵 이용 불가 지역입니다."); 
+            } else if (res == "4") {
+                alertReturnFalse("배송비 값이 일치하지 않습니다.");
+            } else if (res == "5") {
+                alertReturnFalse("선입금이 부족합니다.");
+            } else if (res == "6") {
+                alertReturnFalse("배송지변경에 실패했습니다. 관리자에게 문의하세요.");
+            } else if (res == "1") {
+                alert("배송지 변경에 성공하였습니다.");
+                location.reload();
+            }
+            $("#dlvr_process_btn").hide();
+            $("#dlvr_modi_btn").show();
+        };
+
+        // validation check
+        if (dlvrWay != "02") {
+            if (checkBlank(dlvrSumWay)) {
+                alert("배송비 지불방법을 선택해 주세요.");
+                return false;
+            } 
+
+            if (checkBlank(dlvrName)) {
+                alert("업체/상호명을 입력해 주세요.");    
+                return false;
+            }
+            
+            if (checkBlank(recei)) {
+                alert("수신자를 입력해 주세요.");
+                return false;
+            }
+        }
+
+        if ((checkBlank(telNum2) || checkBlank(telNum3))
+             && (checkBlank(cellNum2) || checkBlank(cellNum3))) {
+            alert("핸드폰번호 또는 전화번호를 입력해 주세요.");
+            return false;
+        }
+    
+        $("#dlvr_modi_btn").hide();
+        $("#dlvr_process_btn").show();
+        //$("#dlvr_modi_btn").html(processing);
+        ajaxCall(url, "html", data, callback);
+    
+    }
+</script>
+<button class="btn_popup_close close" title="닫기"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+<div class="inner_padding">
+    <div class="layerPopup">
+        <div>
+            <h2>배송지 변경</h2>
+        </div>
+        <div class="layerPopup_contents">
+            <div>
+                <!-- 새로운 소스-->
+                <table class="input to">
+                    <colgroup>
+                        <col style="width:120px;">
+                        <col style="width:460px;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th scope="row">배송방법</th>
+                            <td>
+                                <select name="dlvr_to_way" id="dlvr_to_way" class="dlvr_way" onchange="changeDlvrMethod.exec();">
+                                    <option value="01">택배</option>
+                                    <option value="04">퀵(오토바이)</option>
+                                    <option value="05">퀵(다마스)</option>
+                                    <option value="06">방문(인현동)</option>
+                                    <option value="07">방문(성수동)</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">배송비 지불</th>
+                            <td>
+                                <label style="margin-right:24px;"><input type="radio" name="dlvr_sum_way" onchange="chkPrevDlvr(this.value);" value="01"> 선불</label>
+                                <label><input type="radio" name="dlvr_sum_way" onchange="chkPrevDlvr(this.value);" value="02"> 착불</label>
+                                <label id="dlvr_warning" style="color:#FF0000"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">업체/상호명</th>
+                            <td><input name="dlvr_name" id="dlvr_name" type="text" class="name"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">수신자</th>
+                            <td><input name="recei" id="recei" type="text" class="name"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">전화번호</th>
+                            <td>
+                                <select id="tel_num1" name="tel_num1">
+                                    <option value="02">02</option><option value="031">031</option><option value="032">032</option><option value="033">033</option><option value="041">041</option><option value="042">042</option><option value="043">043</option><option value="044">044</option><option value="051">051</option><option value="052">052</option><option value="053">053</option><option value="054">054</option><option value="055">055</option><option value="061">061</option><option value="062">062</option><option value="063">063</option><option value="064">064</option><option value="010">010</option><option value="070">070</option>
+                                </select>
+                                <input id="tel_num2" name="tel_num2" maxlength="4" onkeyup="onlyNumber(event, this.value);" type="text">
+                                <input id="tel_num3" name="tel_num3" maxlength="4" onkeyup="onlyNumber(event, this.value);" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">휴대전화</th>
+                            <td>
+                                <select id="cell_num1" name="cell_num1">
+                                    <option value="010">010</option><option value="011">011</option><option value="016">016</option><option value="017">017</option><option value="018">018</option>
+                                </select>
+                                <input id="cell_num2" name="cell_num2" maxlength="4" onkeyup="onlyNumber(event, this.value);" type="text">
+                                <input id="cell_num3" name="cell_num3" maxlength="4" onkeyup="onlyNumber(event, this.value);" type="text">
+                            </td>
+                        </tr>
+                        <tr id="to_1_addr">
+                            <th scope="row">주소</th>
+                            <td style="position:relative;">
+                                <div class="rowWrap">
+                                    <input type="text" id="zipcode" name="zipcode" readonly="">
+                                    <button type="button" class="postcode_btn" onclick="getPostcode('to_1');">우편번호 찾기</button>
+                                </div>
+                                <div class="rowWrap">
+                                    <div class="inputWrap">
+                                        <input type="text" id="addr" name="addr" class="address" readonly="">
+                                    </div>
+                                </div>
+                                <div class="rowWrap">
+                                    <div class="inputWrap">
+                                        <input type="text" id="addr_detail" name="addr_detail" class="address_detail">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">기존주소 배송비</th>
+                            <td style="position:relative;">
+                                <span id="dlvr_pv_price" class="text_st_01"> 0 원</span>
+                                <!--<span><button type="button" class="btn_check_dlv_price" onclick="">배송금액 확인</button></span>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">재계산된 배송비</th>
+                            <td style="position:relative;">
+                                <span id="dlvr_new_price" class="text_st_01"> 0 원</span>
+                                <!--<span><button type="button" class="btn_check_dlv_price" onclick="">배송금액 확인</button></span>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- 새로운 소스-->
+                <script>
+                    $('.l_address select._domain').on('change', function () {
+                        if ($(this).children('option:selected').hasClass('_custom')) {
+                            $(this).prev().val('');
+                            $(this).prev()[0].readOnly = false;
+                        } else {
+                            $(this).prev().val($(this).children('option:selected').text());
+                            $(this).prev()[0].readOnly = true;
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+        <div class="btn_wrapper">
+            <button type="button" id="dlvr_modi_btn" class="c_btn-primary" onclick="editDlvrPlace({$order_seqno}); return false;">배송지 수정</button>
+            <button type="button" id="dlvr_process_btn" class="btn_type_02" style="display:none;">진행중...</button>
+            <button type="button" class="c_btn-primary-reverse" onclick="confirmClosePopup(event, '입력하신 모든 내용이 사라집니다. 취소하시겠습니까?');">취소</button>
+        </div>
+    </div>
+</div>
+
+html;
+
+echo $html;
+
+?>

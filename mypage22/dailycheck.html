@@ -1,0 +1,183 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/common/FrontCommonDAO.inc");
+
+// 팬텀디자인 240307 추가 코드
+function get_this_month_firstday() {
+    $date = new DateTime(date("Y-m-01"));
+    return $date;
+}
+function get_this_month_lastday() {
+    $date = new DateTime(date("Y-m-01"));
+    $date->add(new DateInterval('P1M'));
+    $date->sub(new DateInterval('P1D'));
+    return $date;
+}
+
+
+$frontUtil = new FrontCommonUtil();
+
+if ($is_login === false) {
+    $frontUtil->errorGoBack("로그인 후 확인 가능합니다.");
+    exit;
+}
+
+
+ 
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$dao = new FrontCommonDAO();
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/login_check.php");
+
+$lastDay = get_this_month_lastday()->format("d");
+$firstDay = get_this_month_firstday()->format("d");
+
+
+
+$onefile_html = <<<html
+			<dt>
+				<ol>
+                    <li>sun</li>
+                    <li>mon</li>
+                    <li>tue</li>
+                    <li>wed</li>
+                    <li>thu</li>
+                    <li>fri</li>
+                    <li>sat</li>
+                </ol>
+            </dt>
+			<dd>
+                <ol>
+html;
+
+$yoil = array("sun","mon","tue","wed","thu","fri","sat");
+$target_yoil = $yoil[date('w', strtotime(get_this_month_firstday()->format("y-m-d")))];
+
+	if($target_yoil == 'sun'){ // 현재 요일에 따라 시작지점을 다르게 배치
+		$startDay = 1;
+	}
+	if($target_yoil == 'mon'){ // 현재 요일에 따라 시작지점을 다르게 배치
+		$startDay = 2;
+	}
+	if($target_yoil == 'tue'){ // 현재 요일에 따라 시작지점을 다르게 배치
+		$startDay = 3;
+	}
+	if($target_yoil == 'wed'){ // 현재 요일에 따라 시작지점을 다르게 배치
+		$startDay = 4;
+	}
+	if($target_yoil == 'thu'){ // 현재 요일에 따라 시작지점을 다르게 배치
+		$startDay = 5;
+	}
+	if($target_yoil == 'fri'){ // 현재 요일에 따라 시작지점을 다르게 배치
+		$startDay = 6;
+	}
+	if($target_yoil == 'sat'){ // 현재 요일에 따라 시작지점을 다르게 배치
+		$startDay = 7;
+	}
+
+for($sD=2; $sD<=$startDay; $sD++){
+	$onefile_html2 .= '<li class="none"></li>';
+}
+
+// 세션 불러온다.
+$session = $fb->getSession();
+// 회원 일련번호
+$member_seqno = $session["member_seqno"];
+$mb_id = $session["id"];
+
+$attendance = $dao->selectAttendanceSetting($conn, $member_seqno); // 포인트 세팅 가져온다.
+
+
+$point = $dao->get_point_sum($conn, $member_seqno);
+
+
+for($i=1; $i<=$lastDay; $i++){
+	$param["ae_seqno"] = $member_seqno; // 멤버번호
+	if($i <= 9){
+		$param['i_plus'] = '0'.$i;
+	} else {
+		$param['i_plus'] = $i;
+	}
+	
+	
+	$lastDayx = get_this_month_lastday()->format("Y-m-".$param['i_plus']); // 각 개별 날짜를 가져온다.
+	
+	$AttCheck = $dao->todayAttendanceCheck2($conn, $param, $lastDayx);
+	//exit;
+
+	$times = time(); 
+	$date_today = date("d", $times); // 오늘 날짜 가져온다
+	 
+		$todayCheck = '';
+		$tenDayCheck = '';
+		$thirtyDayCheck = '';
+		if($AttCheck){
+			$todayCheck = 'Y';
+			$onefile_html2 .= '<li class="checked">
+							<i class="base"></i>
+							<i class="check1"></i>
+							<i class="check10"></i>
+							<i class="check30"></i>
+						</li>';
+			if($AttCheck['ae_reset1'] == 0){ // 10일 개근 성공 한 경우
+				$tenDayCheck = 'Y';
+			}
+			if($AttCheck['ae_reset2'] == 0){ // 30일 개근 성공 한 경우
+				$thirtyDayCheck = 'Y';
+			}
+		} else {
+			if($param['i_plus'] == $date_today){ // 오늘인 경우 출석체크
+					$onefile_html2 .= '<li class="">
+									<button type="button" class="dailycheck" onclick="attCheck('.$member_seqno.',\''.$mb_id.''.'\');">
+										출석체크하기
+										<i class="cursor"></i>
+										<i class="click"></i>
+									</button>
+									<i class="base"></i>
+									<i class="check1"></i>
+									<i class="check10"></i>
+									<i class="check30"></i>
+								</li>';
+				} else {
+					$onefile_html2 .= '<li class="">
+								<i class="base"></i>
+								<i class="check1"></i>
+								<i class="check10"></i>
+								<i class="check30"></i>
+							</li>';
+				}
+			
+		}
+
+	
+
+	
+	
+}
+$year_month = date("Y.m", $times); // 오늘 날짜 가져온다
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "mypage"); 
+$template->reg("page", "order_draft");
+$template->reg("firstDay", get_this_month_firstday()->format("d"));
+$template->reg("lastDay", get_this_month_lastday()->format("d"));
+$template->reg("onefile_html", $onefile_html);
+$template->reg("onefile_html2", $onefile_html2);
+$template->reg("month", $year_month);
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path);
+$template->htmlPrint($html_path);
+
+
+$conn->Close();
+?>

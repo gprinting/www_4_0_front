@@ -1,0 +1,516 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/sess_common.php");
+include_once(INC_PATH . "/common_define/common_info.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/MainDAO.inc"); 
+include_once(INC_PATH . "/com/nexmotion/doc/front/mypage/MainDOC.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/common/FrontCommonDAO.inc"); 
+
+$frontUtil = new FrontCommonUtil();
+
+if ($is_login === false) {
+    $frontUtil->errorGoBack("로그인 후 확인 가능합니다.");
+    exit;
+}
+
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new MainDAO();
+
+
+$dao_front = new FrontCommonDAO();
+
+$session = $fb->getSession();
+
+		$point = $dao_front->get_point_sum($conn, $session["member_seqno"]);
+		// 현재 전체 포인트 내역 가져오기
+		$own_point = $point['sum_point'];
+		
+		
+		
+		
+// 180615 추가
+if ($session["sync_flag"] == "Y") {
+    $template->reg("sync_flag", "Y");
+    $template->reg("member_seqno", $session["member_seqno"]);
+} else {
+    $template->reg("sync_flag", "N");
+    $template->reg("member_seqno", '');
+}
+
+
+
+//선입금, 주문부족금액 검색(180516 추가)
+$id = $session["id"];
+$rs     = $dao->selectPrepayPrice($conn, $id);
+$fields = $rs->fields;
+//$prepay_price_money = doubleval($fields[0]);
+$prepay_price = doubleval($fields[0]) // 현금
+                + intval($fields["prepay_price_card"]); // 카드
+
+$seqno = $session["org_member_seqno"];
+$member_photo_path = $session["member_photo_path"];
+$template->reg("name", $session["name"]); 
+$template->reg("userid", $session["id"]); 
+$template->reg("group_name", $session["group_name"]); 
+$template->reg("level", $session["level"]); 
+$template->reg("grade", $session["grade"]); 
+$template->reg("bank_name", $session["bank_name"]); 
+$template->reg("ba_num", $session["ba_num"]); 
+$template->reg("member_dvs", $session["member_dvs"]); 
+$template->reg("member_typ", $session["member_typ"]); 
+$template->reg("own_point", number_format($own_point)); 
+//$template->reg("cp_count", $session["cp_count"]); 
+$template->reg("cp_count", 0); 
+$template->reg("prepay_price", number_format($prepay_price)); 
+$template->reg("order_lack_price", number_format(doubleval($fields["order_lack_price"]))); 
+
+$member_dvs = $session["member_dvs"];
+
+//
+
+//주문 / 배송조회
+$param["member_seqno"] = $session["member_seqno"];
+$order_list_template = "\n <tr>";
+$order_list_template .= "\n     <td>%s</td>";
+$order_list_template .= "\n     <td>%s</td>";
+$order_list_template .= "\n     <td>%s</td>";
+$order_list_template .= "\n     <td class=\"left\">";
+$order_list_template .= "\n        <a href=\"#none\" target=\"_self\">";
+$order_list_template .= "\n             <dl class=\"orderDetail\">";
+$order_list_template .= "\n                 <dt><strong>[%s]</strong> %s</dt>";
+$order_list_template .= "\n                 <dd>%s</dd>";
+$order_list_template .= "\n             </dl>";
+$order_list_template .= "\n         </a>";
+$order_list_template .= "\n     </td>";
+$order_list_template .= "\n     <td class=\"left\">";
+$order_list_template .= "\n         <ul class=\"post\">";
+$order_list_template .= "\n             %s";
+$order_list_template .= "\n         </ul>";
+$order_list_template .= "\n     </td>";
+$order_list_template .= "\n     <td class=\"amount\">%s&times;%s건</td>";
+$order_list_template .= "\n     <td class=\"price\">%s원</td>";
+$order_list_template .= "\n     <td><span class=\"status\">%s</span></td>";
+$order_list_template .= "\n                <td class=\"btn menu\">";
+$order_list_template .= "\n                    <button id=\"btn_dt_%d\" class=\"menu viewOrderDetails _showOrderDetails _on\" title=\"상세보기\" onclick=\"openButtonBox('%d', '%s', this.id, '', '%s');\">상세보기</button>";
+$order_list_template .= "\n                    <button class=\"menuClose\" title=\"상세접기\" onclick=\"closeButtonBox('%s');\">상세접기</button>";
+$order_list_template .= "\n                    <div class=\"menuWrap _slide_%d\"></div>";
+$order_list_template .= "\n                </td>";
+$order_list_template .= "\n </tr>";
+$after_list_template = "\n <li>%s</li>";
+$rs = $dao->selectOrderList($conn, $param);
+$cnt = $dao->selectFoundRows($conn);
+$order_list = "";
+
+while ($rs && !$rs->EOF) {
+    $amt = $rs->fields["amt"] * 10 / 10;
+    if(is_int($amt)) {
+        $amt = number_format($amt);
+    }
+
+    $order_list .=
+        sprintf(
+            $order_list_template,
+            $cnt--,
+            explode(" " ,$rs->fields["depo_finish_date"])[0],
+			$rs->fields["order_num"],
+
+            trim(explode("/", $rs->fields["order_detail"])[0]),
+            $rs->fields["title"],
+            explode(" / " ,$rs->fields["order_detail"])[1] . " / " . explode(" / " ,$rs->fields["order_detail"])[2] . " / " . explode(" / " ,$rs->fields["order_detail"])[3],
+            makeAfterHtml($conn, $rs->fields["order_common_seqno"], ''),
+            number_format($amt) . $rs->fields["amt_unit_dvs"],
+            $rs->fields["count"],
+            number_format($rs->fields["pay_price"]),
+            $rs->fields["front_state_name"],
+            $cnt+1,
+            $cnt+1,
+            $rs->fields["order_common_seqno"],
+            $rs->fields["order_state"],
+			$cnt+1,
+            $cnt+1
+        );
+    $rs->moveNext();
+}
+$template->reg("order_list", $order_list);
+
+// 장바구니 조회
+$cart_list_template = "\n <tr>";
+$cart_list_template .= "\n     <td>%s</td>";
+$cart_list_template .= "\n     <td>%s</td>";
+$cart_list_template .= "\n     <td class=\"left\">";
+$cart_list_template .= "\n        <a href=\"#none\" target=\"_self\">";
+$cart_list_template .= "\n             <dl class=\"orderDetail\">";
+$cart_list_template .= "\n                 <dt><strong>[%s]</strong> %s</dt>";
+$cart_list_template .= "\n                 <dd>%s</dd>";
+$cart_list_template .= "\n             </dl>";
+$cart_list_template .= "\n         </a>";
+$cart_list_template .= "\n     </td>";
+$cart_list_template .= "\n     <td class=\"left\">";
+$cart_list_template .= "\n         <ul class=\"post\">";
+$cart_list_template .= "\n             %s";
+$cart_list_template .= "\n         </ul>";
+$cart_list_template .= "\n     </td>";
+$cart_list_template .= "\n     <td class=\"amount\">%s&times;%s건</td>";
+$cart_list_template .= "\n     <td class=\"price\">%s원</td>";
+$cart_list_template .= "\n     <td class=\"btn\"><span class=\"button attachedFile\" title=\"파일 첨부 완료\">파일 첨부 완료</span></td>";
+$cart_list_template .= "\n </tr>";
+
+$after_list_template = "\n <li>%s</li>";
+$rs = $dao->selectCartList($conn, $param);
+$cnt = $dao->selectFoundRows($conn);
+$order_list = "";
+while ($rs && !$rs->EOF) {
+    $amt = $rs->fields["amt"] * 10 / 10;
+    if(is_int($amt)) {
+        $amt = number_format($amt);
+    }
+    $order_list .=
+        sprintf(
+            $cart_list_template,
+            $cnt--,
+            explode(" " ,$rs->fields["order_regi_date"])[0],
+            trim(explode("/", $rs->fields["order_detail"])[0]),
+            $rs->fields["title"],
+            explode(" / " ,$rs->fields["order_detail"])[1] . " / " . explode(" / " ,$rs->fields["order_detail"])[2] . " / " . explode(" / " ,$rs->fields["order_detail"])[3],
+            makeAfterHtml($conn, $rs->fields["order_common_seqno"], ''),
+            number_format($amt) . $rs->fields["amt_unit_dvs"],
+            $rs->fields["count"],
+            number_format($rs->fields["pay_price"]),
+            $rs->fields["front_state_name"]
+        );
+    $rs->moveNext();
+}
+$template->reg("cart_list", $order_list);
+
+//등급정보
+if (intval($session["grade"]) > 1) {
+
+    $param = [];
+    $param["table"] = "member_grade_policy";
+    $param["col"] = "sales_start_price, grade_name";
+    $param["where"]["grade"] = intVal($session["grade"]) - 1;
+
+    $rs = $dao->selectData($conn, $param);
+    $html  = "<strong>%s</strong> 등급 샹향까지";
+    $html .= "\n&#8361;%s 필요합니다.";
+
+    //기존것 주석처리 2017-08-30 montvert
+    //$start_price = abs(intVal($rs->fields["sales_start_price"]) - intVal($session["cumul_sales_price"]));
+    $start_price = abs(intVal($rs->fields["sales_start_price"]));
+
+    $rs_html = sprintf($html, $rs->fields["grade_name"]
+                            , number_format($start_price));
+
+    $template->reg("grade_info", $rs_html); 
+}
+
+
+//기본 배송지
+$param = [];
+$param["table"] = "member_dlvr";
+$param["col"] = "dlvr_name, recei, tel_num, cell_num, zipcode, addr, addr_detail";
+$param["where"]["member_seqno"] = $session["member_seqno"];
+$param["where"]["basic_yn"] = "Y";
+
+$rs = $dao->selectData($conn, $param);
+
+$rs_html = "";
+if (!$is_mobile) {
+    $html  = "\n                <dt>업체/상호명</dt>";
+    $html .= "\n                <dd>%s</dd>";
+    $html .= "\n                <dt>담당자</dt>";
+    $html .= "\n                <dd class=\"last\">%s</dd>";
+    $html .= "\n                <dt>휴대전화</dt>";
+    $html .= "\n                <dd>%s</dd>";
+    $html .= "\n                <dt>일반전화</dt>";
+    $html .= "\n                <dd class=\"last\">%s</dd>";
+    $html .= "\n                <dt>주소</dt>";
+    $html .= "\n                <dd class=\"last\">%s %s</dd>";
+    $html .= "\n                <dt>상세주소</dt>";
+    $html .= "\n                <dd class=\"last\">%s</dd>";
+} else { 
+    $html  = "\n                 <tr><th>업체/상호명</th>";
+    $html .= "\n                 <td class=\"bottom_border\">%s</td></tr>";
+    $html .= "\n                 <tr><th>담당자</th>";
+    $html .= "\n                 <td class=\"bottom_border\">%s</td></tr>";
+    $html .= "\n                 <tr><th>휴대전화</th>";
+    $html .= "\n                 <td class=\"bottom_border\">%s</td></tr>";
+    $html .= "\n                 <tr><th>일반전화</th>";
+    $html .= "\n                 <td class=\"bottom_border\">%s</td></tr>";
+    $html .= "\n                 <tr><th>주소</th>";
+    $html .= "\n                 <td class=\"bottom_border\">%s %s</td></tr>";
+    $html .= "\n                 <tr><th></th>";
+    $html .= "\n                 <td class=\"bottom_border\">%s</td></tr>";
+}
+
+$rs_html = sprintf($html, $rs->fields["dlvr_name"] ?? "&nbsp;"
+                        , $rs->fields["recei"] ?? "&nbsp;"
+                        , $rs->fields["cell_num"] ?? "&nbsp;"
+                        , $rs->fields["tel_num"] ?? "&nbsp;"
+                        , $rs->fields["zipcode"] ?? "&nbsp;"
+                        , $rs->fields["addr"] ?? "&nbsp;"
+                        , $rs->fields["addr_detail"] ?? "&nbsp;");
+
+$template->reg("dlvr", $rs_html); 
+
+// 배송유형안내
+include_once($_SERVER["DOCUMENT_ROOT"] . "/mypage22/direct_dlvr_info.php");
+
+if ($member_dvs == "기업") {
+    $param = [];
+    $param["member_seqno"] = $seqno;
+
+    $rs = $dao->getBuPerSeqno($conn, $param);
+
+    $bu_seqno = $seqno;
+    while ($rs && !$rs->EOF) {
+
+        $bu_seqno .= "," . $rs->fields["member_seqno"];
+        $rs->moveNext();
+    }
+}
+
+//1:1 문의
+$param = [];
+if ($member_dvs == "기업") {
+    $param["member_seqno"] = $bu_seqno;
+} else {
+    $param["member_seqno"] = $seqno;
+}
+
+$rs = $dao->selectOtoInquireSummary($conn, $param);
+
+$otoInquireHtml = "";
+$i = 0;
+$new = "";
+
+while ($rs && !$rs->EOF) {
+
+    //오늘날짜보다 차이 1일차면 new
+    if ( time() - strtotime($rs->fields["inq_date"]) < 60*60*24*1 ) 
+        $new = "new";
+    else
+        $new = "";
+
+    if ($rs->fields["answ_yn"] == "Y")
+        $class = "completed";
+    else 
+        $class = "waiting";
+
+    if ($member_seqno == "4305") {
+        $html = "\n <li class=\"%s %s\">비밀글입니다.</li>";
+        $html = sprintf($html, $class
+                             , $new);
+    } else {
+
+        $html = "\n   <li class=\"%s %s\"><a onclick=\"ftfView(%s)\">%s</a></li>";
+        $html = sprintf( $html
+                       , $class
+                       , $new 
+                       , $rs->fields["oto_inq_seqno"] 
+                       //, str_cut($rs->fields["title"], 0, 20, "..")
+                       , $rs->fields["title"]
+                );
+    } 
+
+    $otoInquireHtml .= $html;
+    $i++;
+    $rs->moveNext();
+}
+
+//$dlvr_list_template =
+$dlvr_list_template = "<tr>";
+$dlvr_list_template .= "    <td>%s</td>";
+$dlvr_list_template .= "    <td class=\"left\">%s</td>";
+$dlvr_list_template .= "    <td class=\"left\">%s</td>";
+$dlvr_list_template .= "    <td>%s</td>";
+$dlvr_list_template .= "    <td class=\"left\">[%s] %s</td>";
+$dlvr_list_template .= "</tr>";
+
+
+$rs = $dao->selectDlvrList($conn, $param);
+$cnt = $dao->selectFoundRows($conn);
+$ic = 0;
+$cnt_sum = $cnt -1;
+while ($rs && !$rs->EOF) {
+    $dlvr_list .=
+        sprintf(
+            $dlvr_list_template,
+            $cnt_sum--,
+            $rs->fields["dlvr_name"],
+            $rs->fields["recei"],
+            $rs->fields["cell_num"],
+            $rs->fields["zipcode"],
+            $rs->fields["addr"] . " " . $rs->fields["addr_detail"]
+        );
+    $rs->moveNext();
+	$ic = $ic+1;
+	if($ic == 5)
+    break;
+}
+$template->reg("dlvr_list", $dlvr_list);
+
+
+
+
+if ($otoInquireHtml == "") {
+    $otoInquireHtml = "<li class=\"noResult\">등록된 내용이 없습니다.</li>";
+}
+
+$template->reg("ftf", $otoInquireHtml); 
+
+//견적문의
+$param = [];
+if ($member_dvs == "기업") {
+    $param["member_seqno"] = $bu_seqno;
+} else {
+    $param["member_seqno"] = $seqno;
+}
+
+$rs = $dao->selectEstiSummary($conn, $param);
+
+$estiHtml = "";
+$i = 0;
+$new = "";
+$state_arr = $session["state_arr"];
+
+while ($rs && !$rs->EOF) {
+
+    //오늘날짜보다 차이 1일차면 new
+    if ( time() - strtotime($rs->fields["regi_date"]) < 60*60*24*1 ) 
+        $new = "new";
+    else
+        $new = "";
+
+    if ($rs->fields["state"] == $state_arr["견적완료"]) {
+        $class = "";
+    } else  {
+        $class = "waiting";
+    }
+
+    $date = explode(" ",$rs->fields["title"])[0];
+    $title = explode(" ", $rs->fields["title"])[1];
+
+    $html = "\n   <li class=\"%s %s\"><a onclick=\"estimateView(%s)\"><span class='date'>%s</span> %s</a></li>";
+    $html = sprintf( $html
+                   , $class
+                   , $new 
+                   , $rs->fields["esti_seqno"] 
+                   //, str_cut($rs->fields["title"], 0, 20, "..")
+                   , $date
+                   , $title
+            );
+
+    $estiHtml .= $html;
+    $i++;
+    $rs->moveNext();
+}
+
+if ($estiHtml == "") {
+    $estiHtml = "<li class=\"noResult\">등록된 내용이 없습니다.</li>";
+}
+
+$template->reg("esti", $estiHtml); 
+
+//인사
+$n = ceil(date("n"));
+$template->reg("greeting", GREETING[$n]); 
+
+//오늘
+$today = date("Y.m.d");
+
+//일주일전
+$a_week_ago = date("Y.m.d", mktime(0,0,0,date("m"), date("d")-6, date("Y")));
+
+$template->reg("period_from", $a_week_ago); 
+$template->reg("period_to", $today); 
+//기간
+$template->reg("period", $a_week_ago . " ~ " . $today); 
+
+//전체주문
+$param = [];
+if ($member_dvs == "기업") {
+    $param["member_seqno"] = $bu_seqno;
+} else {
+    $param["member_seqno"] = $seqno;
+}
+
+
+$not = $dao->arr2paramStr($conn, [$state_arr["주문취소"],
+                                  $state_arr["주문대기"]]);
+
+$param["not"] = $not;
+$param["from"] = $a_week_ago;
+$param["to"] = $today;
+
+$rs = $dao->selectOrderStatusCount($conn, $param);
+
+$tot_cnt = $rs->fields["cnt"];
+
+$param["not"] = "";
+
+//상태
+$state_rs = $dao->selectStateAdminDvs($conn);
+$count_arr = [];
+while ($state_rs && !$state_rs->EOF) {
+    $dvs = $state_rs->fields["dvs"];
+
+    $range = $dao->selectStateAdminRange($conn, $dvs);
+
+    $param["state_min"] = $range["min"];
+    $param["state_max"] = $range["max"];
+
+    $rs = $dao->selectOrderStatusCount($conn, $param);
+    $count_arr[$dvs] = $rs->fields["cnt"];
+
+    $state_rs->MoveNext();
+}
+// 장바구니
+$param["state_min"] = $state_arr["주문대기"];
+$param["state_max"] = $state_arr["주문대기"];
+$rs = $dao->selectOrderStatusCount($conn, $param);
+$count_arr["장바구니"] = $rs->fields["cnt"];
+
+$param["dvs"] = "COUNT";
+// 더이상 사용하지 않는 쿼리
+//$rs = $dao->selectOrderList($conn, $param);
+
+$param["count"] = $dao->selectFoundRows($conn);
+
+$param["member_dvs"] = $member_dvs;
+
+//주문 상태 HTML
+$param = [];
+$param["design_dir"] = "/design_template";
+$param["tot_cnt"] = $tot_cnt;
+
+$param["state_arr"] = $count_arr;
+
+$template->reg("order_status_html", orderStatus($param)); 
+$template->reg("dvs", $fb->form("dvs")); 
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/login_check.php");
+
+//회원 구분 체크
+include_once($_SERVER["DOCUMENT_ROOT"] . "/mypage22/member_dvs_check.php");
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "mypage"); 
+$template->reg("page", "main"); 
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path);
+$template->htmlPrint($html_path);
+
+$conn->Close();
+?>

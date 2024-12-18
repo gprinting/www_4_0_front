@@ -1,0 +1,134 @@
+<header>
+    <h2>직배송 신청</h2>
+    <button class="close" title="닫기"><img src="../../images/common/btn_circle_x_white.png" alt="X"></button>
+</header>
+<article>
+    <table class="input">
+        <colgroup>
+            <col width="120">
+            <col>
+        </colgroup>
+        <tbody>
+            <tr>
+                <th scope="row">아이디</th>
+                <td class="name"><input type="text" readonly></td>
+            </tr>
+            <tr>
+                <th scope="row">성명</th>
+                <td class="name"><input type="text" readonly></td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="input">
+        <caption class="h3">
+            <h3 class="withBtn">주소</h3>
+            <div class="btn">
+                <label><input type="radio" name="importType"> 회원정보와 동일</label>
+                <label><input type="radio" name="importType"> 새로운 정보 입력</label>
+                <button>나의 배송지 목록</button>
+            </div>
+        </caption>
+        <colgroup>
+            <col width="120">
+            <col>
+        </colgroup>
+        <tbody>
+            <tr>
+                <th scope="row">받으시는 분</th>
+                <td class="name"><input type="text"></td>
+            </tr>
+            <tr>
+                <th scope="row">전화번호</th>
+                <td>
+                    <select>
+                        <option>02</option>
+                    </select>
+                    <input type="text">
+                    <input type="text">
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">휴대전화</th>
+                <td>
+                    <select>
+                        <option>02</option>
+                    </select>
+                    <input type="text">
+                    <input type="text">
+                    <p class="note">연락처 번호와 휴대폰 번호 중 하나는 반드시 입력해야 합니다.</p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">배송지 주소</th>
+                <td>
+                    <div class="rowWrap">
+                        <input type="text" readonly>
+                        <input type="text" readonly>
+                        <button>우편번호 찾기</button>
+                    </div>
+                    <div class="rowWrap">
+                        <div class="inputWrap"><input type="text" class="address" readonly></div>
+                    </div>
+                    <div class="rowWrap">
+                        <div class="inputWrap"><input type="text" class="address"></div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="input keepingRequest">
+        <caption class="h3"><h3>보관요청 상세</h3></caption>
+        <colgroup>
+            <col width="120">
+            <col>
+        </colgroup>
+        <tbody>
+            <tr>
+                <th scope="row">배송예정시간</th>
+                <td>
+                    <select>
+                        <option>주간</option>
+                    </select>
+                    <select>
+                        <option>10~12시</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">인도 층수</th>
+                <td>
+                    <select>
+                        <option>지하 1층</option>
+                    </select>
+                    <select>
+                        <option>엘리베이터 있음</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">인도 장소</th>
+                <td>
+                    <select>
+                        <option>사무실</option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="input">
+        <colgroup>
+            <col width="120">
+            <col>
+        </colgroup>
+        <tbody>
+            <tr>
+                <th scope="row">주소 맵 파일</th>
+                <td><input type="file"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="function center">
+        <strong><button신청</button></strong>
+        <button onclick="confirmClosePopup(event, '입력하신 모든 내용이 사라집니다. 취소하시겠습니까?');">취소</button>
+    </div>
+</article>

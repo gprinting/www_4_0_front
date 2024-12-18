@@ -1,0 +1,64 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/order/CartDAO.inc");
+
+$frontUtil = new FrontCommonUtil();
+
+if ($is_login === false) {
+    $frontUtil->errorGoBack("로그인 후 확인 가능합니다.");
+    exit;
+}
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$fb = new FormBean();
+$dao = new CartDAO();
+
+// 180615 추가
+$session = $fb->getSession();
+if ($session["sync_flag"] == "Y") {
+    $template->reg("sync_flag", "Y");
+    $template->reg("member_seqno", $session["member_seqno"]);
+} else {
+    $template->reg("sync_flag", "N");
+    $template->reg("member_seqno", '');
+}
+
+// 마이페이지 공통 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/mypage/info/common_info.php");
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+//회원 구분 체크
+include_once($_SERVER["DOCUMENT_ROOT"] . "/mypage/member_dvs_check.php");
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "mypage"); 
+$template->reg("page", "cart"); 
+
+$template->reg("file_pop_title", "재업로드"); 
+
+$onefile_html = '';
+if ($fb->session("onefile_etprs_yn") === 'Y') {
+    $onefile_html = <<<html
+        <button style="padding:0;" class="function" onclick="showBundleUploadPop();">선택 상품<br/>파일 일괄업로드</button>
+        <button style="padding:0;" class="function" onclick="delCartFile();">선택 상품<br/>파일 일괄삭제</button>
+html;
+
+}
+$template->reg("onefile_html", $onefile_html);
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path);
+$template->htmlPrint($html_path);
+
+$conn->Close();
+?>

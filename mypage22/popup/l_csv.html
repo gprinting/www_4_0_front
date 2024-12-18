@@ -1,0 +1,31 @@
+<?
+$html = <<<html
+    <header class="popup upload">
+        <h2>csv 파일 업로드</h2>
+        <button class="close" title="닫기">닫기</button>
+    </header>
+    <article>
+        <form id="csv_frm" action="/mypage/deal_csv.php" method="post" enctype="multipart/form-data">
+            <input type="file" name="csv" id="file_csv" class="full">
+        </form>
+        <iframe id="submit_ifr" name="submit_ifr" width="0" height="0" style="display:none;"></iframe>
+        <hr class="end">
+        <footer class="action">
+            <button type="button" class="progress" onclick="submitBtn();">업로드</button>
+            <button type="button" class="close">취소</button>
+        </footer>
+        <!--
+        <div class="layerPopup_contents">
+            <div class="textareaWrap">
+                <form id="csv_frm" action="/mypage/deal_csv.php" method="post" enctype="multipart/form-data">
+                    <input type="file" name="csv" id="file_csv">
+                    <input type="button" value="업로드" onclick="submitBtn();">
+                </form>
+            </div>
+        </div>
+        -->
+    </article>
+html;
+
+echo $html;
+?>

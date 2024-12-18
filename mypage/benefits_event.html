@@ -1,0 +1,54 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/MemberInfoDAO.inc");
+
+if ($is_login === false) {
+    header("Location: /main/main.html");
+    exit;
+}
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new MemberInfoDAO();
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+//회원 구분 체크
+include_once($_SERVER["DOCUMENT_ROOT"] . "/mypage/member_dvs_check.php");
+
+//등급명
+$template->reg("grade_name_en", $fb->session("grade_name_en")); 
+
+//참여중인 이벤트 건수
+$param = array();
+$param["member_seqno"] = $fb->session("org_member_seqno");
+
+$rs = $dao->selectJoinEventCount($conn, $param);
+
+$template->reg("join_event", number_format($rs->fields["cnt"])); 
+
+//보유 포인트
+$template->reg("own_point", number_format($fb->session("own_point"))); 
+
+//보유쿠폰
+$template->reg("cp_count", number_format($fb->session("cp_count"))); 
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "mypage"); 
+$template->reg("page", "benefits_event"); 
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path);
+$template->htmlPrint($html_path);
+
+$conn->Close();
+?>

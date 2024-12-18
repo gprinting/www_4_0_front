@@ -1,0 +1,174 @@
+<?
+header("Cache-Control: no-cache, must-revalidate");
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/common/FrontCommonDAO.inc");
+
+if ($is_login === false) {
+    $frontUtil->errorGoBack("로그인 후 확인 가능합니다.");
+    exit;
+}
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new FrontCommonDAO();
+
+//$conn->debug=1;
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/login_check.php");
+
+//회원 구분 체크
+include_once($_SERVER["DOCUMENT_ROOT"] . "/mypage22/member_dvs_check.php");
+
+$member_dvs = $fb->session("member_dvs");
+
+$order_seqno = $fb->form("order_seqno");
+$template->reg("order_seqno", $order_seqno); 
+
+$dvs  = urldecode($fb->form("dvs"));
+$from = $fb->form("from");
+$to   = $fb->form("to");
+
+if (empty($from)) {
+    $from = date("Y-m-d", strtotime("-7 day"));
+} else if ($from !== "NONE") {
+    $from = str_replace('.', '-', $from);
+}
+if (empty($to)) {
+    $to = date("Y-m-d");
+} else if ($to !== "NONE") {
+    $to = str_replace('.', '-', $to);
+}
+
+$template->reg("from", $from); 
+$template->reg("to", $to); 
+
+$state_arr = [
+     "주문","입금","접수","조판","출력"
+    ,"인쇄","후가공","입고","출고","배송","완료"
+];
+$state_arr_num = [
+     "1120","1220","1320","2120","2210"
+    ,"2310","2720","3120","3230","3330","3380"
+];
+
+
+$html = <<<HTML
+            <colgroup>
+                <col class="date">
+				<col class="date">
+                <col class="orderId">
+                <col class="orderDetail">
+                <col class="amount">
+                <col class="price">
+                <col class="status">
+                <col class="status">
+                <col class="btn">
+            </colgroup>
+            <thead id="list">
+                <tr>
+					<th>번호</th>
+					<th>주문일</th>
+                    <th>주문번호</th>
+                    <th class="left">상품정보</th>
+                    <th class="amount">수량(건)</th>
+                    <th class="price">결제금액</th>
+                    <th>진행상태</th>
+                    <th>배송유형</th>
+                    <th>관리</th>
+                </tr>
+            </thead>
+HTML;
+
+
+if ($member_dvs == "aaaaaaaaaa") {
+    $html = <<<HTML
+                <colgroup>
+                    <col style="width:40px">
+                    <col style="width:90px">
+                    <col style="width:130px">
+                    <col style="width:80px">
+                    <col>
+                    <col style="widch:75px">
+                    <col style="width:80px">
+                    <col style="width:80px">
+                    <col style="width:80px">
+                    <col style="width:40px">
+                </colgroup>
+                <thead id="list">
+                    <tr>
+                        <th>번호</th>
+                        <th>주문일</th>
+                        <th>주문번호</th>
+                        <th>주문자</th>
+                        <th>인쇄물제목</th>
+                        <th>상품정보</th>
+                        <th>수량(건)</th>
+                        <th>결제금액</th>
+                        <th>진행상태</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+HTML;
+}
+$template->reg("member_dvs", $member_dvs); 
+$template->reg("html", $html); 
+
+// 주문상태값
+$selected = '';
+if (empty($dvs)) {
+    $selected = "selected=\"selected\"";
+}
+$order_state = option("전체", '', $selected);
+
+foreach ($state_arr as $key => $state) {
+    $selected = '';
+    if ($state === $dvs) {
+        $selected = "selected=\"selected\"";
+    }
+    $order_state .= option($state, $state, $selected);
+}
+$template->reg("order_state", $order_state); 
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "mypage"); 
+$template->reg("page", "order_all"); 
+
+$template->reg("file_pop_title", "파일재전송"); 
+
+include_once($_SERVER["DOCUMENT_ROOT"] . "/mypage22/common/common_info.php");
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path);
+$template->htmlPrint($html_path);
+
+// 배송중 세션값 변경
+$param = [];
+$param["seqno"] = $fb->session("org_member_seqno");
+$param["order_state"] = $fb->session("state_arr")["배송중"];
+
+$rs = $dao->selectOrderListByState($conn, $param);
+$count = $dao->selectFoundRows($conn);
+
+$prdt_arr = [];
+while ($rs && !$rs->EOF) {
+    $fields = $rs->fields;
+
+    $prdt_arr[$fields["title"]] = $fields["title"];
+
+    $rs->MoveNext();
+}
+
+$fb->addSession("dlvr_prdt_count", $count);
+$fb->addSession("dlvr_prdt", $prdt_arr);
+
+$conn->Close();
+?>

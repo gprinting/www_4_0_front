@@ -1,0 +1,40 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/entity/FormBean.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$fb = new FormBean();
+
+$param = array();
+$param["member_seqno"] = $fb->session("org_member_seqno");
+
+$html = <<<html
+    <button class="btn_popup_close close" title="닫기"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+    <div class="inner_padding">
+        <div class="layerPopup">
+            <div>
+                <h2>이메일상담</h2>
+            </div>
+            <div class="layerPopup_contents">
+                <div>
+                    <div class="textareaWrap">
+                        <input id="mail_address" class="input_login_id" type="text" placeholder="메일주소를 입력해주세요.">
+                        <input id="member_name" class="input_login_id" type="text" placeholder="성함을 입력해주세요.">
+                        <input id="member_call" class="input_login_id" type="text" placeholder="연락처를 입력해주세요.(- 제외, 숫자만 입력 가능합니다.)" onkeydown="onlyNumber(event);">
+                        <textarea id="mail_content" placeholder="내용을 입력해주세요."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="btn_wrapper">
+                <strong id="send_btn"><button type="button" class="btn_type_02" onclick="send();">보내기</button></strong>
+                <button type="button" class="btn_type_01 close">취소</button>
+            </div>
+        </div>
+    </div>
+html;
+
+echo $html;
+?>

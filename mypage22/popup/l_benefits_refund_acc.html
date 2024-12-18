@@ -1,0 +1,46 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/entity/FormBean.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/MemberInfoDAO.inc");
+
+if ($is_login === false) {
+    header("Location: /main/main.html");
+    exit;
+}
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+//$conn->debug = 1;
+$template = new Template();
+$dao = new MemberInfoDAO();
+$fb = new FormBean();
+
+$session = $fb->getSession();
+$member_seqno = $session["member_seqno"];
+
+$refund_max = 0;
+
+$param = [];
+$param["member_seqno"] = $member_seqno;
+
+$id = $_SESSION["id"];
+$rs     = $dao->selectPrepayPrice($conn, $id);
+$fields = $rs->fields;
+$prepay_price = doubleval($fields[0]);
+
+if ($rs) {
+    $refund_max = $prepay_price;
+}
+
+$template->reg("refund_max", $refund_max); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

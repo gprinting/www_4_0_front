@@ -1,0 +1,31 @@
+<button class="btn_popup_close close" title="닫기"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+<div class="inner_padding">
+    <div class="layerPopup">
+        <div>
+            <h2>재주문</h2>
+        </div>
+        <div class="layerPopup_contents">
+            <em class="text_st_01">재주문 하시겠습니까?</em>
+            <div style="margin-bottom:20px;">
+                <ul class="amount">
+                    <li>
+                        <input type="radio" id="reorder_prepay" name="reorder_payway" value="prepay" checked>
+                        <label for="reorder_prepay" onclick="checkedPayway(this);" class="reorder_payway checked">선입금</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="reorder_card" name="reorder_payway" value="card">
+                        <label for="reorder_card" onclick="checkedPayway(this);" class="reorder_payway">카드</label>
+                    </li>
+                </ul>
+            </div>
+            <ul class="hyphen notice">
+                <li>결제방법이 카드일시 확인 버튼을 누르시면 결제창으로 연결됩니다.</li>
+                <li>선입금이 있을시에는 확인 버튼을 누르시면 바로 결제가 됩니다.</li>
+            </ul>
+        </div>
+        <div class="btn_wrapper">
+            <button type="button" class="btn_type_02" onclick="chkReOrder();">확인</button>
+            <button type="button" class="btn_type_01 close">취소</button>
+        </div>
+    </div>
+</div>

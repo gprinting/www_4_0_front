@@ -1,0 +1,108 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/OtoInqMngDAO.inc");
+
+if ($is_login === false) {
+    header("Location: /main/main.html");
+    exit;
+}
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new OtoInqMngDAO();
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+// 문의영역
+$param = array();
+$param["oto_inq_seqno"] = $fb->form("seq");
+$rs = $dao->selectOtoInqCont($conn, $param); 
+$template->reg("title", $rs->fields["title"]);
+$template->reg("inq_typ", $rs->fields["inq_typ"]);
+$template->reg("member_name", $rs->fields["member_name"]);
+$template->reg("tel_num", $rs->fields["tel_num"]);
+$template->reg("cell_num", $rs->fields["cell_num"]);
+$inq_cont =  str_replace("\n","<br>", $rs->fields["cont"]);
+if (!$inq_cont)
+    $inq_cont = "등록된 문의내용이 없습니다.";
+$template->reg("cont", $inq_cont);
+$template->reg("mail", $rs->fields["mail"]);
+if ($rs->fields["answ_yn"] == "Y" && $rs->fields["answ_mail_yn"] == "Y")
+    $template->reg("answ_mail", "<p class=\"note\">답변내용을 이메일로 발송했습니다.</p>");
+
+$param = array();
+$param["table"] = "oto_inq_file";
+$param["col"] = "origin_file_name, oto_inq_file_seqno";
+$param["where"]["oto_inq_seqno"] = $fb->form("seq");
+$inq_file_rs = $dao->selectData($conn, $param);
+
+$inq_file_html = "";
+if (!$inq_file_rs->EOF == 1) {
+    while ($inq_file_rs && !$inq_file_rs->EOF) {
+
+        $inq_file_html .= "<div class=\"fileWrap\"><a href=\"/common/ftf_file_down.php?seqno=";
+        $inq_file_html .= $inq_file_rs->fields["oto_inq_file_seqno"]."\">";
+        $inq_file_html .= $inq_file_rs->fields["origin_file_name"]."</a>";
+
+        $inq_file_rs->moveNext();
+    }
+} else {
+
+    $inq_file_html .= "<div class=\"fileWrap\">";
+    $inq_file_html .= "첨부파일이 없습니다.";
+
+}
+$template->reg("inq_file_html", $inq_file_html);
+
+//답변영역
+$param = array();
+$param["oto_inq_seqno"] = $fb->form("seq");
+$reply_rs = $dao->selectOtoReplyCont($conn, $param); 
+$answ_cont =  str_replace("\n","<br>", $reply_rs->fields["cont"]);
+if (!$answ_cont)
+    $answ_cont = "등록된 답변이 없습니다.";
+$template->reg("answ_cont", $answ_cont);
+
+$param = array();
+$param["table"] = "oto_inq_reply_file";
+$param["col"] = "origin_file_name, oto_inq_reply_file_seqno";
+$param["where"]["oto_inq_reply_seqno"] = $reply_rs->fields["oto_inq_reply_seqno"];
+$reply_file_rs = $dao->selectData($conn, $param);
+
+$reply_file_html = "";
+while ($reply_file_rs && !$reply_file_rs->EOF) {
+    $reply_file_html .= "<div class=\"fileWrap\"><a href=\"/common/admin_ftf_file_down.php?seqno=";
+    $reply_file_html .= $reply_file_rs->fields["oto_inq_reply_file_seqno"]."\">";
+    $reply_file_html .= $reply_file_rs->fields["origin_file_name"]."</a>";
+    $reply_file_rs->moveNext();
+}
+
+if (!$reply_file_html) {
+    $reply_file_html .= "<div class=\"fileWrap\">";
+    $reply_file_html .= "첨부파일이 없습니다.";
+}
+
+$template->reg("reply_file_html", $reply_file_html);
+$template->reg("req_seq", $fb->form("seq"));
+$template->reg("searchParam", $fb->form("searchParam")); 
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "mypage"); 
+$template->reg("page", "ftf_list"); 
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path);
+$template->htmlPrint($html_path);
+
+$conn->Close();
+?>
+

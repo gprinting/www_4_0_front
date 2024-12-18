@@ -1,0 +1,87 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/MemberDlvrDAO.inc");
+
+if (!$is_login) {
+    header("Location: /main/main.html");
+    exit;
+}
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$dao = new MemberDlvrDAO();
+
+$session = $fb->getSession();
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+//$conn->debug = 1;
+// 기존 직배정보 있는지 검사하고 없으면 회원 기본배송지 정보 가져옴
+$member_seqno = $session["member_seqno"];
+$rs = $dao->selectDirectDlvrReq($conn, $member_seqno);
+
+if ($rs->EOF) {
+    $rs = $dao->selectBasicDlvr($conn, ["seqno" => $member_seqno]);
+}
+
+$rs = $rs->fields;
+
+$id   = $session["id"];
+$name = $session["name"];
+
+$zipcode     = $rs["zipcode"];
+$addr        = $rs["addr"];
+$addr_detail = $rs["addr_detail"];
+$add_info    = $rs["add_info"];
+
+$start_period = new DateTime();
+// 조건식 필요할듯
+$start_period->add(new DateInterval("P1D"));
+// 조건식 필요할듯
+$start_period = $start_period->format("Y-m-d");
+$end_period   = date("Y-m-t");
+
+$tel_num  = explode('-', $rs["tel_num"]);
+$cell_num = explode('-', $rs["cell_num"]);
+
+$vehi_num = $rs["vehi_num"];
+$mng      = $rs["mng"];
+
+$template->reg("id"  , $id);
+$template->reg("name", $name);
+
+$template->reg("zipcode"    , $zipcode);
+$template->reg("addr"       , $addr);
+$template->reg("addr_detail", $addr_detail);
+$template->reg("add_info"   , $add_info);
+
+$template->reg("start_period", $start_period);
+$template->reg("end_period"  , $end_period);
+
+$template->reg("tel_num1" , $tel_num[0]);
+$template->reg("tel_num2" , $tel_num[1]);
+$template->reg("tel_num3" , $tel_num[2]);
+$template->reg("cell_num1", $cell_num[0]);
+$template->reg("cell_num2", $cell_num[1]);
+$template->reg("cell_num3", $cell_num[2]);
+
+//$template->reg("vehi_num", $vehi_num);
+//$template->reg("mng"     , $mng);
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "mypage"); 
+$template->reg("page", "add_dlvr"); 
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path);
+$template->htmlPrint($html_path);
+
+$conn->Close();
+?>

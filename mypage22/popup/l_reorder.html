@@ -1,0 +1,30 @@
+<header class="popup">
+    <h2>재주문</h2>
+</header>
+<article>
+    <p class="boxM">재주문 하시겠습니까?</p>
+    <ul class="function">
+        <li>
+            <label class="radio">
+                <input type="radio" id="reorder_prepay" name="reorder_payway" value="prepay" checked>
+                <i><i></i></i>
+                선입금
+            </label>
+        </li>
+        <li>
+            <label class="radio">
+                <input type="radio" id="reorder_card" name="reorder_payway" value="card">
+                <i><i></i></i>
+                카드
+            </label>
+        </li>
+    </ul>
+    <footer class="action">
+        <button type="button" class="exe" onclick="chkReOrder();">확인</button>
+        <button type="button" class="close">취소</button>
+    </footer>
+    <ul class="guide">
+        <li>결제방법이 카드일시 확인 버튼을 누르시면 결제창으로 연결됩니다.</li>
+        <li>선입금이 있을시에는 확인 버튼을 누르시면 바로 결제가 됩니다.</li>
+    </ul>
+</article>

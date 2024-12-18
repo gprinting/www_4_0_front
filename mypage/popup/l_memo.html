@@ -1,0 +1,47 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/entity/FormBean.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/OrderInfoDAO.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$fb = new FormBean();
+$orderDAO = new OrderInfoDAO();
+
+$seqno = $fb->form("order_seqno");
+//$conn->debug = 1;
+
+$param = array();
+$param["member_seqno"] = $fb->session("org_member_seqno");
+$param["order_seqno"]  = $seqno;
+$result = $orderDAO->selectOrderMemo($conn, $param);
+
+
+$memo = htmlspecialchars_decode($result->fields["cust_memo"], ENT_QUOTES);
+$memo = nl2br($memo);
+
+$html = <<<html
+
+    <button class="btn_popup_close close" title="닫기"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+    <div class="inner_padding">
+        <div class="layerPopup">
+            <div>
+                <h2>메모</h2>
+            </div>
+            <div class="layerPopup_contents">
+                <div class="textareaWrap">
+                    <textarea id="cust_memo">{$memo}</textarea>
+                </div>
+            </div>
+            <div class="btn_wrapper">
+                <button type="button" class="btn_type_01" onclick="modiMemo('{$seqno}');">수정하기</button>
+                <button type="button" class="btn_type_02 close">닫기</button>
+            </div>
+        </div>
+    </div>
+html;
+
+echo $html;
+?>

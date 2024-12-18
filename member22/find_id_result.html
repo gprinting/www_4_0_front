@@ -1,0 +1,76 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/member/MemberFindIdDAO.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new MemberFindIdDAO();
+
+$member_seqno = $fb->form("seqno");
+$dvs = $fb->form("dvs");
+
+if (!$member_seqno || !$dvs) {
+    $util->errorGoBack("잘못 된 접근입니다.");
+    exit;
+}
+
+$param = array();
+$param["seqno"] = $member_seqno;
+
+$rs = $dao->selectFindIdInfo($conn, $param);
+
+$byInfo_html = "<p class=\"byInfo\">\n<strong>%s / %s</strong>으로 찾은 아이디입니다.<br>\n</p>";
+$byCertification_html = "<p class=\"byCertification\">\n<strong>%s 본인인증</strong>으로 찾은 아이디입니다.\n</p>";
+
+$result_html = "";
+
+if ($dvs == 1) {
+    $result_html = sprintf($byInfo_html, $rs->fields["member_name"]
+                                       , $rs->fields["cell_num"]);
+} else if ($dvs == 2) {
+    $result_html = sprintf($byInfo_html, $rs->fields["member_name"]
+                                       , $rs->fields["mail"]);
+} else if ($dvs == 3) {
+    $result_html = sprintf($byCertification_html, "아이핀");
+} else if ($dvs == 4) {
+    $result_html = sprintf($byCertification_html, "휴대폰");
+}
+
+$template->reg("result_html", $result_html); 
+
+$member_id = $rs->fields["member_id"];
+$member_id = substr($member_id, 0, -4);
+
+$template->reg("member_id", $member_id . "****"); 
+
+$rs_date = $rs->fields["first_join_date"];
+
+$date = "";
+$year = substr($rs_date, 0, 4) . "년 ";
+$month = substr($rs_date, 5, 2) . "월 ";
+$day = substr($rs_date, 8, 2) . "일";
+
+$date = $year . $month . $day;
+
+$template->reg("join_date", $date); 
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "member"); 
+$template->reg("page", "find_id_result"); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

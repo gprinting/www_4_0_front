@@ -1,0 +1,51 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/common_define/common_info.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/MemberInfoDAO.inc");
+
+if ($is_login === false) {
+    header("Location: /main/main.html");
+    exit;
+}
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new MemberInfoDAO();
+
+$html = "\n<option value=\"%s\">%s</option>";
+
+//이메일
+$email_html = "";
+foreach (EMAIL_DOMAIN as $val) {
+    $email_html .= sprintf($html, $val, $val);
+}
+
+$template->reg("email_html", $email_html); 
+//전화번호
+$tel_html = "";
+foreach (TEL_NUM as $val) {
+    $tel_html .= sprintf($html, $val, $val);
+}
+
+$template->reg("tel_html", $tel_html); 
+//휴대폰 번호
+$cel_html = "";
+foreach (CEL_NUM as $val) {
+    $cel_html .= sprintf($html, $val, $val);
+}
+
+$template->reg("cel_html", $cel_html); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

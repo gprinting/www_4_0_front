@@ -1,0 +1,54 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+
+if ($is_login === false) {
+    header("Location: /main/main.html");
+    exit;
+}
+
+$local = $fb->form("local");
+
+$close_btn = <<<HTML
+    <button class="close">닫기</button>
+HTML;
+
+$noti1 = <<<HTML
+    <span>
+        <img src="/design_template/images/main/notice.png">
+    </span>
+
+HTML;
+
+$noti2 = <<<HTML
+    <ul class="guide"><li>은행을 변경하여 등록 하면 <strong>기존 계좌정보는 삭제</strong>됩니다.</li></ul>
+HTML;
+
+$template = new Template();
+
+if ($local == "main") {
+    $template->reg("style", "style=\"height:400px;\""); 
+    $template->reg("noti1", $noti1); 
+    $template->reg("noti2", ""); 
+    $template->reg("btn_name", "설정"); 
+    $template->reg("local", "/main/main.html"); 
+} else if ($local == "modify") {
+    $template->reg("style", "style=\"height:354px;\""); 
+    $template->reg("noti1", $noti1); 
+    $template->reg("noti2", ""); 
+    $template->reg("btn_name", "설정"); 
+    $template->reg("local", "/mypage/member_modify.html"); 
+} else {
+    $template->reg("close_btn", $close_btn); 
+    $template->reg("noti1", ""); 
+    $template->reg("noti2", $noti2); 
+    $template->reg("btn_name", "변경"); 
+    $template->reg("local", "/mypage/member_modify.html"); 
+}
+
+$template->reg("url", $_SERVER["HTTP_HOST"]); 
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+?>

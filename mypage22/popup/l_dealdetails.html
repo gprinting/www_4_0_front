@@ -1,0 +1,213 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/entity/FormBean.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/PaymentInfoDAO.inc");
+include_once(INC_PATH . "/common_define/cpn_info_define.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$fb = new FormBean();
+$dao = new PaymentInfoDAO();
+
+if (!$fb->form("from") || !$fb->form("to")) {
+    exit;
+}
+
+$session = $fb->getSession();
+$seqno = $session["org_member_seqno"];
+
+$cpn_admin_seqno = $session["sell_site"];
+$member_dvs = $session["member_dvs"];
+$state_arr = $session["state_arr"];
+
+//공급자
+/*
+$param = array();
+$param["table"] = "cpn_admin";
+$param["col"] = "sell_site, licensee_num, repre_name, addr, addr_detail, bc, tob";
+$param["where"]["cpn_admin_seqno"] = $cpn_admin_seqno;
+
+$rs = $dao->selectData($conn, $param);
+
+$template->reg("sell_site", $rs->fields["sell_site"]); 
+$template->reg("licensee_num", $rs->fields["licensee_num"]); 
+$template->reg("repre_name", $rs->fields["repre_name"]); 
+$template->reg("addr", $rs->fields["addr"]); 
+$template->reg("addr_detail", $rs->fields["addr_detail"]); 
+$template->reg("bc", $rs->fields["bc"]); 
+$template->reg("tob", $rs->fields["tob"]); 
+*/
+
+$template->reg("name", BASIC_COM_INFO["name"]); 
+$template->reg("licensee_num", BASIC_COM_INFO["licensee_num"]); 
+$template->reg("repre_name", BASIC_COM_INFO["repre_name"]); 
+$template->reg("addr", BASIC_COM_INFO["addr"]); 
+
+//공급받는자
+if ($member_dvs == "개인" /*|| $member_dvs == "외국인"*/) {
+
+    $template->reg("ed_licensee_num", ""); 
+    $template->reg("ed_sell_site", $session["member_name"]); 
+    $template->reg("ed_repre_name", $session["member_name"]); 
+    $template->reg("ed_addr", $session["addr"]); 
+    $template->reg("ed_addr_detail", $session["addr_detail"]); 
+    $template->reg("ed_bc", ""); 
+    $template->reg("ed_tob", ""); 
+
+} else {
+    $param = array();
+    $param["table"] = "licensee_info";
+    $param["col"] = "corp_name, crn, repre_name, addr, addr_detail, bc, tob";
+    $param["where"]["member_seqno"] = $session["member_seqno"];
+
+    $rs = $dao->selectData($conn, $param);
+
+    $template->reg("ed_licensee_num", $rs->fields["crn"]); 
+    $template->reg("ed_sell_site", $rs->fields["corp_name"]); 
+    $template->reg("ed_repre_name", $rs->fields["repre_name"]); 
+    $template->reg("ed_addr", $rs->fields["addr"]); 
+    $template->reg("ed_addr_detail", $rs->fields["addr_detail"]); 
+    $template->reg("ed_bc", $rs->fields["bc"]); 
+    $template->reg("ed_tob", $rs->fields["tob"]); 
+}
+
+$dateHtml = $fb->form("from") . " ~ " . $fb->form("to");
+
+$origin_from = $fb->form("from");
+$origin_to = $fb->form("to");
+
+$param = array();
+$param["from"] = $origin_from;
+$param["to"] = $origin_to;
+$param["member_seqno"] = $seqno;
+$param["order_state"] = $state_arr["주문취소"];
+$param["type"] = "";
+//총매출액, 에누리, 순매출액
+$p_rs = $dao->selectTransactionPrice($conn, $param);
+//입금액, 일일잔액
+$d_rs = $dao->selectDepoBalancePrice($conn, $param);
+$param["type"] = "BALANCE";
+$b_rs = $dao->selectDepoBalancePrice($conn, $param);
+
+$total_sell_price = $p_rs->fields["sell_price"];
+$total_sale_price = $p_rs->fields["sale_price"];
+$total_pay_price = $p_rs->fields["pay_price"];
+$total_adjust_price = $p_rs->fields["pay_price"];
+$total_depo_price = $d_rs->fields["depo_price"];
+$total_prepay_bal = $b_rs->fields["prepay_bal"];
+
+$date = explode("-" , $origin_from);
+
+$isFirst = false;
+$list = array();
+
+unset($p_rs);
+unset($d_rs);
+unset($b_rs);
+
+$i = 0;
+$html_cnt = 0;
+
+while(1) {
+    $from = date("Y-m-d", mktime(0,0,0,$date[1], $date[2]+$i, $date[0])); 
+
+    if ( $from > $origin_to ) {
+        break;
+    }
+
+    $param = array();
+    $param["from"] = $from;
+    $param["to"] = $from;
+    $param["member_seqno"] = $seqno;
+    $param["order_state"] = $state_arr["주문취소"];
+ 
+    $param["type"] = "";
+    $rs = $dao->selectTransactionalInfoList($conn, $param);
+    //총매출액, 에누리, 순매출액
+    $p_rs = $dao->selectTransactionPrice($conn, $param);
+    //입금액, 일일잔액
+    $d_rs = $dao->selectDepoBalancePrice($conn, $param);
+    $param["type"] = "BALANCE";
+    $b_rs = $dao->selectDepoBalancePrice($conn, $param);
+
+    if ($rs->recordCount() > 0) {
+        if (!$isFirst) {
+            $isFirst = "Y";
+        }
+        $isExist = true;
+        $html_cnt++;
+    } else {
+        $isExist = false;
+    }
+
+    if ($isExist) {
+        $list[$i]  = "\n<table class=\"information_chart\">";
+        $list[$i] .= "\n    <colgroup>";
+        $list[$i] .= "\n        <col width=\"40\">";
+        $list[$i] .= "\n        <col width=\"50\">";
+        $list[$i] .= "\n        <col width=\"90\">";
+        $list[$i] .= "\n        <col width=\"350\">";
+        $list[$i] .= "\n        <col width=\"70\">";
+        $list[$i] .= "\n        <col width=\"20\">";
+        $list[$i] .= "\n        <col width=\"80\">";
+        $list[$i] .= "\n        <col width=\"60\">";
+        $list[$i] .= "\n        <col width=\"80\">";
+        $list[$i] .= "\n    </colgroup>";
+
+        if ($isFirst == "Y") {
+            $list[$i] .= "\n    <thead>";
+            $list[$i] .= "\n        <tr>";
+            $list[$i] .= "\n            <td>No</td>";
+            $list[$i] .= "\n            <td>일자</td>";
+            $list[$i] .= "\n            <td>제작물내용</td>";
+            $list[$i] .= "\n            <td>재질 및 규격</td>";
+            $list[$i] .= "\n            <td>수량</td>";
+            $list[$i] .= "\n            <td>건</td>";
+            $list[$i] .= "\n            <td>공급가액</td>";
+            $list[$i] .= "\n            <td>에누리</td>";
+            $list[$i] .= "\n            <td>순매출액</td>";
+            $list[$i] .= "\n        </tr>";
+            $list[$i] .= "\n    </thead>";
+            $isFirst = "N";
+        }
+        $list[$i] .= "\n    <tbody>";
+        $list[$i] .= makeTransactionPrintHtml($rs, $i);
+        $list[$i] .= "\n    </tbody>";
+        $list[$i] .= makeTransactionPriceHtml($p_rs, $d_rs, $b_rs);
+        $list[$i] .= "\n</table>";
+    }
+
+    $i++;
+}
+
+$listHtml = "";
+for ($j=0; $j<=$i-1; $j++) {
+
+    $listHtml .= $list[$j];
+}
+
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+//design_dir 경로
+$template->reg("date", $dateHtml); 
+$template->reg("list", $listHtml); 
+$template->reg("sell_price", number_format($total_sell_price)); 
+$template->reg("sale_price", number_format($total_sale_price));
+$template->reg("adjust_price", number_format($total_adjust_price));
+$template->reg("pay_price", number_format($total_pay_price)); 
+$template->reg("depo_price", number_format($total_depo_price)); 
+$template->reg("prepay_bal", number_format($total_prepay_bal)); 
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

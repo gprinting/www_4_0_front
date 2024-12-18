@@ -1,0 +1,101 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/common_define/common_info.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/MemberInfoDAO.inc");
+
+if ($is_login === false) {
+    header("Location: /main/main.html");
+    exit;
+}
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new MemberInfoDAO();
+
+$param = array();
+$param["table"] = "accting_mng";
+$param["col"] = "name ,posi ,mail 
+,tel_num ,cell_num";
+$param["where"]["accting_mng_seqno"] = $fb->form("seq");
+
+$rs = $dao->selectData($conn, $param);
+
+$template->reg("name", $rs->fields["name"]); 
+$template->reg("posi", $rs->fields["posi"]); 
+$template->reg("accting_mng_seqno", $fb->form("seq"));
+
+//전화번호
+$tel_num = explode("-", $rs->fields["tel_num"]);
+$tel_num1 = $tel_num[0];
+$tel_num2 = $tel_num[1];
+$tel_num3 = $tel_num[2];
+
+$template->reg("tel_num2", $tel_num2); 
+$template->reg("tel_num3", $tel_num3); 
+
+//휴대전화
+$cell_num = explode("-", $rs->fields["cell_num"]);
+$cel_num1 = $cell_num[0];
+$cel_num2 = $cell_num[1];
+$cel_num3 = $cell_num[2];
+
+$template->reg("cel_num2", $cel_num2); 
+$template->reg("cel_num3", $cel_num3); 
+
+//메일
+$email = explode("@", $rs->fields["mail"]);
+$email_addr = $email[0];
+$email_domain = $email[1];
+
+$template->reg("email_addr", $email_addr); 
+$template->reg("email_domain", $email_domain); 
+
+$option_html = "\n<option value=\"%s\"%s>%s</option>";
+
+//이메일
+$email_html = "";
+foreach (EMAIL_DOMAIN as $val) {
+    $selected = "";
+    if ($val == $email_domain) {
+        $selected = " selected=\"selected\"";
+    }
+    $email_html .= sprintf($option_html, $val, $selected ,$val);
+}
+
+$template->reg("email_html", $email_html); 
+//전화번호
+$tel_html = "";
+foreach (TEL_NUM as $val) {
+    $selected = "";
+    if ($val == $tel_num1) {
+        $selected = " selected=\"selected\"";
+    }
+    $tel_html .= sprintf($option_html, $val, $selected, $val);
+}
+
+$template->reg("tel_html", $tel_html); 
+//휴대폰 번호
+$cel_html = "";
+foreach (CEL_NUM as $val) {
+    $selected = "";
+    if ($val == $cel_num1) {
+        $selected = " selected=\"selected\"";
+    }
+    $cel_html .= sprintf($option_html, $val, $selected, $val);
+}
+
+$template->reg("cel_html", $cel_html); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

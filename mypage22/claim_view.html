@@ -1,0 +1,154 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/sess_common.php");
+include_once(INC_PATH . "/common_define/common_info.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/entity/FormBean.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/ClaimInfoDAO.inc");
+
+if ($is_login === false) {
+    header("Location: /main/main.html");
+    exit;
+}
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$fb = new FormBean();
+print_r($fb);
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new ClaimInfoDAO();
+
+$conn->debug = 1;
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/login_check.php");
+
+//회원 구분 체크
+include_once($_SERVER["DOCUMENT_ROOT"] . "/mypage22/member_dvs_check.php");
+
+$param = array();
+$param["order_claim_seqno"] = $fb->form("order_claim_seqno");
+
+$rs = $dao->selectClaimView($conn, $param);
+
+$order_common_seqno = $rs->fields["order_common_seqno"];
+$template->reg("order_claim_seqno", $fb->form("order_claim_seqno")); 
+$template->reg("claim_title", $rs->fields["claim_title"]); 
+$template->reg("dvs", $rs->fields["dvs"]); 
+$template->reg("sample_origin_file_name", $rs->fields["sample_origin_file_name"]); 
+$template->reg("cust_cont", $rs->fields["cust_cont"]); 
+$template->reg("empl_name", $rs->fields["empl_name"]); 
+$template->reg("state", $rs->fields["state"]); 
+
+$occur_price = "";
+if ($rs->fields["occur_price"]) {
+    $occur_price = "&#8361;" . number_format($rs->fields["occur_price"]);
+}
+
+$cust_burden_price = "";
+if ($rs->fields["cust_burden_price"]) {
+    $cust_burden_price = "&#8361;" . number_format($rs->fields["cust_burden_price"]);
+}
+
+$template->reg("occur_price", $occur_price); 
+$template->reg("cust_burden_price", $cust_burden_price); 
+$template->reg("mng_cont", $rs->fields["mng_cont"]); 
+
+$param = array();
+$param["table"] = "order_detail";
+$param["order_common_seqno"] = $order_common_seqno;
+
+$rs = $dao->selectOrderDetail($conn, $param);
+
+//차후 쓰게 될지 모름 - 낱장구분
+$flattyp_yn = $rs->fields["flattyp_yn"];
+
+//2017-08-07 montvert : 기본정보 가져오는 쿼리
+$rs_c = $dao->selectOrderCommonBasicInfo($conn, $param);
+
+$html = "";
+$li = "\n                                     <li>%s</li>";
+
+$param = array();
+$param["table"] = "order_detail";
+$param["col"] = "order_detail_dvs_num";
+$param["where"]["order_common_seqno"] = $order_common_seqno;
+
+$s_seq = $dao->selectData($conn, $param)->fields["order_detail_dvs_num"];
+
+$param = array();
+$param["table"] = "order_detail_brochure";
+$param["col"] = "order_detail_dvs_num";
+$param["where"]["order_common_seqno"] = $order_common_seqno;
+
+$b_seq = $dao->selectData($conn, $param)->fields["order_detail_dvs_num"];
+
+$param = array();
+$param["table"] = "order_after_history";
+$param["col"] = "after_name";
+$param["where"]["order_detail_dvs_num"] = $s_seq;
+//2017-08-07 montvert : 기본 후공정은 보여주지 말아야함
+$param["where"]["basic_yn"] = "N";
+
+$s_rs = $dao->selectData($conn, $param);
+
+while ($s_rs && !$s_rs->EOF) {
+
+    $html .= sprintf($li, $s_rs->fields["after_name"]);
+    $s_rs->moveNext();
+}
+
+$param = array();
+$param["table"] = "order_after_history";
+$param["col"] = "after_name";
+$param["where"]["order_detail_dvs_num"] = $b_seq;
+//2017-08-07 montvert : 기본 후공정은 보여주지 말아야함
+$param["where"]["basic_yn"] = "N";
+
+$b_rs = $dao->selectData($conn, $param);
+
+while ($b_rs && !$b_rs->EOF) {
+
+    $html .= sprintf($li, $b_rs->fields["after_name"]);
+    $b_rs->moveNext();
+}
+
+$member_dvs = $fb->session("member_dvs");
+
+$template->reg("order_regi_date", substr($rs_c->fields["order_regi_date"], 0,10)); 
+$template->reg("order_num", $rs_c->fields["order_num"]); 
+$template->reg("file_path", $rs_c->fields["file_path"]); 
+$template->reg("dlvr_way", DLVR_TYP[$rs_c->fields["dlvr_way"]]); 
+$template->reg("title", $rs_c->fields["title"]); 
+$template->reg("save_file_name", $rs->fields["save_file_name"]); 
+//$template->reg("receipt_dvs", $rs->fields["receipt_dvs"]); 
+$template->reg("cate_name", $rs->fields["cate_name"]); 
+$template->reg("order_detail", $rs->fields["order_detail"]); 
+$template->reg("after_html", $html); 
+$template->reg("amt", number_format($rs->fields["amt"])); 
+$template->reg("count", number_format($rs->fields["count"])); 
+$template->reg("grade_sale_price", number_format($rs->fields["grade_sale_price"])); 
+$template->reg("event_price", number_format($rs->fields["event_price"])); 
+$template->reg("expec_weight", $rs->fields["expec_weight"]); 
+$template->reg("order_state", $rs->fields["order_state"]); 
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "mypage"); 
+$template->reg("page", "claim_view"); 
+
+//주문 클레임 일련번호
+$claim_seqno = $fb->form("order_claim_seqno");
+$template->reg("claim_seqno", $claim_seqno); 
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path);
+$template->htmlPrint($html_path);
+
+$conn->Close();
+?>

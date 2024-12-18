@@ -1,0 +1,784 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/sess_common.php");
+include_once(INC_PATH . "/common_define/common_info.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/MemberInfoDAO.inc");
+include_once(INC_PATH . "/com/nexmotion/doc/front/mypage/MemberInfoDOC22.inc");
+
+if ($is_login === false) {
+    header("Location: /main/main.html");
+    exit;
+}
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new MemberInfoDAO();
+
+$session = $fb->getSession();
+
+//회원 일련번호
+$member_seqno = $fb->session("org_member_seqno");
+//회원구분
+$member_dvs = $fb->session("member_dvs");
+$template->reg("member_dvs", $member_dvs);
+
+// 관리자가 웹로그인으로 접속할 경우 계좌 변경 기능이 보이도록
+
+
+//가입정보
+$param = array();
+$param["member_seqno"] = $member_seqno;
+
+$rs = $dao->selectMemberJoinInfo($conn, $param);
+
+$email = explode("@", $rs->fields["mail"]);
+$email_addr = $email[0];
+$email_domain = $email[1];
+
+//사업자 정보
+$rs2 = $dao->selectMemberLicenseeInfo($conn, $param);
+$company_param = $rs2;
+$company_param["crn1"] = explode("-", $company_param["crn"])[0];
+$company_param["crn2"] = explode("-", $company_param["crn"])[1];
+$company_param["crn3"] = explode("-", $company_param["crn"])[2];
+
+$company_param["email_addr"] = explode("@", $company_param["email"])[0];
+$company_param["email_domain"] = explode("@", $company_param["email"])[1];
+
+/*
+$birth = explode("-", $rs->fields["birth"]);
+
+$birth_year = $birth[0];
+$birth_month = $birth[1];
+$birth_day = $birth[2];
+*/
+
+$sms_yn = $rs->fields["sms_yn"];
+$mailing_yn = $rs->fields["mailing_yn"];
+
+$tel_num = explode("-", $rs->fields["tel_num"]);
+$tel_num1 = $tel_num[0];
+$tel_num2 = $tel_num[1];
+$tel_num3 = $tel_num[2];
+
+$cell_num = explode("-", $rs->fields["cell_num"]);
+$cel_num1 = $cell_num[0];
+$cel_num2 = $cell_num[1];
+$cel_num3 = $cell_num[2];
+
+$zipcode = $rs->fields["zipcode"];
+$addr = $rs->fields["addr"];
+$addr_detail = $rs->fields["addr_detail"];
+
+$option_html = "\n<option value=\"%s\"%s>%s</option>";
+
+//가입경로
+$join_path = $rs->fields["join_path"];
+
+$social_icon = "";
+switch ($join_path) {
+
+    case "Naver" : 
+        $social_icon = "<img src=\"/design_template/images/mypage/icon_naver.png\">";
+        break;
+
+    case "Google" :
+        $social_icon = "<img src=\"/design_template/images/mypage/icon_google.png\">";
+        break;
+
+    case "Kakao" :
+        $social_icon = "<img src=\"/design_template/images/mypage/icon_kakao.png\">";
+        break;
+    
+    case "Facebook" :
+        $social_icon = "<img src=\"/design_template/images/mypage/icon_facebook.png\">";
+        break;
+}
+
+//월
+$month_html = "";
+for ($i=1; $i <= 12; $i++) {
+    $day = str_pad($i,"2","0",STR_PAD_LEFT);
+
+    $selected = "";
+    if ($day == $birth_month) {
+        $selected = " selected=\"selected\"";
+    }
+    $month_html .= sprintf($option_html, $day, $selected, $day);
+}
+
+//일
+$day_html = "";
+for ($i=1; $i <= 31; $i++) {
+    $day = str_pad($i,"2","0",STR_PAD_LEFT);
+ 
+    $selected = "";
+    if ($day == $birth_day) {
+        $selected = " selected=\"selected\"";
+    }
+    $day_html .= sprintf($option_html, $day, $selected, $day);
+}
+
+//이메일
+$email_html = "";
+foreach (EMAIL_DOMAIN as $val) {
+    $selected = "";
+    if ($val == $email_domain) {
+        $selected = " selected=\"selected\"";
+    }
+    $email_html .= sprintf($option_html, $val, $selected, $val);
+}
+
+//전화번호
+$tel_html = "";
+foreach (TEL_NUM as $val) {
+    $selected = "";
+    if ($val == $tel_num1) {
+        $selected = " selected=\"selected\"";
+    }
+    $tel_html .= sprintf($option_html, $val, $selected, $val);
+}
+
+//휴대폰 번호
+$cel_html = "";
+foreach (CEL_NUM as $val) {
+    $selected = "";
+    if ($val == $cel_num1) {
+        $selected = " selected=\"selected\"";
+    }
+    $cel_html .= sprintf($option_html, $val, $selected, $val);
+}
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/login_check.php");
+
+//회원 구분 체크
+include_once($_SERVER["DOCUMENT_ROOT"] . "/mypage22/member_dvs_check.php");
+
+/* 2016-06-22 김상기 추가
+ * 기업개인 회원은 회원정보변경페이지 이동불가
+ * js단에서 처리할 경우 회원정보변경 페이지가 보이고
+ * 이동되므로 php 단에서 처리하도록 함
+ */
+if ($member_dvs == "기업개인") {
+    echo "<script>";
+    echo " window.location.replace(\"/mypage/main.html\"); ";
+    echo "</script>";
+    $conn->close();
+    exit;
+}
+
+//회원일련번호
+$template->reg("member_seqno", $fb->session("org_member_seqno")); 
+
+//회원 구분 별 html
+$param = array();
+//월 HTML
+$param["month"] = $month_html; 
+//일 HTML
+$param["day"] = $day_html; 
+//이메일 HTML
+$param["email"] = $email_html;
+$company_param["email"] = $email_html;
+
+//전화번호 HTML
+$param["tel"] = $tel_html; 
+//휴대전화 HTML
+$param["cel"] = $cel_html; 
+//이메일 주소
+$param["email_addr"] = $email_addr;
+//이메일 도메인
+$param["email_domain"] = $email_domain;
+//생년
+$param["birth_year"] = $birth_year;
+//전화번호
+$param["tel_num2"] = $tel_num2;
+//전화번호
+$param["tel_num3"] = $tel_num3;
+//휴대전화
+$param["cel_num2"] = $cel_num2;
+//휴대전화
+$param["cel_num3"] = $cel_num3;
+//우편번호
+$param["zipcode"] = $zipcode;
+//주소
+$param["addr"] = $addr;
+//주소상세
+$param["addr_detail"] = $addr_detail;
+//이메일 수신여부
+if ($mailing_yn == "Y") {
+    $param["email_ck_y"] = " checked=\"checked\"";
+    $param["email_ck_n"] = "";
+} else {
+    $param["email_ck_y"] = "";
+    $param["email_ck_n"] = " checked=\"checked\"";
+}
+//SMS 수신여부
+if ($sms_yn == "Y") {
+    $param["sms_ck_y"] = " checked=\"checked\"";
+    $param["sms_ck_n"] = "";
+} else {
+    $param["sms_ck_y"] = "";
+    $param["sms_ck_n"] = " checked=\"checked\"";
+}
+//회원명
+$param["member_name"] = $fb->session("name");
+
+$rs2 = $dao->selectMemberCalculInfo(
+    $conn, ["member_seqno" => $_SESSION["member_seqno"]]
+);
+
+$ba_name = $rs2->fields["bank_name"] ?? '-';
+$ba_num  = $rs2->fields["ba_num"] ?? "가상계좌가 존재하지 않습니다.";
+
+//기본정보
+$stan_param = array();
+$stan_param["member_dvs"] = $member_dvs;
+$stan_param["grade_name"] = $fb->session("grade");
+$stan_param["member_id"]  = $fb->session("id");
+$stan_param["bank_name"]  = $ba_name;
+$stan_param["ba_num"]     = $ba_num;
+$stan_param["join_path"]  = $join_path;
+$stan_param["social_icon"] = $social_icon;
+$stan_param["change_account"] = $change_account;
+
+if ($is_mobile) {
+    $standard_html = mobileStanJoinInfo($stan_param);
+    $html = mobilePerJoinInfo($param);
+} else { 
+    $standard_html = stanJoinInfo($stan_param);
+    $company_html = companyJoinInfo($company_param);
+    $html = perJoinInfo($param);
+}
+
+$param = array();
+$param["table"] = "licensee_info";
+$param["col"] = "corp_name ,repre_name 
+    ,crn ,bc ,tob ,addr ,addr_detail 
+    ,zipcode ";
+$param["where"]["member_seqno"] = $member_seqno;
+
+$rs = $dao->selectData($conn, $param);
+
+$corp_name = $rs->fields["corp_name"];
+$repre_name = $rs->fields["repre_name"];
+
+$crn = $rs->fields["crn"];
+$bc = $rs->fields["bc"];
+$tob = $rs->fields["tob"];
+
+$co_tel_num = explode("-", $rs->fields["tel_num"]);
+$co_tel_num1 = $co_tel_num[0];
+$co_tel_num2 = $co_tel_num[1];
+$co_tel_num3 = $co_tel_num[2];
+
+//전화번호
+$co_tel_html = "";
+foreach (TEL_NUM as $val) {
+
+    $selected = "";
+    if ($val == $tel_num1) {
+        $selected = " selected=\"selected\"";
+    }
+    $co_tel_html .= sprintf($option_html, $val, $selected, $val);
+}
+$co_zipcode = $rs->fields["zipcode"];
+$co_addr = $rs->fields["addr"];
+$co_addr_detail = $rs->fields["addr_detail"];
+
+//전화번호 HTML
+$param["co_tel"] = $co_tel_html; 
+//기업명
+$param["corp_name"] = $corp_name;
+//대표명
+$param["repre_name"] = $repre_name;
+//업태
+$param["bc"] = $bc;
+//업종
+$param["tob"] = $tob;
+//전화번호
+$param["co_tel_num2"] = $co_tel_num2;
+//전화번호
+$param["co_tel_num3"] = $co_tel_num3;
+//우편번호
+$param["co_zipcode"] = $co_zipcode;
+//주소
+$param["co_addr"] = $co_addr;
+//주소상세
+$param["co_addr_detail"] = $co_addr_detail;
+//기업명 수정 여부
+$param["readonly"] = "";
+//사업자등록번호
+$param["crn"] = $crn;
+
+if ($member_dvs === "기업회원") {
+    if ($is_mobile) {
+        $html .= mobileComJoinInfo($param);
+    } else {
+        $html .= comJoinInfo($param);
+    }
+}
+
+//회원구분이 기업인 경우
+if ($member_dvs === "기업회원") {
+    //주문담당자
+    $param = array();
+    $param["member_seqno"] = $member_seqno;
+  
+    $rs = $dao->selectCoPerMember($conn, $param);
+    $i = 1;
+
+    $temp_html  = "\n<tr>";
+    $temp_html .= "\n    <td class=\"center\">%s</td>";
+    $temp_html .= "\n    <td>%s</td>";
+    $temp_html .= "\n    <td>%s</td>";
+    $temp_html .= "\n    <td>%s</td>";
+    $temp_html .= "\n    <td>%s</td>";
+    $temp_html .= "\n    <td>%s</td>";
+    $temp_html .= "\n    <td class=\"center\"><button onclick=\"layerPopup('l_officer', 'popup/l_orderofficer_modify.html?seq=%s');\">수정/삭제</button></td>";
+    $temp_html .= "\n</tr>";
+
+    $order_mng_html = "";
+    while ($rs && !$rs->EOF) {
+
+        $order_mng_html .= sprintf($temp_html, 
+                $i,
+                $rs->fields["member_name"],
+                $rs->fields["member_id"],
+                $rs->fields["tel_num"],
+                $rs->fields["cell_num"],
+                $rs->fields["mail"],
+                $rs->fields["member_seqno"]);
+        $i++;
+        $rs->moveNext();
+    }
+
+    $param = array();
+    $param["order_mng_html"]  = $order_mng_html;
+    $html .= orderMng($param);
+
+    //회계담당자
+    $param = array();
+    $param["table"] = "accting_mng";
+    $param["col"] = "name ,posi ,mail 
+        ,tel_num ,cell_num ,accting_mng_seqno";
+    $param["where"]["member_seqno"] = $member_seqno;
+
+    $rs = $dao->selectData($conn, $param);
+    $i = 1;
+
+    $temp_html  = "\n<tr>";
+    $temp_html .= "\n    <td class=\"center\">%s</td>";
+    $temp_html .= "\n    <td>%s</td>";
+    $temp_html .= "\n    <td>%s</td>";
+    $temp_html .= "\n    <td>%s</td>";
+    $temp_html .= "\n    <td>%s</td>";
+    $temp_html .= "\n    <td class=\"center\"><button onclick=\"layerPopup('l_officer', 'popup/l_accountofficer_modify.html?seq=%s');\">수정/삭제</button></td>";
+    $temp_html .= "\n</tr>";
+
+    $accting_mng_html = "";
+
+    while ($rs && !$rs->EOF) {
+
+        $accting_mng_html .= sprintf($temp_html, 
+                $i,
+                $rs->fields["name"],
+                $rs->fields["tel_num"],
+                $rs->fields["cell_num"],
+                $rs->fields["mail"],
+                $rs->fields["accting_mng_seqno"]);
+        $i++;
+        $rs->moveNext();
+    }
+
+    $param = array();
+    $param["accting_mng_html"] = $accting_mng_html;
+
+    $html .= acctingMng($param);
+}
+
+//성향정보
+//======================DAO========================//
+//회원 상세정보
+$param = array();
+$param["table"] = "member_detail_info";
+$param["col"] = "occu1 ,occu2 
+,plural_deal_site_name1 ,plural_deal_site_name2
+,occu_detail ,interest_field1 ,interest_field2 
+,interest_field_detail ,design_outsource_yn 
+,produce_outsource_yn ,use_pro ,use_opersys 
+,add_interest_items ,interest_prior 
+,plural_deal_yn ,plural_deal_site_detail1
+,plural_deal_site_detail2 ,recomm_id 
+,recomm_id_detail ,memo";
+$param["where"]["member_seqno"] = $member_seqno;
+
+$detail_rs = $dao->selectData($conn, $param);
+
+//회원 관심 상품
+$param = array();
+$param["table"] = "member_interest_prdt";
+$param["col"] = "interest_1 ,interest_2 
+,interest_3 ,interest_4 ,interest_5 
+,interest_6 ,interest_7 ,interest_8 
+,interest_9 ,interest_10 ,interest_11 
+,interest_12";
+$param["where"]["member_seqno"] = $member_seqno;
+
+$prdt_rs = $dao->selectData($conn, $param);
+
+//회원 관심 디자인
+$param = array();
+$param["table"] = "member_interest_design";
+$param["col"] = "interest_1 ,interest_2 
+,interest_3 ,interest_4 ,interest_5 
+,interest_6";
+$param["where"]["member_seqno"] = $member_seqno;
+
+$design_rs = $dao->selectData($conn, $param);
+
+//회원 관심 이벤트
+$param = array();
+$param["table"] = "member_interest_event";
+$param["col"] = "interest_1 ,interest_2 
+,interest_3 ,interest_4 ,interest_5";
+$param["where"]["member_seqno"] = $member_seqno;
+
+$event_rs = $dao->selectData($conn, $param);
+
+//회원 관심 요구사항
+$param = array();
+$param["table"] = "member_interest_needs";
+$param["col"] = "interest_1 ,interest_2 
+,interest_3 ,interest_4 ,interest_5 
+,interest_6 ,interest_7 ,interest_8 
+,interest_9 ,interest_10";
+$param["where"]["member_seqno"] = $member_seqno;
+
+$needs_rs = $dao->selectData($conn, $param);
+
+//OS 별 사용프로그램 - IBM
+$param = array();
+$param["table"] = "pro_typ";
+$param["col"] = "pro";
+$param["where"]["oper_sys"] = "IBM";
+
+$ibm_rs = $dao->selectData($conn, $param);
+
+//OS 별 사용프로그램 - MAC 
+$param = array();
+$param["table"] = "pro_typ";
+$param["col"] = "pro";
+$param["where"]["oper_sys"] = "MAC";
+
+$mac_rs = $dao->selectData($conn, $param);
+
+//======================PARAM========================//
+$param = array();
+$param["wd_yn"] = $detail_rs->fields["wd_yn"];
+//결혼유무
+if ($detail_rs->fields["wd_yn"] == "Y") {
+    $param["wd_y"] = " checked=\"checked\"";
+    $param["wd_n"] = "";
+    $param["wd_anniv"] = date("Y-m-d", strtotime($detail_rs->fields["wd_anniv"]));
+} else {
+    $param["wd_y"] = "";
+    $param["wd_n"] = " checked=\"checked\"";
+    $param["wd_anniv"] = "";
+}
+
+$param["occu1"] = $detail_rs->fields["occu1"];
+$param["occu2"] = $detail_rs->fields["occu2"];
+$param["occu_detail"] = $detail_rs->fields["occu_detail"];
+$param["interest_field1"] = $detail_rs->fields["interest_field1"];
+$param["interest_field2"] = $detail_rs->fields["interest_field2"];
+$param["interest_field_detail"] = $detail_rs->fields["interest_field_detail"];
+
+$fields = array();
+$fields[1] = "interest_1";
+$fields[2] = "interest_2";
+$fields[3] = "interest_3";
+$fields[4] = "interest_4";
+$fields[5] = "interest_5";
+$fields[6] = "interest_6";
+$fields[7] = "interest_7";
+$fields[8] = "interest_8";
+$fields[9] = "interest_9";
+$fields[10] = "interest_10";
+$fields[11] = "interest_11";
+$fields[12] = "interest_12";
+
+//관심상품
+$arr_prdt = array();
+$arr_prdt[1] = "inter_prdt1";
+$arr_prdt[2] = "inter_prdt2";
+$arr_prdt[3] = "inter_prdt3";
+$arr_prdt[4] = "inter_prdt4";
+$arr_prdt[5] = "inter_prdt5";
+$arr_prdt[6] = "inter_prdt6";
+$arr_prdt[7] = "inter_prdt7";
+$arr_prdt[8] = "inter_prdt8";
+$arr_prdt[9] = "inter_prdt9";
+$arr_prdt[10] = "inter_prdt10";
+$arr_prdt[11] = "inter_prdt11";
+$arr_prdt[12] = "inter_prdt12";
+
+for ($i=1; $i<13; $i++) {
+    if ($prdt_rs->fields[$fields[$i]] == "Y") {
+        $param[$arr_prdt[$i]] = " checked=\"checked\"";
+    }
+}
+
+//관심디자인
+$arr_design = array();
+$arr_design[1] = "inter_design1";
+$arr_design[2] = "inter_design2";
+$arr_design[3] = "inter_design3";
+$arr_design[4] = "inter_design4";
+$arr_design[5] = "inter_design5";
+$arr_design[6] = "inter_design6";
+
+for ($i=1; $i<7; $i++) {
+    if ($design_rs->fields[$fields[$i]] == "Y") {
+        $param[$arr_design[$i]] = " checked=\"checked\"";
+    }
+}
+
+//관심우선순위
+$interest_prior = $detail_rs->fields["interest_prior"];
+if ($interest_prior == "1") {
+    $param["inter_prior1"] = " checked=\"checked\"";
+} else if ($interest_prior == "2") {
+    $param["inter_prior2"] = " checked=\"checked\"";
+} else if ($interest_prior == "3") {
+    $param["inter_prior3"] = " checked=\"checked\"";
+} else if ($interest_prior == "4") {
+    $param["inter_prior4"] = " checked=\"checked\"";
+}
+
+//관심이벤트
+$arr_event = array();
+$arr_event[1] = "inter_event1";
+$arr_event[2] = "inter_event2";
+$arr_event[3] = "inter_event3";
+$arr_event[4] = "inter_event4";
+$arr_event[5] = "inter_event5";
+
+for ($i=1; $i<6; $i++) {
+    if ($event_rs->fields[$fields[$i]] == "Y") {
+        $param[$arr_event[$i]] = " checked=\"checked\"";
+    }
+}
+
+//관심요구사항
+$arr_needs = array();
+$arr_needs[1] = "inter_needs1";
+$arr_needs[2] = "inter_needs2";
+$arr_needs[3] = "inter_needs3";
+$arr_needs[4] = "inter_needs4";
+$arr_needs[5] = "inter_needs5";
+$arr_needs[6] = "inter_needs6";
+$arr_needs[7] = "inter_needs7";
+$arr_needs[8] = "inter_needs8";
+$arr_needs[9] = "inter_needs9";
+$arr_needs[10] = "inter_needs10";
+
+for ($i=1; $i<11; $i++) {
+    if ($needs_rs->fields[$fields[$i]] == "Y") {
+        $param[$arr_needs[$i]] = " checked=\"checked\"";
+    }
+}
+
+//추가관심사항
+$param["add_interest_items"] = $detail_rs->fields["add_interest_items"];
+
+//디자인 외주여부
+if ($detail_rs->fields["design_outsource_yn"] == "Y") {
+    $param["design_outsource_y"] = " checked=\"checked\"";
+    $param["design_outsource_n"] = "";
+} else {
+    $param["design_outsource_y"] = "";
+    $param["design_outsource_n"] = " checked=\"checked\"";
+}
+
+//생산 외주여부
+if ($detail_rs->fields["produce_outsource_yn"] == "Y") {
+    $param["produce_outsource_y"] = " checked=\"checked\"";
+    $param["produce_outsource_n"] = "";
+} else {
+    $param["produce_outsource_y"] = "";
+    $param["produce_outsource_n"] = " checked=\"checked\"";
+}
+
+$pro_html = "<label><input type=\"radio\" name=\"use_pro\" value=\"%s\"%s>%s</label>";
+
+//사용 OS - 주요사용프로그램
+if ($detail_rs->fields["use_opersys"] == "IBM") {
+    $param["ibm"] = " checked=\"checked\"";
+    $param["mac"] = "";
+
+    $rs_html = "";
+    while ($ibm_rs && !$ibm_rs->EOF) {
+        $checked = "";
+        if ($detail_rs->fields["use_pro"] == $ibm_rs->fields["pro"]) {
+            $checked = " checked=\"checked\"";
+        }
+        $rs_html .= sprintf($pro_html, 
+                $ibm_rs->fields["pro"],
+                $checked,
+                $ibm_rs->fields["pro"]);
+        $ibm_rs->moveNext();
+    }
+
+} else if ($detail_rs->fields["use_opersys"] == "MAC") {
+    $param["ibm"] = "";
+    $param["mac"] = " checked=\"checked\"";
+ 
+    $rs_html = "";
+    while ($mac_rs && !$mac_rs->EOF) {
+        $checked = "";
+        if ($detail_rs->fields["use_pro"] == $mac_rs->fields["pro"]) {
+            $checked = " checked=\"checked\"";
+        }
+        $rs_html .= sprintf($pro_html, 
+                $mac_rs->fields["pro"],
+                $checked,
+                $mac_rs->fields["pro"]);
+        $mac_rs->moveNext();
+    }
+}
+
+if (!$rs_html) {
+    $rs_html = "사용OS를 선택해 주세요.";
+}
+
+$param["pro_html"] = $rs_html;
+
+//복수거래 여부
+$plural_deal_yn = $detail_rs->fields["plural_deal_yn"];
+if ($plural_deal_yn == "Y") {
+    $param["plural_deal_y"] = " checked=\"checked\"";
+    $param["plural_deal_n"] = "";
+    $param["plural_disabled"] = "";
+} else {
+    $param["plural_deal_y"] = "";
+    $param["plural_deal_n"] = " checked=\"checked\"";
+    $param["plural_disabled"] = " disabled=\"disabled\"";
+}
+
+//복수거래업체
+$param["plural_deal_site_name1"] = $detail_rs->fields["plural_deal_site_name1"];
+$param["plural_deal_site_detail1"] = $detail_rs->fields["plural_deal_site_detail1"];
+$param["plural_deal_site_name2"] = $detail_rs->fields["plural_deal_site_name2"];
+$param["plural_deal_site_detail2"] = $detail_rs->fields["plural_deal_site_detail2"];
+
+//추천 아이디
+$param["recomm_id"] = $detail_rs->fields["recomm_id"];
+
+//추천 아이디 상세
+$param["recomm_id_detail"] = $detail_rs->fields["recomm_id_detail"];
+
+//메모
+$param["memo"] = $detail_rs->fields["memo"];
+$param["member_seqno"] = $member_seqno;
+
+/*************** 소셜로그인 연동 START **************/
+$link_dvs = $fb->session("join_path");
+
+if ($link_dvs == "Normal") {
+
+    $param["btn_naver"] = "<button type=\"button\" class=\"function\" onclick=\"linkSocAcc('naver')\">연동하기</button>";
+    $param["btn_google"] = "<button type=\"button\" class=\"function\" onclick=\"linkSocAcc('google')\">연동하기</button>";
+    $param["btn_kakao"] = "<button type=\"button\" class=\"function\" onclick=\"linkSocAcc('kakao')\">연동하기</button>";
+    $param["btn_fb"] = "<button type=\"button\" class=\"function\" onclick=\"linkSocAcc('fb')\">연동하기</button>";
+
+    //$conn->debug = 1;
+    //소셜로그인 연동정보
+    $rs_link = $dao->selectSocLinkInfo($conn, $param);
+    //$conn->debug = 0;
+    
+    while($rs_link && !$rs_link->EOF) {
+        $fields = $rs_link->fields;
+    
+        switch ($fields["join_path"]) {
+            case "Google" :
+                $key = "mail_acc_google";
+                $btn = "btn_google";
+                break;
+            case "Fb" :
+                $key = "mail_acc_fb";
+                $btn = "btn_fb";
+                break;
+            case "Kakao" :
+                $key = "mail_acc_kakao";
+                $btn = "btn_kakao";
+                break;
+            case "Naver" :
+                $key = "mail_acc_naver";
+                $btn = "btn_naver";
+                break;
+        }
+    
+        $param[$key] = $fields["mail"];
+        $param[$btn] = "<img onclick=\"delSocAcc('$fields[join_path]');\" src=\"/design_template/images/common/btn_circle_x_red.png\" alt=\"X\" style=\"cursor:pointer;\">";
+        
+        $rs_link->MoveNext();
+    }
+} else {
+    switch ($link_dvs) {
+        case "Google" :
+            $key = "mail_acc_google";
+            $btn = "btn_google";
+            break;
+        case "Fb" :
+            $key = "mail_acc_fb";
+            $btn = "btn_fb";
+            break;
+        case "Kakao" :
+            $key = "mail_acc_kakao";
+            $btn = "btn_kakao";
+            break;
+        case "Naver" :
+            $key = "mail_acc_naver";
+            $btn = "btn_naver";
+            break;    
+    }
+    $id = $fb->session("id");
+    $param[$key] = $id;
+    $param[$btn] = "<img onclick=\"goWithdraw();\" src=\"/design_template/images/common/btn_circle_x_red.png\" alt=\"X\" style=\"cursor:pointer;\">";
+
+} 
+
+/*************** 소셜로그인 연동 END *****************/
+
+if ($is_mobile) {
+    $html .= mobileMemberDetail($param);
+    // 모바일거는 추후 생성
+} else {
+    $html .= $company_html;
+    $html .= memberDetail($param);
+    //$html .= memberLink($param);
+}
+
+$template->reg("standard_html", $standard_html);
+//$template->reg("company_html", $company_html);
+$template->reg("html", $html);
+
+//기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "mypage"); 
+$template->reg("page", "member_modify"); 
+$template->reg("is_ba", $is_ba); 
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path);
+$template->htmlPrint($html_path);
+
+$conn->Close();
+?>

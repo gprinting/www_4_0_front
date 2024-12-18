@@ -1,0 +1,56 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/PaymentInfoDAO.inc");
+
+if ($is_login === false) {
+    header("Location: /main/main.html");
+    exit;
+}
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new PaymentInfoDAO();
+$session = $fb->getSession();
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/login_check.php");
+
+//회원 구분 체크
+include_once($_SERVER["DOCUMENT_ROOT"] . "/mypage22/member_dvs_check.php");
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "mypage");
+$template->reg("page", "payment_list");
+
+//선입금, 주문부족금액 검색(180410 추가)
+$member_seqno = $session["member_seqno"];
+$id = $session["id"];
+
+$rs     = $dao->selectPrepayPrice($conn, $id);
+$fields = $rs->fields;
+
+//선입금
+$prepay_price_money = doubleval($fields[0]);
+$prepay_price_card  = doubleval($fields["prepay_price_card"]);
+$prepay_price = number_format($prepay_price_money + $prepay_price_card);
+$template->reg("prepay_price", $prepay_price); 
+
+//주문부족금액
+//$order_lack_price = number_format(doubleval($session["order_lack_price"]));
+$order_lack_price = number_format(doubleval($fields["order_lack_price"]));
+$template->reg("order_lack_price", $order_lack_price); 
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path);
+$template->htmlPrint($html_path);
+
+$conn->Close();
+?>

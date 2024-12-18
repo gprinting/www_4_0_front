@@ -1,0 +1,253 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/MemberInfoDAO.inc");
+
+if ($is_login === false) {
+    header("Location: /main/main.html");
+    exit;
+}
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new MemberInfoDAO();
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/login_check.php");
+
+//회원 구분 체크
+include_once($_SERVER["DOCUMENT_ROOT"] . "/mypage22/member_dvs_check.php");
+
+//등급명
+$template->reg("grade_name_en", $fb->session("grade_name_en")); 
+
+//참여중인 이벤트 건수
+$param = array();
+$param["member_seqno"] = $fb->session("org_member_seqno");
+
+$rs = $dao->selectJoinEventCount($conn, $param);
+
+//180115 모바일뷰 추가
+/*********** 모바일 뷰 START ************/
+if ($is_mobile) {
+    
+    $param = array();
+    $param["table"] = "cate";
+    $param["col"] = "cate_name, sortcode";
+    $param["where"]["cate_level"] = "1";
+    $param["order"] = "sortcode";
+    
+    $rs = $dao->selectData($conn, $param);
+
+    while ($rs && !$rs->EOF) {
+
+        $tb_html = "";
+
+        $param = array();
+        $param["cate_level"] = "2";
+        $param["cate_sortcode"] = $rs->fields["sortcode"];
+
+        $mid_rs = $dao->selectCateTable($conn, $param);
+
+        while ($mid_rs && !$mid_rs->EOF) {
+    
+            $param = array();
+            $param["cate_level"] = "3";
+            $param["cate_sortcode"] = $mid_rs->fields["sortcode"];
+    
+            $btm_rs = $dao->selectCateTable($conn, $param);
+    
+            $param["type"] = "COUNT";
+            $btm_cnt_rs = $dao->selectCateTable($conn, $param);
+            $btm_cnt = $btm_cnt_rs->fields["cnt"];
+
+            $td_html = "\n  <td rowspan=\"%s\">%s</td>";
+               
+            $rs_td_html = sprintf($td_html, $btm_cnt, $mid_rs->fields["cate_name"]);
+    
+            $i = 1;
+            while ($btm_rs && !$btm_rs->EOF) {
+    
+                if ($i != 1) {
+                    $rs_td_html = "";
+                }
+    
+                $param = array();
+                $param["cate_sortcode"] = $btm_rs->fields["sortcode"];
+                $param["grade"] = $fb->session("grade");
+    
+                $rate_rs = $dao->selectCateGradeInfo($conn, $param);
+                $rate = $rate_rs->fields["rate"];
+                if (!$rate) {
+                    $rate = "0";
+                }
+
+                $html  = "\n<tr>";
+                $html .= "%s";
+                $html .= "\n  <td>%s</td>";
+                $html .= "\n  <td>%s%%</td>";
+                $html .= "\n</tr>";
+    
+                $tb_html .= sprintf($html, $rs_td_html
+                        , $btm_rs->fields["cate_name"]
+                        , $rate);
+                $i++;
+                $btm_rs->moveNext();
+            }
+
+            $mid_rs->moveNext();
+        }
+
+        switch($rs->fields["sortcode"]) {
+    
+            case "001" : 
+                $template->reg("tb_ad_html", $tb_html); 
+                break; 
+            case "002" : 
+                $template->reg("tb_ao_html", $tb_html); 
+                break; 
+            case "003" : 
+                $template->reg("tb_nc_html", $tb_html); 
+                break; 
+            case "004" : 
+                $template->reg("tb_st_html", $tb_html); 
+                break; 
+            case "005" : 
+                $template->reg("tb_bl_html", $tb_html); 
+                break; 
+            case "006" : 
+                $template->reg("tb_ev_html", $tb_html); 
+                break; 
+            case "007" : 
+                $template->reg("tb_mt_html", $tb_html); 
+                break; 
+            case "008" : 
+                $template->reg("tb_etc_html", $tb_html); 
+                break; 
+            case "009" : 
+                $template->reg("tb_gb_html", $tb_html); 
+                break; 
+            case "010" : 
+                break; 
+            case "011" : 
+                $template->reg("tb_dg_html", $tb_html); 
+                break; 
+        }
+
+        $rs->moveNext();
+    }
+    
+
+/*********** 모바일 뷰 END **********/
+
+} else {
+/***********  웹뷰 START ************/
+    $cate_btn = "";
+    $html = "<li style=\"cursor: pointer;\" class=\"%s category\" onclick=\"selectCateBtn('%s', this);\">%s</li>";
+    
+    $param = array();
+    $param["table"] = "cate";
+    $param["col"] = "cate_name, sortcode";
+    $param["where"]["cate_level"] = "1";
+    $param["order"] = "sortcode";
+    
+    $rs = $dao->selectData($conn, $param);
+    
+    $i = 1;
+    while ($rs && !$rs->EOF) {
+    
+        $class = "";
+        if ($i == 1) {
+            $class = "on";
+        }
+    
+        $cate_btn .= sprintf($html, $class, $rs->fields["sortcode"], $rs->fields["cate_name"]);
+        $i++;
+        $rs->moveNext();
+    }
+    
+    $td_html .= "\n  <td rowspan=\"%s\">%s</td>";
+    
+    $html  = "\n<tr>";
+    $html .= "%s";
+    $html .= "\n  <td>%s</td>";
+    $html .= "\n  <td>%s%%</td>";
+    $html .= "\n</tr>";
+    
+    $tb_html = "";
+    
+    $param = array();
+    $param["cate_level"] = "2";
+    $param["cate_sortcode"] = "001";
+    
+    $mid_rs = $dao->selectCateTable($conn, $param);
+    
+    while ($mid_rs && !$mid_rs->EOF) {
+    
+        $param = array();
+        $param["cate_level"] = "3";
+        $param["cate_sortcode"] = $mid_rs->fields["sortcode"];
+    
+        $btm_rs = $dao->selectCateTable($conn, $param);
+    
+        $param["type"] = "COUNT";
+        $btm_cnt_rs = $dao->selectCateTable($conn, $param);
+        $btm_cnt = $btm_cnt_rs->fields["cnt"];
+            
+        $rs_td_html = sprintf($td_html, $btm_cnt, $mid_rs->fields["cate_name"]);
+    
+        $i = 1;
+        while ($btm_rs && !$btm_rs->EOF) {
+    
+            if ($i != 1) {
+                $rs_td_html = "";
+            }
+    
+            $param = array();
+            $param["cate_sortcode"] = $btm_rs->fields["sortcode"];
+            $param["grade"] = $fb->session("grade");
+    
+            $rate_rs = $dao->selectCateGradeInfo($conn, $param);
+            $rate = $rate_rs->fields["rate"];
+            if (!$rate) {
+                $rate = "0";
+            }
+    
+            $tb_html .= sprintf($html, $rs_td_html
+                    , $btm_rs->fields["cate_name"]
+                    , $rate);
+            $i++;
+            $btm_rs->moveNext();
+        }
+    
+        $mid_rs->moveNext();
+    }
+    
+    $template->reg("cate_btn", $cate_btn); 
+    $template->reg("tb_html", $tb_html); 
+}
+$template->reg("join_event", number_format($rs->fields["cnt"])); 
+
+//보유 포인트
+$template->reg("own_point", number_format($fb->session("own_point"))); 
+
+//보유쿠폰
+$template->reg("cp_count", number_format($fb->session("cp_count"))); 
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "mypage"); 
+$template->reg("page", "benefits_category"); 
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path);
+$template->htmlPrint($html_path);
+
+$conn->Close();
+?>

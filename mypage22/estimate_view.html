@@ -1,0 +1,268 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/EstiInfoDAO.inc"); 
+
+/*
+if (!$is_login) {
+    header("Location: /main/main.html");
+    exit;
+}
+*/
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$dao = new EstiInfoDAO();
+
+// 표시용 견적데이터 생성
+$state_arr = $fb->session("state_arr");
+
+$esti_seqno   = $fb->form("seqno");
+$member_seqno = $fb->session("org_member_seqno");
+
+$param = [
+    "esti_seqno" => $esti_seqno
+    ,"member_seqno" => $member_seqno
+];
+$base = $dao->selectEstiBaseInfo($conn, $param);
+
+/*
+if (empty($base)) {
+    $msg = "견적정보가 존재하지 않습니다.";
+    goto ERR;
+}
+
+if ($base["state"] !== $state_arr["견적완료"]) {
+    $msg = "견적 완료상태에서만 주문이 가능합니다.";
+    goto ERR;
+}
+*/
+
+$cate_info = $dao->selectCateInfo($conn, $base["cate_sortcode"]);
+
+$dvs_arr = ["cover" ,"inner1" ,"inner2" ,"inner3"];
+
+// 제목
+$template->reg("title", $base["title"]); 
+// 상품명
+$template->reg("cate_name", $cate_info["cate_name"]); 
+// 수량
+$template->reg("amt"         , $base["amt"]);
+$template->reg("amt_unit"    , $base["amt_unit_dvs"]); 
+$template->reg("sheet_count" , ''); 
+if ($base["amt_unit_dvs"] === 'R') {
+    $sheet_count = '(' . number_format($base["page_cnt"]) . "장)";
+    $template->reg("sheet_count" , $sheet_count); 
+}
+$template->reg("count"       , $base["count"]); 
+
+if ($cate_info["flattyp_yn"] === 'Y') {
+    $detail_rs = $dao->selectEstiInfoDetailSheet($conn, $param);
+} else {
+    $detail_rs = $dao->selectEstiInfoDetailBrochure($conn, $param);
+}
+
+$paper_arr = [];
+$size_arr      = [];
+$work_size_arr = [];
+$cut_size_arr  = [];
+$bef_tmpt_arr = [];
+$aft_tmpt_arr = [];
+$print_prup_arr = [];
+$after_arr       = []; // 이름만
+$after_note_arr  = []; // 추가입력만
+$after_det_arr   = []; // 이름[depth]
+$after_price_arr = []; // 후가공 가격
+$page_arr = [];
+
+$paper_price  = 0;
+$print_price  = 0;
+$output_price = 0;
+
+$detail_count = $detail_rs->RecordCount();
+while ($detail_rs && !$detail_rs->EOF) {
+    $detail = $detail_rs->fields;
+
+    $paper_price  += intval($detail["paper_price"]);
+    $print_price  += intval($detail["output_price"]);
+    $output_price += intval($detail["print_price"]);
+
+    $paper_info = $detail["paper_info"];
+    if (!empty($detail["paper_info_note"])) {
+        $paper_info .= '[' . $detail["paper_info_note"] . ']';
+    }
+
+    $size_info = $detail["size_info"];
+    if (!empty($detail["size_info_note"])) {
+        $size_info .= '[' . $detail["size_info_note"] . ']';
+    }
+
+    $bef_tmpt_info = $detail["bef_tmpt_info"];
+    if (!empty($detail["bef_tmpt_info_note"])) {
+        $bef_tmpt_info .= '[' . $detail["bef_tmpt_info_note"] . ']';
+    }
+    $aft_tmpt_info = $detail["aft_tmpt_info"];
+    if (!empty($detail["aft_tmpt_info_note"])) {
+        $aft_tmpt_info .= '[' . $detail["aft_tmpt_info_note"] . ']';
+    }
+
+    $print_purp_info = $detail["print_purp_info"];
+    if (!empty($detail["print_purp_info_note"])) {
+        $print_purp_info .= '[' . $detail["print_purp_info_note"] . ']';
+    }
+
+    $paper_arr[] = $paper_info;
+    $size_arr[]      = $size_info;
+    $cut_size_arr[]  = [
+        "wid" => $detail["cut_size_wid"]
+        ,"vert" => $detail["cut_size_vert"]
+    ];
+    $work_size_arr[] = [
+        "wid" => $detail["work_size_wid"]
+        ,"vert" => $detail["work_size_vert"]
+    ];
+    $bef_tmpt_arr[] = $bef_tmpt_info;
+    $aft_tmpt_arr[] = $aft_tmpt_info;
+    $print_purp_arr[] = $print_purp_info;
+    $after_note_arr[] = $detail["after_info_note"];
+    $page_arr[] = $detail["page_amt"];
+
+    $param["esti_detail_dvs_num"] = $detail["esti_detail_dvs_num"];
+    $after_rs = $dao->selectEstiInfoAfter($conn, $param);
+
+    $after_det = '';
+    while ($after_rs && !$after_rs->EOF) {
+        $after = $after_rs->fields;
+
+        $name = $after["after_name"];
+        $d1   = $after["depth1"];
+        $d2   = $after["depth2"];
+        $d3   = $after["depth3"];
+        $price = $after["price"];
+
+        $after_det .= $name;
+        $det_temp = null;
+        if ($d1 !== '-') {
+            $det_temp .= '[' . $d1;
+        }
+        if ($d2 !== '-') {
+            $det_temp .= empty($det_temp) ? '[' : '/';
+            $det_temp .= $d2;
+        }
+        if ($d3 !== '-') {
+            $det_temp .= empty($det_temp) ? '[' : '/';
+            $det_temp .= $d3;
+        }
+        $det_temp .= empty($det_temp) ? '' : ']';
+
+        $after_det .= ' ' . $det_temp . ', ';
+
+        $after_arr[] = $name;
+
+        if (empty($after_price_arr[$name])) {
+            $after_price_arr[$name] = $price;
+        } else {
+            $after_price_arr[$name] += $price;
+        }
+
+        $after_rs->MoveNext();
+    }
+
+    $after_det_arr[] = substr($after_det, 0, -2);
+
+    $detail_rs->MoveNext();
+}
+
+for ($i = 0; $i < $detail_count; $i++) {
+    $dvs = $dvs_arr[$i] . '_';
+
+    $paper = $paper_arr[$i];
+    $page  = $page_arr[$i];
+
+    $size      = $size_arr[$i];
+    $cut_size  = $cut_size_arr[$i];
+    $work_size = $work_size_arr[$i];
+
+    $bef_tmpt   = $bef_tmpt_arr[$i];
+    $aft_tmpt   = $aft_tmpt_arr[$i];
+    $print_purp = $print_purp_arr[$i];
+
+    $after_det  = $after_det_arr[$i];
+    $after_note = $after_note_arr[$i];
+
+    $template->reg($dvs . "paper", $paper); 
+    $template->reg($dvs . "size" , $size); 
+    $template->reg($dvs . "page" , $page); 
+    $template->reg($dvs . "cut_size_wid" , $cut_size["wid"]); 
+    $template->reg($dvs . "cut_size_vert", $cut_size["vert"]); 
+    $template->reg($dvs . "work_size_wid" , $work_size["wid"]); 
+    $template->reg($dvs . "work_size_vert", $work_size["vert"]); 
+    $template->reg($dvs . "bef_tmpt", explode('-', $bef_tmpt)[1]); 
+    $template->reg($dvs . "aft_tmpt", explode('-', $aft_tmpt)[1]); 
+    $template->reg($dvs . "print_purp", $print_purp); 
+    $template->reg($dvs . "after_det ", $after_det); 
+    $template->reg($dvs . "after_note", $after_note); 
+}
+
+// 견적가 html
+$template->reg("paper_price" , number_format($paper_price));
+$template->reg("print_price" , number_format($print_price));
+$template->reg("output_price", number_format($output_price));
+$template->reg("origin_price", number_format($base["origin_price"]));
+$template->reg("sale_price"  , number_format($base["sale_price"]));
+$template->reg("esti_price"  , number_format($base["esti_price"]));
+$template->reg("vat"         , number_format($base["vat"]));
+$template->reg("order_price" , number_format($base["order_price"]));
+$template->reg("esti_memo"   , $base["esti_memo"]);
+
+$after_price_form = <<<html
+                <dt>%s비</dt>
+                <dd><span>%s</span> 원</dd>
+html;
+
+$after_price_html = '';
+foreach ($after_arr as $after) {
+    $after_price_html .=
+        sprintf($after_price_form, $after
+                                 , number_format($after_price_arr[$after]));
+}
+$template->reg("after_price_html", $after_price_html);
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/login_check.php");
+
+$template->reg("script_hide_open", "<!--"); 
+$template->reg("script_hide_close", "-->"); 
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "product"); 
+
+$page = "sheet";
+if ($cate_info["flattyp_yn"] === 'N') {
+    $page = "booklet";
+}
+
+$html_path   = "/mypage/estimate_" . $page . "_view.html";
+if ($is_mobile) {
+    $html_path   = "/m" . $html_path;
+}
+
+$template->reg("esti_seqno", $esti_seqno);
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path);
+$template->htmlPrint($html_path);
+
+goto END;
+
+ERR:
+    echo "<script>alert('" . $msg . "'); history.back();</script>";
+    $conn->Close();
+END:
+    $conn->Close();
+?>

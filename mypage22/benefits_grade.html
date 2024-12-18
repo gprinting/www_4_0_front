@@ -1,0 +1,179 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/sess_common.php");
+include_once(INC_PATH . "/common_define/common_info.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/mypage/MemberInfoDAO.inc");
+
+if ($is_login === false) {
+    header("Location: /main/main.html");
+    exit;
+}
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new MemberInfoDAO();
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/login_check.php");
+
+//회원 구분 체크
+include_once($_SERVER["DOCUMENT_ROOT"] . "/mypage22/member_dvs_check.php");
+
+//등급명
+$template->reg("grade_name_en", $fb->session("grade_name_en")); 
+
+//참여중인 이벤트 건수
+$param = array();
+$param["member_seqno"] = $fb->session("org_member_seqno");
+
+$rs = $dao->selectJoinEventCount($conn, $param);
+
+$template->reg("join_event", number_format($rs->fields["cnt"])); 
+
+//보유 포인트
+$template->reg("own_point", number_format($fb->session("own_point"))); 
+
+//보유쿠폰
+$template->reg("cp_count", number_format($fb->session("cp_count"))); 
+
+//등급 상태
+$grade = $fb->session("grade");
+
+$c_html  = "\n<dl class=\"current\">";
+$c_html .= "\n    <dt>현재 회원등급</dt>";
+$c_html .= "\n        <dd class=\"grade grade%s\"><img src=\"/design_template/images/common/text_membership_grade%s.png\" alt=\"%s\"></dd>";
+$c_html .= "\n</dl>";
+
+$d_html  = "\n<dl class=\"down\" %s>";
+$d_html .= "\n    <dt>현재 등급 유지까지 &#8361;%s</dt>";
+$d_html .= "%s";
+$d_html .= "\n</dl>";
+
+$u_html  = "\n<dl class=\"up\" %s>";
+$u_html .= "\n   <dt>다음 등급 상향까지 &#8361;%s</dt>";
+$u_html .= "%s";
+$u_html .= "\n</dl>";
+    
+$grade_status_html = sprintf($c_html, $grade, $grade, GRADE_EN[$grade]);
+
+$pre_grade = $grade + 1;
+$nxt_grade = $grade - 1;
+
+$param = array();
+$param["table"] = "member_grade_policy";
+$param["col"] = "sales_start_price";
+$param["where"]["grade"] = $grade;
+
+$rs = $dao->selectData($conn, $param);
+
+$sales_start_price = number_format($rs->fields["sales_start_price"]);
+
+$param = array();
+$param["table"] = "member_grade_policy";
+$param["col"] = "sales_start_price";
+$param["where"]["grade"] = $nxt_grade;
+
+$rs = $dao->selectData($conn, $param);
+
+$sales_end_price = number_format($rs->fields["sales_start_price"]);
+
+if ($grade == 1) {
+    // 최고등급
+    $tmp = "\n       <dd class=\"grade grade2\"><img src=\"/design_template/images/common/text_membership_grade2.png\" alt=\"" . GRADE_EN[2] . "\"></dd>";
+    $grade_status_html .= sprintf($d_html, "", $sales_start_price, $tmp);
+    $grade_status_html .= sprintf($u_html, "style=\"display:none;\"", $sales_end_price, "");
+} else if ($grade == 10) {
+    // 최하등급
+    $tmp = "\n       <dd class=\"grade grade9\"><img src=\"/design_template/images/common/text_membership_grade9.png\" alt=\"" . GRADE_EN[9] . "\"></dd>";
+    $grade_status_html .= sprintf($d_html, "style=\"display:none;\"", $sales_start_price, "");
+    $grade_status_html .= sprintf($u_html, "", $sales_end_price, $tmp);
+} else {
+    $tmp1 = "\n       <dd class=\"grade grade" . $pre_grade . "\"><img src=\"/design_template/images/common/text_membership_grade" . $pre_grade . ".png\" alt=\"" . GRADE_EN[$pre_grade] . "\"></dd>";
+    $tmp2 = "\n       <dd class=\"grade grade" . $nxt_grade . "\"><img src=\"/design_template/images/common/text_membership_grade" . $nxt_grade . ".png\" alt=\"" . GRADE_EN[$nxt_grade] . "\"></dd>";
+    $grade_status_html .= sprintf($d_html, "", $sales_start_price, $tmp1);
+    $grade_status_html .= sprintf($u_html, "", $sales_end_price, $tmp2);
+}
+
+$template->reg("grade_status_html", $grade_status_html); 
+
+//등급 표시
+$param = array();
+$param["table"] = "member_grade_policy";
+$param["col"] = "sales_start_price ,grade ,sales_sale_rate ,sales_give_point";
+
+$rs = $dao->selectData($conn, $param);
+
+$html  = "\n<dd class=\"grade%s %s\">";
+$html .= "\n    <dl>";
+$html .= "\n    <dt>%s</dt>";
+$html .= "\n        <dd>";
+$html .= "\n            <ul>";
+$html .= "\n                <li>3개월 이용금액<br>&#8361;%s 이상</li>";
+$html .= "\n            </ul>";
+$html .= "\n            <ul>";
+$html .= "\n                <li>주문금액 %s 할인</li>";
+$html .= "\n                <li>무료배송</li>";
+$html .= "\n                <li>2,000월 할인 쿠폰 1매</li>";
+$html .= "\n            </ul>";
+$html .= "\n        </dd>";
+$html .= "\n    </dl>";
+$html .= "\n</dd>";
+
+$grade_overview_html = "";
+
+while ($rs && !$rs->EOF) {
+    $on = "";
+    if ($grade == $rs->fields["grade"]) {
+        $on = "on";
+    }
+    $grade_overview_html .= sprintf($html
+            ,$rs->fields["grade"]
+            ,$on
+            ,GRADE_EN[$rs->fields["grade"]]
+            ,number_format($rs->fields["sales_start_price"])
+            ,$rs->fields["sales_sale_rate"] . "%");
+    $rs->moveNext();
+}
+
+$template->reg("grade_overview_html", $grade_overview_html); 
+
+$html = "<option value=\"%s\" %s>%s</option>";
+$year_html = "";
+
+//회원등급 추이 년도
+$param = array();
+$param["table"] = "member_grade";
+$param["col"] = "DISTINCT year";
+
+$rs = $dao->selectData($conn, $param);
+
+while ($rs && !$rs->EOF) {
+
+    $checked = "";
+    if ($rs->fields["year"] == date("Y")) {
+        $checked = "selected=\"selected\"";
+    }
+    $year_html .= sprintf($html ,$rs->fields["year"]
+            ,$checked
+            ,$rs->fields["year"]);
+    $rs->moveNext();
+}
+$template->reg("year_html", $year_html); 
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "mypage"); 
+$template->reg("page", "benefits_grade"); 
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path);
+$template->htmlPrint($html_path);
+
+$conn->Close();
+?>
