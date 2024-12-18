@@ -1,0 +1,23 @@
+<header class="popup">
+    <h2>나의 배송지 등록</h2>
+    <button type="button" class="close">닫기</button>
+</header>
+<article>
+    <table class="sheetForm horizontal">
+        <colgroup>
+            <col class="th">
+            <col>
+        </colgroup>
+        <tbody>
+            <tr>
+                <th scope="row">업체/회원명</th>
+                <td><input id="pop_dlvr_name" type="text" class="full" value="<?=$_GET["dlvr_name"] ?>"></td>
+            </tr>
+        </tbody>
+    </table>
+    <hr class="end">
+    <footer class="action">
+        <button type="button" class="progress" onclick="regiDlvrAddr.exec();">등록</button>
+        <button type="button" class="close">취소</button>
+    </footer>
+</article>

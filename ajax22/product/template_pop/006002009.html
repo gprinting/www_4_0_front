@@ -1,0 +1,73 @@
+<header class="popup">
+    <h2>템플릿 다운로드</h2>
+    <button type="button" class="close">닫기</button>
+</header>
+<article>
+    <h3>장교봉투</h3>
+    <table class="list thead">
+        <colgroup>
+            <col width="90">
+            <col width="90">
+            <col width="90">
+            <col width="90">
+            <col width="60">
+            <col width="60">
+            <col width="60">
+            <col width="60">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>고유번호</th>
+                <th>사이즈</th>
+                <th>재단사이즈(mm)</th>
+                <th>작업사이즈(mm)</th>
+                <th>AI</th>
+                <th>EPS</th>
+                <th>CDR</th>
+                <th>SIT</th>
+            </tr>
+        </thead>
+    </table>
+    <div class="tableScroll">
+        <div class="wrap">
+            <table class="list">
+                <colgroup>
+                    <col width="90">
+                    <col width="90">
+                    <col width="90">
+                    <col width="90">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                </colgroup>
+                <tbody>
+
+                    <tr>
+                        <td>MEJAJ</td>
+                        <td>235*105(장교A)</td>
+                        <td>235*105</td>
+                        <td>235*105</td>
+                        <td class="btn"></td>
+                        <td class="btn"><button onclick="downloadTemplate('eps', '456');">다운</button></td>
+                        <td class="btn"><button onclick="downloadTemplate('cdr', '456');">다운</button></td>
+                        <td class="btn"></td>
+                    </tr>
+                    <tr>
+                        <td>MEJCJ</td>
+                        <td>185*95(장교C)</td>
+                        <td>185*95</td>
+                        <td>185*95</td>
+                        <td class="btn"></td>
+                        <td class="btn"><button onclick="downloadTemplate('eps', '457');">다운</button></td>
+                        <td class="btn"><button onclick="downloadTemplate('cdr', '457');">다운</button></td>
+                        <td class="btn"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</article>
+<script>
+    tab();
+</script>

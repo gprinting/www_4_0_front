@@ -1,0 +1,83 @@
+<header class="popup">
+    <h2>템플릿 다운로드</h2>
+    <button type="button" class="close">닫기</button>
+</header>
+<article>
+    <h3>문고리</h3>
+    <table class="list thead">
+        <colgroup>
+            <col width="90">
+            <col width="90">
+            <col width="90">
+            <col width="90">
+            <col width="60">
+            <col width="60">
+            <col width="60">
+            <col width="60">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>고유번호</th>
+                <th>사이즈</th>
+                <th>재단사이즈(mm)</th>
+                <th>작업사이즈(mm)</th>
+                <th>AI</th>
+                <th>EPS</th>
+                <th>CDR</th>
+                <th>SIT</th>
+            </tr>
+        </thead>
+    </table>
+    <div class="tableScroll">
+        <div class="wrap">
+            <table class="list">
+                <colgroup>
+                    <col width="90">
+                    <col width="90">
+                    <col width="90">
+                    <col width="90">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                    <col width="60">
+                </colgroup>
+                <tbody>
+
+                    <tr>
+                        <td>DH-001</td>
+                        <td>(G1) 장A5</td>
+                        <td>102*296</td>
+                        <td>106*300</td>
+                        <td class="btn"></td>
+                        <td class="btn"><button onclick="downloadTemplate('eps', '241');">다운</button></td>
+                        <td class="btn"><button onclick="downloadTemplate('cdr', '241');">다운</button></td>
+                        <td class="btn"><button onclick="downloadTemplate('sit', '241');">다운</button></td>
+                    </tr>
+                    <tr>
+                        <td>DH-002</td>
+                        <td>(G2) 장32절</td>
+                        <td>90*260</td>
+                        <td>94*264</td>
+                        <td class="btn"></td>
+                        <td class="btn"><button onclick="downloadTemplate('eps', '242');">다운</button></td>
+                        <td class="btn"><button onclick="downloadTemplate('cdr', '242');">다운</button></td>
+                        <td class="btn"><button onclick="downloadTemplate('sit', '242');">다운</button></td>
+                    </tr>
+                    <tr>
+                        <td>DH-003</td>
+                        <td>(G3) 장32절</td>
+                        <td>90*260</td>
+                        <td>94*264</td>
+                        <td class="btn"><button onclick="downloadTemplate('ai', '497');">다운</button></td>
+                        <td class="btn"></td>
+                        <td class="btn"><button onclick="downloadTemplate('cdr', '497');">다운</button></td>
+                        <td class="btn"><button onclick="downloadTemplate('sit', '497');">다운</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</article>
+<script>
+    tab();
+</script>
