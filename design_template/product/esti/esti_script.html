@@ -1,0 +1,131 @@
+    <script>
+        var makeAfterSummary = function(dvs) {
+            var ret = '';
+            var prefix = getPrefix(dvs);
+            //var $ext   = $(prefix + "ext_after");
+
+            if ($("input[name='" + dvs + "_chk_after[]']:checked").length === 0) {
+                return ret;
+            }
+
+            $('.' + dvs + "_overview li").each(function() {
+                ret += $(this).text() + ", ";
+            });
+
+            ret = ret.substr(0, ret.length - 2);
+
+            //if (!checkBlank($.trim($ext.val()))) {
+            //    ret += ", " + $ext.val();
+            //}
+
+            return ret;
+        };
+
+        /**
+         * @brief 종이 정보 생성
+         */
+        var makePaperInfo = function(dvs) {
+            var prefix = getPrefix(dvs);
+            var ret = '';
+
+            var $sort  = $(prefix + "paper_sort");
+            var $name  = $(prefix + "paper_name");
+            var $paper = $(prefix + "paper");
+            var $ext   = $(prefix + "ext_paper");
+
+            if ($sort.val() !== "-1") {
+                ret += $sort.val();
+            }
+
+            if ($name.val() !== "-1") {
+                ret += ' ' + $name.val();
+            }
+
+            if ($paper.val() !== "-1") {
+                ret += ' ' + $paper.find("option:selected").text();
+            }
+
+            if ($paper.val() == "-1") {
+                ret = $ext.val();
+            }
+            //if (!checkBlank($.trim($ext.val()))) {
+            //    ret += " [" + $ext.val() + ']';
+            //}
+
+            return ret;
+        };
+
+        /**
+         * @brief 도수 정보 생성
+         */
+        var makeTmptInfo = function(dvs) {
+            var prefix = getPrefix(dvs);
+
+            var befInfo = "전면-";
+            var aftInfo = "후면-";
+
+            var $bef  = $(prefix + "bef_tmpt");
+            var $aft  = $(prefix + "aft_tmpt");
+
+            //var $befExt = $(prefix + "ext_bef_tmpt");
+            //var $aftExt = $(prefix + "ext_aft_tmpt");
+
+            if ($bef.val() !== "-1") {
+                befInfo += $bef.find("option:selected").text();
+            }
+            //if (!checkBlank($.trim($befExt.val()))) {
+            //    befInfo += " [" + $befExt.val() + ']';
+            //}
+
+            if ($aft.val() !== "-1") {
+                aftInfo += $aft.find("option:selected").text();
+            }
+            //if (!checkBlank($.trim($aftExt.val()))) {
+            //    aftInfo += " [" + $aftExt.val() + ']';
+            //}
+
+            return {"bef" : befInfo, "aft" : aftInfo};
+        };
+
+        /**
+         * @brief 구분값에 따른 정보 생성
+         */
+        var makeStanInfo = function(dvs) {
+            var prefix = getPrefix(dvs);
+            var ret = '';
+
+            var sizeName = $(prefix + "size > option:selected").text();
+            if ($("#size_dvs").val() === "manu") {
+                sizeName = "비규격";
+            }
+
+            ret += sizeName;
+
+            //var $ext = $(prefix + "ext_size");
+            //if (!checkBlank($.trim($ext.val()))) {
+            //    ret += " [" + $ext.val() + ']';
+            //}
+
+            return ret;
+        };
+
+        /**
+         * @brief 구분값에 따른 정보 생성
+         */
+        var makeInfo = function(dvs, id) {
+            var prefix = getPrefix(dvs);
+            var ret = '';
+
+            var $obj = $(prefix + id);
+            //var $ext = $(prefix + "ext_" + id);
+
+            if ($obj.val() !== "-1") {
+                ret += $obj.find("option:selected").text();
+            }
+            //if (!checkBlank($.trim($ext.val()))) {
+            //    ret += " [" + $ext.val() + ']';
+            //}
+
+            return ret;
+        };
+    </script>

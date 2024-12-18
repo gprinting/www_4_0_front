@@ -1,0 +1,45 @@
+    <div class="quickEstimate">
+        <h3>
+            <div class="wrap">
+                빠른 견적서
+            </div>
+        </h3>
+
+        <div id="quick_esti" class="div_quick_esti">
+            [TPH_Vquick_esti]
+            <div class="function">
+                <strong><button onclick="purProduct();" type="button" class="c_btn-primary" style="line-height: 1;">[TPH_Vorder_btn_name]</button></strong>
+                <button type="button" class="c_btn-primary-reverse" onclick="goCart();" style="width: 81px; height: 36px; margin-right: 2px;">장바구니</button>
+                <button type="button" class="c_btn-primary-reverse sub" onclick="showEstiPop();" style="width: 81px; height: 36px;">견적서 출력</button>
+            </div>
+        </div>
+
+        <div class="side_delivery_price_wrapper">
+            <div class="side_delivery_price">
+                <div class="title">
+                    선택상품 택배 예상금액<img class="icon_delivery_price" src="[TPH_Vdesign_dir]/images/common/icon_tip02.png" alt="tip">
+                </div>
+                <div class="input">
+                    <input type="text" disabled="disabled" maxlength="5" id="expect_weight" class="kg">kg
+                    <input type="text" disabled="disabled" maxlength="2" id="expect_box" class="block">덩어리
+                </div>
+                <div class="total_price">
+                    <div class="total">예상금액</div><div class="price"><span class="text_st_01" id="expect_dlvr_price">0</span>원</div>
+                </div>
+            </div>
+            <table class="tipBox tip_delivery_price">
+                <tbody>
+                    <tr>
+                        <td class="title">택배 예상금액 안내</td>
+                    </tr>
+                    <tr>
+                        <td>택배 배송 시 상품의 무게와 덩어리가 합산된 예상금액입니다.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        [TPH_I/common/esti_pop_form.html]
+        <!-- <div class="div_order_test">
+            <img src="[TPH_Vdesign_dir]/images/product/img_beta.png" alt="beta">
+        </div> -->
+    </div>

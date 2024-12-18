@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	[TPH_I/common/head.html] 
+    [TPH_I/common/cs_head.html]
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<style type="text/css">
+		ul.paging .first:after,
+		ul.paging .last:before {
+			content: '···';
+			margin: 0 6px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="wrapper">
+		<!-- 헤더 -->
+		[TPH_I/common/cs_header.html]
+
+		<div class="div_sub_banner cs_banner">
+			<img class="" src="/design_template/images/sp_banner/banner_intro.jpg" alt="서브배너" />
+		</div>
+		<div class="contents contents_02 cscenter notice">
+			<div class="lnb">
+				[TPH_I/cscenter/common/lnb.html]
+			</div>
+			<h3 class="pageTitle"><img src="[TPH_Vdesign_dir]/images/title/release_guide.png" alt="출고일 안내"></h3>
+			<div class="release_container">
+				<div style="border: 1px solid #ddd; padding:20px; margin-bottom:40px;">
+					<p class="ctn_p">출고일 구분<span>(접수완료를 시점으로 상품이 제작 완료 출고 되는 기간을 구분 합니다.)</span></p>
+					<ul>
+						<li><strong>1) 당일출고 - 주문시 당일판에 체크한 경우</strong></li>
+						<li>- 명함/스티커 : 상품에 따라 접수일 오후 12시, 15시 까지 당일판 체크하여 결제완료된 주문에 한해 당일 출고가 됩니다.</li>
+						<li>- 전단 : 주문하실 때 전달사항란에 '당일판여부'를 적어주세요. 단, 후가공은 후가공당 1일씩 추가됩니다.</li>
+						<li style="margin-top:12px;"><strong>2) 1박 2일 - 오늘접수 내일출고</strong></li>
+						<li>- 품목별 마감시간 전에 결제 완료된 주문에 한합니다.</li>
+					</ul>
+					<span style="color:#3e3298;">※ 당사의 사정에 따라 납기일이 지연될 수 있으니 이 점 참고하시어 납기일은 넉넉히 잡아주시기 바랍니다.</span>
+				</div>
+				<colspan>
+				</colspan>
+				<table class="release-table">
+					<colgroup>
+						<col width="100">
+						<col width="100">
+						<col width="100">
+						<col>
+					</colgroup>
+					<tbody>
+						<tr>
+							<th>품목</th>
+							<th>마감시간</th>
+							<th>출고일</th>
+							<th>상품</th>
+						</tr>
+						<!-- 명함 start -->
+						<tr>
+							<td rowspan="7" class="align_c">명함</td>
+							<td class="align_c">당일판</td>
+							<td rowspan="2" class="align_c">당일</td>
+							<td><strong>[일반명함]</strong> 코팅/무코팅/고품격코팅/고품격무코팅</td>
+						</tr>
+						<tr>
+							<td class="align_c">정오 12시<br>오후 3시</td>
+							<td><strong>[고급명함]</strong> 스타드림/휘라레/반누보/퓨리/스타실버/랑데뷰/머쉬/팝셋/베이직/탄트지/키칼라골드/키칼라아이스/컨셉/빌리지</td>
+						</tr>
+						<tr>
+							<td rowspan="2" class="align_c">저녁 8시</td>
+							<td rowspan="2" class="align_c">1박2일<br>(매일출고)</td>
+							<td><strong>[일반명함]</strong> 코팅/무코팅/고품격코팅/고품격무코팅</td>
+						</tr>
+						<tr>
+							<td><strong>[고급명함]</strong> 스타드림/휘라레/반누보/퓨리/스타실버/랑데뷰/머쉬/팝셋/베이직/탄트지/키칼라골드/키칼라아이스/컨셉/빌리지/그레이스/유포지/샤인스페셜/스코틀랜드/스타골드</td>
+						</tr>
+						<tr>
+							<td rowspan="3" class="align_c">오후 5시</td>
+							<td class="align_c">2박3일</td>
+							<td><strong>[카드명함]</strong> 화이트/골드</td>
+						</tr>
+						<tr>
+							<td class="align_c">3박4일</td>
+							<td><strong>[카드명함]</strong> 실버/실버플러스/골드플러스/은펄/금펄/은펄플러스/금펄플러스/은펄반누드</td>
+						</tr>
+						<tr>
+							<td class="align_c">4박5일</td>
+							<td><strong>[카드명함]</strong> 누드/반누드/반누드플러스/금펄반누드/거울플러스/금펄더블플러스/메탈실버/메탈골드/홀로그램플러스/홀로그램 더블플러스</td>
+						</tr>
+						<!-- 명함 end -->
+						<!-- 스티커 start -->
+						<tr>
+							<td rowspan="3" class="align_c">스티커</td>
+							<td class="align_c">당일판</td>
+							<td rowspan="2" class="align_c">당일</td>
+							<td rowspan="2"><strong>[컬러스티커]</strong> 코팅/무코팅/모조/크라프트</td>
+						</tr>
+						<tr>
+							<td class="align_c">정오 12시<br>오후 3시</td>
+						</tr>
+						<tr>
+							<td class="align_c">저녁 8시</td>
+							<td class="align_c">1박2일<br>(매일출고)</td>
+							<td><strong>[특수지스티커]</strong> 은데드롱/투명데드롱/도무송스티커</td>
+						</tr>
+						<!-- 스티커 end -->
+						<!-- 전단 start -->
+						<tr>
+							<td rowspan="5" class="align_c">전단</td>
+							<td class="align_c">당일판</td>
+							<td rowspan="2" class="align_c">당일</td>
+							<td><strong>[합판전단]</strong> 아트지 90</td>
+						</tr>
+						<tr>
+							<td class="align_c">정오 12시<br>오후 3시</td>
+							<td><strong>[독판전단]</strong> 아트지/스노우지 100/120/150/180/200/250/300</td>
+						</tr>
+						<tr>
+							<td rowspan="3" class="align_c">저녁 7시</td>
+							<td rowspan="3" class="align_c">1박2일<br>(매일출고)</td>
+							<td><strong>[합판전단]</strong> 아트지 90/120/150/180/300</td>
+						</tr>
+						<tr>
+							<td><strong>[독판전단]</strong> 아트지/스노우지 100/120/150/180/200/250/300/포스터</td>
+						</tr>
+						<tr>
+							<td><strong>[초소량인쇄]</strong> 모조지/아트지/스노우지 100/120/150/180/200/250/300</td>
+						</tr>
+						<!-- 전단 end -->
+						<!-- 봉투 start -->
+						<tr>
+							<td rowspan="2" class="align_c">봉투</td>
+							<td rowspan="2" class="align_c">저녁 7시</td>
+							<td class="align_c">1박2일</td>
+							<td><strong>[칼라봉투]</strong> 소봉투/자켓봉투/대봉투</td>
+						</tr>
+						<tr>
+							<td class="align_c">2박3일</td>
+							<td><strong>[칼라봉투]</strong> 비규격/별사이즈/기타봉투</td>
+						</tr>
+						<!-- 봉투 end -->
+						<!-- 상업인쇄 start -->
+						<tr>
+							<td class="align_c">상업인쇄</td>
+							<td class="align_c">저녁 7시</td>
+							<td class="align_c">2박3일</td>
+							<td><strong>[상업인쇄]</strong> 카다로그/리플렛/홀더</td>
+						</tr>
+						<!-- 상업인쇄 end -->
+						<!-- 경인쇄 start -->
+						<tr>
+							<td class="align_c">경인쇄</td>
+							<td class="align_c">저녁 7시</td>
+							<td class="align_c">1박2일</td>
+							<td><strong>[경인쇄]</strong> NCR/모조</td>
+						</tr>
+						<!-- 경인쇄 end -->
+						<!-- 그린백 start -->
+						<tr>
+							<td class="align_c">그린백</td>
+							<td class="align_c">저녁 7시</td>
+							<td class="align_c">4박5일</td>
+							<td><strong>[비닐봉투]</strong> M 타입/사각</td>
+						</tr>
+						<!-- 그린백 end -->
+						<!-- 자석인쇄물 start -->
+						<tr>
+							<td class="align_c">자석인쇄물</td>
+							<td class="align_c">저녁 7시</td>
+							<td class="align_c">4박5일</td>
+							<td><strong>[자석인쇄물]</strong> 종이자석/자석스티커/자석오프너</td>
+						</tr>
+						<!-- 자석인쇄물 end -->
+						<!-- 기타인쇄물 start -->
+						<tr>
+							<td class="align_c">기타인쇄물</td>
+							<td class="align_c">저녁 7시</td>
+							<td class="align_c">3박4일</td>
+							<td><strong>[기타인쇄물]</strong> 복권/메뉴판/문어발문고리/메모지</td>
+						</tr>
+						<!-- 기타인쇄물 end -->
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- cs center 우측 컨텐츠 -->
+		[TPH_I/common/cs_side_contents.html]
+
+		<footer>
+			[TPH_I/common/footer.html]
+		</footer>
+	</div>
+</body>
+
+</html>

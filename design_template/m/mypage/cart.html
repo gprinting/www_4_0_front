@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+    [TPH_I/m/common/head.html]
+</head>
+<script type="text/javascript">
+//레이어팝업 배경클릭시 닫힘
+$(".layerpopup_bg").click(function () {
+    $(".layerpopup").hide();
+    $(".layerpopup_bg").hide();
+});
+</script>
+<body>
+    <div class="wrapper">
+        <!-- 네비게이션 -->
+        [TPH_I/m/common/nav.html]
+        <!-- 헤더 -->
+        [TPH_I/m/common/header.html]
+        
+        <div class="contents">
+            <!-- 타이틀 start -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title">
+                    장바구니
+                </div>
+            </div>
+            <!-- 타이틀 end -->
+
+            <!-- 검색 결과 start -->
+            <div class="mypage_status_top_info_wrapper">
+                <table class="mypage_status_top_info">
+                    <colgroup>
+                        <col style="width:70%;">
+                        <col style="width:30%;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p class="mypage_status_text_p">총 <span class="mypage_status_text_span" id="cart_cnt"></span>건의 검색결과가 있습니다.</p>
+                            </td>
+                            <td>
+                                <select class="select_basic_table_top" onchange="changeListNum.exec(this.value);">
+                                    <option value="10">10개씩 보기</option>
+                                    <option value="20">20개씩 보기</option>
+                                    <option value="30">30개씩 보기</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <table class="order_list_table">
+                <colgroup>
+                    <col style="width:12%;">
+                    <col style="">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th colspan="2">
+                            <span class="text_select_del">전체선택</span>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="after_option_span" style="text-align:center; line-height:0px;">
+                                <input type="checkbox" id="chk_list_01" name="chk_list" style="float:right;">&nbsp;<label for="chk_list_01">&nbsp;</label>
+                            </span>
+                        </td>
+                        <td class="width_padding_right">
+                            <p class="order_list_title_text"><span class="category_text">[카다로그]</span>&nbsp;<span class="prdt_title_text">코엑스 홍보물</span></p>
+                            <p class="order_list_detail_text">A4, 500 부 / 표지 : 아트지 백색 250g / 전면 - 칼라4도, 후면 - 칼라4도</p>
+                            <p class="order_list_after_text">미싱(1줄 중앙) / 타공(1개 3mm) / 오시(1줄 중앙)</p>
+                            <p class="order_list_etc_text">
+                                <span class="order_list_first_text_box">날짜</span>2018.01.26
+                                <span class="order_list_text_box">수량</span>500부(1건)
+                                <span class="order_list_text_box">금액</span>223,530원
+                            </p>
+                            <div class="btn_order_list_manage btn_mypage_slide_on">
+                                <img class="" src="/design_template/m/images/mypage/btn_table_menu_on.png" alt="자세히보기">
+                            </div>
+                            <div class="btn_order_list_manage btn_mypage_slide_off" style="display:none;">
+                                <img class="" src="/design_template/m/images/mypage/btn_table_menu_off.png" alt="자세히보기">
+                            </div>
+                            <div class="pollSlider">
+                                <ul>
+                                    <li>
+                                        <button>
+                                            <a href=""><img src="/design_template/m/images/mypage/icon_order_table_05.png" alt="재업로드"></a>
+                                        </button>
+                                        <p>재업로드</p>
+                                    </li>
+                                    <li>
+                                        <button>
+                                            <a href=""><img src="/design_template/m/images/mypage/icon_order_table_08.png" alt="내려받기"></a>
+                                        </button>
+                                        <p>내려받기</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="after_option_span" style="text-align:center; line-height:0px;">
+                                <input type="checkbox" id="chk_list_01" name="chk_list" style="float:right;">&nbsp;<label for="chk_list_01">&nbsp;</label>
+                            </span>
+                        </td>
+                        <td class="width_padding_right">
+                            <p class="order_list_title_text"><span class="category_text">[카다로그]</span>&nbsp;<span class="prdt_title_text">코엑스 홍보물</span></p>
+                            <p class="order_list_detail_text">A4, 500 부 / 표지 : 아트지 백색 250g / 전면 - 칼라4도, 후면 - 칼라4도 A4, 500 부 / 표지 : 아트지 백색 250g / 전면 - 칼라4도, 후면 - 칼라4도</p>
+                            <p class="order_list_after_text">미싱(1줄 중앙) / 타공(1개 3mm) / 오시(1줄 중앙)</p>
+                            <p class="order_list_etc_text">
+                                <span class="order_list_first_text_box">날짜</span>2018.01.26
+                                <span class="order_list_text_box">수량</span>500부(1건)
+                                <span class="order_list_text_box">금액</span>223,530원
+                            </p>
+                            <div class="btn_order_list_manage">
+                                <img class="" src="/design_template/m/images/mypage/btn_table_menu_on.png" alt="자세히보기">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="after_option_span" style="text-align:center; line-height:0px;">
+                                <input type="checkbox" id="chk_list_01" name="chk_list" style="float:right;">&nbsp;<label for="chk_list_01">&nbsp;</label>
+                            </span>
+                        </td>
+                        <td class="width_padding_right">
+                            <p class="order_list_title_text"><span class="category_text">[카다로그]</span>&nbsp;<span class="prdt_title_text">코엑스 홍보물</span></p>
+                            <p class="order_list_detail_text">A4, 500 부 / 표지 : 아트지 백색 250g / 전면 - 칼라4도, 후면 - 칼라4도</p>
+                            <p class="order_list_after_text">미싱(1줄 중앙) / 타공(1개 3mm) / 오시(1줄 중앙)</p>
+                            <p class="order_list_etc_text">
+                                <span class="order_list_first_text_box">날짜</span>2018.01.26
+                                <span class="order_list_text_box">수량</span>500부(1건)
+                                <span class="order_list_text_box">금액</span>223,530원
+                            </p>
+                            <div class="btn_order_list_manage">
+                                <img class="" src="/design_template/m/images/mypage/btn_table_menu_on.png" alt="자세히보기">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="">
+                            <span class="after_option_span" style="text-align:center; line-height:0px;">
+                                <input type="checkbox" id="chk_list_01" name="chk_list" style="float:right;">&nbsp;<label for="chk_list_01">&nbsp;</label>
+                            </span>
+                        </td>
+                        <td>
+                            <p class="order_list_title_text"><span class="category_text">[카다로그]</span>&nbsp;<span class="prdt_title_text">코엑스 홍보물</span></p>
+                            <p class="order_list_detail_text">A4, 500 부 / 표지 : 아트지 백색 250g / 전면 - 칼라4도, 후면 - 칼라4도</p>
+                            <p class="order_list_after_text">미싱(1줄 중앙) / 타공(1개 3mm) / 오시(1줄 중앙)</p>
+                            <p class="order_list_etc_text">
+                                <span class="order_list_first_text_box">날짜</span>2018.01.26
+                                <span class="order_list_text_box">수량</span>500부(1건)
+                                <span class="order_list_text_box">금액</span>223,530원
+                            </p>
+                            <div class="btn_order_list_manage">
+                                <img class="" src="/design_template/m/images/mypage/btn_table_menu_on.png" alt="자세히보기">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!--
+            <table class="board_type_table_top">
+                <colgroup>
+                    <col style="width:12%;">
+                    <col style="width:39%;">
+                    <col style="width:25%;">
+                    <col style="width:24%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>
+                            <span class="after_option_span" style="text-align:right;">
+                                <input type="checkbox" id="chk_all" name="chk_all" onclick="chkAll(this.id);">&nbsp;<label for="chk_all">&nbsp;</label>
+                            </span>
+                        </th>
+                        <th>인쇄물제목</th>
+                        <th>결제예정금액</th>
+                        <th>상세</th>
+                    </tr>
+                </thead>
+                <tbody id="m_cart_list">
+                    <tr>
+                        <td colspan="4" class="board_type_detail_td detail_table_01" style="display:none; padding: 0px !important;">
+                            <div class="mypage_detail_table_wrapper">
+                                <table class="mypage_detail_table">
+                                    <colgroup>
+                                        <col width="30%;">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th>상품내역</th>
+                                            <td class="bottom_border">카다로그, 브로셔, A3, 500 부 / 표지 : 아트지 백색 150g</td>
+                                        </tr>
+                                        <tr>
+                                            <th>옵션</th>
+                                            <td class="bottom_border">옵션 설명</td>
+                                        </tr>
+                                        <tr>
+                                            <th>후공정</th>
+                                            <td class="bottom_border">후공정 설명</td>
+                                        </tr>
+                                        <tr>
+                                            <th>주문파일</th>
+                                            <td class="bottom_border">banner_mypage_order_step_02.jpg</td>
+                                        </tr>
+                                        <tr>
+                                            <th>수량/건</th>
+                                            <td class="bottom_border">	500부 X 1건</td>
+                                        </tr>
+                                        <tr>
+                                            <th>할인내역</th>
+                                            <td class="bottom_border">회원등급할인 5,000원</td>
+                                        </tr>
+                                        <tr>
+                                            <th>예상무게</th>
+                                            <td class="bottom_border">300 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <th>배송</th>
+                                            <td class="bottom_border">12381 서울시 은평구 대조동 50-1 산울림아파트 B동 107호</td>
+                                        </tr>
+                                        <tr>
+                                            <th>결제금액</th>
+                                            <td class="bottom_border">122,860원</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="board_type_detail_td detail_table_02" style="display:none; padding: 0px !important;">
+                            <div class="mypage_detail_table_wrapper">
+                                <table class="mypage_detail_table">
+                                    <colgroup>
+                                        <col width="30%;">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th>상품내역</th>
+                                            <td class="bottom_border">카다로그, 브로셔, A3, 500 부 / 표지 : 아트지 백색 150g</td>
+                                        </tr>
+                                        <tr>
+                                            <th>옵션</th>
+                                            <td class="bottom_border">옵션 설명</td>
+                                        </tr>
+                                        <tr>
+                                            <th>후공정</th>
+                                            <td class="bottom_border">후공정 설명</td>
+                                        </tr>
+                                        <tr>
+                                            <th>주문파일</th>
+                                            <td class="bottom_border">banner_mypage_order_step_02.jpg</td>
+                                        </tr>
+                                        <tr>
+                                            <th>수량/건</th>
+                                            <td class="bottom_border">	500부 X 1건</td>
+                                        </tr>
+                                        <tr>
+                                            <th>할인내역</th>
+                                            <td class="bottom_border">회원등급할인 5,000원</td>
+                                        </tr>
+                                        <tr>
+                                            <th>예상무게</th>
+                                            <td class="bottom_border">300 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <th>배송</th>
+                                            <td class="bottom_border">12381 서울시 은평구 대조동 50-1 산울림아파트 B동 107호</td>
+                                        </tr>
+                                        <tr>
+                                            <th>결제금액</th>
+                                            <td class="bottom_border">122,860원</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            -->
+
+            <!-- 하단 버튼 start -->
+            <div class="button_wrapper button_wrapper02" style="width:88%;">
+                <button class="mypage_bottom_basic_btn_out" type="button" onclick="delCart(false);">선택 상품 삭제</button>
+                <button class="mypage_bottom_color_btn_out" type="button" onclick="goSheet(false)" style="background-color:#7387af;">선택 상품 주문</button>
+                <button class="mypage_bottom_color_btn_out" type="button" onclick="goSheet(true)">전체 상품 주문</button>
+            </div>
+            <!-- 하단 버튼 end -->
+
+            <div class="contents_wrapper">
+                <div class="div_radius_frame_02 notice" style="font-size:0.875em;">
+                    <div class="div_radius_frame_text">
+                        <p>주문하시기 전 <span class="note_color">제품 및 작업사이즈를 꼭 확인</span>해주세요.</p>
+                        <p>모든 서체는 꼭 <span class="note_color">아웃라인(곡선처리)</span>을 해주세요. 아웃라인하지 않은 서체는 인쇄되지 않거나 다른 서체로 대체될 수 있습니다.</p>
+                        <p>주문시 모든 효과는 <span class="note_color">비트맵변환(이미지화)</span>을 해주세요. (특히 일러스트의 불투명 마스크 효과의 경우 인쇄가 나오지 않을 수 있습니다.)</p>
+                        <p><span class="note_color">작업 생상은 CMYK</span>를 기본으로 작업해주세요. CMYK가 아닌 경우 먹으로 인쇄되거나 다른 색상으로 대체되어 인쇄될 수 있습니다.</p>
+                        <p><span class="note_color">선 두께는 0.5 포인트 이상</span>으로 작업해주셔야 인쇄됩니다. 0.2mm이상 0.5포인트 이하로 작업할 경우 인쇄되지 않을 수 있습니다.</p>
+                        <p>데이터는 반드시 <span class="note_color">그룹(Group)</span>처리해주세요.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 레이어팝업/파일재전송 start -->
+        <div class="layerpopup layerpopup_file_upload">
+            <div class="layerpopup_contents">
+                <div class="layerpopup_title">
+                    <p class="main_title">파일재전송</p>
+                </div>
+                <table class="layerpopup_table">
+                    <tr>
+                        <td>
+                            <table class="filebox">
+                                <colgroup>
+                                    <col style="width:40%;">
+                                    <col style="width:60%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding:0 5% 0 0 !important;">
+                                            <label for="ex_filename">파일선택</label>
+                                        </td>
+                                        <td style="padding: 0 0 0 0 !important;">
+                                            <input class="upload-name" value="" disabled="disabled">
+                                        <input type="file" id="ex_filename" class="upload-hidden"> 
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="div_radius_frame_02">
+                                <div class="div_radius_frame_text">
+                                    <p>후공정 작업파일과 인쇄물 작업파일을 같이 압축해서 올려 주십시오.</p>
+                                    <p>후공정 작업파일은 한 파일로 작업하여 올려 주십시오.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="mypage_bottom_basic_btn_inner btn_layerpopup_hide" type="button">취소</button>
+                                <button class="mypage_bottom_color_btn_inner" type="button">업로드</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- 레이어팝업/파일재전송 end -->
+
+        <!-- 레이어팝업 배경 start -->
+        <div class="layerpopup_bg"></div>
+        <!-- 레이어팝업 배경 end -->
+
+        [TPH_I/common/is_login.html]
+        <!-- 푸터 -->
+        [TPH_I/m/common/footer.html]
+    </div>
+</body> 
+</html>

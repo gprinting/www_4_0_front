@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <!-- <style type="text/css">
+        ul.paging .first:after,
+        ul.paging .last:before { content: '···'; margin: 0 6px; }
+    </style> -->
+</head>
+<body>
+<div class="wrapper">
+    <!-- 로그인 박스 -->
+    [TPH_I/common/login.html]
+
+    <!-- 헤더 -->
+    <div class="div_header_wrapper">
+        [TPH_I/common/header.html]
+
+        <!-- 사이드 메뉴 -->
+        [TPH_I/common/side.html]
+
+        <!-- 네비게이션 -->
+        [TPH_I/common/tnb.html]
+    </div>
+    <div class="div_sub_banner">
+        <img class="" src="/design_template/images/sp_banner/banner_payment.jpg" alt="서브배너" />
+        <div class="inner">
+            <div class="title_wrap">
+                <h1>결제</h1>
+                <p>거래내역 및 선입금 충전 등 결제와 관련된 페이지입니다.</p>
+            </div>
+        </div>
+    </div>
+    <div class="contents contents_02 benefits">
+        <div class="lnb">
+            [TPH_I/mypage/common/lnb.html]
+        </div>
+        <h3 class="pageTitle"><div class="bar_left"></div>계산서 관리</h3>
+        <div class="pageTab2">
+            <ul>
+                <a href="/mypage/benefits_receipt_mng.html"><li class="main on" style="cursor: pointer;">현금영수증 관리</li></a>
+                <li class="main" style="cursor: pointer;">세금계산서 관리</li>
+            </ul>
+        </div>
+        <table class="list searchResult noEllipsis">
+            <div class="searchCondition">
+                <div class="rowWrap">
+                    <dl class="date">
+                        <dt>신청일</dt>
+                        <!-- <dd>
+                            [TPH_I/common/datepicker.html]
+                        </dd> -->
+                        <dd>
+                            <input type="text" class="_date hasDatepicker" id="from" name="from" value="">
+                            ~
+                            <input type="text" class="_date hasDatepicker" id="to" name="to" value="">
+                            <ul class="preset">
+                                <li><button onclick="dateSet(0); return false;">오늘</button></li>
+                                <li><button onclick="dateSet(1); return false;">어제</button></li>
+                                <li><button onclick="dateSet(7); return false;">일주일</button></li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <button onclick="searchDlvrList();" class="search">검색</button>
+                </div>
+            </div>
+            <caption>
+                <div class="subheading" id="">
+                    검색조회 내용
+                </div>
+            </caption>
+            <colgroup>
+                <col style="width:80px"/>
+                <col style="width:80px"/>
+                <col style="width:80px"/>
+                <col style="width:80px"/>
+                <col style="width:80px"/>
+                <col style="width:80px"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>신청일</th>
+                <th>주민번호</th>
+                <th>발급정보</th>
+                <th>주문금액</th>
+                <th>발행상태</th>
+                <th>발행일자</th>
+            </tr>
+            </thead>
+            <tbody id="">
+            <tr>
+                <td>2017-08-20</td>
+                <td>GP-170729-00023</td>
+                <td></td>
+                <td>23,000원</td>
+                <td>신청중</td>
+                <td>2017-08-28</td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- 현금영수증 발급신청 탭
+        <table class="list searchResult noEllipsis">
+            <div class="searchCondition">
+                <div class="rowWrap">
+                    <dl class="date">
+                        <dt>신청일</dt>
+                        <dd>
+                            <ul class="preset">
+                                <li><button onclick="dateSet(0); return false;">오늘</button></li>
+                                <li><button onclick="dateSet(1); return false;">어제</button></li>
+                                <li><button onclick="dateSet(7); return false;">일주일</button></li>
+                            </ul>
+                            <input type="text" class="_date hasDatepicker" id="from" name="from" value="" style="margin-left:20px;">
+                            ~
+                            <input type="text" class="_date hasDatepicker" id="to" name="to" value="">
+                        </dd>
+                    </dl>
+                    <button onclick="searchDlvrList();" class="search">검색</button>
+                </div>
+            </div>
+            <caption>
+                <div class="subheading" id="">
+                    검색조회 내용
+                </div>
+                </caption>
+            <colgroup>
+                <col style="width:80px"/>
+                <col style="width:80px"/>
+                <col style="width:80px"/>
+                <col style="width:300px"/>
+                <col style="width:80px"/>
+                <col style="width:80px"/>
+                <col style="width:80px"/>
+                <col style="width:80px"/>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>주문일</th>
+                    <th>품목</th>
+                    <th>상품정보</th>
+                    <th>건수</th>
+                    <th>주문금액</th>
+                    <th>배송비</th>
+                    <th>발급확인</th>
+                </tr>
+            </thead>
+            <tbody id="">
+                <tr>
+                    <td>1</td>
+                    <td>2017-08-20</td>
+                    <td>jas17028381823</td>
+                    <td>코팅명함 아트지 백색 250g / 86*52 / 단면칼라4도 / 500매 / (1건) / 단면금박 / 인쇄감리 / 긴급요청 / 당일판</td>
+                    <td>1</td>
+                    <td>23,000 원</td>
+                    <td>2,500 원</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        -->
+        <div class="tip">
+            <h6 class="tip_title"><span><img src="[TPH_Vdesign_dir]/images/common/icon_circle_alert.svg" alt="관리"></span> 꼭 확인해주세요</h6>
+            <ol>
+                <li>현금영수증 발급신청은 <span>'개인회원'이 결제한 주문건에 한해서 발급이 가능</span>합니다. (기업회원은 세금계산서 발행)</li>
+                <li>현금영수증 발급신청은 <span>상품 주문 완료 후부터 신청이 가능하며, 익월 10일까지 신청</span>해주시길 바랍니다. (마감된 전월 건은 발급이 불가능)</li>
+                <li>현금영수증 등록 및 상세한 내용은 국세청 홈페이지에서 확인이 가능합니다.</li>
+            </ol>
+            <div class="btm_text">
+                <h6>보다 자세한 사항은 고객센터 이용안내를 참조해 주시기 바랍니다.</h6>
+                <a href="#none" onclick="goCscenter('/cscenter/guide.html?type=membership')">이용안내 바로가기</a>
+            </div>
+            <!-- <a href="#none" onclick="goCscenter('/cscenter/guide.html?type=membership')">
+                <img src="/design_template/images/mypage/benefits_receipt.png" alt="포인트 안내">
+            </a> -->
+        </div>
+        [TPH_I/mypage/common/banner.html]
+    </div>
+    <footer>
+        [TPH_I/common/footer.html]
+    </footer>
+</div>
+</body>
+</html>

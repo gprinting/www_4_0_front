@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common22/head.html]
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    
+    <main id="main" class="mypage wrap quit">
+        <header class="good pages">
+            <h2>
+                <span class="en">MY PAGE</span>
+                <span class="ko">마이페이지</span>
+            </h2>
+            <h3>
+                <ol>
+                    <li>회원</li>
+                    <li>회원 탈퇴</li>
+                </ol>
+            </h3>
+            <hr>
+        </header>
+        
+        [TPH_I/mypage22/common/lnb.html]
+        
+        <section class="contents">
+            <div class="survey">
+                <header>
+                    <p>불편한 사항 및 다양한 의견을 자유롭게 남겨주세요.<br>고객님의 소중한 의견을 통해 더욱 발전하는 굿프린팅이 되도록하겠습니다.</p>
+                </header>
+                <div class="shadowBox">
+                    <ul class="options inline">
+                        <li><label class="check"><input type="checkbox" value="1" id="reduce_1"><i><i></i></i> 상품종류 부족</label></li>
+                        <li><label class="check"><input type="checkbox" value="6" id="reduce_6"><i><i></i></i> AS 서비스 불만</label></li>
+                        <li><label class="check"><input type="checkbox" value="11" id="reduce_11"><i><i></i></i> 중복 가입 계정 탈퇴</label></li>
+                        <li><label class="check"><input type="checkbox" value="2" id="reduce_2"><i><i></i></i> 상품가격 불만</label></li>
+                        <li><label class="check"><input type="checkbox" value="7" id="reduce_7"><i><i></i></i> 상담원 고객응대 불만</label></li>
+                        <li><label class="check"><input type="checkbox" value="12" id="reduce_12"><i><i></i></i> 이민으로 인한 탈퇴</label></li>
+                        <li><label class="check"><input type="checkbox" value="3" id="reduce_3"><i><i></i></i> 상품풀질 불만</label></li>
+                        <li><label class="check"><input type="checkbox" value="8" id="reduce_8"><i><i></i></i> 쇼핑몰 불편 및 속도 불만</label></li>
+                        <li><label class="check"><input type="checkbox" value="13" id="reduce_13"><i><i></i></i> 재가입을 위해 탈퇴</label></li>
+                        <li><label class="check"><input type="checkbox" value="4" id="reduce_4"><i><i></i></i> 반품/교환 서비스 불만</label></li>
+                        <li><label class="check"><input type="checkbox" value="9" id="reduce_9"><i><i></i></i> 이용빈도 낮음</label></li>
+                        <li><label class="check"><input type="checkbox" value="14" id="reduce_14"><i><i></i></i> 기타</label></li>
+                        <li><label class="check"><input type="checkbox" value="5" id="reduce_5"><i><i></i></i> 납기 및 배송 불만</label></li>
+                        <li><label class="check"><input type="checkbox" value="10" id="reduce_10"><i><i></i></i> 타인 주민번호 도용</label></li>
+                    </ul>
+                    <textarea id="withdraw_reason" placeholder="탈퇴 사유나 불편하셨던 점을 자세히 적어주세요. 더 나은 서비스를 제공하기 위해 노력하겠습니다."></textarea>
+                </div>
+            </div>
+            <hr class="end">
+            <article class="caution">
+                <header class="icon">꼭 확인해주세요.</header>
+                <ul class="guide">
+                    <li>탈퇴 신청에 앞서 아래의 사항을 반드시 확인하시기 바랍니다.</li>
+                    <li>회원 탈퇴를 하시면 <strong>회원정보/적립금/포인트/쿠폰이 모두 소멸</strong>되고 모든 거래내역과 개인정보는 <strong>14일간 유효하며 이후 자동으로 삭제</strong>됩니다.</li>
+                    <li>소멸된 적립금과 포인트, 쿠폰은 회원 탈퇴 후 <strong>재가입 시에도 복구되지 않습니다.</strong></li>
+                    <li>회원 탈퇴 후 재가입은 14일 이후에 가능합니다.</li>
+                    <li>보다 자세한 사항은 <a href="/cscenter22/guide.html?type=membership" target="_self" class="link">고객센터 이용안내</a>를 참조해 주시기 바랍니다.</li>
+                </ul>
+            </article>
+            <hr class="end">
+            <footer class="action final">
+                <button class="exe" onclick="makeWithdrawal('[TPH_Vmember_seqno]'); return false;">탈퇴 신청</button>
+            </footer>
+        </section>
+        [TPH_I/mypage22/common/banner.html]
+    </main>
+    <footer>
+        [TPH_I/common22/footer.html]
+    </footer>
+</body>
+</html>

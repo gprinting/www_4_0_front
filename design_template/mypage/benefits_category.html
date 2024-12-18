@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="div_sub_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_member_info.jpg" alt="서브배너" />
+</div>
+<div class="contents contents_02 benefits">
+    <div class="lnb">
+        [TPH_I/mypage/common/lnb.html]
+    </div>
+    <h3 class="pageTitle"><img src="/design_template/images/title/benefits_category.png" alt="카테고리할인"></h3>
+        [TPH_I/mypage/common/summary.html]
+    <div class="pageTab">
+        <ul>
+            <!--
+            <li><a href="/mypage/benefits_grade.html">회원등급</a></li>
+            -->
+            <li><a href="/mypage/benefits_event.html">이벤트</a></li>
+            <li><a href="/mypage/benefits_point.html">포인트</a></li>
+            <li><a href="/mypage/benefits_coupon.html">쿠폰</a></li>
+            <li class="on">카테고리별 할인</li>
+        </ul>
+    </div>
+    <div class="categoryTab">
+        <ul>
+          [TPH_Vcate_btn]
+        </ul>
+    </div>
+    <table class="solid">
+        <colgroup>
+            <col style="width:218px">
+            <col>
+            <col style="width:235px">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>분류</th>
+                <th>상세분류</th>
+                <th>할인율</th>
+            </tr>
+        </thead>
+        <tbody id="tb_html">
+          [TPH_Vtb_html]
+        </tbody>
+    </table>
+    [TPH_I/mypage/common/banner.html]
+</div>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

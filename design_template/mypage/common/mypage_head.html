@@ -1,0 +1,206 @@
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.445.0.min.js"></script>
+<script>
+    var file;
+    var filename = '';
+    var filesize = '';
+    var s3;
+
+    var strArray = '';
+    var cvt_file = '';
+    var filesizeH = '';
+    var savefile = '';
+    var org_file = '';
+
+    $(document).ready(function() {
+        $("#order_file").on("click", function () {
+            $("#uploader").trigger("click");
+        });
+
+        $("#uploader").on("change", function(e) {
+            file = e.target.files[0];
+            filename = e.target.files[0].name;
+            filesize = e.target.files[0].size;
+            console.log(file);
+
+
+            var fn = file.name;
+            var ext = fn.split(".")[1].toLowerCase();
+            // 봉투일 때 PDF 파일 업로드 불가
+            /*
+            if ($("#prdt_dvs").val() == "ev") {
+                if (ext == 'pdf') {
+                    removeFile();
+                    return alertReturnFalse("봉투주문은 PDF 파일을 업로드 할 수 없습니다.");
+                }
+            }
+            */
+        */
+
+            // 그린백일 때 일러스트, 코렐만 가능
+            if ($("#prdt_dvs").val() == "gb") {
+                if (ext == 'ai' || ext == "eps" ||
+                    ext == "cdr") {
+                } else {
+                    removeFile();
+                    return alertReturnFalse("그린백 주문은 ai, eps, cdr(일러스트, 코렐)파일 외엔 업로드 할 수 없습니다.");
+                }
+            }
+
+            if (file.size > 2147483648) {
+                removeFile();
+                return alertReturnFalse("2GB를 넘는 파일은 웹하드를 이용해주세요.");
+            }
+
+            $('#file_content').html(
+                "<div id=\"file_id\">" +
+                file.name + " (" +
+                humanFileSize(file.size) +
+                ")<b></b>" +
+                "&nbsp;" +
+                "<img src=\"/design_template/images/common/btn_circle_x_red.png\"" +
+                "     id=\"esti_file_del" +
+                "     alt=\"X\"" +
+                "     onclick=\"removeFile();\"" +
+                "     style=\"cursor:pointer; top:-1px; position:relative;\" /></div>"
+            );
+            $("#file_id").val(file.id);
+            $("#file_uploading_name").html(file.name + " (" + humanFileSize(file.size) + ")");
+            $("#file_name").val(file.name);
+            $("#file_size").val(file.size);
+            $('#uploader').val('');
+        });
+    });
+
+    /**
+     * @brief 파일 재전송
+     *
+     * @param seqno = 주문 일련번호
+     */
+    var upload = function() {
+        var fileName = $("#file_id").text();
+        if (checkBlank(fileName)) {
+            alertReturnFalse("파일을 업로드해주세요.");
+        }
+
+        var url = "/proc/order/upload_file_info.php";
+        var data = {
+            "file_seqno": $("#file_seqno").val(),
+            "file_name": $("#file_name").val(),
+            "file_size": $("#file_size").val()
+        };
+        var callback = function (result) {
+            var asd = JSON.parse(result);
+            $("#file_seqno").val(asd.file_seqno);
+            $("#file_name").val(asd.origin_file_name);
+            openFileProgress();
+            uploadToS3(file,asd.file_path, asd.file_name);
+        };
+
+        ajaxCall(url, "text", data, callback);
+    };
+
+    var openFileProgress = function () {
+        $("#file_uploading").show();
+    }
+
+    function uploadToS3(file, file_path, key) {
+        AWS.config.update({
+            region: "ap-northeast-2",
+            credentials: new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: "ap-northeast-2:b95f4416-871e-42b0-8a26-68098cbd9aa0"
+            })
+        });
+
+        AWS.config.httpOptions.timeout = 0;
+        key_name = key;
+        var contentdisposition = 'attachment; filename ="' + encodeURI($("#file_name").val()) + '"';
+        var params = {
+            Bucket : "orderplatform",
+            Key : file_path + "/" + key_name,
+            Body : file,
+            ContentDisposition : contentdisposition,
+            ACL:'public-read-write'
+        };
+
+        openFileProgress();
+        s3 = new AWS.S3();
+        s3.putObject(params).on('httpUploadProgress',
+            function (evt) {
+                var ratio = (evt.loaded * 100) / evt.total;
+                ratio -= 1;
+                $(".file_progress_wrapper").css("width",ratio + "%");
+
+                if(ratio < 0) ratio = 0;
+                ratio = Math.ceil(ratio);
+                $("#ratio").html(ratio + "%");
+                if(ratio < 100) {
+                    //$(".ajax-file-upload-bar").css("width", ratio.toFixed(0) + '%');
+                    //$(".ajax-file-upload-bar").html(ratio.toFixed(0) + '%');
+                }
+            }).send(function (err, data) {
+            if(err != null) {
+                alert("파일 전송중 네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주십시오.");
+                deleteUpload();
+            } else {
+                $(".file_progress_wrapper").css("width","100%");
+                $("#ratio").html("100%");
+
+                alert("업로드가 완료되었습니다.");
+                window.location.reload();
+                /*
+                $("#savefile").val(savefile);
+                $("#org_file").val(org_file);
+                $("#cvt_file").val(org_file);
+                $("#filesizeH").val(filesizeH);
+                $("#up_sort").val($("#upType").val());	//	시안/후가공 업로드
+
+                $(".ajax-file-upload-bar").css("width", "100%");
+                $(".ajax-file-upload-bar").html("100%");
+
+                $("#ajax-file-upload-abort").hide();
+                $("#ajax-file-upload-done").show();
+                $("#ajax-file-upload-delete").hide();
+
+                if ($("#upType").val() == 'estimate') {						//	견적서 업로드
+                    var f = document.forderlist;
+                    f.action = "/adsMng/upload/upload_estimate.php";
+                    f.target = "";
+                    f.submit();
+                } else {												//	시안/후가공 업로드
+                    var f = document.forderlist;
+                    f.action = "/adsMng/upload/upload_after.php";
+                    f.target = "";
+                    f.submit();
+                }
+                 */
+            }
+        });
+    }
+
+    function removeFile() {
+        $("#file_content").html("");
+    }
+
+    function humanFileSize(bytes, si=true, dp=1) {
+        const thresh = si ? 1000 : 1024;
+
+        if (Math.abs(bytes) < thresh) {
+            return bytes + ' B';
+        }
+
+        const units = si
+            ? ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+            : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+        let u = -1;
+        const r = 10**dp;
+
+        do {
+            bytes /= thresh;
+            ++u;
+        } while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
+
+
+        return bytes.toFixed(dp) + ' ' + units[u];
+    }
+</script>
+<iframe id="file_ifr" src="" width=0 height=0 style="display:none;"></iframe>

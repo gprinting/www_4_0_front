@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>디프린팅</title>
+    <!--[if lt IE 9]><script src="../../lib/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="../../lib/reset.css">
+    <link rel="stylesheet" href="../../lib/common.css">
+    <link rel="stylesheet" href="../../lib/mypage.css">
+    <script src="../../lib/jquery-1.11.2.min.js"></script>
+    <script src="../../lib/jquery-ui_dprinting.min.js"></script>
+    <script src="../common/header.js"></script>
+    <script src="../common/footer.js"></script>
+    <script src="./lnb.js"></script>
+    <script src="../../lib/common.js"></script>
+    <script src="../../lib/mypage.js"></script>
+</head>
+<body>
+<header class="top"></header>
+<section class="contents lnb paymentInfo">
+    <header class="title">
+        <h2><img src="../../images/mypage/title.png" alt="마이페이지"></h2>
+        <ol class="location">
+            <li><a href="#none" target="_self" title="첫 화면으로"><img src="../../images/common/contents_location_home.png" alt="HOME"></a></li>
+            <li><span>마이페이지</span></li>
+            <li><span>결제 정보</span></li>
+            <li><span>거래명세서</span></li>
+        </ol>
+    </header>
+    <nav class="lnb">
+    </nav>
+    <h3 class="pageTitle">거래명세서</h3>
+    <section class="dealerInformation">
+        <table class="information from">
+            <colgroup>
+                <col width="">
+                <col>
+                <col width="">
+                <col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th colspan="4">공급자</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">등록번호</th>
+                    <td colspan="3">201-86-07857</td>
+                </tr>
+                <tr>
+                    <th scope="row">상호</th>
+                    <td>주식회사 굿프린팅</td>
+                    <th scope="row">대표자</th>
+                    <td>김시향</td>
+                </tr>
+                <tr>
+                    <th scope="row">사업장소재지</th>
+                    <td colspan="3">서울시 중구 필동2가 84-12</td>
+                </tr>
+                <tr>
+                    <th scope="row">업태</th>
+                    <td>제조 외</td>
+                    <th scope="row">종목</th>
+                    <td>상업인쇄 외</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="information to">
+            <colgroup>
+                <col width="">
+                <col>
+                <col width="">
+                <col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th colspan="4">공급 받는 자</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">등록번호</th>
+                    <td colspan="3">201-86-07857</td>
+                </tr>
+                <tr>
+                    <th scope="row">상호</th>
+                    <td>주식회사 굿프린팅</td>
+                    <th scope="row">대표자</th>
+                    <td>김시향</td>
+                </tr>
+                <tr>
+                    <th scope="row">사업장소재지</th>
+                    <td colspan="3">서울시 중구 필동2가 84-12</td>
+                </tr>
+                <tr>
+                    <th scope="row">업태</th>
+                    <td>제조 외</td>
+                    <th scope="row">종목</th>
+                    <td>상업인쇄 외</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="searchCondition">
+        <div class="rowWrap">
+            <dl class="date">
+                <dt>거래일</dt>
+                <dd>
+                    <input type="text" class="_date" value="2015-06-24">
+                    ~
+                    <input type="text" class="_date" value="2015-06-30">
+                    <ul class="preset">
+                        <li><button>오늘</button></li>
+                        <li><button>어제</button></li>
+                        <li><button>일주일</button></li>
+                        <li><button>한달</button></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl class="category last">
+                <dt>구분</dt>
+                <dd>
+                    <select>
+                        <option>전체</option>
+                    </select>
+                </dd>
+            </dl>
+        </div>
+        </div>
+        <button class="search">검색</button>
+    </section>
+    <table class="list searchResult">
+        <caption class="center">
+            <div class="resultNum">
+                <strong>2015-06-24</strong>부터 <strong>2015-06-30</strong>까지 <em>34</em>건의 검색결과가 있습니다.
+            </div>
+        </caption>
+        <colgroup>
+            <col width="40">
+            <col width="70">
+            <col width="50">
+            <col width="80">
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th class="_sorting">거래일</th>
+                <th class="_sorting">구분</th>
+                <th class="_sorting">주문번호</th>
+                <th class="_sorting">판매가</th>
+                <th class="_sorting">할인금액</th>
+                <th class="_sorting">결제금액</th>
+                <th class="_sorting">입금액</th>
+                <th class="_sorting">입금방식</th>
+                <th class="_sorting">기존선입금</th>
+                <th class="_sorting">선입금잔액</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>10</td>
+                <td>2015-03-20</td>
+                <td>입금</td>
+                <td>15938171990</td>
+                <td>&#8361;14,000,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>2015-03-20</td>
+                <td>입금</td>
+                <td>15938171990</td>
+                <td>&#8361;14,000,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>2015-03-20</td>
+                <td>입금</td>
+                <td>15938171990</td>
+                <td>&#8361;14,000,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>2015-03-20</td>
+                <td>입금</td>
+                <td>15938171990</td>
+                <td>&#8361;14,000,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>2015-03-20</td>
+                <td>입금</td>
+                <td>15938171990</td>
+                <td>&#8361;14,000,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>2015-03-20</td>
+                <td>입금</td>
+                <td>15938171990</td>
+                <td>&#8361;14,000,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>2015-03-20</td>
+                <td>입금</td>
+                <td>15938171990</td>
+                <td>&#8361;14,000,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>2015-03-20</td>
+                <td>입금</td>
+                <td>15938171990</td>
+                <td>&#8361;14,000,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>2015-03-20</td>
+                <td>입금</td>
+                <td>15938171990</td>
+                <td>&#8361;14,000,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2015-03-20</td>
+                <td>입금</td>
+                <td>15938171990</td>
+                <td>&#8361;14,000,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+                <td>&#8361;14,000</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="function narrow center dealList">
+        <strong class="blue"><button class="function" onclick="layerPopup('l_dealdetails', 'popup/l_dealdetails.html');">인쇄</button></strong>
+    </div>
+</section>
+<footer></footer>
+</body>
+</html>

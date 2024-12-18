@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <style type="text/css">
+        ul.paging .first:after,
+        ul.paging .last:before { content: '···'; margin: 0 6px; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="div_sub_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_mypage_order.jpg" alt="서브배너" />
+</div>
+<div class="contents contents_02 orderList">
+    <div class="lnb">
+        [TPH_I/mypage/common/lnb.html]
+    </div>
+    <h3 class="pageTitle">재주문하기</h3>
+    <div class="searchCondition">
+        <div class="rowWrap">
+            <dl class="date">
+                <dt>주문일</dt>
+                <dd>
+                    [TPH_I/common/datepicker.html]
+                </dd>
+            </dl>
+            <dl class="status last">
+                <dt>진행상태</dt>
+                <dd>
+                    <select id="order_state" disabled>
+                        <option value="300@Y">접수</option>
+                    </select>
+                </dd>
+            </dl>
+        </div>
+        <div class="rowWrap">
+            <dl class="delivery">
+                <dt>배송종류</dt>
+                <dd>
+                    <select id="dlvr_way">
+                        <option value="">전체</option>
+                        <option value="택배">택배</option>
+                        <option value="직배송">직배송</option>
+                        <option value="퀵">퀵</option>
+                    </select>
+                </dd>
+            </dl>
+            <dl class="title last">
+                <dt>인쇄물제목</dt>
+                <dd><input id="title" onkeydown="orderSearchKey(event);" name="title" type="text"></dd>
+            </dl>
+        </div>
+        <button onclick="orderSearchTxt();" class="search">검색</button>
+    </div>
+    <table class="list ordered _details searchResult">
+        <caption>
+            <div class="resultNum" id="resultNum">
+            </div>
+            <select onchange="changeOrderListNum(this.value);" class="listNum">
+                <option value="10">10개씩 보기</option>
+                <option value="20">20개씩 보기</option>
+                <option value="50">50개씩 보기</option>
+            </select>
+        </caption>
+        <colgroup>
+            <col style="width:40px">
+            <col style="width:70px">
+            <col style="width:80px">
+            <col style="width:120px">
+            <col>
+            <col style="width:80px">
+            <col style="width:80px">
+            <col style="width:80px">
+            <col style="width:60px">
+            <col style="width:40px">
+        </colgroup>
+        <thead id="list">
+            <tr>
+                <th>번호</th>
+                <th>주문일</th>
+                <th>주문번호</th>
+                <th>인쇄물제목</th>
+                <th>상품정보</th>
+                <th>수량(건)</th>
+                <th>결제금액</th>
+                <th>진행상태</th>
+                <th>재주문하기</th>
+                <th>관리</th>
+            </tr>
+        </thead>
+    </table>
+    <ul class="paging" id="paging">
+        <li><button class="on">1</button></li>
+    </ul>
+    [TPH_I/mypage/common/banner.html]
+</div>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

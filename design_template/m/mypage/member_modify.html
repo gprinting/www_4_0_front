@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+    [TPH_I/m/common/head.html]
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<!--script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false"></script-->
+    <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+<script>
+    //우편번호 팝업
+    var getPostcode = function(dvs) {
+        new daum.Postcode({
+            oncomplete: function(data) {
+               var fullAddr = ''; // 최종 주소 변수
+               var extraAddr = ''; // 조합형 주소 변수
+
+               // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+               if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                   fullAddr = data.roadAddress;
+
+               } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                   fullAddr = data.jibunAddress;
+               }
+
+               // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+               if (data.userSelectedType === 'R'){
+                   //법정동명이 있을 경우 추가한다.
+                   if(data.bname !== ''){
+                       extraAddr += data.bname;
+                   }
+                   // 건물명이 있을 경우 추가한다.
+                   if(data.buildingName !== ''){
+                       extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                   }
+                   // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                   fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+               }
+
+               // 우편번호와 주소 정보를 해당 필드에 넣는다.
+               document.getElementById(dvs + 'zipcode').value = data.zonecode; //5자리 새우편번호 사용
+               document.getElementById(dvs + 'addr').value = fullAddr;
+
+               // 커서를 상세주소 필드로 이동한다.
+               document.getElementById(dvs + 'addr_detail').focus();
+            }
+        }).open({
+            popupName: 'postcodePopup'
+        });
+    }
+
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 네비게이션 -->
+        [TPH_I/m/common/nav.html]
+        <!-- 헤더 -->
+        [TPH_I/m/common/header.html]
+        
+        <div class="contents">
+            <!-- 타이틀 start -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title">
+                    기본 가입정보
+                </div>
+            </div>
+            <!-- 타이틀 end -->
+
+            <input type="hidden" id="member_seqno" value="[TPH_Vmember_seqno]">
+            <input type="hidden" id="member_dvs" value="[TPH_Vmember_dvs]">
+            <!-- 기본가입정보 start -->
+            [TPH_Vstandard_html]
+            <!-- 기본가입정보 end -->
+            [TPH_Vhtml]
+
+            <!-- 푸터 -->
+            [TPH_I/m/common/footer.html]
+
+            <!-- 레이어팝업 -->
+            [TPH_I/m/common/login.html]
+        
+        </div>
+    </div>
+</body> 
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    [TPH_I/mypage/common/mypage_head.html]
+    <link rel="stylesheet"  href="[TPH_Vdesign_dir]/css/lightslider.css"/>
+    <script src="[TPH_Vdesign_dir]/js/lib/lightslider.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <!-- 로그인 박스 -->
+    [TPH_I/common/login.html]
+
+    <!-- 헤더 -->
+    <div class="div_header_wrapper">
+        [TPH_I/common/header.html]
+
+        <!-- 사이드 메뉴 -->
+        [TPH_I/common/side.html]
+
+        <!-- 네비게이션 -->
+        [TPH_I/common/tnb.html]
+    </div>
+    <div class="div_sub_banner">
+        <img class="" src="/design_template/images/sp_banner/banner_member_info.jpg" alt="서브배너" />
+        <div class="inner">
+            <div class="title_wrap">
+                <h1>회원</h1>
+                <p>회원정보 관리 및 배송 관리를 하실 수 있는 페이지입니다.</p>
+            </div>
+        </div>
+    </div>
+    <div class="contents contents_02 main">
+        <div class="lnb">
+            [TPH_I/mypage/common/lnb.html]
+        </div>
+        <div class="memberInfo grade[TPH_Vgrade]" style="margin-top:0px;">
+            <div class="summary mypage_summary">
+                <!-- <colgroup> -->
+                <!-- <col style="width:12%;"> -->
+                <!-- <col style="width:20%;">
+                <col style="width:20%;">
+                <col style="width:15%;">
+                <col style="width:15%;">
+                <col style="width:15%;">
+                <col style="width:15%;"> -->
+                <!-- <col style="width:12%;"> -->
+                <!-- </colgroup> -->
+                <div class="left">
+                    <img class="mypage_icon_membership" src="[TPH_Vdesign_dir]/images/common/icon_[TPH_Vgrade].png" alt="등급">
+                    <img class="mypage_text_membership" src="[TPH_Vdesign_dir]/images/common/text_[TPH_Vgrade].png" alt="등급">
+                    <!-- <td>
+                        <div class="mypage_summary_grade_text">
+                        문구 어떻게 할지
+                            <p>3개월 이용금액 <span class="text_st_02">10,000,000</span>원 이상</p>
+                            <p>주문금액 <span class="text_st_01">90% 할인</span>, 무료배송</p>
+                            <p><span class="text_st_02">2,000</span>원 월 할인 쿠폰 1매</p>
+
+                        [TPH_Vgrade_info]
+                        </div>
+                    </td> -->
+                </div>
+                <div class="right">
+                    <div class="mypage_summary_inner">
+                        <img class="icon_membership" src="/design_template/images/mypage/icon_mypage_summary_rechage.svg" alt="선입금">
+                        <p>선입금</p>
+                        <h1 class="text_st_02">[TPH_Vprepay_price] <span class="unit">원</span></h1>
+                    </div>
+                    <div class="line"></div>
+                    <div class="mypage_summary_inner">
+                        <img class="icon_membership" src="/design_template/images/mypage/icon_mypage_summary_lack.svg" alt="주문부족금액">
+                        <p>주문부족금액</p>
+                        <h1 class="text_st_02">[TPH_Vorder_lack_price]<span class="unit">원</span></h1>
+                    </div>
+                    <div class="line"></div>
+                    <div class="mypage_summary_inner">
+                        <img class="icon_membership" src="/design_template/images/mypage/icon_mypage_summary_point.svg" alt="포인트">
+                        <p>보유 포인트</p>
+                        <h1 class="text_st_02">[TPH_Vown_point] <span class="unit">원</span></h1>
+                    </div>
+                    <div class="line"></div>
+                    <div class="mypage_summary_inner">
+                        <img class="icon_membership" src="/design_template/images/mypage/icon_mypage_summary_coupon.svg" alt="보유 쿠폰">
+                        <p>보유 쿠폰</p>
+                        <h1 class="text_st_02">[TPH_Vcp_count] <span class="unit">원</span></h1>
+                    </div>
+                </div>
+                <!-- <td class="detail_wrap">
+                    <table class="mypage_summary_inner_table">
+                        <tr>
+                            <td>
+                                <img class="icon_membership" src="/design_template/images/mypage/icon_mypage_summary_lack.svg" alt="주문부족금액">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                주문부족금액
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text_st_02"><em>[TPH_Vorder_lack_price]</em></span> <span class="unit">원</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td> -->
+                <!-- <td class="detail_wrap">
+                    <table class="mypage_summary_inner_table">
+                        <tr>
+                            <td>
+                                <img class="icon_membership" src="/design_template/images/mypage/icon_mypage_summary_point.svg" alt="포인트">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                보유 포인트
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text_st_02">[TPH_Vown_point]</span> <span class="unit">P</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td> -->
+                <!-- <td class="detail_wrap">
+                    <table class="mypage_summary_inner_table">
+                        <tr>
+                            <td>
+                                <img class="icon_membership" src="/design_template/images/mypage/icon_mypage_summary_coupon.svg" alt="쿠폰">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                보유 쿠폰
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text_st_02">[TPH_Vcp_count]</span> <span class="unit">매</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td> -->
+            </div>
+        </div>
+
+
+        <div class="orderStatus" style="margin-top:45px;">
+            <div class="period">
+                <!--
+                <span id="period">[TPH_Vperiod]</span>
+                -->
+                <dl class="date">
+                    <dt>조회기간</dt>
+                    <dd>
+                    <span id="period" class="period_box">
+                        [TPH_Vperiod]
+                    </span>
+                    </dd>
+                </dl>
+                <!--
+                <span id="period" class="period_box">
+                    [TPH_Vperiod]
+                </span>
+                -->
+                <ul class="setting _switch">
+                    <li class="_on"><button type="button" onclick="getOrderStatus('W'); return false;">1주</button></li>
+                    <li class=""><button type="button" onclick="getOrderStatus('TW'); return false;">2주</button></li>
+                    <li class=""><button type="button" onclick="getOrderStatus('CM'); return false;">당월</button></li>
+                    <li class=""><button type="button" onclick="getOrderStatus('PM'); return false;">전월</button></li>
+                </ul>
+            </div>
+            <div id="order_status" style="text-align:center;">
+                [TPH_Vorder_status_html]
+            </div>
+            <input type="hidden" id="period_from" value="[TPH_Vperiod_from]">
+            <input type="hidden" id="period_to" value="[TPH_Vperiod_to]">
+        </div>
+
+        <!-- 기본배송지 및 배송유형 START -->
+        <div style="margin-top:0px;">
+            <div class="col">
+                <h3 class="sectionTitle" style="height:16px;">기본배송지 <a href="/mypage/delivery_address.html" target="_self"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_setting.svg" alt=""></a></h3>
+                <dl class="lineTable delivery">
+                    [TPH_Vdlvr]
+                </dl>
+            </div>
+            <div class="col">
+                <h3 class="sectionTitle" style="height:16px;">배송 유형 안내 </h3>
+                <dl class="lineTable delivery_service">
+                    <dt>월배송 서비스</dt>
+                    <dd class="last">[TPH_Vdirect_dlvr_desc]</dd>
+                    <dt>남은 기간</dt>
+                    <dd class="last">남은 서비스 이용기간 : <span class="text_st_01">[TPH_Vleave_period]일</span> [TPH_Vend_date]</dd>
+                    <dd class="last">
+                        <div class="function center" style="margin:16px 0 0 0 !important;">
+                            <a style="border:none;">
+                                <strong><button class="function" onclick="location.href='/mypage/delivery_address.html'" style="width:370px; height:40px; background: #fafafa; border: 1px solid #c9c9c9; color: #555;">월배송 신청 및 안내 보러가기</button></strong>
+                            </a>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="inquery" style="margin-top:50px;">
+            <div class="col">
+                <h3 class="sectionTitle">1:1 문의 <a href="/mypage/ftf_list.html" target="_self"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_writing.svg" alt="작성"></a></h3>
+                <ul class="lineList question">
+                    [TPH_Vftf]
+                </ul>
+            </div>
+            <div class="col">
+                <h3 class="sectionTitle">견적 문의 <a href="/mypage/estimate_list.html" target="_self"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_writing.svg" alt="작성"></a></h3>
+                <ul class="lineList estimate">
+                    [TPH_Vesti]
+                </ul>
+            </div>
+            <form id="frm" name="frm" method="post">
+                <input type="hidden" name="seq" id="seq"/>
+            </form>
+            <input type="hidden" value="[TPH_Vdvs]" id="dvs"/>
+            <input type="hidden" id="sync_flag" value=[TPH_Vsync_flag] seq=[TPH_Vmember_seqno]>
+        </div>
+        [TPH_I/mypage/common/common_pop.html]
+        [TPH_I/mypage/common/banner.html]
+    </div>
+    <footer>
+        [TPH_I/common/footer.html]
+    </footer>
+</div>
+</body>
+</html>

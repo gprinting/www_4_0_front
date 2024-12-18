@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+    [TPH_I/m/common/head.html]
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 네비게이션 -->
+        [TPH_I/m/common/nav.html]
+        <!-- 헤더 -->
+        [TPH_I/m/common/header.html]
+
+        <div class="contents">
+            <!-- 개인가입정보 start -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title">
+                    1:1 문의 작성
+                </div>
+            </div>
+            <div class="basic_table_wrapper">
+                <table class="basic_table">
+                    <colgroup>
+                        <col style="width:30%;">
+                        <col style="">
+                    </colgroup>
+                    <tr>
+                        <th>문의 제목</th>
+                        <td>
+                            <input class="basic_input" type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>문의 유형</th>
+                        <td>
+                            <select class="basic_input">
+                                <option value="">버그</option>
+                                <option value="">사고</option>
+                                <option value="">정보</option>
+                                <option value="">기타</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>신청자명</th>
+                        <td>
+                            <input class="basic_input" type="text" value="아무개" readonly="readonly">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>전화번호</th>
+                        <td>
+                            <table class="basic_detail_table">
+                                <colgroup>
+                                    <col style="width:30%;">
+                                    <col style="width:40%;">
+                                    <col style="width:30%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <select class="basic_input Column_03">
+                                                <option value="02">02</option>
+                                                <option value="031" selected="selected">031</option>
+                                                <option value="032">032</option>
+                                                <option value="033">033</option>
+                                                <option value="041">041</option>
+                                                <option value="042">042</option>
+                                                <option value="043">043</option>
+                                                <option value="044">044</option>
+                                                <option value="051">051</option>
+                                                <option value="052">052</option>
+                                                <option value="053">053</option>
+                                                <option value="054">054</option>
+                                                <option value="055">055</option>
+                                                <option value="061">061</option>
+                                                <option value="062">062</option>
+                                                <option value="063">063</option>
+                                                <option value="064">064</option>
+                                                <option value="010">010</option>
+                                                <option value="070">070</option>
+                                            </select>
+                                        </td>
+                                        <td style="padding:0% 5% !important;">
+                                            <input class="basic_input Column_03" type="text" maxlength="4">
+                                        </td>
+                                        <td>
+                                            <input class="basic_input Column_03" type="text" maxlength="4">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>휴대전화</th>
+                        <td>
+                            <table class="basic_detail_table">
+                                <colgroup>
+                                    <col style="width:30%;">
+                                    <col style="width:40%;">
+                                    <col style="width:30%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <select class="basic_input Column_03">
+                                                <option value="010" selected="selected">010</option>
+                                                <option value="011">011</option>
+                                                <option value="016">016</option>
+                                                <option value="017">017</option>
+                                                <option value="018">018</option>
+                                                <option value="018">019</option>
+                                            </select>
+                                        </td>
+                                        <td style="padding:0% 5% !important;">
+                                            <input class="basic_input Column_03" type="text" maxlength="4">
+                                        </td>
+                                        <td>
+                                            <input class="basic_input Column_03" type="text" maxlength="4">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- 문의 내용 -->
+                    <tr>
+                        <th>문의 내용</th>
+                        <td>
+                            <table class="basic_detail_table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <textarea class="basic_input" style="height:100px; font-size:1.313em !important;"></textarea>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- 문의 내용 end -->
+
+                    <!-- 첨부파일 -->
+                    <tr>
+                        <th>첨부 파일</th>
+                        <td>
+                            <table class="filebox">
+                                <colgroup>
+                                    <col style="width:35%;">
+                                    <col style="width:60%;">
+                                </colgroup>
+                                <tbody><tr>
+                                    <td style="padding:0 5% 0 0 !important;">
+                                        <label for="ex_filename">파일선택</label>
+                                    </td>
+                                    <td style="padding: 0 0 0 0 !important;">
+                                        <input class="upload-name" value="" disabled="disabled">
+                                    <input type="file" id="ex_filename" class="upload-hidden"> 
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                        </td>
+                    </tr>
+                    <!-- 첨부파일 end -->
+
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper" style="margin-top:5%;">
+                                <button class="mypage_bottom_basic_btn_inner btn_cancel_confirm" type="button">취소</button>
+                                <button class="mypage_bottom_color_btn_inner btn_regi_confirm" type="button">등록</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- 개인가입정보 end -->
+        </div>
+
+        <!-- 푸터 -->
+        [TPH_I/m/common/footer.html]
+
+        <!-- 레이어팝업/취소 start -->
+        <div class="layerpopup layerpopup_cancel_confirm">
+            <div class="layerpopup_contents">
+                <table class="layerpopup_table">
+                    <tr>
+                        <td style="text-align:center;">
+                            작성을 취소하시겠습니까?
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="mypage_bottom_basic_btn_inner btn_layerpopup_hide" type="button">아니오</button>
+                                <a href="ftf_list.html"><button class="mypage_bottom_color_btn_inner" type="button">예</button></a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- 레이어팝업/취소 end -->
+
+        <!-- 레이어팝업/등록 start -->
+        <div class="layerpopup layerpopup_regi_confirm">
+            <div class="layerpopup_contents">
+                <table class="layerpopup_table">
+                    <tr>
+                        <td style="text-align:center;">
+                            등록하시겠습니까?
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="mypage_bottom_basic_btn_inner btn_layerpopup_hide" type="button">아니오</button>
+                                <button class="mypage_bottom_color_btn_inner" type="button">예</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- 레이어팝업/등록 end -->
+
+        <!-- 레이어팝업 배경 start -->
+        <div class="layerpopup_bg"></div>
+        <!-- 레이어팝업 배경 end -->
+
+    </div>
+</body> 
+</html>

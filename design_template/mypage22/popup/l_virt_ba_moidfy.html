@@ -1,0 +1,74 @@
+<header class="popup">
+    <h2>계좌 변경</h2>
+    [TPH_Vclose_btn]
+</header>
+<article>
+    <h3>은행정보</h3>
+    <form name="frm_pay" method="post" action="/webpay_vacnt/web/ba_request.php">
+        <!--------------------------->
+        <!-- ::: 공통 인증 요청 값 -->
+        <!--------------------------->
+        <input type="hidden" id="EP_mall_id"           name="EP_mall_id"           value="T5102001">         <!-- 가맹점 ID-->
+        <input type="hidden" id="EP_mall_nm"           name="EP_mall_nm"           value="주식회사 굿프린팅">         <!-- 가맹점명-->
+        <input type="hidden" id="EP_order_no"          name="EP_order_no"          value="ORDER_1">         <!-- 가맹점명-->
+        <input type="hidden" id="EP_currency"          name="EP_currency"          value="00">       <!-- 통화코드 // 00 : 원화-->
+        <!--<input type="hidden" id="EP_return_url"        name="EP_return_url"        value="[TPH_Vurl]/mypage/comp_pay.html">-->         <!-- 가맹점 CALLBACK URL // -->
+        <input type="hidden" id="EP_return_url"        name="EP_return_url"        value="[TPH_Vurl]/mypage/comp_pay.html">         <!-- 가맹점 CALLBACK URL // -->
+        <input type="hidden" id="EP_ci_url"            name="EP_ci_url"            value="">         <!-- CI LOGO URL // -->
+        <input type="hidden" id="EP_lang_flag"         name="EP_lang_flag"         value="">         <!-- 언어 // -->
+        <input type="hidden" id="EP_charset"           name="EP_charset"           value="utf-8">    <!-- 가맹점 CharSet // -->
+        <input type="hidden" id="EP_user_type"         name="EP_user_type"         value="">         <!-- 사용자구분 // -->
+        <input type="hidden" id="EP_user_id"           name="EP_user_id"           value="goodpt">         <!-- 가맹점 고객ID // -->
+        <input type="hidden" id="EP_memb_user_no"      name="EP_memb_user_no"      value="05528819">         <!-- 가맹점 고객일련번호 // -->
+        <input type="hidden" id="EP_user_nm"           name="EP_user_nm"           value="김시향">         <!-- 가맹점 고객명 // -->
+        <input type="hidden" id="EP_user_mail"         name="EP_user_mail"         value="master@dprinting.biz">         <!-- 가맹점 고객 E-mail // -->
+        <input type="hidden" id="EP_user_phone1"       name="EP_user_phone1"       value="">         <!-- 가맹점 고객 연락처1 // -->
+        <input type="hidden" id="EP_user_phone2"       name="EP_user_phone2"       value="">         <!-- 가맹점 고객 연락처2 // -->
+        <input type="hidden" id="EP_user_addr"         name="EP_user_addr"         value="서울특별시 성동구 성수동1가 656-1748">         <!-- 가맹점 고객 주소 // -->
+        <input type="hidden" id="EP_user_define1"      name="EP_user_define1"      value="">         <!-- 가맹점 필드1 // -->
+        <input type="hidden" id="EP_user_define2"      name="EP_user_define2"      value="">         <!-- 가맹점 필드2 // -->
+        <input type="hidden" id="EP_user_define3"      name="EP_user_define3"      value="">         <!-- 가맹점 필드3 // -->
+        <input type="hidden" id="EP_user_define4"      name="EP_user_define4"      value="">         <!-- 가맹점 필드4 // -->
+        <input type="hidden" id="EP_user_define5"      name="EP_user_define5"      value="">         <!-- 가맹점 필드5 // -->
+        <input type="hidden" id="EP_user_define6"      name="EP_user_define6"      value="">         <!-- 가맹점 필드6 // -->
+        <input type="hidden" id="EP_product_type"      name="EP_product_type"      value="">         <!-- 상품정보구분 // -->
+        <input type="hidden" id="EP_product_expr"      name="EP_product_expr"      value="">         <!-- 서비스 기간 // (YYYYMMDD) -->
+        <input type="hidden" id="EP_product_nm"        name="EP_product_nm"        value="채번">     <!-- 상품명 -->
+        <input type="hidden" id="EP_product_amt"       name="EP_product_amt"       value="0">        <!-- 상품가격 -->
+        <input type="hidden" id="EP_tr_cd"             name="EP_tr_cd"             value="00101000"> <!-- 거래구분(수정불가) -->
+        <input type="hidden" id="EP_tot_amt"           name="EP_tot_amt"           value="0">         <!-- 결제총금액 -->
+        <input type="hidden" id="EP_currency"          name="EP_currency"          value="00">       <!-- 통화코드 : 00(원), 01(달러)-->
+        <input type="hidden" id="EP_escrow_yn"         name="EP_escrow_yn"         value="N">        <!-- 에스크로여부(수정불가) -->
+        <input type="hidden" id="EP_complex_yn"        name="EP_complex_yn"        value="N">          <!-- 복합결제여부(수정불가) -->
+        <input type="hidden" id="EP_vacct_txtype"      name="EP_vacct_txtype"      value="10">         <!-- 무통장입금 처리종류(수정불가) -->
+        <input type="hidden" id="EP_vacct_amt"         name="EP_vacct_amt"         value="0">           <!-- 무통장입금 결제금액 -->
+        <input type="hidden" id="EP_expire_date"       name="EP_expire_date"       value="">           <!-- 무통장입금 입금만료일(YYYYMMDD) -->
+        <input type="hidden" id="EP_expire_time"       name="EP_expire_time"       value="">           <!-- 무통장입금 입금만료시간(HHMMSS) -->
+        <input type="hidden" id="EP_vacct_txtype"      name="EP_vacct_txtype"      value="20">         <!-- 10 : 일반형 // 20 : 고정형 -->
+        <input type="hidden" id="EP_cash_yn"           name="EP_cash_yn"           value="2">          <!-- 현금영수증발행여부 -->
+        <input type="hidden" id="EP_cash_issue_type"   name="EP_cash_issue_type"   value="01">           <!-- 현금영수증발행용도 -->
+        <input type="hidden" id="EP_cash_auth_type"    name="EP_cash_auth_type"    value="3">           <!-- 인증구분 -->
+        <input type="hidden" id="EP_cash_auth_value"   name="EP_cash_auth_value"   value="01047601529">           <!-- 인증번호 -->
+        <input type="hidden" id="return_url"   name="return_url"   value="">           <!-- 결과페이지 -->
+
+        [TPH_Vnoti1]
+        <ul class="options radio" id="EP_bank_cd">
+            <li><label class="radio"><input type="radio" name="EP_bank_cd" value="003" selected><i><i></i></i> 기업은행</label>
+            <li><label class="radio"><input type="radio" name="EP_bank_cd" value="004" ><i><i></i></i> 국민은행</label>
+            <li><label class="radio"><input type="radio" name="EP_bank_cd" value="011" ><i><i></i></i> 농협중앙회</label>
+            <li><label class="radio"><input type="radio" name="EP_bank_cd" value="020" ><i><i></i></i> 우리은행</label>
+            <li><label class="radio"><input type="radio" name="EP_bank_cd" value="023" ><i><i></i></i> SC제일은행</label>
+            <li><label class="radio"><input type="radio" name="EP_bank_cd" value="088" ><i><i></i></i> 신한은행</label>
+            <li><label class="radio"><input type="radio" name="EP_bank_cd" value="032" ><i><i></i></i> 부산은행</label>
+            <li><label class="radio"><input type="radio" name="EP_bank_cd" value="071" ><i><i></i></i> 우체국</label>
+            <li><label class="radio"><input type="radio" name="EP_bank_cd" value="081" ><i><i></i></i> 하나은행</label>
+        </ul>
+        <hr class="end">
+        <input type="hidden" id="id_over_yn" name="id_over_yn" value="N">
+        <footer class="action">
+            <button class="exe" onclick="modiBa('[TPH_Vlocal]'); return false;">[TPH_Vbtn_name]하기</button>
+            <button class="close">취소하기</button>
+        </footer>
+        [TPH_Vnoti2]
+    </form>
+</article>

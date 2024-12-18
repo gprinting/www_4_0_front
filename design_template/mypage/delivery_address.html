@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!--script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false"></script-->
+    <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <style>
+        .end{
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top:30px;
+        }
+        .end .left{
+            display:flex;
+            align-items: center;
+            gap:15px;
+            text-decoration: underline;
+        }
+        .end .left button{
+            /* color:var(--primary-color); */
+            font-weight: 900;
+        }
+
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <!-- 로그인 박스 -->
+    [TPH_I/common/login.html]
+
+    <!-- 헤더 -->
+    <div class="div_header_wrapper">
+        [TPH_I/common/header.html]
+
+        <!-- 사이드 메뉴 -->
+        [TPH_I/common/side.html]
+
+        <!-- 네비게이션 -->
+        [TPH_I/common/tnb.html]
+    </div>
+    <div class="div_sub_banner">
+        <img class="" src="/design_template/images/sp_banner/banner_member_info.jpg" alt="서브배너" />
+        <div class="inner">
+            <div class="title_wrap">
+                <h1>회원</h1>
+                <p>회원정보 관리 및 배송 관리를 하실 수 있는 페이지입니다.</p>
+            </div>
+        </div>
+    </div>
+    <div class="contents contents_02 deliveryInfo">
+        <div class="lnb">
+            [TPH_I/mypage/common/lnb.html]
+        </div>
+        <h3 class="pageTitle"><div class="bar_left"></div>배송지 관리</h3>
+        <div class="setInformation">
+            <dl class="default">
+                <dt>기본 배송지 <a href="#none" onclick="setBasicDlvr();" target="_self"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_setting.svg" alt="관리"></a></dt>
+                <dd id="basicDlvr"></dd>
+            </dl>
+            <dl class="type">
+                <dt>배송 유형 안내<a href="/mypage/add_dlvr.html" target="_self"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_setting.svg" alt="관리"></a></dt>
+                <dd>
+                    [TPH_Vdirect_dlvr_desc]
+                </dd>
+                <dd>
+                    남은 서비스 이용기간 : <span class="text_st_01">[TPH_Vleave_period]일</span> [TPH_Vend_date]
+                </dd>
+            </dl>
+        </div>
+        <!--<div class="pageTab">
+            <ul>
+                <li class="main on" id="init_btn" onclick="getMainPage('1', this);" style="cursor: pointer; text-align: left;padding-left:20px;">배송지 관리</li>
+                li class="main" onclick="getMainPage('2', this);" style="cursor: pointer;">월배송 신청</li
+            </ul>
+        </div>-->
+        <div id="main_page">
+        </div>
+
+        [TPH_I/mypage/common/banner.html]
+    </div>
+    <footer>
+        [TPH_I/common/footer.html]
+    </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/eventmall/EventmallDAO.inc");
+
+$frontUtil = new FrontCommonUtil();
+if ($is_ === false) {
+        $frontUtil->errorGoBack("로그인 후 확인 가능합니다.");
+            exit;
+}
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$member_seqno = $fb->session("member_seqno");
+$fb = new FormBean();
+$template = new Template();
+$dao = new EventmallDAO();
+
+$seqno = $fb->form("seq");
+
+$rs = $dao->selectCouponList($conn, $seqno);
+$fields = $rs->fields;
+
+$cp_name = $fields["cp_name"];
+$unit = $fields["unit"];
+$max_sale_price = $fields["max_sale_price"];
+$min_order_price = $fields["min_order_price"];
+$val = $fields["val"];
+$object_appoint_way = $fields["object_appoint_way"];
+$use_yn = $fields["use_yn"];
+$public_amt = $fields["public_amt"];
+$cp_seqno = $fields["cp_seqno"];
+
+$public_period_start_date = $fields["public_period_start_date"];
+$public_period_end_date = $fields["public_period_end_date"];
+$usehour_yn = $fields["usehour_yn"];
+$usehour_start_hour = $fields["usehour_start_hour"];
+$usehour_end_hour = $fields["usehour_end_hour"];
+$expire_dvs = $fields["expire_dvs"];
+$expire_public_day = $fields["expire_public_day"];
+$expire_extinct_date = $fields["expire_extinct_date"];
+$cp_extinct_date = $fields["cp_extinct_date"];
+
+$file_path = $fields["file_path"];
+$save_file_name = $fields["save_file_name"];
+$file = $file_path . $save_file_name;
+
+
+/*Thumbnail 이미지 만들기
+ * background-size 를 하는데 Thumbnail 이미지 만드는 이유
+ * - 트래픽 때문에
+ */
+$param = array();
+$param["fs"] = $file_path . $save_file_name;
+$param["req_width"] = "440";
+$param["req_height"] = "480";
+$thumb_path = $dao->cpMakeThumbnail($param);
+
+//카테고리 명
+$rs_cate = $dao->selectCateList($conn, $seqno);
+
+$cate_name = "";
+while ($rs_cate && !$rs_cate->EOF) {
+    $cate_name .= ", ". $rs_cate->fields["cate_name"];
+    $rs_cate->moveNext();
+}
+//' ,' 제거
+$cate_name = substr($cate_name, 2);
+
+$condition = "";
+if ($unit == "%") {
+    //할인요율 할인일때
+    $condition = "할인요율 " . $val .
+        "% / 최대" . $max_sale_price . "원 할인";
+} else {
+    //할익금액 할인일때
+    $condition = "할인금액 " . $val . "원" .
+        " / 최소" . $min_order_price . "원 이상 구매시";
+}
+
+//사용기간 
+if ($expire_dvs == 3) {
+    $period = $public_period_start_date ." ~ 제한없음";
+} else {
+    $period = $public_period_start_date ." ~ ". $cp_extinct_date;
+}
+
+//시간 사이에 ':' 넣어줌
+$usehour_start_hour = substr($usehour_start_hour, 0, 2) .":". substr($usehour_start_hour, -2);
+$usehour_end_hour = substr($usehour_end_hour, 0, 2) .":". substr($usehour_end_hour, -2);
+
+//사용기간_시간
+$userhour = "";
+if ($usehour_yn == "Y") {
+    $usehour = "(". $usehour_start_hour. " ~ ". $usehour_end_hour.")";
+} else {
+    $usehour = "";
+}
+
+//남은쿠폰
+//  기존쿠폰수 - 발급된 쿠폰수
+$param = array();
+$param["table"] = "cp_issue";
+$param["where"]["cp_seqno"] = $seqno;
+$result = $dao->countData($conn, $param);
+$issueCouponCount = $result->fields["cnt"];
+$leftCouponCount = $public_amt - $issueCouponCount;
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/_check.php");
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "eventmall"); 
+$template->reg("page", "pointcoupon"); 
+//design_dir 경로
+$template->reg("design_dir" , "/design_template"); 
+
+$template->reg("cp_name", $cp_name);
+$template->reg("thumb_path", $thumb_path);
+$template->reg("condition", $condition);
+$template->reg("cate_name", $cate_name);
+$template->reg("leftCouponCount", $leftCouponCount);
+$template->reg("period", $period);
+$template->reg("usehour", $usehour);
+$template->reg("cp_seqno", $cp_seqno);
+$template->reg("member_seqno", $member_seqno);
+
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+?>

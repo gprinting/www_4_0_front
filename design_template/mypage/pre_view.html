@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+<header class="top">
+    [TPH_I/common/header.html]
+</header>
+<section class="contents lnb ftfInquery">
+    <header class="title">
+        <h2><img src="[TPH_Vdesign_dir]/images/mypage/title.png" alt="마이페이지"></h2>
+        <ol class="location">
+            [TPH_I/common/home_btn.html]
+            <li><a href="/mypage/main.html"><span>마이페이지</span></a></li>
+            <li><a href="/mypage/pre_event.html"><span>--임시--</span></a></li>
+            <li><a href="/mypage/pre_event.html"><span>이벤트 게시판</span></a></li>
+        </ol>
+    </header>
+    <nav class="lnb">
+	    [TPH_I/mypage/common/lnb.html]
+    </nav>
+    <table class="information question">
+        <colgroup>
+            <col style="width:120px">
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th colspan="2">상세사항</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">제목</th>
+                <td>[TPH_Vtitle]</td>
+            </tr>
+            <tr>
+                <th scope="row">유형</th>
+                <td>[TPH_Vinq_typ]</td>
+            </tr>
+            <tr>
+                <th scope="row">신청자명</th>
+                <td>[TPH_Vmember_name]</td>
+            </tr>
+            <tr>
+                <th scope="row">연락처</th>
+                <td>[TPH_Vtel_num]</td>
+            </tr>
+            <tr>
+                <th scope="row">휴대전화</th>
+                <td>[TPH_Vcell_num]</td>
+            </tr>
+            <tr>
+                <th scope="row">내용</th>
+                <td>
+                    [TPH_Vcont]
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">파일첨부</th>
+                <td>
+                    [TPH_Vinq_file_html] </div>
+        </tbody>
+    </table>
+    <table class="information answer">
+        <colgroup>
+            <col style="width:120px">
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th colspan="2">답변</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>첨부파일</th>
+                <td>[TPH_Vreply_file_html] </div>
+            </tr>
+            <tr>
+                <th>답변내용</th>
+                <td>
+                    [TPH_Vansw_cont]
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form name="frm" id="frm">
+        <input type="hidden" name="searchParam" id="searchParam" value="[TPH_VsearchParam]" >
+    </form>
+    <div class="function narrow">
+        <strong class="blue right"><button class="function" onclick="goList();">목록으로</button></strong>
+    </div>
+    [TPH_I/mypage/common/banner.html]
+</section>
+<footer></footer>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!--script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false"></script-->
+    <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+    [TPH_I/common22/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    
+    <main id="main" class="mypage wrap delivery">
+        <header class="good pages">
+            <h2>
+                <span class="en">MY PAGE</span>
+                <span class="ko">마이페이지</span>
+            </h2>
+            <h3>
+                <ol>
+                    <li>회원</li>
+                    <li>배송 관리</li>
+                </ol>
+            </h3>
+            <hr>
+        </header>
+        
+        [TPH_I/mypage22/common/lnb.html]
+        
+        <section class="contents">
+            <div class="information">
+                <dl class="shadowBox default">
+                    <dt>기본 배송지 </dt>
+                    <dd id="basicDlvr"></dd>
+                    <!--dd><a class="softLight icon setting" href="#none" onclick="setBasicDlvr();" target="_self">관리</a></dd-->
+                </dl>
+                <dl class="shadowBox type">
+                    <dt>배송 유형 안내</dt>
+                    <dd>
+                        <!--20231101 일단 감춰두고 나중에 보여주기로 정지선씨 요청-->
+                       <!--[TPH_Vdirect_dlvr_desc]<br>
+                        남은 서비스 이용기간 : <span class="text_st_01">[TPH_Vleave_period]일</span> [TPH_Vend_date]--> 
+                        설정되지 않았습니다.
+                    </dd>
+                    <dd><a class="softLight icon setting" href="/mypage22/add_dlvr.html" target="_self">관리</a></dd>
+                </dl>
+            </div>
+            <hr class="end">
+            <nav class="pageTab">
+                <button type="button" class="main on" id="init_btn" onclick="getMainPage('1', this);">배송지 관리</button>
+                <!--button type="button" class="main" onclick="getMainPage('2', this);">월배송 신청</button-->
+            </nav>
+            <div id="main_page">
+            </div>
+        </section>
+        [TPH_I/mypage22/common/banner.html]
+    </main>
+    <footer>
+        [TPH_I/common22/footer.html]
+    </footer>
+</body>
+</html>

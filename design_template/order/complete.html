@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+</head>
+<body>
+    <!--
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+    -->
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="div_sub_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_mypage_order_step_03.jpg" alt="서브배너">
+</div>
+<div class="contents complete">
+    <p class="message"><img src="[TPH_Vdesign_dir]/images/order/complete_message.png" alt="감사합니다. 주문이 정상적으로 완료되었습니다."></p>
+    <dl class="orderNum">
+        <dt>- 주문번호 -</dt>
+        [TPH_Vorder_num_html]
+    </dl>
+    <dl class="payment">
+        <dt>결제금액</dt>
+        <dd><strong>[TPH_Vpay_price]</strong> 원</dd>
+        <dt>선입금</dt>
+        <dd class="prepaid"><strong>[TPH_Vprepay_price_money]</strong> 원</dd>
+        <dt>주문 부족 금액</dt>
+        <dd class="restAmount"><strong>[TPH_Vorder_lack_price]</strong> 원</dd>
+        <dt>가상계좌 안내</dt>
+        <dd class="bankAccount">
+            <span>[TPH_Vbank]</span>
+            <span>[TPH_Vacnt]</span>
+            <span>예금주 : [TPH_Vsell_site]</span>
+        </dd>
+    </dl>
+    <div style="text-align:center;margin:0 auto;">
+      <img src="[TPH_Vdesign_dir]/images/order/complete_mag.png" alt="주문완료 안내">
+      </div>
+    <div class="function center">
+        <strong class="green"><button onclick="location.href='/mypage/order_all.html'">주문조회 바로가기</button></strong>
+        <strong class="blue"><button onclick="location.href='/main/main.html'">첫화면으로 돌아가기</button></strong>
+    </div>
+</div>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

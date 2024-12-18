@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common22/head.html]
+    [TPH_I/mypage22/common/mypage_head.html]
+    <link rel="stylesheet"  href="[TPH_Vdesign_dir]/css/lightslider.css"/>
+    <script src="[TPH_Vdesign_dir]/js/lib/lightslider.js"></script>
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    <main id="main" class="mypage wrap overview">
+        <header class="good pages">
+            <h2>
+                <span class="en">MY PAGE</span>
+                <span class="ko">마이페이지</span>
+            </h2>
+            <h3>HOME</h3>
+            <hr>
+        </header>
+        
+        [TPH_I/mypage22/common/lnb.html]
+        
+        <div class="contents">
+            <section class="accountInfo">
+                <header class="section">계정 정보</header>
+                <dl class="grade [TPH_Vgrade]">
+                    <dt><strong>[TPH_Vgrade]</strong></dt>
+                    <dd>회원등급<br>[TPH_Vgrade_info]</dd>
+                    <dd class="emblem">
+                        <img src="[TPH_Vdesign_dir]/pub22/images/ui/grde-[TPH_Vgrade].png" alt="[TPH_Vgrade]등급">
+                    </dd>
+                </dl>
+                <dl class="prepaid">
+                    <dt>선입금</dt>
+                    <dd><strong>[TPH_Vprepay_price]</strong>원</dd>
+                </dl>
+                <dl class="paid">
+                    <dt>주문부족금액</dt>
+                    <dd><strong>[TPH_Vorder_lack_price]</strong>원</dd>
+                </dl>
+                <dl class="point">
+                    <dt>보유 포인트</dt>
+                    <dd><strong>[TPH_Vown_point]</strong>P</dd>
+                </dl>
+                <dl class="coupon">
+                    <dt>보유 쿠폰</dt>
+                    <dd><strong>[TPH_Vcp_count]</strong>매</dd>
+                </dl>
+            </section>
+            <hr class="end">
+            <section class="orderInfo">
+                <header class="section">주문 정보</header>
+                <dl class="terms">
+                    <dt>조회기간<span id="period" class="period_box">[TPH_Vperiod]</span></dt>
+                    <dd>
+                        <ul class="setting _switch">
+                            <li class="_on"><button type="button" onclick="getOrderStatus('W'); return false;">1주</button></li>
+                            <li class=""><button type="button" onclick="getOrderStatus('TW'); return false;">2주</button></li>
+                            <li class=""><button type="button" onclick="getOrderStatus('CM'); return false;">당월</button></li>
+                            <li class=""><button type="button" onclick="getOrderStatus('PM'); return false;">전월</button></li>
+                        </ul>
+                    </dd>
+                </dl>
+                <article id="order_status">
+                    [TPH_Vorder_status_html]
+                </article>
+                <input type="hidden" id="period_from" value="[TPH_Vperiod_from]">
+                <input type="hidden" id="period_to" value="[TPH_Vperiod_to]">
+            </section>
+            <hr class="end">
+            <section class="recentList order">
+                <header class="section">
+                    주문/배송조회
+                    <a href="/mypage22/order_all.html" target="_self" class="softLight">더보기(전체보기)</a>
+                    <!--p>더 많은 내역은 주문내역조회에서 조회하시기 바랍니다. / 출고완료 이후 택배확인은 <strong>롯데택배 소장님 010-5612-7400</strong>로 문의 바랍니다.</p-->
+                </header>
+                <table class="list info">
+                    <colgroup>
+                        <col class="no">
+                        <col class="date">
+                        <col class="">
+                        <col class="productDetails">
+                        <col class="post">
+                        <col class="amount">
+                        <col class="price">
+                        <!--col class="status"-->
+                        <col class="status">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">번호</th>
+                            <th scope="col">주문일</th>
+							<th scope="col">주문번호</th>
+                            <th scope="col" class="left">상품정보</th>
+                            <th scope="col" class="amount">수량(건)</th>
+                            <th scope="col" class="price">결제 금액</th>
+                            <th scope="col">진행상태</th>
+                            <th scope="col">배송유형</th>
+                            <th scope="col" style="width:59px;">관리</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        [TPH_Vorder_list]
+                    </tbody>
+                </table>
+            </section>
+            <hr class="end">
+            <section class="recentList cart">
+                <header class="section">
+                    장바구니
+                    <a href="/mypage22/cart.html" class="softLight" target="_self" type="softW">더보기(전체보기)</a>
+                    <p>더 많은 내역은 장바구니에서 조회하시기 바랍니다.</p>
+                </header>
+                <table class="list info">
+                    <colgroup>
+                        <col class="no">
+                        <col class="date">
+                        <col class="productDetails">
+                        <col class="post">
+                        <col class="amount">
+                        <col class="price">
+                        <col class="status">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">번호</th>
+                            <th scope="col">담은 날</th>
+                            <th scope="col" class="left">상품정보</th>
+                            <th scope="col" class="left">후가공</th>
+                            <th scope="col" class="amount">수량×건</th>
+                            <th scope="col" class="price">결제 금액</th>
+                            <th scope="col">파일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        [TPH_Vcart_list]
+                    </tbody>
+                </table>
+            </section>
+            <hr class="end">
+            <section class="addressList">
+                <header class="section">
+                    배송지 관리
+                    <a href="/mypage22/delivery_address.html" target="_self" class="softLight">더보기(전체보기)</a>
+                    <p>더 많은 내역은 배송지 리스트에서 조회하시기 바랍니다.</p>
+                </header>
+                <table class="list info">
+                    <colgroup>
+                        <col class="no">
+                        <col class="title">
+                        <col class="title">
+                        <col class="tel">
+                        <col class="address">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">번호</th>
+                            <th scope="col" class="left">배송주소지명</th>
+                            <th scope="col" class="left">받으실 분</th>
+                            <th scope="col">전화번호</th>
+                            <th scope="col" class="left">주소</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        [TPH_Vdlvr_list]
+                    </tbody>
+                </table>
+            </section>
+            <hr class="end">
+            <!-- 기본배송지 및 배송유형 START -->
+            <div class="summary">
+                <section class="defaultAddress">
+                    <header class="section">기본배송지 <a href="/mypage22/delivery_address.html" class="softLight icon setting" target="_self" title="설정하기">설정하기</a></header>
+                    <dl>
+                        [TPH_Vdlvr]
+                    </dl>
+                </section>
+                <section class="deliveryType">
+                    <header class="section">배송 유형 안내</header>
+                    <dl>
+                        <dt>월배송 서비스</dt>
+                        <dd>
+                           [TPH_Vdirect_dlvr_desc]
+                            <a href="/mypage22/delivery_address.html" target="_self" class="cubic vivid">월배송 신청 및 안내 보러가기</a>
+                        </dd>
+                        <dd class="days">
+                            <span>남은 서비스 이용기간</span>
+                            <span><strong>[TPH_Vleave_period]</strong>일</span>
+                        </dd>
+                        <dd>
+                            [TPH_Vend_date]
+                        </dd>
+                    </dl>
+                </section>
+                <section class="inquery">
+                    <header class="section">1:1 문의 <a href="/mypage22/ftf_write.html" target="_self" class="softLight icon write" title="작성하기">작성하기</a></header>
+                    <ul>
+                        [TPH_Vftf]
+                    </ul>
+                </section>
+                <section class="estimate">
+                    <header class="section">견적 문의 <a href="/mypage22/estimate_list.html" target="_self" class="softLight icon list" title="목록보기">목록보기</a></header>
+                    <ul>
+                        [TPH_Vesti]
+                    </ul>
+                </section>
+                <form id="frm" name="frm" method="post">
+                    <input type="hidden" name="seq" id="seq"/>
+                </form>
+                <input type="hidden" value="[TPH_Vdvs]" id="dvs"/>
+                <input type="hidden" id="sync_flag" value=[TPH_Vsync_flag] seq=[TPH_Vmember_seqno]>
+            </div>
+        </div>
+        [TPH_I/mypage22/common/common_pop.html]
+        [TPH_I/mypage22/common/banner.html]
+    </main>
+    [TPH_I/common22/footer.html]
+</body>
+</html>
+

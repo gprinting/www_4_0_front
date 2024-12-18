@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+</head>
+<body>
+<header class="top">
+    [TPH_I/common/header.html]
+</header>
+<section class="contents find">
+    <header class="title">
+        <ol class="location">
+            [TPH_I/common/home_btn.html]
+            <li><span>아이디/비밀번호 찾기</span></li>
+        </ol>
+    </header>
+    <h2 class="pageTitle">
+      <img src="/design_template/images/member/find.png" alt="아이디/비밀번호 찾기">
+    </h2>
+    <nav class="tab">
+        <ul>
+            <li><h3>아이디 찾기</h3></li>
+            <li><a href="/member/find_password.html" target="_self">비밀번호 찾기</a></li>
+        </ul>
+    </nav>
+    <ul class="notice">
+        <li>회원 가입 시 선택한 본인 인증 수단을 선택하여 아이디를 찾을 수 있습니다.</li>
+        <li>회원 가입 후 실명인증을 한 회원에 한하여 본인인증 정보를 통한 아이디 검색이 가능합니다.</li>
+        <li>본인 인증 시 제공되는 정보는 인증 이외의 용도로 이용 또는 저장하지 않습니다.</li>
+        <li>법인 회원의 경우, 아이디/비밀번호 찾기는 고객센터(02-2260-9000)로 문의해주세요.</li>
+    </ul>
+    <section class="type byInfo" style="width:100%;">
+        <h4>내 정보로 찾기</h4>
+        <div class="wrap" style="padding: 30px 100px;">
+            <ul class="infoSelect">
+                <li><label><input type="radio" name="infoSelect" class="_mobile" value="1"> 등록한 휴대폰</label></li>
+                <li><label><input type="radio" name="infoSelect" class="_email" value="2"> 등록한 이메일</label></li>
+            </ul>
+            <dl class="input">
+                <dt>이름</dt>
+                <dd>
+                    <div class="inputWrap"><input type="text" id="name"></div>
+                </dd>
+                <dt class="_off">휴대폰</dt>
+                <dd class="info _mobile _off">
+                    <select id="cell_num1">
+                        [TPH_Vcel_html]
+                    </select>
+                    <span>-</span>
+                    <input type="text" id="cell_num2">
+                    <span>-</span>
+                    <input type="text" id="cell_num3">
+                </dd>
+                <dt class="_off">이메일</dt>
+                <dd class="info _email _off">
+                    <input type="text" id="email_addr">
+                    <span>@</span>
+                    <input type="text" class="_domain" id="email_domain">
+                    <select class="_domain" onchange="selectDomain(this.value);">
+                        <option class="_custom" value="">직접입력</option>
+                        [TPH_Vemail_html]
+                    </select>
+                </dd>
+            </dl>
+            <ul class="notice">
+                <li>회원 가입 시 입력한 정보 중 휴대폰/이메일을 통해 아이디를 찾습니다</li>
+                <li>원하는 항목 선택 후 아이디 찾기 버튼을 클릭해주세요.</li>
+                <li>회원 가입 시 입력한 정보를 정확히 작성할 수 없는 경우 고객센터로 문의해주세요.</li>
+            </ul>
+            <div class="function">
+                <button onclick="searchId.myInfo();">내 정보로 아이디 찾기</button>
+            </div>
+        </div>
+    </section>
+    <!--
+    <section class="type byCertification">
+        <h4>본인인증으로 간편 찾기</h4>
+        <div class="wrap">
+            <ul class="infoSelect">
+                <li><label><input type="radio" name="infoSelect" class="_mobile" value="3"> 휴대폰 인증</label></li>
+                <li><label><input type="radio" name="infoSelect" class="_email" value="4"> 아이핀 인증</label></li>
+            </ul>
+            <ul class="notice">
+                <li>본인 명의의 휴대폰으로 본인인증을 통해 아이디 찾기를 할 수 있습니다.</li>
+                <li>원하는 항목 선택 후 아이디 찾기 버튼을 클릭해주세요.</li>
+                <li>단, 법인명의의 휴대폰인 경우 휴대폰 명의 인증이 불가능합니다.</li>
+            </ul>
+            <div class="function">
+                <button onclick="searchId.certi();">본인인증으로 아이디 찾기</button>
+            </div>
+        </div>
+    </section>
+    -->
+</section>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</body>
+</html>

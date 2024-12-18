@@ -1,0 +1,35 @@
+<button class="btn_popup_close close" title="닫기"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+<div class="inner_padding">
+    <div class="layerPopup">
+        <div>
+            <h2>가상계좌 등록</h2>
+        </div>
+        <div class="layerPopup_contents">
+            <div>
+                <div class="bank_info">은행정보
+                    <select id="EP_bank_cd" name="EP_bank_cd">
+                        <option value="기업은행" selected="">기업은행</option>
+                        <option value="국민은행">국민은행</option>
+                        <option value="농협중앙회">농협중앙회</option>
+                        <option value="우리은행">우리은행</option>
+                        <option value="SC제일은행">SC제일은행</option>
+                        <option value="신한은행">신한은행</option>
+                        <option value="부산은행">부산은행</option>
+                        <option value="우체국">우체국</option>
+                        <option value="하나은행">하나은행</option>
+                    </select>
+                </div>
+                <div class="name_info">입금자명
+                    <input type="text" id="depo_name" maxlength="20" />
+                </div>
+            </div>
+            <ul class="hyphen notice">
+                <li>이곳에 설명이 들어갑니다.</li>
+            </ul>
+        </div>
+        <div class="btn_wrapper">
+            <button type="button" class="btn_type_02" onclick="regiBa();">등록하기</button>
+            <button type="button" class="btn_type_01 close">취소</button>
+        </div>
+    </div>
+</div>

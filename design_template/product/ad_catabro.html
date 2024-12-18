@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    [TPH_I/common/head.html]
+    [TPH_I/product/common/product_head.html]
+    <script src="[TPH_Vdesign_dir]/js/product/ad_catabro_preview.js"></script>
+    <style type="text/css" media="all">
+        /* preview */
+        .add_preview {
+            position: relative;
+            border: 5px solid #ebebeb;
+            background: url('[TPH_Vdesign_dir]/images/product/preview_bg.png');
+            padding: 5px;
+            height: 440px;
+        }
+
+        .add_preview .title {
+            display: block;
+            margin: 7px 0 0 10px;
+        }
+
+        .add_preview .line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        .add_preview .line>.size span {
+            position: absolute;
+            margin: auto;
+        }
+
+        .add_preview .line.cutting {
+            border: 1px dashed transparent;
+            transition: all .5s;
+            width: 350px;
+            height: 350px;
+        }
+
+        .add_preview .line.cutting>.size {
+            color: #109f97;
+        }
+
+        .add_preview .line.cutting>.size .width {
+            top: 2px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        .add_preview .line.cutting>.size .height {
+            white-space: nowrap;
+            overflow: visible;
+            right: 4px;
+            top: 0;
+            bottom: 0;
+            height: 12px;
+            text-align: right;
+        }
+
+        .add_preview .line.working {
+            border: 2px solid transparent;
+            transition: all .5s;
+            width: 350px;
+            height: 350px;
+        }
+
+        .add_preview .line.working>.size {
+            color: #f36f23;
+        }
+
+        .add_preview .line.working>.size .width {
+            top: -18px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        .add_preview .line.working>.size .height {
+            width: 0;
+            white-space: nowrap;
+            overflow: visible;
+            right: -4px;
+            top: 0;
+            bottom: 0;
+            height: 12px;
+            text-align: right;
+        }
+
+        /* 재단사이즈가 작업사이즈보다 클 경우 처리 */
+        .add_preview .line.working.reverse {
+            border: 1px dashed transparent;
+            transition: all .5s;
+            width: 350px;
+            height: 350px;
+        }
+
+        .add_preview .line.working.reverse>.size {
+            color: #109f97;
+        }
+
+        .add_preview .line.cutting.reverse>.size .width {
+            top: 2px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        .add_preview .line.cutting.reverse>.size .height {
+            white-space: nowrap;
+            overflow: visible;
+            right: 4px;
+            top: 0;
+            bottom: 0;
+            height: 12px;
+            text-align: right;
+        }
+
+        .add_preview .line.cutting.reverse {
+            border: 2px solid transparent;
+            transition: all .5s;
+            width: 350px;
+            height: 350px;
+        }
+
+        .add_preview .line.cutting.reverse>.size {
+            color: #f36f23;
+        }
+
+        .add_preview .line.working.reverse>.size .width {
+            top: -18px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        .add_preview .line.working.reverse>.size .height {
+            width: 0;
+            white-space: nowrap;
+            overflow: visible;
+            right: -4px;
+            top: 0;
+            bottom: 0;
+            height: 12px;
+            text-align: right;
+        }
+
+        .add_preview .line.cutting.reverse.on {
+            border-color: #f36f23;
+        }
+
+        .add_preview .line.working.reverse.on {
+            border-color: #109f97;
+        }
+
+        .add_preview .line.working.on {
+            border-color: #f36f23;
+        }
+
+        .add_preview .line.cutting.on {
+            border-color: #109f97;
+        }
+
+        .add_preview .paper {
+            background: #efefef;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            max-width: 350px;
+            max-height: 350px;
+            height: 350px;
+            width: 350px;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, .1);
+            border: 1px solid #d7d7d7;
+            transition: all .5s;
+        }
+
+        .add_preview .content {
+            background: #fff;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            max-width: 350px;
+            max-height: 350px;
+            height: 350px;
+            width: 350px;
+            transition: all .5s;
+        }
+
+        .add_preview .content .line {
+            right: auto;
+            margin: 0;
+            width: 1px;
+            border: solid #000;
+            border-width: 0 0 0 1px;
+            opacity: 0;
+            filter: alpha(opacity=0);
+            transition: all .3s;
+            box-sizing: border-box;
+        }
+
+        .add_preview .content .line.vertical {
+            border-width: 1px 0 0 0;
+            height: 0;
+            width: 100%;
+            top: 50%;
+        }
+
+        .add_preview .content .line.on {
+            opacity: .5;
+            filter: alpha(opacity=50);
+        }
+
+        .add_preview .content .line.impression {
+            border-color: #f00;
+        }
+
+        .add_preview .content .line.dotline {
+            border-color: #0e0;
+        }
+
+        .add_preview .content .line.foldline {
+            border-color: #00f;
+            border-style: dotted;
+        }
+
+        .add_preview .content .line.foldline.outside {
+            border-style: dashed;
+        }
+
+        .add_preview .content .line.punching {
+            border-width: 1px;
+            border-radius: 50%;
+            border-color: #f500ff;
+        }
+
+        .add_preview .content .cutting {
+            width: 100%;
+            height: 100%;
+        }
+
+        .add_preview .content .cutting .line {
+            height: 100%;
+            border-color: #b200ff;
+        }
+
+        .add_preview .content .cutting .line.noLine {
+            border: 0 none;
+        }
+
+        .add_preview .content .after,
+        .add_preview .content .after div {
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            overflow: hidden;
+            transition: border-radius .5s;
+        }
+
+        .add_preview .content .after div {
+            background: center no-repeat;
+            background-size: contain;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            transition: opacity .5s;
+        }
+
+        .add_preview .content .after div.on {
+            filter: alpha(opacity=100);
+            opacity: 1;
+        }
+
+        .add_preview .content .after div.silk {
+            background-image: url('/design_template/images/product/after_silk.gif');
+            background-size: contain;
+            left: 10%;
+            right: 10%;
+            top: 10%;
+            bottom: 10%;
+        }
+
+        .add_preview .content .after div.foil {
+            background-image: url('/design_template/images/product/after_foil_gold.png');
+        }
+
+        .add_preview .content .after div.foil.silver {
+            background-image: url('/design_template/images/product/after_foil_silver.png');
+        }
+
+        .add_preview .content .after div.foil.black {
+            background-image: url('/design_template/images/product/after_foil_black.png');
+        }
+
+        .add_preview .content .after div.foil.blue {
+            background-image: url('/design_template/images/product/after_foil_blue.png');
+        }
+
+        .add_preview .content .after div.foil.red {
+            background-image: url('/design_template/images/product/after_foil_red.png');
+        }
+
+        .add_preview .content .after div.foil.green {
+            background-image: url('/design_template/images/product/after_foil_green.png');
+        }
+
+        .add_preview .content .after div.foil.hologram {
+            background-image: url('/design_template/images/product/after_foil_hologram.png');
+        }
+
+        .add_preview .content .after div.embossing {
+            background-image: url('/design_template/images/product/after_embossing_black.png');
+        }
+
+        .add_preview .content .after div.embossing.color {
+            background-image: url('/design_template/images/product/after_embossing_color.png');
+        }
+
+        .add_preview .content .after div.coating {
+            background-image: url('/design_template/images/product/after_coating_all.png');
+            background-size: 100% 100%;
+        }
+
+        .add_preview .content .after div.coating.part {
+            background-image: url('/design_template/images/product/after_coating_part.png');
+            background-size: contain;
+        }
+
+        .add_preview .content .after div.press {
+            background-image: url('/design_template/images/product/after_press.png');
+        }
+
+        .add_preview .content .after div.sampleText {
+            background-image: url('/design_template/images/product/after_sampletext.png');
+            opacity: 1;
+        }
+
+        .add_preview .content .after div.thomson {
+            background-image: url('/design_template/images/product/after_thomson.png');
+            background-color: #ebebeb;
+        }
+
+        .add_preview .btns {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+        }
+
+        .add_preview .btns button {
+            overflow: hidden;
+            text-indent: -1000px;
+            height: 18px;
+            background: left top no-repeat;
+        }
+
+        .add_preview .btns li {
+            float: left;
+        }
+
+        .add_preview .btns li+li {
+            margin-left: 5px;
+        }
+
+        .add_preview .btns button {
+            transition: outline-color .3s;
+        }
+
+        .add_preview .btns .cuttingLine button {
+            width: 35px;
+            background-image: url('/design_template/images/product/preview_btn_cuttingline.png');
+            outline: 1px dashed transparent;
+        }
+
+        .add_preview .btns .cuttingLine.on button {
+            outline-color: #3d5a95;
+        }
+
+        .add_preview .btns .workingLine button {
+            width: 35px;
+            background-image: url('/design_template/images/product/preview_btn_workingline.png');
+            outline: 2px solid transparent;
+        }
+
+        .add_preview .btns .workingLine.on button {
+            outline-color: #d82b3b;
+        }
+
+        .add_preview .btns .designLine button {
+            width: 43px;
+            background-image: url('/design_template/images/product/preview_btn_designline.png');
+        }
+
+        .add_preview .btns .tomsonLine button {
+            width: 45px;
+            background-image: url('/design_template/images/product/preview_btn_thomsonline.png');
+        }
+
+        .add_preview .btns .baseDesign button {
+            width: 53px;
+            background-image: url('/design_template/images/product/preview_btn_basedesign.png');
+        }
+
+        .add_preview .btns .customDesign button {
+            width: 43px;
+            background-image: url('/design_template/images/product/preview_btn_mydesign.png');
+        }
+
+        .add_preview .btns .cuttingLine._on button {
+            background-image: url('/design_template/images/product/preview_btn_cuttingline_on.png');
+        }
+
+        .add_preview .btns .workingLine._on button {
+            background-image: url('/design_template/images/product/preview_btn_workingline_on.png');
+        }
+
+        .add_preview .btns .designLine._on button {
+            background-image: url('/design_template/images/product/preview_btn_designline_on.png');
+        }
+
+        .add_preview .btns .tomsonLine._on button {
+            background-image: url('/design_template/images/product/preview_btn_thomsonline_on.png');
+        }
+
+        .add_preview .btns .baseDesign._on button {
+            background-image: url('/design_template/images/product/preview_btn_basedesign_on.png');
+        }
+
+        .add_preview .btns .customDesign._on button {
+            background-image: url('/design_template/images/product/preview_btn_mydesign_on.png');
+        }
+
+        /* 20170327 preview - 접지 사이즈 css 추가 */
+        .add_preview .size.horizontal {
+            position: relative;
+            top: 20px;
+            color: #111111;
+        }
+
+        .add_preview .size.vertical {
+            position: relative;
+            left: 20px;
+            color: #111111;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- 로그인 박스 -->
+        [TPH_I/common/login.html]
+
+        <!-- 헤더 -->
+        <div class="div_header_wrapper">
+            [TPH_I/common/header.html]
+
+            <!-- 사이드 메뉴 -->
+            [TPH_I/common/side.html]
+
+            <!-- 네비게이션 -->
+            [TPH_I/common/tnb.html]
+        </div>
+        <div class="contents ad_catabro">
+            <!-- [TPH_I/product/common/sub_banner.html] -->
+            <div class="div_sub_banner">
+                <img class="" src="/design_template/images/sp_banner/banner_order_ad_01.jpg" alt="서브배너" />
+                <div class="inner">
+                    <div class="title_wrap">
+                        <h1>카탈로그/브로슈어</h1>
+                        <p>회사소개, 안내서 등에 최적화된 고급 상품입니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rightWrap productOptions">
+                [TPH_I/product/ad/catabro_info.html]
+
+                [TPH_I/product/common/file_upload_div.html]
+
+                [TPH_I/product/common/purchase.html]
+
+                [TPH_I/product/common/file_upload_popup.html]
+            </div>
+            <div class="leftWrap">
+                [TPH_I/product/common/picture.html]
+
+                [TPH_I/product/common/banner.html]
+
+                [TPH_I/product/common/util.html]
+
+                [TPH_I/product/common/preview_catabro.html]
+
+                [TPH_I/common/is_login.html]
+            </div>
+
+            [TPH_I/product/common/quick_esti.html]
+
+            [TPH_I/product/common/detail_tab.html]
+        </div>
+
+        [TPH_I/common/footer.html]
+
+        [TPH_I/product/common/common_pop.html]
+    </div>
+</body>
+
+</html>

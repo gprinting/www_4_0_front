@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet"  href="[TPH_Vdesign_dir]/css/lightslider.css"/>
+    <link rel="stylesheet"  href="[TPH_Vdesign_dir]/css/mypage.css"/>
+    <style type="text/css">
+        ul.paging .first:after,
+        ul.paging .last:before { content: '···'; margin: 0 6px; }
+    </style>
+
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="[TPH_Vdesign_dir]/js/lib/lightslider.js"></script>
+    <!--script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false"></script-->
+    <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+    <script>
+        $(document).ready(function() {
+            var tel1 = "[TPH_Vtel_num1]";
+            var cell1 = "[TPH_Vcell_num1]";
+
+            $("#tel_num1").val(tel1);
+            $("#cell_num1").val(cell1);
+        });
+    </script>
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="div_sub_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_member_info.jpg" alt="서브배너" />
+</div>
+<div class="contents contents_02 deliveryInfo">
+    <div class="lnb">
+        [TPH_I/mypage/common/lnb.html]
+    </div>
+    <h3 class="pageTitle"><img src="/design_template/images/title/delivery_service.png" alt="월배송 신청"></h3>
+    <div>
+        <table class="line input delivery_service">
+            <colgroup>
+                <col style="width:130px">
+                <col style="width:300px">
+                <col style="width:130px">
+                <col>
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>아이디</th>
+                    <td>[TPH_Vid]</td>
+                    <th>이름 또는 상호명</th>
+                    <td>[TPH_Vname]</td>
+                </tr>
+                <tr>
+                    <th>주소</th>
+                    <td colspan="3">
+                        <div class="rowWrap postNum">
+                            <input type="text" id="zipcode" name="zipcode" value="[TPH_Vzipcode]" readonly="readonly">
+                            <button type="button" onclick="getPostcode();">우편번호 찾기</button>
+                        </div>
+                        <div class="rowWrap address">
+                            <input type="text" class="address" id="addr" name="addr" value="[TPH_Vaddr]" readonly="readonly">
+                            <input type="text" class="address" id="addr_detail" name="addr_detail" value="[TPH_Vaddr_detail]">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>추가정보</th>
+                    <td colspan="3" class="memo">
+                        <input type="text" id="add_info" maxlength="255" placeholder="층수와 엘리베이터 유무 등을 알려주시면 보다 원활한 서비스가 가능합니다." value="[TPH_Vadd_info]">
+                    </td>
+                </tr>
+                <tr>
+                    <th>이용기간</th>
+                    <td colspan="3"><span class="text_st_01" id="start_period">[TPH_Vstart_period]</span>부터 <span class="text_st_01" id="end_period">[TPH_Vend_period]</span>까지</td>
+                </tr>
+                <tr>
+                    <th>전화번호</th>
+                    <td class="telNum">
+                        <select id="tel_num1" name="tel_num1">
+                            <option value="02">02</option>
+                            <option value="031">031</option>
+                            <option value="032">032</option>
+                            <option value="033">033</option>
+                            <option value="041">041</option>
+                            <option value="042">042</option>
+                            <option value="043">043</option>
+                            <option value="044">044</option>
+                            <option value="051">051</option>
+                            <option value="052">052</option>
+                            <option value="053">053</option>
+                            <option value="054">054</option>
+                            <option value="055">055</option>
+                            <option value="061">061</option>
+                            <option value="062">062</option>
+                            <option value="063">063</option>
+                            <option value="064">064</option>
+                            <option value="010">010</option>
+                            <option value="070">070</option>
+                        </select>
+                        <input type="text" id="tel_num2" name="tel_num2" value="[TPH_Vtel_num2]" maxlength="4">
+                        <input type="text" id="tel_num3" name="tel_num3" value="[TPH_Vtel_num3]" maxlength="4">
+                    </td>
+                    <th>휴대전화</th>
+                    <td class="phone">
+                        <select id="cell_num1" name="cell_num1">
+                            <option value="010">010</option>
+                            <option value="011">011</option>
+                            <option value="016">016</option>
+                            <option value="017">017</option>
+                            <option value="018">018</option>
+                        </select>
+                        <input type="text" id="cell_num2" name="cell_num2" value="[TPH_Vcell_num2]" maxlength="4">
+                        <input type="text" id="cell_num3" name="cell_num3" value="[TPH_Vcell_num3]" maxlength="4">
+                    </td>
+                </tr>
+                <!--
+                <tr>
+                    <th>담당 배송차</th>
+                    <td colspan="3"><span id="vehi_num">[TPH_Vvehi_num]</span>&nbsp;&nbsp;<span id="mng">[TPH_Vmng]</span></td>
+                </tr>
+                -->
+                <tr>
+                    <th>총금액</th>
+                    <td colspan="3"><span class="text_st_01" id="svc_price">원</span>(VAT포함)</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="function center">
+            <div class="">
+                <strong><button onclick="goPayment();" style="width: 140px;">결제하기</button></strong>
+            </div>
+        </div>
+    </div>
+    <div class="delivery_contents" style="width:100%;">
+        <table class="delivery_contents_table_radius tip_table" style="margin-top:60px;">
+            <tbody>
+                <tr>
+                    <td>월배송(직배송) 이용료는 고객님의 신청 후 선입금 계좌에서 결제됩니다.</td>
+                </tr>
+                <tr>
+                    <td>신청 승인이 완료되어 차감 결제된 월배송(직배송) 이용료는 돌려드리지 않습니다.</td>
+                </tr>
+                <tr>
+                    <td>월배송(직배송) 이용료 결제 조회는 결제정보 입출금 내역에서 조회가 가능합니다.</td>
+                </tr>
+                <tr>
+                    <td>물량이 많은 경우는 분할되어 2회에 걸쳐 배송될 수 있습니다.</td>
+                </tr>
+                <tr>
+                    <td>누락분 발생 경우에도 2회에 걸쳐 배송될 수 있으며 다른 배송은 불가합니다.</td>
+                </tr>
+                <tr>
+                    <td>배송지역에 따라 출고 시간이 낮배송(오후1시경), 저녁배송(저녁8시경) 나누어지며,배송지역 별 배송차량과 출고시간을 확인하시길 바랍니다.</td>
+                </tr>
+                <tr>
+                    <td>배송지역에 따라 도착 시간의 차이가 크며, 저녁배송은 새벽까지 배송이 되기 때문에 안전하게 배송을 받으실 수 있는 장소가 중요합니다. 정해진 곳에 배송 후 분실 시 책임지지 않습니다.</td>
+                </tr>
+                <tr>
+                    <td>배송시간은 날씨 및 도로교통 상황에 따라 변동 될 수 있습니다.</td>
+                </tr>
+                <tr>
+                    <td>일요일, 공휴일은 배송되지 않습니다.</td>
+                </tr>
+                <tr>
+                    <td>신규 신청당일은 입금 확인이 되어도 배송준비로 배송이 안될 수도 있습니다.</td>
+                </tr>
+                <tr>
+                    <td>배송지역 확인 문의 <span class="text_st_01">배송과장 : 황재호 010-3841-1284</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--
+    <div>
+        <div class="sp_sub_title delivery_contents_title" style="margin:60px 0 20px 0;">
+            <p>배송차량안내</p>
+        </div>
+        <div class="deliveryCar_guide" style="margin-right: 36px;">
+            <p>호차별 배송지역 : 낮배송(오후1시경 출고)</p>
+            <table class="delivery_contents_table delivery_car_info">
+                <colgroup>
+                    <col style="width:100px;">
+                    <col style="width:auto;">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th>호차분류</th>
+                        <th>배송지역</th>
+                    </tr>
+                    <tr>
+                        <td class="align_center">A_1호차</td>
+                        <td>광진구, 강동구, 송파구 일부</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">A_2호차</td>
+                        <td>덕양구, 일산, 금촌</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">A_3호차</td>
+                        <td>마포구 일부, 영등포구</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">A_4호차</td>
+                        <td>양천구, 강서구 일부</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">A_5호차</td>
+                        <td>서대문, 광화문, 마포일부, 은평구</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">A_6호차</td>
+                        <td>광진구일부, 송파구일부, 성남, 분당</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">A_7호차</td>
+                        <td>의정부, 도봉구일부</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">A_8호차</td>
+                        <td>의정부일부, 포천, 양주, 동두천, 백석</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">A_9호차</td>
+                        <td>미아동, 수유동, 창동, 노원, 중랑구, 구리</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">A_10호차</td>
+                        <td>용산, 구로, 금천, 방배동</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">A_11호차</td>
+                        <td>안산, 시흥일부</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">A_12호차</td>
+                        <td>강서구일부, 부천, 시흥일부</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">A_13호차</td>
+                        <td>인천, 부평, 계양</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="deliveryCar_guide">
+            <p>호차별 배송지역 : 밤배송(저녁8시경 출고)</p>
+            <table class="delivery_contents_table delivery_car_info">
+                <colgroup>
+                    <col style="width:100px;">
+                    <col style="width:auto;">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th>호차분류</th>
+                        <th>배송지역</th>
+                    </tr>
+                    <tr>
+                        <td class="align_center">B_1호차</td>
+                        <td>인천, 부평, 계양</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">B_2호차</td>
+                        <td>수원일부, 화성, 발안</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">B_3호차</td>
+                        <td>안양일부, 부천, 군포, 광명, 검단, 김포,화성</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">B_4호차</td>
+                        <td>광주, 이천, 용인, 죽전, 수원일부</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">B_5호차</td>
+                        <td>병점, 오산, 평택, 천안, 온양</td>
+                    </tr>
+                    <tr>
+                        <td class="align_center">B_6호차</td>
+                        <td>하남, 마석, 춘천, 원주, 여주, 양평</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    -->
+</div>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

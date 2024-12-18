@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <style type="text/css">
+        ul.paging .first:after,
+        ul.paging .last:before { content: '···'; margin: 0 6px; }
+    </style>
+</head>
+<body>
+<header class="top">
+    [TPH_I/common/header.html]
+</header>
+<section class="contents lnb ftfInquery">
+    <header class="title">
+        <h2><img src="[TPH_Vdesign_dir]/images/mypage/title.png" alt="마이페이지"></h2>
+        <ol class="location">
+            [TPH_I/common/home_btn.html]
+            <li><a href="/mypage/main.html"><span>마이페이지</span></a></li>
+            <li><a href="/mypage/pre_event.html"><span>--임시--</span></a></li>
+            <li><a href="/mypage/pre_event.html"><span>이벤트 게시판</span></a></li>
+        </ol>
+    </header>
+    <nav class="lnb">
+        [TPH_I/mypage/common/lnb.html]
+    </nav>
+    <form name="searchFrm" id="searchFrm">
+    <section class="searchCondition">
+        <div class="rowWrap">
+            <dl class="inqueryType">
+                <dt>문의유형</dt>
+                <dd>
+                    <select id="inq_typ">
+                        <option value="오류_e">오류</option>
+                        <option value="개선사항_e">개선사항</option>
+                        <option value="기타_e">기타</option>
+                    </select>
+                </dd>
+            </dl>
+            <dl class="title last">
+                <dt>문의제목</dt>
+                <dd><input type="text" onkeydown="searchKey(event);" name="title" id="title" ></dd>
+            </dl>
+        </div>
+        <button onclick="searchTxt();" type="button" class="search">검색</button>
+    </section>
+    </form>
+    <table class="list searchResult update">
+        <caption>
+            <div class="resultNum" id="resultNum">
+            </div>
+            [TPH_I/common/list_num.html]
+        </caption>
+        <colgroup>
+            <col style="width:60px">
+            <col style="width:80px">
+            <col style="width:90px">
+            <col>
+            <col style="width:80px">
+            <col style="width:70px">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>의뢰일</th>
+                <th>문의유형</th>
+                <th>문의제목</th>
+                <th>등록일</th>
+                <th>상태</th>
+            </tr>
+        </thead>
+        <tbody id="list">
+        </tbody>
+    </table>
+    <form name="frm" id="frm">
+        <input type="hidden" id="seq" name="seq"/>
+        <input type="hidden" id="searchParam" name="searchParam" value="[TPH_VsearchParam]"/>
+    </form>
+    <ul class="paging" id="paging">
+        <li><button class="on">1</button></li>
+    </ul>
+    <div class="function center">
+        <strong><button type="button" onclick="preWrite();" class="function">작성</button></strong>
+    </div>
+    [TPH_I/mypage/common/banner.html]
+</section>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</body>
+</html>

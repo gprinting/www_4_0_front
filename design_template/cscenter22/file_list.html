@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common22/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    
+    <main id="main" class="csCenter wrap notice">
+        <header class="good pages">
+            <h2>
+                <span class="en">CS CENTER</span>
+                <span class="ko">고객센터</span>
+            </h2>
+            <h3>
+                <ol>
+                    <li>커뮤니티</li>
+                    <li>공유자료실</li>
+                </ol>
+            </h3>
+            <hr>
+        </header>
+        
+        [TPH_I/cscenter22/common/lnb.html]
+        
+        <section class="contents">
+        
+            <div class="searchCondition">
+                <div class="rowWrap">
+                    <dl class="full">
+                        <dt>검색조건</dt>
+                        <dd>
+                            <select id="search_cnd">
+                                <option value="title">제목</option>
+                                <option value="member_name">작성자</option>
+                            </select>
+                        </dd>
+                        <dd class="rest">
+                            <input type="text" id="search_txt" onkeydown="searchKey(event);">
+                        </dd>
+                    </dl>
+                </div>
+                <button class="search" onclick="searchTxt();" title="검색하기">검색하기</button>
+            </div>
+            <table class="list info searchResult update">
+                <caption>
+                    <div class="resultNum" id="resultNum"><em id="resultCnt"></em>건의 검색결과가 있습니다.</div>
+                    <select class="listNum" onchange="changeListNum(this.value);">
+                        <option value="10">10개씩 보기</option>
+                        <option value="20">20개씩 보기</option>
+                        <option value="50">50개씩 보기</option>
+                        <option value="100">100개씩 보기</option>
+                    </select>
+                </caption>
+                <colgroup>
+                    <col class="no">
+                    <col>
+                    <col class="name">
+                    <col class="date">
+                    <col class="view">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th class="left">제목</th> 
+                        <th>작성자</th>
+                        <th>등록일</th>
+                        <th>조회</th>
+                    </tr>
+                </thead>
+                <tbody id="list">
+                </tbody>
+            </table>
+            <hr class="end">
+            <footer class="action">
+               [TPH_Vregi_btn]
+                <ul class="paging" id="paging">
+                </ul>
+            </footer>
+        </section>
+    </main>
+
+    <!-- cs center 우측 컨텐츠 -->
+    [TPH_I/common22/cs_side_contents.html]
+
+    <footer>
+        [TPH_I/common22/footer.html]
+    </footer>
+</body>
+</html>

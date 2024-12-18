@@ -1,0 +1,59 @@
+/*인쇄용*/
+@media print {
+
+    header.top,
+    header,
+    footer,
+    .noPrint,
+    section.contents {
+        display: none;
+    }
+
+    .modalMask {
+        position: relative !important;
+        overflow: visible !important;
+        padding-top: 0 !important;
+        padding-left: 0 !important;
+        background-image: none !important;
+    }
+
+    .l_dealdetails .layerPopupWrap {
+        position: static !important;
+        width: 100% !important;
+        height: 100% !important;
+        top: 0 !important;
+        left: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        transition: none !important;
+        margin-top: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    table.information thead th,
+    table.information thead td,
+    table.information tbody th,
+    table.information tbody td {
+        border: 1px solid #aaa !important;
+    }
+
+    table.information tbody th,
+    table.information thead th {
+        background: #ddd !important;
+        font-weight: 600 !important;
+        color: #444 !important;
+    }
+
+    table.information {
+        border-collapse: collapse !important;
+    }
+
+    .l_dealdetails article.bold table {
+        border-bottom: none !important;
+    }
+}
+
+/*인쇄여백 최소*/
+@page {
+    margin: 0cm 0cm;
+}

@@ -1,0 +1,384 @@
+<html>
+<head>
+    <title>거래명세서</title>
+    <style>
+        #dealdetails_cont, .bold {width:893px;}
+        
+        #dealdetails_cont .information {border-collapse:collapse;font-size:12px;width:893px;}
+        #dealdetails_cont .information thead tr th {border:1px solid black;padding:6px;}
+        #dealdetails_cont .information tbody {border:1px solid #000;}
+        #dealdetails_cont .dealdetails h3 {text-align:center;font-size:30px;margin-top:50px;}
+        .bold .information {font-size:12px;}
+        
+        .bold .information .Vdate tr>td {text-align:right;}
+        #dealdetails_cont .information tbody tr td ,
+        #dealdetails_cont .information tbody tr th {border:1px solid #000;padding:6px;}
+        #dealdetails_cont .information caption {margin-bottom: 10px;text-align: left;margin-top:10px;}
+        #dealdetails_cont .information caption .right {float: right;}
+        #dealdetails_cont .information caption .right2 {text-align:right}
+        
+        .bold {margin-top: 30px;}
+        .bold .information_chart {border-collapse:collapse;width:893px;font-size:12px;border-bottom:1px solid #d7d7d7;}
+        .bold .information_chart thead {width:893px;}
+        .bold .information_chart thead tr td{border:1px solid #000000;padding:6px;}
+        .bold .information_chart tbody {width:893px;}
+        .bold .information_chart tbody tr td {border:1px solid #949494;padding:6px;text-align:right;}
+        .bold .information_chart caption {margin-bottom: 10px;margin-top:10px;}
+        .bold .information_chart .table_right {text-align: right;}
+        .bold .information_chart .table_left {text-align: left;}
+        .bold .information_chart .table_center {text-align: center;}
+    </style>
+
+    <script>
+    </script>
+</head>
+
+<body onload="window.print();">
+<article id="dealdetails_cont">
+    <header class="dealdetails">
+        <h3>거래명세표</h3>
+    </header>
+    <table class="information">
+        <caption>
+            날짜: [TPH_Vdate]
+            <div class="right">
+                <div class="right2">Tel : 02-2260-9000</div>
+                <div class="right2">Fax : 02-2260-9090</div>
+            </div>
+        </caption>
+        <colgroup>
+            <col width="80">
+            <col>
+            <col width="80">
+            <col width="80">
+            <col width="80">
+            <col>
+            <col width="80">
+            <col width="80">
+        </colgroup>
+        <thead>
+        <tr>
+            <th colspan="4">공급자</th>
+            <th colspan="4">공급받는자</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">등록번호</th>
+            <td colspan="3">[TPH_Vlicensee_num]</td>
+            <th scope="row">등록번호</th>
+            <td colspan="3">[TPH_Ved_licensee_num]</td>
+        </tr>
+        <tr>
+            <th scope="row">상호</th>
+            <td>[TPH_Vname]</td>
+            <th scope="row">대표자명</th>
+            <td>[TPH_Vrepre_name]</td>
+            <th scope="row">상호</th>
+            <td>[TPH_Ved_sell_site]</td>
+            <th scope="row">대표자명</th>
+            <td>[TPH_Ved_repre_name]</td>
+        </tr>
+        <tr>
+            <th scope="row">업장주소</th>
+            <td colspan="3">[TPH_Vaddr] [TPH_Vaddr_detail]</td>
+            <th scope="row">업장주소</th>
+            <td colspan="3">[TPH_Ved_addr] [TPH_Ved_addr_detail]</td>
+        </tr>
+        <tr>
+            <th scope="row">업태</th>
+            <td>[TPH_Vbc]</td>
+            <th scope="row">종목</th>
+            <td>[TPH_Vtob]</td>
+            <th scope="row">업태</th>
+            <td>[TPH_Ved_bc]</td>
+            <th scope="row">종목</th>
+            <td>[TPH_Ved_tob]</td>
+        </tr>
+        </tbody>
+    </table>
+    <article class="bold">
+        <table class="information">
+            <caption>날짜: [TPH_Vdate]</caption>
+            <colgroup>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>총매출액</th>
+                <th>에누리</th>
+                <th>순매출액</th>
+                <th>입금액</th>
+                <th>총잔액</th>
+            </tr>
+            </thead>
+            <tbody class="Vdate">
+            <tr>
+                <td style="text-align:right;">&#8361;[TPH_Vsell_price]</td>
+                <td style="text-align:right;">&#8361;[TPH_Vadjust_price]</td>
+                <td style="text-align:right;">&#8361;[TPH_Vpay_price]</td>
+                <td style="text-align:right;">&#8361;[TPH_Vdepo_price]</td>
+                <td style="text-align:right;">&#8361;[TPH_Vprepay_bal]</td>
+            </tr>
+            </tbody>
+        </table>
+    </article>
+
+    <article class="bold">
+        [TPH_Vlist]
+    <!--
+        <table class="information_chart">
+            <colgroup>
+                <col width="40">
+                <col width="50">
+                <col width="90">
+                <col width="350">
+                <col width="70">
+                <col width="20">
+                <col width="80">
+                <col width="60">
+                <col width="80">
+            </colgroup>
+            <thead>
+            <tr>
+                <td>No</td>
+                <td>일자</td>
+                <td>제작물내용</td>
+                <td>재질 및 규격</td>
+                <td>수량</td>
+                <td>건</td>
+                <td>공급가액</td>
+                <td>에누리</td>
+                <td>순매출액</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>10-20</td>
+                <td class="table_left">강남라이즈초대장</td>
+                <td class="table_left">코팅명함 / 스노우지 백색 250g / 비규격 / 양면칼라8도</td>
+                <td>500장</td>
+                <td>1</td>
+                <td>12,100</td>
+                <td>-3,300</td>
+                <td>9,350</td>
+            </tr>
+            </tbody>
+            <caption class="table_right">
+                총매출액 : 12,100원/ 에누리 : -3,300원/ 순매출액 : 9,350원/ 입금액 : 0원/ 일일잔액 : 99,990,650원
+            </caption>
+        </table>
+        <table class="information_chart">
+            <colgroup>
+                <col width="40">
+                <col width="50">
+                <col width="90">
+                <col width="350">
+                <col width="70">
+                <col width="20">
+                <col width="80">
+                <col width="60">
+                <col width="80">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>10-21</td>
+                <td class="table_left">배순희</td>
+                <td class="table_left">코팅명함 / 스노우지 백색 250g / 비규격 / 양면칼라8도</td>
+                <td>500장</td>
+                <td>1</td>
+                <td>5,500</td>
+                <td>-3,300</td>
+                <td>2,750</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>10-21</td>
+                <td class="table_left">배순희</td>
+                <td class="table_left">코팅명함 / 스노우지 백색 250g / 비규격 / 양면칼라8도</td>
+                <td>500장</td>
+                <td>1</td>
+                <td>5,500</td>
+                <td>-3,300</td>
+                <td>2,750</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>10-21</td>
+                <td class="table_left">배순희</td>
+                <td class="table_left">코팅명함 / 스노우지 백색 250g / 비규격 / 양면칼라8도</td>
+                <td>500장</td>
+                <td>1</td>
+                <td>5,500</td>
+                <td>-3,300</td>
+                <td>2,750</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>10-21</td>
+                <td class="table_left">배순희</td>
+                <td class="table_left">코팅명함 / 스노우지 백색 250g / 비규격 / 양면칼라8도</td>
+                <td>500장</td>
+                <td>1</td>
+                <td>5,500</td>
+                <td>-3,300</td>
+                <td>2,750</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>10-21</td>
+                <td class="table_left">배순희</td>
+                <td class="table_left">코팅명함 / 스노우지 백색 250g / 비규격 / 양면칼라8도</td>
+                <td>500장</td>
+                <td>1</td>
+                <td>5,500</td>
+                <td>-3,300</td>
+                <td>2,750</td>
+            </tr>
+            </tbody>
+            <caption class="table_right">
+                총매출액 : 27,500원/ 에누리 : -16,500원/ 순매출액 : 13,750원/ 입금액 : 0원/ 일일잔액 : 99,852,350원
+            </caption>
+        </table>
+        <table class="information_chart">
+            <colgroup>
+                <col width="40">
+                <col width="50">
+                <col width="90">
+                <col width="350">
+                <col width="70">
+                <col width="20">
+                <col width="80">
+                <col width="60">
+                <col width="80">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>10-25</td>
+                <td class="table_left">울뜨레야 실천표</td>
+                <td class="table_left">코팅명함 / 스노우지 백색 250g / 비규격 / 양면칼라8도</td>
+                <td>500장</td>
+                <td>1</td>
+                <td>11,000</td>
+                <td>-3,300</td>
+                <td>5,500</td>
+            </tr>
+            </tbody>
+            <caption class="table_right">
+                총매출액 : 11,000원/ 에누리 : -3,300원/ 순매출액 : 5,500원/ 입금액 : 0원/ 일일잔액 : 98,624,570원
+            </caption>
+        </table>
+        <table class="information_chart">
+            <colgroup>
+                <col width="40">
+                <col width="50">
+                <col width="90">
+                <col width="350">
+                <col width="70">
+                <col width="20">
+                <col width="80">
+                <col width="60">
+                <col width="80">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>10-26</td>
+                <td class="table_left">권기홍</td>
+                <td class="table_left">코팅명함 / 스노우지 백색 250g / 비규격 / 단면칼라4도+뒷면먹1도</td>
+                <td>200장</td>
+                <td>1</td>
+                <td>9,900</td>
+                <td>-4,400</td>
+                <td>7,150</td>
+            </tr>
+            </tbody>
+            <caption class="table_right">
+                총매출액 : 9,900원/ 에누리 : -4,400원/ 순매출액 : 7,150원/ 입금액 : 0원/ 일일잔액 : 98,314,920원
+            </caption>
+        </table>
+        <table class="information_chart">
+            <colgroup>
+                <col width="40">
+                <col width="50">
+                <col width="90">
+                <col width="350">
+                <col width="70">
+                <col width="20">
+                <col width="80">
+                <col width="60">
+                <col width="80">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>12-17</td>
+                <td class="table_left">옵션 자동접수 테스트1</td>
+                <td class="table_left">코팅명함 / 스노우지 백색 250g / 86*52 / 양면칼라8도</td>
+                <td>500장</td>
+                <td>1</td>
+                <td>10,120</td>
+                <td>-4,620</td>
+                <td>7,370</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>12-17</td>
+                <td class="table_left">옵션 자동접수 테스트2</td>
+                <td class="table_left">코팅명함 / 스노우지 백색 250g / 86*52 / 양면칼라8도</td>
+                <td>500장</td>
+                <td>1</td>
+                <td>10,120</td>
+                <td>-4,620</td>
+                <td>7,370</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>12-17</td>
+                <td class="table_left">옵션 자동접수 테스트3</td>
+                <td class="table_left">코팅명함 / 스노우지 백색 250g / 86*52 / 양면칼라8도</td>
+                <td>500장</td>
+                <td>1</td>
+                <td>10,120</td>
+                <td>-4,620</td>
+                <td>7,370</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>12-17</td>
+                <td class="table_left">옵션 자동접수 테스트5</td>
+                <td class="table_left">코팅명함 / 스노우지 백색 250g / 86*52 / 양면칼라8도</td>
+                <td>500장</td>
+                <td>1</td>
+                <td>10,120</td>
+                <td>-4,620</td>
+                <td>7,370</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>12-17</td>
+                <td class="table_left">옵션 자동접수 테스트4</td>
+                <td class="table_left">코팅명함 / 스노우지 백색 250g / 86*52 / 양면칼라8도</td>
+                <td>500장</td>
+                <td>1</td>
+                <td>10,120</td>
+                <td>-4,620</td>
+                <td>7,370</td>
+            </tr>
+            </tbody>
+            <caption class="table_right">
+                총매출액 : 50,600원/ 에누리 : -23,100원/ 순매출액 : 36,850원/ 입금액 : 0원/ 일일잔액 : 999,963,150원
+            </caption>
+        </table>
+    -->
+    </article>
+
+</body>
+</html>

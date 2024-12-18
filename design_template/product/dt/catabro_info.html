@@ -1,0 +1,594 @@
+<form id="frm" action="/order/add_cart.html" method="post">
+    <!-- 최상단 공통영역, 인쇄물제목 / 포장방법 -->
+    <h2 class="order_title_basic">주문기본사항</h2>
+    <div class="selection">
+        <dl>
+            <dt><label for="printTitle">인쇄물제목</label></dt>
+            <dd class="full"><div class="inputWrap"><input type="text" id="title" name="title" maxlength="15" placeholder="업로드한 파일명은 인쇄물 제목으로 사용됩니다."></div></dd>
+            <dt><label for="productName">상품명</label></dt>
+            <dd>
+                [TPH_Vcate_bot]
+            </dd>
+            <dt><label for="cover_size">사이즈</label></dt>
+            <dd class="_relatedSummary size cover_size">
+                <select class="withBtn _size" id="size_dvs" name="ad_size_dvs" onchange="changeSizeDvs(this.value);">
+                    <option value="stan" class="_preset">규격사이즈</option>
+                    <option value="manu" class="_custom">비규격사이즈</option>
+                </select>
+                <select class="_preset" id="ad_size" name="ad_size" def_cut_wid="[TPH_Vcover_def_cut_wid]" def_cut_vert="[TPH_Vcover_def_cut_vert]" def_val="[TPH_Vcover_def_stan_mpcode]" onchange="changeSize.exec('ad');">
+                    [TPH_Vcover_size]
+                </select>
+                <span id="ad_similar_size"
+class="similarSize_guide" divide="1" display:none;"></span>
+                <dl>
+                    <dt>재단사이즈</dt>
+                    <dd class="_cuttingSize">
+                        <label>가로 <input id="ad_cut_wid_size" name="ad_cut_wid_size" type="text" maxlength="3">mm</label>,
+                        <label>세로 <input id="ad_cut_vert_size" name="ad_cut_vert_size" type="text" maxlength="3">mm</label>
+                    </dd>
+                    <dt>작업사이즈</dt>
+                    <dd class="_workingSize[TPH_Vcover_size_gap]" id="ad_size_gap">
+                        <label>가로 <input id="ad_work_wid_size" name="ad_work_wid_size" type="text" readonly>mm</label>,
+                        <label>세로 <input id="ad_work_vert_size" name="ad_work_vert_size" type="text" readonly>mm</label>
+                    </dd>
+                </dl>
+            </dd>
+
+            <dt class="binding">제본</dt>
+            <dd style="width: 315px;">
+                <select id="ad_binding_val" name="ad_binding_val" class="_relatedSummary" onchange="getAfterPrice.common('binding', 'ad');" style="margin-left:5px">
+                    [TPH_Vcover_binding_depth2]
+                </select>
+                <select id="ad_binding_depth1" name="ad_binding_depth1" onchange="loadBindingDepth2(this.value, 'ad');" class="_relatedSummary withBtn">
+                    [TPH_Vcover_binding_depth1]
+                </select>
+                <button type="button" style="width:80px;" onclick="showBindingPop()">제본 미리보기</button>
+                <input type="hidden" id="ad_binding_price" name="ad_binding_price" value="[TPH_Vcover_binding_price]" />
+            </dd>
+            <dt class="amount"><label for="amount">수량</label></dt>
+
+            <dd class="_relatedSummary amount">
+                <!-- 옵션가격 수량따라 변할 경우 changeData -> getOptPrice 구현 필요 -->
+                <select class="_amount" id="ad_amt" name="ad_amt" onchange="changeAmt();" amt_unit="[TPH_Vcover_amt_unit]">
+                    [TPH_Vcover_amt]
+                </select>
+            </dd>
+        </dl>
+    </div><!-- 최상단 공통영역 -->
+
+    <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 실제 표지 정보 섹션 시작 -->
+    <h2 class="order_title">표지</h2>
+    <div class="pages selection">
+        <dl>
+            <dt><label for="paper">종이</label></dt>
+            <dd style="width:510px;">
+                <select id="cover_paper_sort" class="_relatedSummary" onchange="changePaperSort('cover', this.value);" style="width:160px;">
+                    [TPH_Vcover_paper_sort]
+                </select>
+                <select id="cover_paper_name" class="_relatedSummary" onchange="loadPaperInfo('cover', this.value);" style="width:160px;">
+                    [TPH_Vcover_paper_name]
+                </select>
+                <select id="cover_paper" class="_relatedSummary" name="cover_paper" onchange="changePaper('cover');" style="width:180px;">
+                    [TPH_Vcover_paper]
+                </select>
+            </dd>
+            <dt>인쇄방식</dt>
+            <dd>
+                <select id="cover_print_purp" name="cover_print_purp" onchange="loadPrintTmpt('cover');" style="width:130px;">
+                    [TPH_Vcover_print_purp]
+                </select>
+            </dd>
+            <dt><label for="color">인쇄도수</label></dt>
+            <dd class="colorDetails">
+                <dl>
+                    <dt><label for="cover_bef_tmpt">전면</label></dt>
+                    <dd>
+                        <select id="cover_bef_tmpt" name="cover_bef_tmpt" class="_relatedSummary" onchange="changeData('cover');">
+                            [TPH_Vcover_bef_print_tmpt]
+                        </select>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><label for="cover_aft_tmpt">후면</label></dt>
+                    <dd>
+                        <select id="cover_aft_tmpt" name="cover_aft_tmpt" class="_relatedSummary" onchange="changeData('cover');">
+                            [TPH_Vcover_aft_print_tmpt]
+                        </select>
+                    </dd>
+                </dl>
+            </dd>
+            <dt class="amount"><label for="amount">페이지</label></dt>
+            <dd class="_relatedSummary amount">
+                <!-- 옵션가격 수량따라 변할 경우 changeData -> getOptPrice 구현 필요 -->
+                <select class="_amount" id="cover_page" name="cover_page" style="width:130px;" amt_unit="p" onchange="changePage('cover', this.value);">
+                    [TPH_Vcover_page]
+                </select>
+            </dd>
+        </dl>
+        <div class="option _folding" style="top:54px; right:10px;">
+            <button type="button" class="_closed" title="열기"><img src="[TPH_Vdesign_dir]/images/common/btn_semicircle_right.png" alt="▶"></button>
+            <button type="button" class="_opened" title="닫기"><img src="[TPH_Vdesign_dir]/images/common/btn_semicircle_left.png" alt="◀"></button>
+            <div class="_folder">
+                <dl>
+                    <dt>인쇄유형</dt>
+                    <dd>
+                        <select id="cover_mono_yn" name="cover_mono_yn" onchange="changeData('cover');">
+                            [TPH_Vcover_mono_dvs]
+                        </select>
+                    </dd>
+                    <dt>재질느낌</dt>
+                    <dd id="cover_paper_sense" class="select">[TPH_Vcover_paper_sense]</dd>
+                </dl>
+            </div>
+        </div>
+
+    </div><!-- 선택 -->
+    <!-- 후가공 -->
+    <div class="after aft_sec cover_after _folding">
+        <button type="button" title="열기" class="_closed foldingbtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_bottom.png" alt="▼"></button>
+        <button type="button" title="닫기" class="_opened foldingbtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_top.png" alt="▲"></button>
+        <dl>
+            <dt>후가공</dt>
+            <dd class="overview cover_overview">
+                <ul>
+                </ul>
+            </dd>
+            <dd class="_folder cover_after_list list">
+                [TPH_Vcover_after]
+                [TPH_Vcover_add_after]
+            </dd>
+        </dl>
+    </div><!-- 후가공 -->
+    <!-- 실제 표지 정보 섹션 끝 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+
+    <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 실제 내지1 정보 섹션 시작 -->
+
+    <h2 class="order_title">내지1</h2>
+    <div class="pages selection">
+        <dl>
+            <dt><label for="inner1_paper">종이</label></dt>
+            <dd style="width:510px;">
+                <select id="inner1_paper_sort" class="_relatedSummary"  onchange="changePaperSort('inner1', this.value);" style="width:160px;">
+                    [TPH_Vinner1_paper_sort]
+                </select>
+                <select id="inner1_paper_name" class="_relatedSummary" onchange="loadPaperInfo('inner1', this.value);" style="width:160px;">
+                    [TPH_Vinner1_paper_name]
+                </select>
+                <select id="inner1_paper" name="inner1_paper" class="_relatedSummary" onchange="changePaper('inner1');" style="width:180px;">
+                    [TPH_Vinner1_paper]
+                </select>
+            </dd>
+            <dt>인쇄방식</dt>
+            <dd>
+                <select id="inner1_print_purp" name="inner1_print_purp" onchange="loadPrintTmpt('inner1');" style="width: 130px;">
+                    [TPH_Vinner1_print_purp]
+                </select>
+            </dd>
+            <dt><label for="color">인쇄도수</label></dt>
+            <dd class="colorDetails">
+                <dl>
+                    <dt><label for="inner1_bef_tmpt">전면</label></dt>
+                    <dd>
+                        <select id="inner1_bef_tmpt" name="inner1_bef_tmpt" class="_relatedSummary" onchange="changeData('inner1');">
+                            [TPH_Vinner1_bef_print_tmpt]
+                        </select>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><label for="inner1_aft_tmpt">후면</label></dt>
+                    <dd>
+                        <select id="inner1_aft_tmpt" name="inner1_aft_tmpt" class="_relatedSummary" onchange="changeData('inner1');">
+                            [TPH_Vinner1_aft_print_tmpt]
+                        </select>
+                    </dd>
+                </dl>
+            </dd>
+            <dt class="amount"><label for="amount">페이지</label></dt>
+            <dd class="_relatedSummary amount">
+                <!-- 옵션가격 수량따라 변할 경우 changeData -> getOptPrice 구현 필요 -->
+                <select class="_amount" id="inner1_page" name="inner1_page" style="width:130px;" amt_unit="p" onchange="changeData('all');">
+                    [TPH_Vinner1_page]
+                </select>
+            </dd>
+        </dl>
+        <div class="option _folding" style="top:54px; right:10px;">
+            <button type="button" class="_closed" title="열기"><img src="[TPH_Vdesign_dir]/images/common/btn_semicircle_right.png" alt="▶"></button>
+            <button type="button" class="_opened" title="닫기"><img src="[TPH_Vdesign_dir]/images/common/btn_semicircle_left.png" alt="◀"></button>
+            <div class="_folder">
+                <dl>
+                    <dt>인쇄유형</dt>
+                    <dd>
+                        <select id="inner1_mono_yn" name="inner1_mono_yn" onchange="changeData('inner1');">
+                            [TPH_Vinner1_mono_dvs]
+                        </select>
+                    </dd>
+                    <dt>재질느낌</dt>
+                    <dd id="inner1_paper_sense" class="select">[TPH_Vinner1_paper_sense]</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <!-- 후가공 -->
+    <div class="after aft_sec inner1_after _folding">
+        <button type="button" title="열기" class="_closed foldingbtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_bottom.png" alt="▼"></button>
+        <button type="button" title="닫기" class="_opened foldingbtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_top.png" alt="▲"></button>
+        <dl>
+            <dt>후가공</dt>
+            <dd class="overview inner1_overview">
+                <ul>
+                </ul>
+            </dd>
+            <dd class="_folder inner1_after_list list">
+                [TPH_Vinner1_after]
+                [TPH_Vinner1_add_after]
+            </dd>
+        </dl>
+    </div><!-- 후가공 -->
+    <!-- 실제 내지1 정보 섹션 끝 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+
+    <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 실제 내지2 정보 섹션 시작 -->
+    <h2 class="order_title">
+        내지2
+    </h2>
+    <div class="pages selection _folding _off">
+        <div style="text-align: end;">
+            <button type="button" title="열기" class="_add addBtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_plus.png" alt="+" onclick="dvsOnOff.exec('inner2');"></button>
+            <button type="button" title="닫기" style="display: none;" class="_del delBtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_x.png" alt="X" onclick="dvsOnOff.exec('inner2');"></button>
+        </div>
+        <div class="_folder" style="display: none;">
+            <dl class="after_inner_wrap">
+                <dt><label for="inner2_paper">종이</label></dt>
+                <dd style="width:510px;">
+                    <select id="inner2_paper_sort" class="_relatedSummary"  onchange="changePaperSort('inner2', this.value);" style="width:160px;">
+                        [TPH_Vinner1_paper_sort]
+                    </select>
+                    <select id="inner2_paper_name" class="_relatedSummary" onchange="loadPaperInfo('inner2', this.value);" style="width:160px;">
+                        [TPH_Vinner1_paper_name]
+                    </select>
+                    <select id="inner2_paper" name="inner2_paper" class="_relatedSummary" onchange="changePaper('inner2');" style="width:180px;">
+                        [TPH_Vinner1_paper]
+                    </select>
+                </dd>
+                <dt><label for="color">인쇄도수</label></dt>
+                <dd class="colorDetails" style="padding:5px 0 !important;">
+                    <dl>
+                        <dt><label for="inner2_bef_tmpt">전면</label></dt>
+                        <dd>
+                            <select id="inner2_bef_tmpt" name="inner2_bef_tmpt" class="_relatedSummary" onchange="changeData('inner2');">
+                                [TPH_Vinner1_bef_print_tmpt]
+                            </select>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><label for="inner2_aft_tmpt">후면</label></dt>
+                        <dd>
+                            <select id="inner2_aft_tmpt" name="inner2_aft_tmpt" class="_relatedSummary" onchange="changeData('inner2');">
+                                [TPH_Vinner1_aft_print_tmpt]
+                            </select>
+                        </dd>
+                    </dl>
+                </dd>
+                <dt class="amount"><label for="amount">페이지</label></dt>
+                <dd class="_relatedSummary amount">
+                    <!-- 옵션가격 수량따라 변할 경우 changeData -> getOptPrice 구현 필요 -->
+                    <select class="_amount" id="inner2_page" name="inner2_page" style="width:130px;" amt_unit="p" onchange="changePage('inner2', this.value);">
+                        [TPH_Vinner1_page]
+                    </select>
+                </dd>
+            </dl>
+            <div class="option _folding" style="top:54px; right:10px;">
+                <button type="button" class="_closed" title="열기"><img src="[TPH_Vdesign_dir]/images/common/btn_semicircle_right.png" alt="▶"></button>
+                <button type="button" class="_opened" title="닫기"><img src="[TPH_Vdesign_dir]/images/common/btn_semicircle_left.png" alt="◀"></button>
+                <div class="_folder">
+                    <dl>
+                        <dt>인쇄유형</dt>
+                        <dd>
+                            <select id="inner2_mono_yn" name="inner2_mono_yn" onchange="changeData('inner2');">
+                                [TPH_Vinner1_mono_dvs]
+                            </select>
+                        </dd>
+                        <dt>재질느낌</dt>
+                        <dd id="inner2_paper_sense" class="select">[TPH_Vinner1_paper_sense]</dd>
+                        <dt>인쇄방식</dt>
+                        <dd>
+                            <select id="inner2_print_purp" name="inner2_print_purp" onchange="loadPrintTmpt('inner2');">
+                                [TPH_Vinner1_print_purp]
+                            </select>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 후가공 -->
+    <div class="after aft_sec inner2_after _folding" style="display: none;">
+        <button type="button" title="열기" class="_closed foldingbtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_bottom.png" alt="▼"></button>
+        <button type="button" title="닫기" class="_opened foldingbtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_top.png" alt="▲"></button>
+        <dl>
+            <dt>후가공</dt>
+            <dd class="overview inner2_overview">
+                <ul>
+                </ul>
+            </dd>
+            <dd class="_folder inner2_after_list list">
+                [TPH_Vinner2_after]
+                [TPH_Vinner2_add_after]
+            </dd>
+        </dl>
+    </div><!-- 후가공 -->
+    <!-- 실제 내지2 정보 섹션 끝 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+
+    <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 실제 내지3 정보 섹션 시작 -->
+    <h2 class="order_title">내지3</h2>
+    <div class="pages selection _folding _off">
+        <button type="button" title="열기" class="_add addBtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_plus.png" alt="+" onclick="dvsOnOff.exec('inner3');"></button>
+        <button type="button" title="닫기" class="_del delBtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_x.png" alt="X" onclick="dvsOnOff.exec('inner3');"></button>
+        <div class="_folder" style="display: none;">
+            <dl class="after_inner_wrap">
+                <dt><label for="inner3_paper">종이</label></dt>
+                <dd style="width:510px;">
+                    <select id="inner3_paper_sort" class="_relatedSummary"  onchange="changePaperSort('inner3', this.value);" style="width:160px;">
+                        [TPH_Vinner1_paper_sort]
+                    </select>
+                    <select id="inner3_paper_name" class="_relatedSummary" onchange="loadPaperInfo('inner3', this.value);" style="width:160px;">
+                        [TPH_Vinner1_paper_name]
+                    </select>
+                    <select id="inner3_paper" name="inner3_paper" class="_relatedSummary" onchange="changePaper('inner3');" style="width:180px;">
+                        [TPH_Vinner1_paper]
+                    </select>
+                </dd>
+                <dt><label for="color">인쇄도수</label></dt>
+                <dd class="colorDetails" style="padding:5px 0 !important;">
+                    <dl>
+                        <dt><label for="inner3_bef_tmpt">전면</label></dt>
+                        <dd>
+                            <select id="inner3_bef_tmpt" name="inner3_bef_tmpt" class="_relatedSummary" onchange="changeData('inner3');">
+                                [TPH_Vinner1_bef_print_tmpt]
+                            </select>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><label for="inner3_aft_tmpt">후면</label></dt>
+                        <dd>
+                            <select id="inner3_aft_tmpt" name="inner3_aft_tmpt" class="_relatedSummary" onchange="changeData('inner3');">
+                                [TPH_Vinner1_aft_print_tmpt]
+                            </select>
+                        </dd>
+                    </dl>
+                </dd>
+                <dt class="amount"><label for="amount">페이지</label></dt>
+                <dd class="_relatedSummary amount">
+                    <!-- 옵션가격 수량따라 변할 경우 changeData -> getOptPrice 구현 필요 -->
+                    <select class="_amount" id="inner3_page" name="inner3_page" style="width:130px;" amt_unit="p" onchange="changePage('inner3', this.value);">
+                        [TPH_Vinner1_page]
+                    </select>
+                </dd>
+            </dl>
+            <div class="option _folding" style="top:54px; right:10px;">
+                <button type="button" class="_closed" title="열기"><img src="[TPH_Vdesign_dir]/images/common/btn_semicircle_right.png" alt="▶"></button>
+                <button type="button" class="_opened" title="닫기"><img src="[TPH_Vdesign_dir]/images/common/btn_semicircle_left.png" alt="◀"></button>
+                <div class="_folder">
+                    <dl>
+                        <dt>인쇄유형</dt>
+                        <dd>
+                            <select id="inner3_mono_yn" name="inner3_mono_yn" onchange="changeData('inner3');">
+                                [TPH_Vinner1_mono_dvs]
+                            </select>
+                        </dd>
+                        <dt>재질느낌</dt>
+                        <dd id="inner3_paper_sense" class="select">[TPH_Vinner1_paper_sense]</dd>
+                        <dt>인쇄방식</dt>
+                        <dd>
+                            <select id="inner3_print_purp" name="inner3_print_purp" onchange="loadPrintTmpt('inner3');">
+                                [TPH_Vinner1_print_purp]
+                            </select>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 후가공 -->
+    <div class="after aft_sec inner3_after _folding">
+        <button type="button" title="열기" class="_closed foldingbtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_bottom.png" alt="▼"></button>
+        <button type="button" title="닫기" class="_opened foldingbtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_top.png" alt="▲"></button>
+        <dl>
+            <dt>후가공</dt>
+            <dd class="overview inner3_overview">
+                <ul>
+                </ul>
+            </dd>
+            <dd class="_folder inner3_after_list list">
+                [TPH_Vinner3_after]
+                [TPH_Vinner3_add_after]
+            </dd>
+        </dl>
+    </div><!-- 후가공 -->
+    <!-- 실제 내지3 정보 섹션 끝 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+
+    <!-- 요청 -->
+    <div class="after _folding">
+        <dl>
+            <dt id="opt_default_price" price="[TPH_Vopt_default_price]">옵션</dt>
+            <dd class="list" style="padding-left: 0px;" id="opt">
+                [TPH_Vopt]
+                [TPH_Vadd_opt]
+            </dd>
+        </dl>
+    </div><!-- 요청 -->
+    <h2 class="order_title">주문내역 및 파일</h2>
+    <div class="summary">
+        <dl>
+            <dt>주문내역</dt>
+            <dd>
+                <ul>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+    <!-- 가격 -->
+    <div class="price _folding">
+        <button type="button" title="열기" class="_closed foldingBtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_bottom.png" alt="▼"></button>
+        <button type="button" title="닫기" class="_opened foldingBtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_top.png" alt="▲"></button>
+        <dl class="ordinary">
+            <dt>정상판매가</dt>
+            <dd class="description" style="text-decoration: none;">부가세 10% 포함</dd>
+            <dd id="sell_price" val="[TPH_Vad_sell_price]" class="price">[TPH_Vad_sell_price] 원</dd>
+        </dl>
+
+        <dl class="_folder">
+            <dd class="detail" id="sale">
+                [TPH_Vad_grade_sale]
+                [TPH_Vad_event_sale]
+            </dd>
+        </dl>
+        <dl>
+            <dt>결제금액</dt>
+            <dd class="description">공급가 : <span id="supply_price" style="font-weight:bold;">[TPH_Vad_supply_price]</span>원 + 부가세 : <span id="tax" style="font-weight:bold;">[TPH_Vad_tax]</span>원</dd>
+            <dd class="price"><span id="sale_price" val="[TPH_Vad_sale_price]" style="font-size: 20px;">[TPH_Vad_sale_price]</span> 원</dd>
+        </dl>
+        <!-- 2016/01/04 최대 혜택가 삭제함 -->
+
+    </div><!-- 가격 -->
+
+    <!-- 공통 -->
+    <input type="hidden" name="flag" value="N" /><!-- 낱장형여부 -->
+    <input type="hidden" id="expect_release_hour" name="expect_release_hour" value="" /><!-- 예상출고일 -->
+    <input type="hidden" id="common_prdt_dvs" name="common_prdt_dvs" value="ad" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+    <input type="hidden" id="prdt_dvs" name="prdt_dvs" value="cover|inner1|inner2|inner3" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+    <input type="hidden" name="cart_flag" id="cart_flag" value="Y" /><!-- 장바구니 이동여부 -->
+    <input type="hidden" id="ad_order_detail" name="ad_order_detail" value="" /><!-- 주문 상세 -->
+    <input type="hidden" name="ad_size_name" value="" /><!-- 사이즈명 -->
+    <input type="hidden" name="opt_price" value="" /><!-- 옵션금액 -->
+    <input type="hidden" name="opt_add" value="" /><!-- 추가옵션 맵핑코드 -->
+    <input type="hidden" name="opt_add_price" value="" /><!-- 추가옵션별 가격 -->
+    <input type="hidden" name="ad_amt_unit" value="" /><!-- 수량단위 -->
+    <input type="hidden" name="ad_sheet_count" value="" /><!-- 수량단위 -->
+    <input type="hidden" id="ad_print_purp" value="" />
+    <input type="hidden" id="ad_mono_yn" value="1" />
+    <input type="hidden" id="file_seqno" name="file_seqno" value="" />
+    <input type="hidden" id="oper_sys" name="oper_sys" value="" />
+    <input type="hidden" id="expect_box_num" name="expect_box_num" value="" /><!-- 배송덩어리값 -->
+    <!-- 가격정보 -->
+    <input type="hidden" name="ad_sell_price" value="[TPH_Vcover_sell_price]" /><!-- 판매금액 -->
+    <input type="hidden" name="ad_sale_price" value="" /><!-- 할인금액 -->
+    <input type="hidden" name="ad_member_sale_rate" id="ad_member_sale_rate" value="[TPH_Vcover_member_sale_rate]" /><!-- 회원할인률 -->
+    <input type="hidden" name="ad_grade_sale_rate" id="ad_grade_sale_rate" value="[TPH_Vcover_grade_sale_rate]" /><!-- 등급할인률 -->
+    <input type="hidden" id="ad_tmpt_dvs" value="[TPH_Vcover_tmpt_dvs]" /><!-- 도수구분 -->
+    <input type="hidden" id="after_basic" value="[TPH_Vbl_basic_after]" /><!-- 요약정보 표시용 변수 -->
+    <input type="checkbox" id="ad_binding" name="ad_chk_after[]" checked="checked" value="제본" aft="binding" style="display:none;" /><!-- 요약정보 표시용 변수 -->
+    <input type="hidden" name="ad_after_price" value="" /><!-- 후공정금액 -->
+
+    <!-- ########################################################### -->
+    <!--                           표  지                          -->
+    <!-- ########################################################### -->
+    <input type="hidden" id="cover_cate_sortcode" name="cover_cate_sortcode" value="" />
+    <input type="hidden" name="cover_cate_name" value="" />
+    <input type="hidden" name="cover_amt" value="" />
+    <input type="hidden" name="cover_amt_unit" value="" />
+    <input type="hidden" name="cover_size" value="" />
+    <input type="hidden" name="cover_cut_wid_size" value="" />
+    <input type="hidden" name="cover_cut_vert_size" value="" />
+    <input type="hidden" name="cover_work_wid_size" value="" />
+    <input type="hidden" name="cover_work_vert_size" value="" />
+    <input type="hidden" id="cover_typ" name="cover_typ" value="[TPH_Vcover_page_dvs]" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+    <!-- 종이 -->
+    <input type="hidden" name="cover_paper_name" value="" /><!-- 종이명 -->
+    <!-- 사이즈 -->
+    <input type="hidden" name="cover_size_name" value="" /><!-- 사이즈명 -->
+    <input type="hidden" name="cover_pos_num" value="" /><!-- 자리수 -->
+    <!-- 인쇄 -->
+    <input type="hidden" name="cover_bef_tmpt_name" value="" /><!-- 도수명 -->
+    <input type="hidden" name="cover_aft_tmpt_name" value="" /><!-- 도수명 -->
+    <!-- 가격정보 -->
+    <input type="hidden" name="cover_paper_price" id="cover_paper_price" value="[TPH_Vcover_paper_price]" /><!-- 종이가격 -->
+    <input type="hidden" name="cover_print_price" id="cover_print_price" value="[TPH_Vcover_print_price]" /><!-- 인쇄가격 -->
+    <input type="hidden" name="cover_output_price" id="cover_output_price" value="[TPH_Vcover_output_price]" /><!-- 출력가격 -->
+    <input type="hidden" name="cover_after_price" value="" /><!-- 후공정금액 -->
+    <input type="hidden" name="cover_sell_price" id="cover_sell_price" value="[TPH_Vcover_org_sell_price]" /><!-- 판매금액 -->
+
+    <!-- ########################################################### -->
+    <!--                          내지1부분                          -->
+    <!-- ########################################################### -->
+    <input type="hidden" id="inner1_cate_sortcode" name="inner1_cate_sortcode" value="" />
+    <input type="hidden" name="inner1_cate_name" value="" />
+    <input type="hidden" name="inner1_amt" value="" />
+    <input type="hidden" name="inner1_amt_unit" value="" />
+    <input type="hidden" name="inner1_size" value="" />
+    <input type="hidden" name="inner1_cut_wid_size" value="" />
+    <input type="hidden" name="inner1_cut_vert_size" value="" />
+    <input type="hidden" name="inner1_work_wid_size" value="" />
+    <input type="hidden" name="inner1_work_vert_size" value="" />
+    <input type="hidden" id="inner1_typ" name="inner1_typ" value="내지1" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+    <!-- 종이 -->
+    <input type="hidden" name="inner1_paper_name" value="" /><!-- 종이명 -->
+    <!-- 사이즈 -->
+    <input type="hidden" name="inner1_size_name" value="" /><!-- 사이즈명 -->
+    <input type="hidden" name="inner1_pos_num" value="" /><!-- 자리수 -->
+    <!-- 인쇄 -->
+    <input type="hidden" name="inner1_bef_tmpt_name" value="" /><!-- 도수명 -->
+    <input type="hidden" name="inner1_aft_tmpt_name" value="" /><!-- 도수명 -->
+    <!-- 가격정보 -->
+    <input type="hidden" name="inner1_paper_price" id="inner1_paper_price" value="[TPH_Vinner1_paper_price]" /><!-- 종이가격 -->
+    <input type="hidden" name="inner1_print_price" id="inner1_print_price" value="[TPH_Vinner1_print_price]" /><!-- 인쇄가격 -->
+    <input type="hidden" name="inner1_output_price" id="inner1_output_price" value="[TPH_Vinner1_output_price]" /><!-- 출력가격 -->
+    <input type="hidden" name="inner1_after_price" value="" /><!-- 후공정금액 -->
+    <input type="hidden" name="inner1_sell_price" id="inner1_sell_price" value="[TPH_Vinner1_org_sell_price]" /><!-- 판매금액 -->
+
+    <!-- ########################################################### -->
+    <!--                          내지2부분                          -->
+    <!-- ########################################################### -->
+    <input type="hidden" id="inner2_cate_sortcode" name="inner2_cate_sortcode" value="" />
+    <input type="hidden" name="inner2_cate_name" value="" />
+    <input type="hidden" name="inner2_amt" value="" />
+    <input type="hidden" name="inner2_amt_unit" value="" />
+    <input type="hidden" name="inner2_size" value="" />
+    <input type="hidden" name="inner2_cut_wid_size" value="" />
+    <input type="hidden" name="inner2_cut_vert_size" value="" />
+    <input type="hidden" name="inner2_work_wid_size" value="" />
+    <input type="hidden" name="inner2_work_vert_size" value="" />
+    <input type="hidden" id="inner2_typ" name="inner2_typ" value="내지2" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+    <!-- 종이 -->
+    <input type="hidden" name="inner2_paper_name" value="" /><!-- 종이명 -->
+    <!-- 사이즈 -->
+    <input type="hidden" name="inner2_size_name" value="" /><!-- 사이즈명 -->
+    <input type="hidden" name="inner2_pos_num" value="" /><!-- 자리수 -->
+    <!-- 인쇄 -->
+    <input type="hidden" name="inner2_bef_tmpt_name" value="" /><!-- 도수명 -->
+    <input type="hidden" name="inner2_aft_tmpt_name" value="" /><!-- 도수명 -->
+    <!-- 가격정보 -->
+    <input type="hidden" name="inner2_paper_price" id="inner2_paper_price" value="[TPH_Vinner2_paper_price]" /><!-- 종이가격 -->
+    <input type="hidden" name="inner2_print_price" id="inner2_print_price" value="[TPH_Vinner2_print_price]" /><!-- 인쇄가격 -->
+    <input type="hidden" name="inner2_output_price" id="inner2_output_price" value="[TPH_Vinner2_output_price]" /><!-- 출력가격 -->
+    <input type="hidden" name="inner2_after_price" value="" /><!-- 후공정금액 -->
+    <input type="hidden" name="inner2_sell_price" id="inner2_sell_price" value="" /><!-- 판매금액 -->
+
+    <!-- ########################################################### -->
+    <!--                          내지3부분                          -->
+    <!-- ########################################################### -->
+    <input type="hidden" id="inner3_cate_sortcode" name="inner3_cate_sortcode" value="" />
+    <input type="hidden" name="inner3_cate_name" value="" />
+    <input type="hidden" name="inner3_amt" value="" />
+    <input type="hidden" name="inner3_amt_unit" value="" />
+    <input type="hidden" name="inner3_size" value="" />
+    <input type="hidden" name="inner3_cut_wid_size" value="" />
+    <input type="hidden" name="inner3_cut_vert_size" value="" />
+    <input type="hidden" name="inner3_work_wid_size" value="" />
+    <input type="hidden" name="inner3_work_vert_size" value="" />
+    <input type="hidden" id="inner3_typ" name="inner3_typ" value="내지3" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+    <!-- 종이 -->
+    <input type="hidden" name="inner3_paper_name" value="" /><!-- 종이명 -->
+    <!-- 사이즈 -->
+    <input type="hidden" name="inner3_size_name" value="" /><!-- 사이즈명 -->
+    <input type="hidden" name="inner3_pos_num" value="" /><!-- 자리수 -->
+    <!-- 인쇄 -->
+    <input type="hidden" name="inner3_bef_tmpt_name" value="" /><!-- 도수명 -->
+    <input type="hidden" name="inner3_aft_tmpt_name" value="" /><!-- 도수명 -->
+    <!-- 가격정보 -->
+    <input type="hidden" name="inner3_paper_price" id="inner3_paper_price" value="[TPH_Vinner3_paper_price]" /><!-- 종이가격 -->
+    <input type="hidden" name="inner3_print_price" id="inner3_print_price" value="[TPH_Vinner3_print_price]" /><!-- 인쇄가격 -->
+    <input type="hidden" name="inner3_output_price" id="inner3_output_price" value="[TPH_Vinner3_output_price]" /><!-- 출력가격 -->
+    <input type="hidden" name="inner3_after_price" value="" /><!-- 후공정금액 -->
+    <input type="hidden" name="inner3_sell_price" id="inner3_sell_price" value="" /><!-- 판매금액 -->
+    <input type="hidden" id="order_common_seqno" name="order_common_seqno" value="">
+</form>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common22/head.html]
+    [TPH_I/mypage22/common/mypage_head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet"  href="[TPH_Vdesign_dir]/css/lightslider.css"/>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="[TPH_Vdesign_dir]/js/lib/lightslider.js"></script>
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    
+    <main id="main" class="mypage wrap cart">
+        <header class="good pages">
+            <h2>
+                <span class="en">MY PAGE</span>
+                <span class="ko">마이페이지</span>
+            </h2>
+            <h3>
+                <ol>
+                    <li>주문</li>
+                    <li>장바구니</li>
+                </ol>
+            </h3>
+            <hr>
+        </header>
+        
+        [TPH_I/mypage22/common/lnb.html]
+        
+        <div class="contents">
+            <!-- 검색 결과 start -->
+            <table class="list info _details searchResult">
+                <caption>
+                    <div class="resultNum">
+                        총 <strong id="cart_cnt"></strong>건의 검색결과가 있습니다.
+                    </div>
+                </caption>
+                <colgroup>
+                    <col class="check">
+                    <col class="no">
+                    <col class="date">
+                    <col class="orderDetail">
+                    <col class="post">
+                    <col class="amount">
+                    <col class="price">
+                    <col class="btn">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th><label class="check"><input type="checkbox" class="_general" onclick="calcCartListPriceBox('all');"><i><i></i></i></label></th>
+                        <th>번호</th>
+                        <th>담은날</th>
+                        <th class="left">상품정보</th>
+                        <th class="left">후가공</th>
+                        <th class="amount">수량(건)</th>
+                        <th class="price">결제예정금액</th>
+                        <th>파일</th>
+                    </tr>
+                </thead>
+                <tbody id="cart_list">
+                </tbody>
+            </table>
+            <hr class="end">
+            <div class="function withEnd">
+                <button class="remove" onclick="delCart();">선택 상품 삭제</button>
+            </div>
+            <!--
+            <ul class="paging" id="paging">
+                <li><button class="on">1</button></li>
+            </ul>
+            -->
+            <section class="priceSummary">
+                <dl class="ordinary">
+                    <dt>정상판매가</dt>
+                    <dd><strong><span id="sell_price"></span></strong> 원</dd>
+                </dl>
+                <dl class="membership discount">
+                    <dt>회원등급할인</dt>
+                    <dd><strong><span id="grade_sale_price"></span></strong> 원</dd>
+                </dl>
+                <!--
+                <dl class="eventDiscount">
+                    <dt>이벤트할인</dt>
+                    <dd><strong>[TPH_Vevent_sale_price]</strong> 원</dd>
+                </dl>
+                -->
+                <dl class="member discount">
+                    <dt>회원특별할인</dt>
+                    <dd><strong><span id="member_sale_price"></span></strong> 원</dd>
+                </dl>
+                <dl class="total">
+                    <dt>결제예정금액</dt>
+                    <dd><strong><span id="sale_price"></span></strong> 원</dd>
+                </dl>
+            </section>
+            <footer class="action decide">
+                <button type="button" onclick="goSheet(false);">선택 상품 주문하기</button>
+                <button type="button" class="progress" onclick="goSheet(true);">전체 상품 주문하기</button>
+                [TPH_Vonefile_html]
+            </footer>
+            <input type="hidden" id="sync_flag" value=[TPH_Vsync_flag] seq=[TPH_Vmember_seqno]>
+            <hr class="end">
+            <article class="caution">
+                <header class="icon">꼭 확인해주세요.</header>
+                <ul class="guide">
+                    <li>장바구니에 담긴 상품은 담은 날로부터 <strong>일주일이 경과하면 자동으로 삭제</strong>됩니다.</li>
+                    <li>주문하시기 전 <strong>제품 및 작업사이즈를 꼭 확인</strong> 해주세요.</li>
+                    <li>모든 서체는 꼭 <strong>아웃라인(곡선처리)</strong>으로 변환 해주세요. 아웃라인으로 변환하지 않은 서체는 인쇄되지 않거나 다른 서체로 대체될 수 있습니다.</li>
+                    <li>주문 시 모든 효과는 <strong>비트맵변환(이미지화)</strong>을 해주세요. 특히 일러스트의 불투명 마스크 효과의 경우 인쇄가 나오지 않을 수 있습니다.</li>
+                    <li><strong>작업 색상은 CMYK</strong>를 기본으로 작업 해주세요. CMYK가 아닌 경우 먹으로 인쇄되거나 다른 색상으로 대체되어 인쇄될 수 있습니다.</li>
+                    <li><strong>선 두께는 0.5pt 이상</strong>으로 작업 해주셔야 인쇄됩니다. 0.2mm이상 0.5pt 이하로 작업할 경우 인쇄되지 않을 수 있습니다.</li>
+                    <li>데이터는 반드시 <strong>그룹(Group)</strong>처리 해주세요.</li>
+                    <li>보다 자세한 사항은 <a class="link" href="/cscenter22/guide.html?type=membership" target="_blank">고객센터 이용안내</a>를 참조해 주시기 바랍니다.</li>
+                </ul>
+            </article>
+            
+            [TPH_I/mypage22/common/common_pop.html]
+            [TPH_I/mypage22/common/banner.html]
+        </div>
+    </main>
+    
+    [TPH_I/common22/footer.html]
+</body>
+</html>

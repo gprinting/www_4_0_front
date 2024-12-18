@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+    [TPH_I/m/common/head.html]
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 네비게이션 -->
+        [TPH_I/m/common/nav.html]
+        <!-- 헤더 -->
+        [TPH_I/m/common/header.html]
+
+        <div class="contents">
+            <!-- 타이틀 start -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title">
+                    1:1 문의
+                </div>
+            </div>
+            <!-- 타이틀 end -->
+
+            <!-- 검색 창 start -->
+            <div class="basic_table_wrapper">
+                <table class="basic_table">
+                    <colgroup>
+                        <col style="width:20%;">
+                        <col style="">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>의뢰일</th>
+                        <td>
+                            <table class="basic_detail_table">
+                                <colgroup>
+                                    <col style="width:50%;">
+                                    <col style="width:45%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding-right:5% !important;">
+                                            <span class="input_type_text_date_warapper">
+                                                <input class="basic_input Column_02" type="text" readonly="readonly" style="background:#fff;">
+                                                <img class="icon_calendar" src="[TPH_Vdesign_dir]/images/common/btn_calendar.png" alt="">
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="input_type_text_date_warapper">
+                                                <input class="basic_input Column_02" type="text" readonly="readonly" style="background:#fff;">
+                                                <img class="icon_calendar" src="[TPH_Vdesign_dir]/images/common/btn_calendar.png" alt="">
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="btn_date_section_wrapper">
+                                <button type="button">당일</button>
+                                <button type="button">전일</button>
+                                <button type="button">금주</button>
+                                <button type="button">전주</button>
+                                <button type="button">당월</button>
+                                <button type="button">전월</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>답변상태</th>
+                        <td>
+                            <select class="basic_input">
+                                <option value="" selected="">전체</option>
+                                <option value="">대기
+                                <option value="">완료</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>문의유형</th>
+                        <td>
+                            <select class="basic_input">
+                                <option value="">전체</option>
+                                <option value="">버그</option>
+                                <option value="">사고</option>
+                                <option value="">정보</option>
+                                <option value="">기타</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>문의제목</th>
+                        <td>
+                            <input type="text" class="basic_input">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="btn_mypage_search" type="button">검색</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+            <!-- 검색 창 end -->
+
+            <!-- 검색 결과 start -->
+            <div class="mypage_status_top_info_wrapper">
+                <table class="mypage_status_top_info">
+                    <colgroup>
+                        <col style="width:70%;">
+                        <col style="width:30%;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p class="mypage_status_text_p">총 <span class="mypage_status_text_span">1</span>건의 검색결과가 있습니다.</p>
+                            </td>
+                            <td>
+                                <select class="select_basic_table_top">
+                                    <option selected="selected" value="">10개씩 보기</option>
+                                    <option value="">20개씩 보기</option>
+                                    <option value="">50개씩 보기</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <table class="board_type_table_top_02 benefits_receipt_mng">
+                <colgroup>
+                    <col style="width:77%;">
+                    <col style="width:23%;">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th>문의제목</th>
+                        <th>상태</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="display: inline-block;">
+                                <div>
+                                    재문의드립니다.
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="icon_table_01">답변대기</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="display: inline-block;">
+                                <div>문의드려요.</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="icon_table_02">답변완료</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--
+            <table class="board_type_table_top">
+                <colgroup>
+                    <col style="width:60%;">
+                    <col style="width:20%;">
+                    <col style="width:20%;">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th>문의제목</th>
+                        <th>담당자</th>
+                        <th>상태</th>
+                    </tr>
+                    <tr>
+                        <td>브로슈어 문의드립니다.</td>
+                        <td>김박사</td>
+                        <td>답변대기</td>
+                    </tr>
+                    <tr>
+                        <td>문의드립니다.</td>
+                        <td>김박사</td>
+                        <td>답변대기</td>
+                    </tr>
+                    <tr>
+                        <td>문의</td>
+                        <td>김박사</td>
+                        <td>답변대기</td>
+                    </tr>
+                </tbody>
+            </table>
+            -->
+
+            <!-- 검색 결과 end -->
+
+            <!-- 페이지 탭 start -->
+            <div class="page_btn">
+                <span>
+                    <img src="[TPH_Vdesign_dir]/images/common/btn_board_first.png" alt="처음으로" />
+                </span>
+                <span>
+                    <img src="[TPH_Vdesign_dir]/images/common/btn_board_prev.png" alt="이전페이지" />
+                </span>
+                <span class="page_btn_select_page">
+                    1
+                </span>
+                <span>
+                    <img src="[TPH_Vdesign_dir]/images/common/btn_board_next.png" alt="다음페이지" />
+                </span>
+                <span>
+                    <img src="[TPH_Vdesign_dir]/images/common/btn_board_last.png" alt="마지막페이지" />
+                </span>
+            </div>
+            <!-- 페이지 탭 end -->
+
+            <!-- 하단버튼 start -->
+            <div class="button_wrapper" style="width:88%;">
+                <a href="ftf_write.html"><button class="mypage_bottom_color_btn_out" type="button">1:1문의</button></a>
+            </div>
+            <!-- 하단버튼 end -->
+        </div>
+
+        <!-- 푸터 -->
+        [TPH_I/m/common/footer.html]
+        
+    </div>
+</body> 
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="div_sub_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_mypage_claim.jpg" alt="서브배너" />
+</div>
+<div class="contents contents_02 ftfInquery">
+    <div class="lnb">
+	    [TPH_I/mypage/common/lnb.html]
+    </div>
+    <h3 class="pageTitle"><img src="[TPH_Vdesign_dir]/images/title/ftf_write.png" alt="1:1 문의 작성"></h3>
+    <form id="ftf_form" action="../../mypage/ftf_write_action.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="order_common_seqno" name="order_common_seqno" value="[TPH_Vorder_common_seqno]">
+        <div>
+            <table class="line input information question">
+                <colgroup>
+                    <col style="width:130px">
+                    <col style="width:300px">
+                    <col style="width:130px">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th scope="row">1:1 문의 제목</th>
+                        <td colspan="3"><div class="inputWrap"><input type="text" id="title" name="title"></div></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">문의 유형</th>
+                        <td colspan="3">
+                            <select class="type" id="inq_typ" name="inq_typ">
+                                <option value="버그">버그</option>
+                                <option value="사고">사고</option>
+                                <option value="정보">정보</option>
+                                <option value="세금계산서">세금계산서</option>
+                                <option value="기타">기타</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">신청자명</th>
+                        <td colspan="3">
+                            <input type="text" class="name" value="[TPH_Vname]" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">전화번호</th>
+                        <td colspan="3">
+                            <select id="tel_num" name="tel_num">
+                                <option value="02">02</option>
+                                <option value="031">031</option>
+                                <option value="032">032</option>
+                                <option value="033">033</option>
+                                <option value="041">041</option>
+                                <option value="042">042</option>
+                                <option value="043">043</option>
+                                <option value="044">044</option>
+                                <option value="051">051</option>
+                                <option value="052">052</option>
+                                <option value="053">053</option>
+                                <option value="054">054</option>
+                                <option value="055">055</option>
+                                <option value="061">061</option>
+                                <option value="062">062</option>
+                                <option value="063">063</option>
+                                <option value="064">064</option>
+                            </select>
+                            <input type="text" onkeyup="onlyNumber(event); chkMaxLength(this); return false;" maxLength="4" id="tel_num2" name="tel_num2">
+                            <input type="text" onkeyup="onlyNumber(event); chkMaxLength(this); return false;" maxLength="4" id="tel_num3" name="tel_num3">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">휴대폰</th>
+                        <td colspan="3">
+                            <select id="cell_num" name="cell_num">
+                                <option value="010">010</option>
+                                <option value="011">011</option>
+                                <option value="016">016</option>
+                                <option value="017">017</option>
+                            </select>
+                            <input type="text" onkeyup="onlyNumber(event); chkMaxLength(this); return false;" maxLength="4" id="cell_num2" name="cell_num2">
+                            <input type="text" onkeyup="onlyNumber(event); chkMaxLength(this); return false;" maxLength="4" id="cell_num3" name="cell_num3">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">문의 내용</th>
+                        <td colspan="3">
+                            <div class="textareaWrap">
+                                <textarea id="cont" name="cont"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">파일첨부</th>
+                        <td colspan="3">
+                            <div class="fileWrap"><input type="file" id="file" name="file"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="function center">
+                <div class="">
+                    <strong><button type="button" onclick="regiReq();" class="function">등록</button></strong>
+                    <button class="function" onclick="goList(); return false;">취소</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<footer></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,862 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+    [TPH_I/m/common/head.html]
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 네비게이션 -->
+        [TPH_I/m/common/nav.html]
+        <!-- 헤더 -->
+        [TPH_I/m/common/header.html]
+
+        <div class="contents">
+            <!-- 상단 탭 start -->
+            <table class="page_tab" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-bottom:0;">
+                <colgroup>
+                    <col style="width:50%;">
+                    <col style="width:50%;">
+                </colgroup>
+                <tr>
+                    <td onclick="location.href='delivery_address.html'" class="on">배송지 관리</td>
+                    <td onclick="location.href='delivery_guide.html'">월배송 신청</td>
+                </tr>
+            </table>
+            <!-- 상단 탭 end -->
+
+            <!-- 배송지 관리 start -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title">
+                    배송 관리
+                </div>
+            </div>
+            <div class="div_radius_frame" style="margin-bottom:5%;">
+                <table class="mypage_radius_table">
+                    <colgroup>
+                        <col style="width:90%;">
+                        <col style="width:10%;">
+                    </colgroup>
+                    <tr>
+                        <td class="mypage_radius_title">기본 배송지</td>
+                        <td rowspan="2">
+                            <div class="btn_board_list_manage">
+                                <img class="btn_basic_address" src="[TPH_Vdesign_dir]/images/common/btn_list_detail_on.png" alt="아이콘" />
+                                <img class="btn_basic_address_on" src="[TPH_Vdesign_dir]/images/common/btn_list_detail_off.png" alt="아이콘" style="display:none;" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            서울 은평구 서오릉로 114-14 (대조동, 대조빌라)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 기본 배송지 관리 상세 start -->
+            <div class="basic_table_wrapper basic_address_table" style="display:none;">
+                <table class="basic_table">
+                    <colgroup>
+                        <col width="30%;">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>배송지 별칭</th>
+                            <td><input class="basic_input" type="text"></td>
+                        </tr>
+                        <tr>
+                            <th>성명/상호</th>
+                            <td><input class="basic_input" type="text" value="10자 이내로 입력해주세요." maxlength="10" onfocus="clearText(this)"></td>
+                        </tr>
+
+                        <!-- 연락처 -->
+                        <tr>
+                            <th>연락처</th>
+                            <td>
+                                <table class="basic_detail_table">
+                                    <colgroup>
+                                        <col style="width:30%;">
+                                        <col style="width:40%;">
+                                        <col style="width:30%;">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <select class="basic_input Column_03">
+                                                    <option value="02" selected="">02</option>
+                                                    <option value="031">031</option>
+                                                    <option value="032">032</option>
+                                                    <option value="033">033</option>
+                                                    <option value="041">041</option>
+                                                    <option value="042">042</option>
+                                                    <option value="043">043</option>
+                                                    <option value="044">044</option>
+                                                    <option value="051">051</option>
+                                                    <option value="052">052</option>
+                                                    <option value="053">053</option>
+                                                    <option value="054">054</option>
+                                                    <option value="055">055</option>
+                                                    <option value="061">061</option>
+                                                    <option value="062">062</option>
+                                                    <option value="063">063</option>
+                                                    <option value="064">064</option>
+                                                    <option value="010">010</option>
+                                                    <option value="070">070</option>
+                                                </select>
+                                            </td>
+                                            <td style="padding:0% 5% !important;">
+                                                <input class="basic_input Column_03" type="text" maxlength="4">
+                                            </td>
+                                            <td>
+                                                <input class="basic_input Column_03" type="text" maxlength="4">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <!-- 연락처 end -->
+
+                        <!-- 휴대전화 -->
+                        <tr>
+                            <th>휴대전화</th>
+                            <td>
+                                <table class="basic_detail_table">
+                                    <colgroup>
+                                        <col style="width:30%;">
+                                        <col style="width:40%;">
+                                        <col style="width:30%;">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <select class="basic_input Column_03">
+                                                    <option value="02">02</option>
+                                                    <option value="031" selected="selected">031</option>
+                                                    <option value="032">032</option>
+                                                    <option value="033">033</option>
+                                                    <option value="041">041</option>
+                                                    <option value="042">042</option>
+                                                    <option value="043">043</option>
+                                                    <option value="044">044</option>
+                                                    <option value="051">051</option>
+                                                    <option value="052">052</option>
+                                                    <option value="053">053</option>
+                                                    <option value="054">054</option>
+                                                    <option value="055">055</option>
+                                                    <option value="061">061</option>
+                                                    <option value="062">062</option>
+                                                    <option value="063">063</option>
+                                                    <option value="064">064</option>
+                                                    <option value="010">010</option>
+                                                    <option value="070">070</option>
+                                                </select>
+                                            </td>
+                                            <td style="padding:0% 5% !important;">
+                                                <input class="basic_input Column_03" type="text" maxlength="4">
+                                            </td>
+                                            <td>
+                                                <input class="basic_input Column_03" type="text" maxlength="4">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td class="note_color" style="padding:0 0 10px 0 !important;">연락처 번호와 휴대폰 번호 중 하나는 반드시 입력해야 합니다.</td>
+                        </tr>
+                        <!-- 휴대전화 end -->
+
+                        <!-- 주소 -->
+                        <tr>
+                            <th>주소</th>
+                            <td>
+                                <table class="basic_detail_table">
+                                    <colgroup>
+                                        <col style="width:100%;">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input class="basic_input Column_02" type="text" readonly="readonly" style="width:40%; margin-right:5%;">
+                                                <button class="btn_mini" type="button" style="width:40%;">우편번호 찾기</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <input class="basic_input" type="text" value="서울 강북구 방학로 384 (우이동)" readonly="readonly">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <input class="basic_input" type="text">
+                            </td>
+                        </tr>
+                        <!-- 주소 end -->
+
+                        <!-- 하단 버튼 -->
+                        <tr>
+                            <td colspan="2">
+                                <div class="button_wrapper">
+                                    <button class="mypage_bottom_basic_btn_inner btn_basic_address_on" type="button">취소</button>
+                                    <button class="mypage_bottom_color_btn_inner" type="button">배송지 수정</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- 하단 버튼 end -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- 기본 배송지 관리 상세 end -->
+
+            <div class="div_radius_frame" style="margin-top:0%;">
+                <table class="mypage_radius_table">
+                    <tr>
+                        <td class="mypage_radius_title">배송 유형 안내</td>
+                    </tr>
+                    <tr>
+                        <td>회원님께서는 현재 <span style="font-weight:600;">월배송 서비스</span>를 이용하고 계십니다.</td>
+                    </tr>
+                    <tr>
+                        <td>남은 서비스 이용기간 : <span class="note_color">3일</span> (2018.04.13까지)</td>
+                    </tr>
+                </table>
+            </div>
+            <!-- 배송 관리 end -->
+
+            <!-- 검색 창 start -->
+            <div class="basic_table_wrapper">
+                <table class="basic_table">
+                    <colgroup>
+                        <col style="width:20%;">
+                        <col style="">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>검색조건</th>
+                        <td>
+                            <table class="basic_detail_table">
+                                <colgroup>
+                                    <col style="width:50%;">
+                                    <col style="width:45%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding-right:5% !important;">
+                                            <select class="basic_input Column_02">
+                                                <option value="">배송지별칭</option>
+                                                <option value="">받으시는분</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input class="basic_input Column_02" type="text" value="검색어 입력" onfocus="clearText(this)">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="btn_mypage_search" type="button">검색</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+            <!-- 검색 창 end -->
+
+            <!-- 검색 결과 start -->
+            <div class="mypage_status_top_info_wrapper">
+                <table class="mypage_status_top_info">
+                    <colgroup>
+                        <col style="width:70%;">
+                        <col style="width:30%;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p class="mypage_status_text_p">총 <span class="mypage_status_text_span">1</span>건의 배송지가 있습니다.</p>
+                            </td>
+                            <td>
+                                <select class="select_basic_table_top">
+                                    <option selected="selected" value="">10개씩 보기</option>
+                                    <option value="">20개씩 보기</option>
+                                    <option value="">50개씩 보기</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <table class="board_type_table_top">
+                <colgroup>
+                    <col style="width:12%;">
+                    <col style="width:64%">
+                    <col style="width:24%;">
+                </colgroup>
+                <tr>
+                    <th>
+                        <span class="after_option_span" style="text-align:center;">
+                            <input type="checkbox" id="chk_list_all" name="chk_list">&nbsp;<label for="chk_list_all">&nbsp;</label>
+                        </span>
+                    </th>
+                    <th>주소 및 연락처</th>
+                    <th>관리</th>
+                </tr>
+
+                <!-- 리스트 -->
+                <tr>
+                    <td>
+                        <span class="after_option_span" style="text-align:center;">
+                            <input type="checkbox" id="chk_list_01" name="chk_list">&nbsp;<label for="chk_list_01">&nbsp;</label>
+                        </span>
+                    </td>
+                    <td style="text-align:left;">서울시 은평구 대조동 50-1 97층 9007<br>010-2132-4477</td>
+                    <td>
+                        <div class="btn_board_list_manage">
+                            <img class="btn_delete" src="[TPH_Vdesign_dir]/images/common/btn_delete.png" alt="삭제버튼">
+                            <img class="btn_modify_01" src="[TPH_Vdesign_dir]/images/common/btn_list_detail_on.png" alt="수정버튼">
+                            <img class="btn_modify_01_on" src="[TPH_Vdesign_dir]/images/common/btn_list_detail_off.png" alt="수정버튼" style="display:none;">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="board_type_detail_td detail_table_01" style="display:none; padding:0 !important;">
+                        <div class="mypage_detail_table_wrapper">
+                            <table class="mypage_detail_table">
+                                <colgroup>
+                                    <col width="30%;">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th>배송지 별칭</th>
+                                        <td><input class="basic_input" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>성명/상호</th>
+                                        <td><input class="basic_input" type="text" value="10자 이내로 입력해주세요." maxlength="10" onfocus="clearText(this)"></td>
+                                    </tr>
+
+                                    <!-- 연락처 -->
+                                    <tr>
+                                        <th>연락처</th>
+                                        <td>
+                                            <table class="basic_detail_table">
+                                                <colgroup>
+                                                    <col style="width:30%;">
+                                                    <col style="width:40%;">
+                                                    <col style="width:30%;">
+                                                </colgroup>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <select class="basic_input Column_03">
+                                                                <option value="02" selected="">02</option>
+                                                                <option value="031">031</option>
+                                                                <option value="032">032</option>
+                                                                <option value="033">033</option>
+                                                                <option value="041">041</option>
+                                                                <option value="042">042</option>
+                                                                <option value="043">043</option>
+                                                                <option value="044">044</option>
+                                                                <option value="051">051</option>
+                                                                <option value="052">052</option>
+                                                                <option value="053">053</option>
+                                                                <option value="054">054</option>
+                                                                <option value="055">055</option>
+                                                                <option value="061">061</option>
+                                                                <option value="062">062</option>
+                                                                <option value="063">063</option>
+                                                                <option value="064">064</option>
+                                                                <option value="010">010</option>
+                                                                <option value="070">070</option>
+                                                            </select>
+                                                        </td>
+                                                        <td style="padding:0% 5% !important;">
+                                                            <input class="basic_input Column_03" type="text" maxlength="4">
+                                                        </td>
+                                                        <td>
+                                                            <input class="basic_input Column_03" type="text" maxlength="4">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <!-- 연락처 end -->
+
+                                    <!-- 휴대전화 -->
+                                    <tr>
+                                        <th>휴대전화</th>
+                                        <td>
+                                            <table class="basic_detail_table">
+                                                <colgroup>
+                                                    <col style="width:30%;">
+                                                    <col style="width:40%;">
+                                                    <col style="width:30%;">
+                                                </colgroup>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <select class="basic_input Column_03">
+                                                                <option value="010" selected="selected">010</option>
+                                                                <option value="011">011</option>
+                                                                <option value="016">016</option>
+                                                                <option value="017">017</option>
+                                                                <option value="018">018</option>
+                                                                <option value="018">019</option>
+                                                            </select>
+                                                        </td>
+                                                        <td style="padding:0% 5% !important;">
+                                                            <input class="basic_input Column_03" type="text" maxlength="4">
+                                                        </td>
+                                                        <td>
+                                                            <input class="basic_input Column_03" type="text" maxlength="4">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <td class="note_color" style="padding:0 0 10px 0 !important;">연락처 번호와 휴대폰 번호 중 하나는 반드시 입력해야 합니다.</td>
+                                    </tr>
+                                    <!-- 휴대전화 end -->
+
+                                    <!-- 주소 -->
+                                    <tr>
+                                        <th>주소</th>
+                                        <td>
+                                            <table class="basic_detail_table">
+                                                <colgroup>
+                                                    <col style="width:100%;">
+                                                </colgroup>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <input class="basic_input Column_02" type="text" readonly="readonly" style="width:40%; margin-right:5%;">
+                                                            <button class="btn_mini" type="button" style="width:40%;">우편번호 찾기</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <td>
+                                            <input class="basic_input" type="text" value="서울 강북구 방학로 384 (우이동)" readonly="readonly">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <td>
+                                            <input class="basic_input" type="text">
+                                        </td>
+                                    </tr>
+                                    <!-- 주소 end -->
+
+                                    <!-- 하단 버튼 -->
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="button_wrapper">
+                                                <button class="mypage_bottom_basic_btn_inner" type="button">취소</button>
+                                                <button class="mypage_bottom_color_btn_inner" type="button">배송지 수정</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- 하단 버튼 end -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <!-- 리스트 end -->
+
+                <!-- 리스트 -->
+                <tr>
+                    <td>
+                        <span class="after_option_span" style="text-align:center;">
+                            <input type="checkbox" id="chk_list_01" name="chk_list">&nbsp;<label for="chk_list_01">&nbsp;</label>
+                        </span>
+                    </td>
+                    <td style="text-align:left;">서울시 은평구 대조동 50-1 97층 9007<br>010-2132-4477</td>
+                    <td>
+                        <div class="btn_board_list_manage">
+                            <img class="btn_delete" src="[TPH_Vdesign_dir]/images/common/btn_delete.png" alt="삭제버튼">
+                            <img class="btn_modify_02" src="[TPH_Vdesign_dir]/images/common/btn_list_detail_on.png" alt="수정버튼">
+                            <img class="btn_modify_02_on" src="[TPH_Vdesign_dir]/images/common/btn_list_detail_off.png" alt="수정버튼" style="display:none;">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="board_type_detail_td detail_table_02" style="display:none; padding:0 !important;">
+                        <div class="mypage_detail_table_wrapper">
+                            <table class="mypage_detail_table">
+                                <colgroup>
+                                    <col width="30%;">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th>배송지 별칭</th>
+                                        <td><input class="basic_input" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>성명/상호</th>
+                                        <td><input class="basic_input" type="text" value="10자 이내로 입력해주세요." maxlength="10" onfocus="clearText(this)"></td>
+                                    </tr>
+
+                                    <!-- 연락처 -->
+                                    <tr>
+                                        <th>연락처</th>
+                                        <td>
+                                            <table class="basic_detail_table">
+                                                <colgroup>
+                                                    <col style="width:30%;">
+                                                    <col style="width:40%;">
+                                                    <col style="width:30%;">
+                                                </colgroup>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <select class="basic_input Column_03">
+                                                                <option value="02" selected="">02</option>
+                                                                <option value="031">031</option>
+                                                                <option value="032">032</option>
+                                                                <option value="033">033</option>
+                                                                <option value="041">041</option>
+                                                                <option value="042">042</option>
+                                                                <option value="043">043</option>
+                                                                <option value="044">044</option>
+                                                                <option value="051">051</option>
+                                                                <option value="052">052</option>
+                                                                <option value="053">053</option>
+                                                                <option value="054">054</option>
+                                                                <option value="055">055</option>
+                                                                <option value="061">061</option>
+                                                                <option value="062">062</option>
+                                                                <option value="063">063</option>
+                                                                <option value="064">064</option>
+                                                                <option value="010">010</option>
+                                                                <option value="070">070</option>
+                                                            </select>
+                                                        </td>
+                                                        <td style="padding:0% 5% !important;">
+                                                            <input class="basic_input Column_03" type="text" maxlength="4">
+                                                        </td>
+                                                        <td>
+                                                            <input class="basic_input Column_03" type="text" maxlength="4">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <!-- 연락처 end -->
+
+                                    <!-- 휴대전화 -->
+                                    <tr>
+                                        <th>휴대전화</th>
+                                        <td>
+                                            <table class="basic_detail_table">
+                                                <colgroup>
+                                                    <col style="width:30%;">
+                                                    <col style="width:40%;">
+                                                    <col style="width:30%;">
+                                                </colgroup>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <select class="basic_input Column_03">
+                                                                <option value="010" selected="selected">010</option>
+                                                                <option value="011">011</option>
+                                                                <option value="016">016</option>
+                                                                <option value="017">017</option>
+                                                                <option value="018">018</option>
+                                                                <option value="018">019</option>
+                                                            </select>
+                                                        </td>
+                                                        <td style="padding:0% 5% !important;">
+                                                            <input class="basic_input Column_03" type="text" maxlength="4">
+                                                        </td>
+                                                        <td>
+                                                            <input class="basic_input Column_03" type="text" maxlength="4">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <td class="note_color" style="padding:0 0 10px 0 !important;">연락처 번호와 휴대폰 번호 중 하나는 반드시 입력해야 합니다.</td>
+                                    </tr>
+                                    <!-- 휴대전화 end -->
+
+                                    <!-- 주소 -->
+                                    <tr>
+                                        <th>주소</th>
+                                        <td>
+                                            <table class="basic_detail_table">
+                                                <colgroup>
+                                                    <col style="width:100%;">
+                                                </colgroup>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <input class="basic_input Column_02" type="text" readonly="readonly" style="width:40%; margin-right:5%;">
+                                                            <button class="btn_mini" type="button" style="width:40%;">우편번호 찾기</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <td>
+                                            <input class="basic_input" type="text" value="서울 강북구 방학로 384 (우이동)" readonly="readonly">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <td>
+                                            <input class="basic_input" type="text">
+                                        </td>
+                                    </tr>
+                                    <!-- 주소 end -->
+
+                                    <!-- 하단 버튼 -->
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="button_wrapper">
+                                                <button class="mypage_bottom_basic_btn_inner" type="button">취소</button>
+                                                <button class="mypage_bottom_color_btn_inner" type="button">배송지 수정</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- 하단 버튼 end -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <!-- 리스트 end -->
+            </table>
+            <!-- 검색 결과 start -->
+
+            <!-- 페이지 탭 start -->
+            <div class="page_btn">
+                <span>
+                    <img src="[TPH_Vdesign_dir]/images/common/btn_board_first.png" alt="처음으로" />
+                </span>
+                <span>
+                    <img src="[TPH_Vdesign_dir]/images/common/btn_board_prev.png" alt="이전페이지" />
+                </span>
+                <span class="page_btn_select_page">
+                    1
+                </span>
+                <span>
+                    <img src="[TPH_Vdesign_dir]/images/common/btn_board_next.png" alt="다음페이지" />
+                </span>
+                <span>
+                    <img src="[TPH_Vdesign_dir]/images/common/btn_board_last.png" alt="마지막페이지" />
+                </span>
+            </div>
+            <!-- 페이지 탭 end -->
+
+            <!-- 하단버튼 start -->
+            <div class="button_wrapper" style="width:88%;">
+                <button class="mypage_bottom_basic_btn_out" type="button">선택 배송지 삭제</button>
+                <button class="mypage_bottom_color_btn_out btn_add_address" type="button">나의 배송지 추가</button>
+            </div>
+            <!-- 하단버튼 end -->
+
+            <!-- 배송지 추가 상세 start -->
+            <div class="basic_table_wrapper add_address_table" style="display:none; margin-top:10%;">
+                <table class="basic_table">
+                    <colgroup>
+                        <col width="30%;">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>배송지 별칭</th>
+                            <td><input class="basic_input" type="text"></td>
+                        </tr>
+                        <tr>
+                            <th>성명/상호</th>
+                            <td><input class="basic_input" type="text" value="10자 이내로 입력해주세요." maxlength="10" onfocus="clearText(this)"></td>
+                        </tr>
+
+                        <!-- 연락처 -->
+                        <tr>
+                            <th>연락처</th>
+                            <td>
+                                <table class="basic_detail_table">
+                                    <colgroup>
+                                        <col style="width:30%;">
+                                        <col style="width:40%;">
+                                        <col style="width:30%;">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <select class="basic_input Column_03">
+                                                    <option value="02" selected="">02</option>
+                                                    <option value="031">031</option>
+                                                    <option value="032">032</option>
+                                                    <option value="033">033</option>
+                                                    <option value="041">041</option>
+                                                    <option value="042">042</option>
+                                                    <option value="043">043</option>
+                                                    <option value="044">044</option>
+                                                    <option value="051">051</option>
+                                                    <option value="052">052</option>
+                                                    <option value="053">053</option>
+                                                    <option value="054">054</option>
+                                                    <option value="055">055</option>
+                                                    <option value="061">061</option>
+                                                    <option value="062">062</option>
+                                                    <option value="063">063</option>
+                                                    <option value="064">064</option>
+                                                    <option value="010">010</option>
+                                                    <option value="070">070</option>
+                                                </select>
+                                            </td>
+                                            <td style="padding:0% 5% !important;">
+                                                <input class="basic_input Column_03" type="text" maxlength="4">
+                                            </td>
+                                            <td>
+                                                <input class="basic_input Column_03" type="text" maxlength="4">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <!-- 연락처 end -->
+
+                        <!-- 휴대전화 -->
+                        <tr>
+                            <th>휴대전화</th>
+                            <td>
+                                <table class="basic_detail_table">
+                                    <colgroup>
+                                        <col style="width:30%;">
+                                        <col style="width:40%;">
+                                        <col style="width:30%;">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <select class="basic_input Column_03">
+                                                    <option value="02">02</option>
+                                                    <option value="031" selected="selected">031</option>
+                                                    <option value="032">032</option>
+                                                    <option value="033">033</option>
+                                                    <option value="041">041</option>
+                                                    <option value="042">042</option>
+                                                    <option value="043">043</option>
+                                                    <option value="044">044</option>
+                                                    <option value="051">051</option>
+                                                    <option value="052">052</option>
+                                                    <option value="053">053</option>
+                                                    <option value="054">054</option>
+                                                    <option value="055">055</option>
+                                                    <option value="061">061</option>
+                                                    <option value="062">062</option>
+                                                    <option value="063">063</option>
+                                                    <option value="064">064</option>
+                                                    <option value="010">010</option>
+                                                    <option value="070">070</option>
+                                                </select>
+                                            </td>
+                                            <td style="padding:0% 5% !important;">
+                                                <input class="basic_input Column_03" type="text" maxlength="4">
+                                            </td>
+                                            <td>
+                                                <input class="basic_input Column_03" type="text" maxlength="4">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td class="note_color" style="padding:0 0 10px 0 !important;">연락처 번호와 휴대폰 번호 중 하나는 반드시 입력해야 합니다.</td>
+                        </tr>
+                        <!-- 휴대전화 end -->
+
+                        <!-- 주소 -->
+                        <tr>
+                            <th>주소</th>
+                            <td>
+                                <table class="basic_detail_table">
+                                    <colgroup>
+                                        <col style="width:100%;">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input class="basic_input Column_02" type="text" readonly="readonly" style="width:40%; margin-right:5%;">
+                                                <button class="btn_mini" type="button" style="width:40%;">우편번호 찾기</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <input class="basic_input" type="text" value="서울 강북구 방학로 384 (우이동)" readonly="readonly">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <input class="basic_input" type="text">
+                            </td>
+                        </tr>
+                        <!-- 주소 end -->
+
+                        <!-- 하단 버튼 -->
+                        <tr>
+                            <td colspan="2">
+                                <div class="button_wrapper">
+                                    <button class="mypage_bottom_basic_btn_inner btn_add_address_hide" type="button">취소</button>
+                                    <button class="mypage_bottom_color_btn_inner" type="button">배송지 추가</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- 하단 버튼 end -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- 배송지 추가 상세 end -->
+        </div>
+
+        <!-- 푸터 -->
+        [TPH_I/m/common/footer.html]
+
+    </div>
+</body> 
+</html>

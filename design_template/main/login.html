@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>디프린팅</title>
+    <!--[if lt IE 9]><script src="../../lib/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="../../lib/reset.css">
+    <link rel="stylesheet" href="../../lib/common.css">
+    <link rel="stylesheet" href="../../lib/main.css">
+    <script src="../../lib/jquery-1.11.2.min.js"></script>
+    <script src="../../lib/jquery-ui_dprinting.min.js"></script>
+    <script src="../common/footer.js"></script>
+    <script src="../../lib/common.js"></script>
+    <script src="../../lib/main.js"></script>
+</head>
+<body>
+<section class="topAd on">
+    <div class="wrap">
+        <a href="#none" target="_self">Welcome 2015~ Welcome Dprinting! <strong>전 주문 10% 페이백</strong>. 오늘이 마지막날!</a>
+        <button class="close" title="닫기"><img src="../../images/main/topad_close.png" alt="X"></button>
+    </div>
+</section>
+<header class="top">
+    <div class="wrap">
+        <h1><img src="../../images/common/header_bi.png" alt="dprinting"></h1>
+        <section class="memberInfo">
+            <img src="../../images/sample/header_portrait.png" alt="초상화">
+            <article>
+                <h2><strong>브랜뉴소다 박기웅</strong>님</h2>
+                <dl>
+                    <dt>주문부족금액</dt>
+                    <dd><em>178,000</em>원</dd>
+                    <dt>우리은행</dt>
+                    <dd>123456-01-123456</dd>
+                </dl>
+            </article>
+            <div class="function btn">
+                <strong><a href="#none" target="_self">마이페이지</a></strong>
+                <a href="#none" target="_self">로그아웃</a>
+            </div>
+        </section>
+        <nav class="util">
+            <ul class="green">
+                <li>
+                    <a href="#none" target="_self" title="장바구니로 이동">
+                        <img src="../../images/common/header_util_icon_cart.png" alt="장바구니"><br>장바구니
+                        <span class="num"><span>12</span></span>
+                    </a>
+                </li>
+                <li><a href="#none" target="_self" title="고객센터로 이동"><img src="../../images/common/header_util_icon_customercenter.png" alt="고객센터"><br>고객센터</a></li>
+                <li><a href="#none" target="_self" title="디프린팅 가이드 보기"><img src="../../images/common/header_util_icon_guide.png" alt="디프린팅 가이드"><br>가이드</a></li>
+            </ul>
+        </nav>
+    </div>
+    <nav class="gnb">
+        <ul>
+            <li><a href="#none" target="_self">오.특.이</a></li>
+            <li><a href="#none" target="_self">내가 제일 잘 나가</a></li>
+            <li><a href="#none" target="_self">테마쇼핑</a></li>
+            <li><a href="#none" target="_self">골라담자</a></li>
+            <li><a href="#none" target="_self">요즘 바빠요</a></li>
+            <li><a href="#none" target="_self">포인트/쿠폰</a></li>
+            <li><a href="#none" target="_self">디프린팅</a></li>
+        </ul>
+    </nav>
+    <nav class="_order">
+        <button type="button" title="전체 주문 카테고리 보기" class="_closed"><img src="../../images/common/header_order_closed.png" alt="주문하기"></button>
+        <button type="button" title="전체 주문 카테고리 접기" class="_opened"><img src="../../images/common/header_order_opened.png" alt="주문하기"></button>
+        <div class="wrap">
+            <table>
+                <colgroup>
+                    <col width="140px">
+                    <col width="140px">
+                    <col width="140px">
+                    <col width="140px">
+                    <col width="140px">
+                    <col width="140px">
+                    <col width="140px">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="col"><a href="#none" target="_self">명함</a></th>
+                    <th scope="col"><a href="#none" target="_self">스티커</a></th>
+                    <th scope="col"><a href="#none" target="_self">전단</a></th>
+                    <th scope="col"><a href="#none" target="_self">광고홍보물</a></th>
+                    <th scope="col"><a href="#none" target="_self">봉투</a></th>
+                    <th scope="col"><a href="#none" target="_self">마스터<span class="sub">(경인쇄)</span></a></th>
+                    <th scope="col"><a href="#none" target="_self">디지털인쇄</span></a></th>
+                </tr>
+                <tr>
+                    <td>
+                        <ul>
+                            <li><a href="#none" target="_self">일반명함</a></li>
+                            <li><a href="#none" target="_self">고급명함</a></li>
+                            <li><a href="#none" target="_self">카드명함</a></li>
+                            <li><a href="#none" target="_self">스페셜명함</a></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li><a href="#none" target="_self">재단형스티커</a></li>
+                            <li><a href="#none" target="_self">도무송형스티커</a></li>
+                            <li><a href="#none" target="_self">라벨스티커(롤형)</a></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li><a href="#none" target="_self">합판전단(일반형)</a></li>
+                            <li><a href="#none" target="_self">특가전단(특가형)</a></li>
+                            <li><a href="#none" target="_self">특판전단(주문형)</a></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li><a href="#none" target="_self">카탈로그/브로슈어</a></li>
+                            <li><a href="#none" target="_self">책자</a></li>
+                            <li><a href="#none" target="_self">기획인쇄물</a></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li><a href="#none" target="_self">합판칼라봉투(일반형)</a></li>
+                            <li><a href="#none" target="_self">특판칼라봉투(주문형)</a></li>
+                            <li><a href="#none" target="_self">마스터봉투</a></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li><a href="#none" target="_self">NCR</a></li>
+                            <li><a href="#none" target="_self">마스터양식지</a></li>
+                        </ul>
+                    </td>
+                    <td rowspan="3">
+                        <ul>
+                            <li><a href="#none" target="_self">디지털 명함</a></li>
+                            <li><a href="#none" target="_self">디지털 청첩장</a></li>
+                            <li><a href="#none" target="_self">디지털 초대장</a></li>
+                            <li><a href="#none" target="_self">디지털 엽서</a></li>
+                            <li><a href="#none" target="_self">디지털 상품권</a></li>
+                            <li><a href="#none" target="_self">디지털 스티커</a></li>
+                            <li><a href="#none" target="_self">디지털 전단지</a></li>
+                            <li><a href="#none" target="_self">디지털 메모지</a></li>
+                            <li><a href="#none" target="_self">디지털 포스터</a></li>
+                            <li><a href="#none" target="_self">디지털 리플렛/팜플렛</a></li>
+                            <li><a href="#none" target="_self">디지털 카다로그/브로셔</a></li>
+                            <li><a href="#none" target="_self">디지털 책자</a></li>
+                            <li><a href="#none" target="_self">디지털 봉투</a></li>
+                            <li><a href="#none" target="_self">디지털 포토북</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th><a href="#none" target="_self">초소량인쇄</a></th>
+                    <th><a href="#none" target="_self">디자인결합상품<span class="sub">(+WTP)</span></a></th>
+                    <th><a href="#none" target="_self">청첩장</a></th>
+                    <th><a href="#none" target="_self">패키지</a></th>
+                    <th><a href="#none" target="_self">실사출력</a></th>
+                    <th><a href="#none" target="_self">판촉물</a></th>
+                </tr>
+                <tr>
+                    <td>
+                        <ul>
+                            <li><a href="#none" target="_self">초소량인쇄</a></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li><a href="#none" target="_self">Add Design 명함</a></li>
+                            <li><a href="#none" target="_self">Add Design 스티커</a></li>
+                            <li><a href="#none" target="_self">Add Design 전단</a></li>
+                            <li><a href="#none" target="_self">Add Design 봉투</a></li>
+                            <li><a href="#none" target="_self">Add Design 리플렛</a></li>
+                            <li><a href="#none" target="_self">Add Design 실사출력</a></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li><a href="#none" target="_self">청첩장</a></li>
+                            <li><a href="#none" target="_self">초대장</a></li>
+                            <li><a href="#none" target="_self">엽서</a></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li><a href="#none" target="_self">일반형칼라박스</a></li>
+                            <li><a href="#none" target="_self">주문형칼라박스</a></li>
+                            <li><a href="#none" target="_self">일반형쇼핑백</a></li>
+                            <li><a href="#none" target="_self">주문형쇼핑백</a></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li><a href="#none" target="_self">실사출력</a></li>
+                            <li><a href="#none" target="_self">배너</a></li>
+                            <li><a href="#none" target="_self">현수막</a></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li><a href="#none" target="_self">라이터</a></li>
+                            <li><a href="#none" target="_self">수건</a></li>
+                            <li><a href="#none" target="_self">우산</a></li>
+                            <li><a href="#none" target="_self">컵</a></li>
+                            <li><a href="#none" target="_self">냅킨</a></li>
+                            <li><a href="#none" target="_self">제작메뉴판</a></li>
+                            <li><a href="#none" target="_self">코스타(컵받침)</a></li>
+                            <li><a href="#none" target="_self">비닐</a></li>
+                        </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <figure><img src="../../images/common/header_order_bg.png"></figure>
+        </div>
+    </nav>
+</header>
+<section class="contents main">
+    <section class="mainBanner">
+        <ul class="list">
+            <li style="background-image: url('../../images/sample/main_mainbanner_bg.png')"><a href="#none" target="_self"><img src="../../images/sample/main_mainbanner1.png" alt="dprinting renewal"></a></li>
+            <li style="background-image: url('../../images/sample/main_mainbanner_bg.png')"><a href="#none" target="_self"><img src="../../images/sample/main_mainbanner2.png" alt="dprinting renewal"></a></li>
+            <li style="background-image: url('../../images/sample/main_mainbanner_bg.png')"><a href="#none" target="_self"><img src="../../images/sample/main_mainbanner3.png" alt="dprinting renewal"></a></li>
+            <li style="background-image: url('../../images/sample/main_mainbanner_bg.png')"><a href="#none" target="_self"><img src="../../images/sample/main_mainbanner4.png" alt="dprinting renewal"></a></li>
+        </ul>
+        <nav>
+            <ul></ul>
+            <button class="prev"><img src="../../images/main/mainbanner_nav_prev.png" alt="<"></button>
+            <button class="next"><img src="../../images/main/mainbanner_nav_next.png" alt=">"></button>
+        </nav>
+    </section>
+    <section class="membershipType">
+        <ul class="list">
+            <li class="designer">
+                <a href="#none" target="_self">
+                    <span>디자이너 분들을 위한 디프린팅의 혜택</span>
+                    <img src="../../images/main/membershiptype_designer_text.png" alt="designer">
+                    <button title="상세보기"><img src="../../images/main/membershiptype_btn.png" alt=">"></button>
+                </a>
+            </li>
+            <li class="personal">
+                <a href="#none" target="_self">
+                    <span>인쇄를 모르신다구요? 정말~ 쉽게 알려드립니다.</span>
+                    <img src="../../images/main/membershiptype_personal_text.png" alt="personal">
+                    <button title="상세보기"><img src="../../images/main/membershiptype_btn.png" alt=">"></button>
+                </a>
+            </li>
+            <li class="company">
+                <a href="#none" target="_self">
+                    <span>기업고객을 위한 빠르고 정확한 서비스</span>
+                    <img src="../../images/main/membershiptype_company_text.png" alt="company">
+                    <button title="상세보기"><img src="../../images/main/membershiptype_btn.png" alt=">"></button>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <section class="eventBanner">
+        <img src="../../images/main/eventbanner.png" alt="디프린팅 리뉴얼 기념 명함 특가전">
+    </section>
+    <section class="event">
+        <article class="todaySpecial">
+            <header>
+                <h2><img src="../../images/main/event_todayspecial_title.png" alt="오.특.이"></h2>
+                <span class="description">오늘만 드리는 특별한 혜택과 가격!</span>
+                <a href="#none" target="_self"><img src="../../images/main/event_more.png" alt="더보기"></a>
+            </header>
+            <nav><ul></ul></nav>
+            <ul class="list">
+                <li class="on">
+                    <a href="#none" target="_self">
+                        <dl>
+                            <dd class="figure">
+                                <div class="label">
+                                    <img src="../../images/main/event_number_5.png" alt="5">
+                                    <img src="../../images/main/event_number_0.png" alt="0">
+                                </div>
+                                <img src="../../images/sample/main_event_1.png">
+                            </dd>
+                            <dt>
+                                <ul>
+                                    <li>컬러봉투</li>
+                                    <li>레자크#92(줄) 백생 110g</li>
+                                    <li>자켓형 소봉투</li>
+                                    <li>1,000매</li>
+                                </ul>
+                            </dt>
+                            <dd class="price">
+                                16,500 <span class="unit">원</span>
+                            </dd>
+                        </dl>
+                    </a>
+                </li>
+                <li>
+                    <a href="#none" target="_self">
+                        <dl>
+                            <dd class="figure">
+                                <div class="label">
+                                    <img src="../../images/main/event_number_3.png" alt="3">
+                                    <img src="../../images/main/event_number_0.png" alt="0">
+                                </div>
+                                <img src="../../images/sample/main_event_2.png"></dd>
+                            <dt>
+                                <ul>
+                                    <li>초대장</li>
+                                    <li>아트지 백색 230g (코팅)</li>
+                                    <li>양면8도</li>
+                                    <li>목형무료</li>
+                                    <li>500매</li>
+                                </ul>
+                            </dt>
+                            <dd class="price">
+                                16,500 <span class="unit">원</span>
+                            </dd>
+                        </dl>
+                    </a>
+                </li>
+                <li>
+                    <a href="#none" target="_self">
+                        <dl>
+                            <dd class="figure">
+                                <div class="label">
+                                    <img src="../../images/main/event_number_2.png" alt="2">
+                                    <img src="../../images/main/event_number_5.png" alt="5">
+                                </div>
+                                <img src="../../images/sample/main_event_3.png">
+                            </dd>
+                            <dt>
+                                <ul>
+                                    <li>리플렛</li>
+                                    <li>스노우지 백색 150g</li>
+                                    <li>양면8도</li>
+                                    <li>A4</li>
+                                    <li>200매</li>
+                                </ul>
+                            </dt>
+                            <dd class="price">
+                                16,500 <span class="unit">원</span>
+                            </dd>
+                        </dl>
+                    </a>
+                </li>
+            </ul>
+        </article>
+        <article class="best">
+            <header>
+                <h2><img src="../../images/main/event_best_title.png" alt="내가 제일 잘 나가"></h2>
+                <span class="description">인기있는 제품 모여라!</span>
+                <a href="#none" target="_self"><img src="../../images/main/event_more.png" alt="더보기"></a>
+            </header>
+            <nav><ul></ul></nav>
+            <ul class="list">
+                <li class="on">
+                    <a href="#none" target="_self">
+                        <dl>
+                            <dd class="figure">
+                                <div class="label">
+                                    <img src="../../images/main/event_number_0.png" alt="0">
+                                    <img src="../../images/main/event_number_1.png" alt="1">
+                                </div>
+                                <img src="../../images/sample/main_event_1.png"></dd>
+                            <dt>
+                                <ul>
+                                    <li>컬러봉투</li>
+                                    <li>레자크#92(줄) 백생 110g</li>
+                                    <li>자켓형 소봉투</li>
+                                    <li>1,000매</li>
+                                </ul>
+                            </dt>
+                            <dd class="price">
+                                16,500 <span class="unit">원</span>
+                            </dd>
+                        </dl>
+                    </a>
+                </li>
+                <li>
+                    <a href="#none" target="_self">
+                        <dl>
+                            <dd class="figure">
+                                <div class="label">
+                                    <img src="../../images/main/event_number_0.png" alt="0">
+                                    <img src="../../images/main/event_number_2.png" alt="2">
+                                </div>
+                                <img src="../../images/sample/main_event_2.png"></dd>
+                            <dt>
+                                <ul>
+                                    <li>초대장</li>
+                                    <li>아트지 백색 230g (코팅)</li>
+                                    <li>양면8도</li>
+                                    <li>목형무료</li>
+                                    <li>500매</li>
+                                </ul>
+                            </dt>
+                            <dd class="price">
+                                16,500 <span class="unit">원</span>
+                            </dd>
+                        </dl>
+                    </a>
+                </li>
+                <li>
+                    <a href="#none" target="_self">
+                        <dl>
+                            <dd class="figure">
+                                <div class="label">
+                                    <img src="../../images/main/event_number_0.png" alt="0">
+                                    <img src="../../images/main/event_number_3.png" alt="3">
+                                </div>
+                                <img src="../../images/sample/main_event_3.png"></dd>
+                            <dt>
+                                <ul>
+                                    <li>리플렛</li>
+                                    <li>스노우지 백색 150g</li>
+                                    <li>양면8도</li>
+                                    <li>A4</li>
+                                    <li>200매</li>
+                                </ul>
+                            </dt>
+                            <dd class="price">
+                                16,500 <span class="unit">원</span>
+                            </dd>
+                        </dl>
+                    </a>
+                </li>
+            </ul>
+        </article>
+        <article class="recommanded">
+            <header>
+                <h2><img src="../../images/main/event_recommanded_title.png" alt="요즘 바빠요"></h2>
+                <span class="description">자신있게 추천해드리는 한방!</span>
+                <a href="#none" target="_self"><img src="../../images/main/event_more.png" alt="더보기"></a>
+            </header>
+            <nav><ul></ul></nav>
+            <ul class="list">
+                <li class="on">
+                    <a href="#none" target="_self">
+                        <dl>
+                            <dd class="figure"><img src="../../images/sample/main_event_1.png"></dd>
+                            <dt>
+                                <ul>
+                                    <li>컬러봉투</li>
+                                    <li>레자크#92(줄) 백생 110g</li>
+                                    <li>자켓형 소봉투</li>
+                                    <li>1,000매</li>
+                                </ul>
+                            </dt>
+                            <dd class="price">
+                                16,500 <span class="unit">원</span>
+                            </dd>
+                        </dl>
+                    </a>
+                </li>
+                <li>
+                    <a href="#none" target="_self">
+                        <dl>
+                            <dd class="figure"><img src="../../images/sample/main_event_2.png"></dd>
+                            <dt>
+                                <ul>
+                                    <li>초대장</li>
+                                    <li>아트지 백색 230g (코팅)</li>
+                                    <li>양면8도</li>
+                                    <li>목형무료</li>
+                                    <li>500매</li>
+                                </ul>
+                            </dt>
+                            <dd class="price">
+                                16,500 <span class="unit">원</span>
+                            </dd>
+                        </dl>
+                    </a>
+                </li>
+                <li>
+                    <a href="#none" target="_self">
+                        <dl>
+                            <dd class="figure"><img src="../../images/sample/main_event_3.png"></dd>
+                            <dt>
+                                <ul>
+                                    <li>리플렛</li>
+                                    <li>스노우지 백색 150g</li>
+                                    <li>양면8도</li>
+                                    <li>A4</li>
+                                    <li>200매</li>
+                                </ul>
+                            </dt>
+                            <dd class="price">
+                                16,500 <span class="unit">원</span>
+                            </dd>
+                        </dl>
+                    </a>
+                </li>
+            </ul>
+        </article>
+    </section>
+    <section class="service">
+        <h2><img src="../../images/main/service_title.png" alt="기분좋은 SERVICE"></h2>
+        <article>
+            <ul>
+                <li>
+                    <a href="#none" target="_self">
+                        <img src="../../images/main/service_icon_order.png">
+                        <span>주문하기</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#none" target="_self">
+                        <img src="../../images/main/service_icon_guide.png">
+                        <span>주문가이드</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#none" target="_self">
+                        <img src="../../images/main/service_icon_download.png">
+                        <span>자료다운로드</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#none" target="_self">
+                        <img src="../../images/main/service_icon_mypage.png">
+                        <span>My Page</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#none" target="_self">
+                        <img src="../../images/main/service_icon_ftfinquery.png">
+                        <span>1:1문의</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#none" target="_self">
+                        <img src="../../images/main/service_icon_pointcoupon.png">
+                        <span>포인트/쿠폰</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="wrap">
+                <ul>
+                    <li>
+                        <a href="#none" target="_self">
+                            <img src="../../images/main/service_icon_partcontact.png">
+                            <span>부서 연락처 안내</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#none" target="_self">
+                            <img src="../../images/main/service_icon_estimate.png">
+                            <span>견적문의</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#none" target="_self">
+                            <img src="../../images/main/service_icon_deliveryinfo.png">
+                            <span>배송안내</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#none" target="_self">
+                            <img src="../../images/main/service_icon_partnership.png">
+                            <span>제휴안내</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#none" target="_self">
+                            <img src="../../images/main/service_icon_siteinfo.png">
+                            <span>사이트 이용안내</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#none" target="_self">
+                            <img src="../../images/main/service_icon_fileshare.png">
+                            <span>공유자료실</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <a href="#none" target="_self">
+                            <img src="../../images/main/service_icon_faq.png">
+                            <span>FAQ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#none" target="_self">
+                            <img src="../../images/main/service_icon_remoteconnect.png">
+                            <span>원격접속서비스</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#none" target="_self">
+                            <img src="../../images/main/service_icon_gpstracking.png">
+                            <span>GPS배송추적</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#none" target="_self">
+                            <img src="../../images/main/service_icon_wtpdesign.png">
+                            <span>WTP 디자인</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#none" target="_self">
+                            <img src="../../images/main/service_icon_draftcheck.png">
+                            <span>교정시안 확인</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#none" target="_self">
+                            <img src="../../images/main/service_icon_sitemap.png">
+                            <span>사이트맵</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </article>
+    </section>
+    <section class="quick">
+        <article class="customer">
+            <h2><img src="../../images/main/quick_customer_title.png" alt="customer"></h2>
+            <p class="number"><img src="../../images/main/quick_customer_number.png" alt="02-2272-2901"></p>
+            <dl class="time">
+                <dt>평일</dt>
+                <dd>09:00 ~ 20:00</dd>
+                <dt>접수점심</dt>
+                <dd>12:30 ~ 13:30</dd>
+                <dt>출고점심</dt>
+                <dd>13:30 ~ 14:30</dd>
+                <!--<dt>토요일</dt>
+                <dd>09:00 ~ 15:00</dd>-->
+            </dl>
+        </article>
+        <article class="notice">
+            <h2><img src="../../images/main/quick_notice_title.png" alt="notice"></h2>
+            <ul>
+                <li><a href="#none" target="_self">디프린팅을 찾아주신 여러분께 2015년 새인사 드립니다.</a></li>
+                <li><a href="#none" target="_self">무엇이든 물어보세요. 인쇄에 관련된 모든 것을 자유롭게 물어보세요.</a></li>
+                <li><a href="#none" target="_self">기본적인 궁금증은 고객지원 메뉴를 이용해주세요.</a></li>
+                <li><a href="#none" target="_self">CTP인쇄와 CIP인쇄의 차이가 무엇인가요?</a></li>
+                <li><a href="#none" target="_self">인쇄 하려고 했는데 RGB여서 변환을 하려고 합니다.</a></li>
+            </ul>
+        </article>
+        <article class="membership">
+            <a href="#none" target="_self">
+                <h2><img src="../../images/main/quick_membership_title.png" alt="membership"></h2>
+                <p>디프린팅만의 멤버쉽!<br>회원등급에 따라<br>꼭 필요한 혜택이 가득합니다.</p>
+            </a>
+        </article>
+        <article class="guide">
+            <h2><img src="../../images/main/quick_guide_title.png" alt="guide"></h2>
+            <p>처음 오신 고객님도! 자주 찾는 전문가도!<br>제품안내부터 주문까지<br>누구에게나 쉽게 알려드립니다.</p>
+            <ul class="category">
+                <li><a href="#none" target="_self">접수</a></li>
+                <li><a href="#none" target="_self">주문</a></li>
+                <li class="whiteBG"><a href="#none" target="_self">배송</a></li>
+            </ul>
+        </article>
+        <article class="opinion">
+            <a href="#none" target="_self">
+                <h2><img src="../../images/main/quick_opinion_title.png" alt="opinion"></h2>
+                <p>디프린팅은 여러분의 편의를 위해<br>보다 나은 의견을 듣습니다.</p>
+            </a>
+        </article>
+    </section>
+</section>
+<aside class="member">
+    <button type="button" title="열기" class="switch _closed"><img src="../../images/common/aside_member_btn_closed.png" alt="▶"></button>
+    <button type="button" title="닫기" class="switch _opened"><img src="../../images/common/aside_member_btn_opened.png" alt="◀"></button>
+    <div class="wrap">
+        <section class="membership">
+            <h2 class="grade6"><img src="../../images/common/text_membership_grade6.png" alt="PLATINUM"></h2>
+            <ul class="infomation">
+                <li class="prepaid">
+                    <dl>
+                        <dt>선입금</dt>
+                        <dd>25,000 원</dd>
+                    </dl>
+                </li>
+                <li class="point">
+                    <dl>
+                        <dt>포인트</dt>
+                        <dd>5870 P</dd>
+                    </dl>
+                </li>
+                <li class="coupon">
+                    <dl>
+                        <dt>쿠폰</dt>
+                        <dd>6 매</dd>
+                    </dl>
+                </li>
+            </ul>
+        </section>
+        <section class="myOrder">
+            <h2>
+                나의 주문현황
+                <ul class="_switch">
+                    <li class="_on"><button><img src="../../images/common/btn_text_week.png" alt="최근1주일"></button></li>
+                    <li><button><img src="../../images/common/btn_text_month.png" alt="이번달"></button></li>
+                </ul>
+            </h2>
+            <ul class="list">
+                <li class="standby">
+                    <a href="#none" target="_self">
+                        <dl>
+                            <dd>8</dd>
+                            <dt>입금대기</dt>
+                        </dl>
+                    </a>
+                </li>
+                <li class="application">
+                    <a href="#none" target="_self">
+                        <dl>
+                            <dd>125</dd>
+                            <dt>접수</dt>
+                        </dl>
+                    </a>
+                </li>
+                <li class="manufacture">
+                    <a href="#none" target="_self">
+                        <dl>
+                            <dd>3</dd>
+                            <dt>제작</dt>
+                        </dl>
+                    </a>
+                </li>
+            </ul>
+            <ul class="list">
+                <li class="release">
+                    <a href="#none" target="_self">
+                        <dl>
+                            <dd>97</dd>
+                            <dt>입/출고</dt>
+                        </dl>
+                    </a>
+                </li>
+                <li class="delivery">
+                    <a href="#none" target="_self">
+                        <dl>
+                            <dd>5</dd>
+                            <dt>배송</dt>
+                        </dl>
+                    </a>
+                </li>
+                <li class="complete">
+                    <a href="#none" target="_self">
+                        <dl>
+                            <dd>3,256</dd>
+                            <dt>완료</dt>
+                        </dl>
+                    </a>
+                </li>
+            </ul>
+        </section>
+        <section class="favorite">
+            <h2>늘 했던 거</h2>
+            <table>
+                <colgroup>
+                    <col width="23">
+                    <col>
+                </colgroup>
+                <tbody>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>
+                        <ul>
+                            <li>코팅명함</li>
+                            <li>아트지 백색 100g</li>
+                            <li>A4</li>
+                            <li>탄면칼라 4도</li>
+                            <li>1,000 x 1</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>
+                        <ul>
+                            <li>코팅명함</li>
+                            <li>아트지 백색 100g</li>
+                            <li>A4</li>
+                            <li>탄면칼라 4도</li>
+                            <li>1,000 x 1</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>
+                        <ul>
+                            <li>코팅명함</li>
+                            <li>아트지 백색 100g</li>
+                            <li>A4</li>
+                            <li>탄면칼라 4도</li>
+                            <li>1,000 x 1</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>
+                        <ul>
+                            <li>코팅명함</li>
+                            <li>아트지 백색 100g</li>
+                            <li>A4</li>
+                            <li>탄면칼라 4도</li>
+                            <li>1,000 x 1</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>
+                        <ul>
+                            <li>코팅명함</li>
+                            <li>아트지 백색 100g</li>
+                            <li>A4</li>
+                            <li>탄면칼라 4도</li>
+                            <li>1,000 x 1</li>
+                        </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="function">
+                <button type="button" class="_selectAll white">전체선택</button>
+                <div class="purchase">
+                    <strong><button type="button">즉시주문</button></strong>
+                    <button type="button">장바구니</button>
+                </div>
+            </div>
+        </section>
+        <section class="contact">
+            <h2>담당자 연락처</h2>
+            <dl class="telNum">
+                <dt>CM</dt>
+                <dd>02.2260.9010</dd>
+                <dt>CS</dt>
+                <dd>02.2260.9012</dd>
+                <dt>명함출고팀</dt>
+                <dd>02.2260.9019</dd>
+                <dt>전단출고팀</dt>
+                <dd>02.2260.9068</dd>
+            </dl>
+            <strong>02.2260.9000</strong>
+            <dl class="time">
+                <dt>평일</dt>
+                <dd>09:00~20:00</dd>
+                <dt>접수점심</dt>
+                <dd>12:30~13:30</dd>
+                <dt>출고점심</dt>
+                <dd>13:30~14:30</dd>
+                <!-- <dt>토요일</dt>
+                 <dd>09:00~15:00</dd>-->
+            </dl>
+        </section>
+    </div>
+    <div class="cover">
+        <section class="membership">
+            <h2 class="grade6"><img src="../../images/common/aside_member_grade6_folded.png" alt="platinum"></h2>
+            <ul class="infomation">
+                <li class="prepaid">선입금</li>
+                <li class="point">포인트</li>
+                <li class="coupon">쿠폰</li>
+            </ul>
+        </section>
+        <section class="myOrder">
+            <h2>나의 주문 현황</h2>
+        </section>
+        <section class="favorite">
+            <h2>늘 했던 거</h2>
+        </section>
+        <section class="contact">
+            <h2>담당자 연락처</h2>
+        </section>
+    </div>
+</aside>
+<footer></footer>
+</body>
+</html>

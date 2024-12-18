@@ -1,0 +1,681 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+    [TPH_I/m/common/head.html]
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 네비게이션 -->
+        [TPH_I/m/common/nav.html]
+        <!-- 헤더 -->
+        [TPH_I/m/common/header.html]
+
+        <div class="contents">
+            <!-- 타이틀 start -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title">
+                    주문내역
+                </div>
+            </div>
+            <!-- 타이틀 end -->
+
+            <!-- 검색 창 start -->
+            <div class="basic_table_wrapper">
+                <table class="basic_table">
+                    <colgroup>
+                        <col style="width:25%;">
+                        <col style="">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>주문일</th>
+                        <td>
+                            <table class="basic_detail_table">
+                                <colgroup>
+                                    <col style="width:50%;">
+                                    <col style="width:45%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding-right:5% !important;">
+                                            <span class="input_type_text_date_warapper">
+                                                <input class="basic_input Column_02" type="text" readonly="readonly" style="background:#fff;">
+                                                <img class="icon_calendar" src="[TPH_Vdesign_dir]/images/common/btn_calendar.png" alt="">
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="input_type_text_date_warapper">
+                                                <input class="basic_input Column_02" type="text" readonly="readonly" style="background:#fff;">
+                                                <img class="icon_calendar" src="[TPH_Vdesign_dir]/images/common/btn_calendar.png" alt="">
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="btn_date_section_wrapper">
+                                <button type="button">당일</button>
+                                <button type="button">전일</button>
+                                <button type="button">금주</button>
+                                <button type="button">전주</button>
+                                <button type="button">당월</button>
+                                <button type="button">전월</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>진행상태</th>
+                        <td>
+                            <select class="basic_input">
+                                <option value="" selected="">전체</option>
+                                <option value="주문">주문</option>
+                                <option value="입금">입금</option>
+                                <option value="접수">접수</option>
+                                <option value="조판">조판</option>
+                                <option value="출력">출력</option>
+                                <option value="인쇄">인쇄</option>
+                                <option value="후공정">후공정</option>
+                                <option value="입고">입고</option>
+                                <option value="출고">출고</option>
+                                <option value="배송">배송</option>
+                                <option value="종이발주">종이발주</option>
+                                <option value="종이입고">종이입고</option>
+                                <option value="부자재발주">부자재발주</option>
+                                <option value="부자재입고">부자재입고</option>
+                                <option value="구매확정">구매확정</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>배송종류</th>
+                        <td>
+                            <select class="basic_input">
+                                <option value="">전체</option>
+                                <option value="">택배</option>
+                                <option value="">직배송</option>
+                                <option value="">퀵</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>제목</th>
+                        <td>
+                            <input type="text" class="basic_input">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="btn_mypage_search" type="button">검색</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+            <!-- 검색 창 end -->
+
+            <!-- 검색 결과 start -->
+            <div class="mypage_status_top_info_wrapper">
+                <table class="mypage_status_top_info">
+                    <colgroup>
+                        <col style="width:70%;">
+                        <col style="width:30%;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p class="mypage_status_text_p">총 <span class="mypage_status_text_span">1</span>건의 검색결과가 있습니다.</p>
+                            </td>
+                            <td>
+                                <select class="select_basic_table_top">
+                                    <option selected="selected" value="">10개씩 보기</option>
+                                    <option value="">20개씩 보기</option>
+                                    <option value="">50개씩 보기</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!--
+            <table class="board_type_table_top">
+                <colgroup>
+                    <col style="width:24%;">
+                    <col style="width:44%;">
+                    <col style="width:16%;">
+                    <col style="width:16%;">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th>주문일</th>
+                        <th>인쇄물제목</th>
+                        <th>진행상태</th>
+                        <th>관리</th>
+                    </tr>
+                    <tr>
+                        <td>2017-12-07</td>
+                        <td>리스타트 잡페어 브로슈어</td>
+                        <td>주문취소</td>
+                        <td>
+                            <div class="btn_board_list_manage">
+                                <img class="btn_modify_01" src="[TPH_Vdesign_dir]/images/common/btn_list_detail_on.png" alt="관리버튼">
+                                <img class="btn_modify_01_on" src="[TPH_Vdesign_dir]/images/common/btn_list_detail_off.png" alt="관리버튼" style="display:none;">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="board_type_detail_td detail_table_01" style="padding: 0px !important;">
+                            <div class="mypage_detail_table_wrapper">
+                                <table class="mypage_detail_table">
+                                    <colgroup>
+                                        <col width="30%;">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th>상품내역</th>
+                                            <td class="bottom_border">카다로그, 브로셔, A3, 500 부 / 표지 : 아트지 백색 150g</td>
+                                        </tr>
+                                        <tr>
+                                            <th>옵션</th>
+                                            <td class="bottom_border">옵션 설명</td>
+                                        </tr>
+                                        <tr>
+                                            <th>후공정</th>
+                                            <td class="bottom_border">후공정 설명</td>
+                                        </tr>
+                                        <tr>
+                                            <th>주문파일</th>
+                                            <td class="bottom_border">banner_mypage_order_step_02.jpg</td>
+                                        </tr>
+                                        <tr>
+                                            <th>수량/건</th>
+                                            <td class="bottom_border">	500부 X 1건</td>
+                                        </tr>
+                                        <tr>
+                                            <th>할인내역</th>
+                                            <td class="bottom_border">회원등급할인 5,000원</td>
+                                        </tr>
+                                        <tr>
+                                            <th>예상무게</th>
+                                            <td class="bottom_border">300 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <th>배송</th>
+                                            <td class="bottom_border">12381 서울시 은평구 대조동 50-1 산울림아파트 B동 107호</td>
+                                        </tr>
+                                        <tr>
+                                            <th>결제금액</th>
+                                            <td class="bottom_border">122,860원</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="border:none;">
+                                                <div class="threeColumn_btn_wrapper" style="margin-bottom:0;">
+                                                    <table class="table_mypage_btn">
+                                                        <colgroup>
+                                                            <col style="width:33%;">
+                                                            <col style="width:33%;">
+                                                            <col style="width:33%;">
+                                                        </colgroup>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="td_mypage_btn_orderCancel btn_orderCancel">
+                                                                    <img src="[TPH_Vdesign_dir]/images/mypage/btn_mypage_ordercancel.png" alt="주문취소" />
+                                                                    <p>주문취소</p>
+                                                                </td>
+                                                                <td class="td_mypage_btn_sampleView btn_sampleView">
+                                                                    <img src="[TPH_Vdesign_dir]/images/mypage/btn_mypage_view.png" alt="시안보기" />
+                                                                    <p>시안보기</p>
+                                                                </td>
+                                                                <td class="td_mypage_btn_delivery btn_delivery">
+                                                                    <img src="[TPH_Vdesign_dir]/images/mypage/btn_mypage_delivery.png" alt="배송조회" />
+                                                                    <p>배송조회</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="td_mypage_btn_fileUpload btn_file_upload">
+                                                                    <img src="[TPH_Vdesign_dir]/images/mypage/btn_mypage_file.png" alt="파일재전송" />
+                                                                    <p>파일재전송</p>
+                                                                </td>
+                                                                <td class="td_mypage_btn_claim btn_claim">
+                                                                    <img src="[TPH_Vdesign_dir]/images/mypage/btn_mypage_claim.png" alt="클레임요청" />
+                                                                    <p>클레임요청</p>
+                                                                </td>
+                                                                <td class="td_mypage_btn_memo btn_memo">
+                                                                    <img src="[TPH_Vdesign_dir]/images/mypage/btn_mypage_memo.png" alt="메모" />
+                                                                    <p>메모</p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2017-12-07</td>
+                        <td>리스타트 잡페어 브로슈어</td>
+                        <td>입금대기</td>
+                        <td>
+                            <div class="btn_board_list_manage">
+                                <img class="btn_modify_02" src="[TPH_Vdesign_dir]/images/common/btn_list_detail_on.png" alt="관리버튼">
+                                <img class="btn_modify_02_on" src="[TPH_Vdesign_dir]/images/common/btn_list_detail_off.png" alt="관리버튼" style="display:none;">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="board_type_detail_td detail_table_02" style="display:none; padding: 0px !important;">
+                            <div class="mypage_detail_table_wrapper">
+                                <table class="mypage_detail_table">
+                                    <colgroup>
+                                        <col width="30%;">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th>상품내역</th>
+                                            <td class="bottom_border">카다로그, 브로셔, A3, 500 부 / 표지 : 아트지 백색 150g</td>
+                                        </tr>
+                                        <tr>
+                                            <th>옵션</th>
+                                            <td class="bottom_border">옵션 설명</td>
+                                        </tr>
+                                        <tr>
+                                            <th>후공정</th>
+                                            <td class="bottom_border">후공정 설명</td>
+                                        </tr>
+                                        <tr>
+                                            <th>주문파일</th>
+                                            <td class="bottom_border">banner_mypage_order_step_02.jpg</td>
+                                        </tr>
+                                        <tr>
+                                            <th>수량/건</th>
+                                            <td class="bottom_border">	500부 X 1건</td>
+                                        </tr>
+                                        <tr>
+                                            <th>할인내역</th>
+                                            <td class="bottom_border">회원등급할인 5,000원</td>
+                                        </tr>
+                                        <tr>
+                                            <th>예상무게</th>
+                                            <td class="bottom_border">300 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <th>배송</th>
+                                            <td class="bottom_border">12381 서울시 은평구 대조동 50-1 산울림아파트 B동 107호</td>
+                                        </tr>
+                                        <tr>
+                                            <th>결제금액</th>
+                                            <td class="bottom_border">122,860원</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="border:none;">
+                                                <div class="threeColumn_btn_wrapper" style="margin-bottom:0;">
+                                                    <table class="table_mypage_btn">
+                                                        <colgroup>
+                                                            <col style="width:33%;">
+                                                            <col style="width:33%;">
+                                                            <col style="width:33%;">
+                                                        </colgroup>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="td_mypage_btn_orderCancel btn_orderCancel">
+                                                                    <img src="[TPH_Vdesign_dir]/images/mypage/btn_mypage_ordercancel.png" alt="주문취소" />
+                                                                    <p>주문취소</p>
+                                                                </td>
+                                                                <td class="td_mypage_btn_sampleView btn_sampleView">
+                                                                    <img src="[TPH_Vdesign_dir]/images/mypage/btn_mypage_view.png" alt="시안보기" />
+                                                                    <p>시안보기</p>
+                                                                </td>
+                                                                <td class="td_mypage_btn_delivery btn_delivery">
+                                                                    <img src="[TPH_Vdesign_dir]/images/mypage/btn_mypage_delivery.png" alt="배송조회" />
+                                                                    <p>배송조회</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="td_mypage_btn_fileUpload btn_file_upload">
+                                                                    <img src="[TPH_Vdesign_dir]/images/mypage/btn_mypage_file.png" alt="파일재전송" />
+                                                                    <p>파일재전송</p>
+                                                                </td>
+                                                                <td class="td_mypage_btn_claim btn_claim">
+                                                                    <img src="[TPH_Vdesign_dir]/images/mypage/btn_mypage_claim.png" alt="클레임요청" />
+                                                                    <p>클레임요청</p>
+                                                                </td>
+                                                                <td class="td_mypage_btn_memo btn_memo">
+                                                                    <img src="[TPH_Vdesign_dir]/images/mypage/btn_mypage_memo.png" alt="메모" />
+                                                                    <p>메모</p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            -->
+
+            <table class="order_list_table">
+                <colgroup>
+                    <col style="width:12%;">
+                    <col style="">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th colspan="2"></th>
+                    </tr>
+                    <tr>
+                        <td class="width_padding_both">
+                            <p class="order_list_title_text"><span class="category_text">[카다로그]</span>&nbsp;<span class="prdt_title_text">코엑스 홍보물</span></p>
+                            <p class="order_list_detail_text">A4, 500 부 / 표지 : 아트지 백색 250g / 전면 - 칼라4도, 후면 - 칼라4도</p>
+                            <p class="order_list_after_text">미싱(1줄 중앙) / 타공(1개 3mm) / 오시(1줄 중앙)</p>
+                            <p class="order_list_etc_text">
+                                <span class="order_list_first_text_box">날짜</span>2018.01.26
+                                <span class="order_list_text_box">수량</span>500부(1건)
+                                <span class="order_list_text_box">금액</span>223,530원
+                                <span class="order_list_text_box">상태</span>직배
+                            </p>
+                            <div class="btn_order_list_manage btn_mypage_slide_on">
+                                <img class="" src="/design_template/m/images/mypage/btn_table_menu_on.png" alt="자세히보기">
+                            </div>
+                            <div class="btn_order_list_manage btn_mypage_slide_off" style="display:none;">
+                                <img class="" src="/design_template/m/images/mypage/btn_table_menu_off.png" alt="자세히보기">
+                            </div>
+                            <div class="pollSlider">
+                                <ul>
+                                    <li>
+                                        <button>
+                                            <a href=""><img src="/design_template/m/images/mypage/icon_order_table_02.png" alt="주문취소"></a>
+                                        </button>
+                                        <p>주문취소</p>
+                                    </li>
+                                    <!--
+                                    <li>
+                                        <button>
+                                            <a href=""><img src="/design_template/m/images/mypage/icon_order_table_09.png" alt="재주문"></a>
+                                        </button>
+                                        <p>재주문</p>
+                                    </li>
+                                    <li>
+                                        <button>
+                                            <a href=""><img src="/design_template/m/images/mypage/icon_order_table_03.png" alt="미리보기"></a>
+                                        </button>
+                                        <p>미리보기</p>
+                                    </li>
+                                    -->
+                                    <li>
+                                        <button>
+                                            <a href=""><img src="/design_template/m/images/mypage/icon_order_table_04.png" alt="배송지변경"></a>
+                                        </button>
+                                        <p>배송지변경</p>
+                                    </li>
+                                    <li>
+                                        <button>
+                                            <a href=""><img src="/design_template/m/images/mypage/icon_order_table_05.png" alt="파일재전송"></a>
+                                        </button>
+                                        <p>파일재전송</p>
+                                    </li>
+                                    <li>
+                                        <button>
+                                            <a href=""><img src="/design_template/m/images/mypage/icon_order_table_07.png" alt="메모"></a>
+                                        </button>
+                                        <p>메모</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="width_padding_both">
+                            <p class="order_list_title_text"><span class="category_text">[카다로그]</span>&nbsp;<span class="prdt_title_text">코엑스 홍보물</span></p>
+                            <p class="order_list_detail_text">A4, 500 부 / 표지 : 아트지 백색 250g / 전면 - 칼라4도, 후면 - 칼라4도 A4, 500 부 / 표지 : 아트지 백색 250g / 전면 - 칼라4도, 후면 - 칼라4도</p>
+                            <p class="order_list_after_text">미싱(1줄 중앙) / 타공(1개 3mm) / 오시(1줄 중앙)</p>
+                            <p class="order_list_etc_text">
+                                <span class="order_list_first_text_box">날짜</span>2018.01.26
+                                <span class="order_list_text_box">수량</span>500부(1건)
+                                <span class="order_list_text_box">금액</span>223,530원
+                                <span class="order_list_text_box">상태</span>직배
+                            </p>
+                            <div class="btn_order_list_manage">
+                                <img class="" src="/design_template/m/images/mypage/btn_table_menu_on.png" alt="자세히보기">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="width_padding_both">
+                            <p class="order_list_title_text"><span class="category_text">[카다로그]</span>&nbsp;<span class="prdt_title_text">코엑스 홍보물</span></p>
+                            <p class="order_list_detail_text">A4, 500 부 / 표지 : 아트지 백색 250g / 전면 - 칼라4도, 후면 - 칼라4도</p>
+                            <p class="order_list_after_text">미싱(1줄 중앙) / 타공(1개 3mm) / 오시(1줄 중앙)</p>
+                            <p class="order_list_etc_text">
+                                <span class="order_list_first_text_box">날짜</span>2018.01.26
+                                <span class="order_list_text_box">수량</span>500부(1건)
+                                <span class="order_list_text_box">금액</span>223,530원
+                                <span class="order_list_text_box">상태</span>직배
+                            </p>
+                            <div class="btn_order_list_manage">
+                                <img class="" src="/design_template/m/images/mypage/btn_table_menu_on.png" alt="자세히보기">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="width_padding_both">
+                            <p class="order_list_title_text"><span class="category_text">[카다로그]</span>&nbsp;<span class="prdt_title_text">코엑스 홍보물</span></p>
+                            <p class="order_list_detail_text">A4, 500 부 / 표지 : 아트지 백색 250g / 전면 - 칼라4도, 후면 - 칼라4도</p>
+                            <p class="order_list_after_text">미싱(1줄 중앙) / 타공(1개 3mm) / 오시(1줄 중앙)</p>
+                            <p class="order_list_etc_text">
+                                <span class="order_list_first_text_box">날짜</span>2018.01.26
+                                <span class="order_list_text_box">수량</span>500부(1건)
+                                <span class="order_list_text_box">금액</span>223,530원
+                                <span class="order_list_text_box">상태</span>직배
+                            </p>
+                            <div class="btn_order_list_manage">
+                                <img class="" src="/design_template/m/images/mypage/btn_table_menu_on.png" alt="자세히보기">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 페이지 탭 start -->
+            <div class="page_btn">
+                <span>
+                    <img src="[TPH_Vdesign_dir]/images/common/btn_board_first.png" alt="처음으로" />
+                </span>
+                <span>
+                    <img src="[TPH_Vdesign_dir]/images/common/btn_board_prev.png" alt="이전페이지" />
+                </span>
+                <span class="page_btn_select_page">
+                    1
+                </span>
+                <span>
+                    <img src="[TPH_Vdesign_dir]/images/common/btn_board_next.png" alt="다음페이지" />
+                </span>
+                <span>
+                    <img src="[TPH_Vdesign_dir]/images/common/btn_board_last.png" alt="마지막페이지" />
+                </span>
+            </div>
+            <!-- 페이지 탭 end -->
+
+        </div>
+
+        <!-- 푸터 -->
+        [TPH_I/m/common/footer.html]
+
+        <!-- 레이어팝업/주문취소 start -->
+        <div class="layerpopup layerpopup_order_cancel">
+            <div class="layerpopup_contents">
+                <div class="layerpopup_title">
+                    <p class="main_title">주문취소</p>
+                </div>
+                <table class="layerpopup_table">
+                    <tr>
+                        <td style="text-align:center; padding:0 !important;">
+                            주문을 취소하시겠습니까?
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="div_radius_frame_02">
+                                <div class="div_radius_frame_text">
+                                    <p>아래 '확인' 버튼을 클릭하면 즉시 취소됩니다.</p>
+                                    <p>취소한 주문은 전체 주문 목록에서 확인하실 수 있습니다.</p>
+                                    <p>접수 이후에는 주문을 취소하실 수 없습니다.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="mypage_bottom_basic_btn_inner btn_layerpopup_hide" type="button">취소</button>
+                                <button class="mypage_bottom_color_btn_inner" type="button">확인</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- 레이어팝업/주문취소 end -->
+
+        <!-- 레이어팝업/시안보기 start -->
+        <div class="layerpopup layerpopup_sample_view">
+            <div class="layerpopup_contents">
+                <div class="layerpopup_title">
+                    <p class="main_title">시안보기</p>
+                </div>
+                <table class="layerpopup_table">
+                    <tr>
+                        <td>
+                            <img class="mypage_sample_img" src="[TPH_Vdesign_dir]/images/mypage/test.jpg" alt="시안보기 이미지" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="mypage_bottom_basic_btn_inner btn_layerpopup_hide" type="button">취소</button>
+                                <button class="mypage_bottom_color_btn_inner" type="button">PDF 다운로드</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- 레이어팝업/시안보기 end -->
+
+        <!-- 레이어팝업/파일재전송 start -->
+        <div class="layerpopup layerpopup_file_upload">
+            <div class="layerpopup_contents">
+                <div class="layerpopup_title">
+                    <p class="main_title">파일재전송</p>
+                </div>
+                <table class="layerpopup_table">
+                    <tr>
+                        <td>
+                            <table class="filebox">
+                                <colgroup>
+                                    <col style="width:40%;">
+                                    <col style="width:60%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding:0 5% 0 0 !important;">
+                                            <label for="ex_filename">파일선택</label>
+                                        </td>
+                                        <td style="padding: 0 0 0 0 !important;">
+                                            <input class="upload-name" value="" disabled="disabled">
+                                        <input type="file" id="ex_filename" class="upload-hidden"> 
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="div_radius_frame_02">
+                                <div class="div_radius_frame_text">
+                                    <p>후공정 작업파일과 인쇄물 작업파일을 같이 압축해서 올려 주십시오.</p>
+                                    <p>후공정 작업파일은 한 파일로 작업하여 올려 주십시오.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="mypage_bottom_basic_btn_inner btn_layerpopup_hide" type="button">취소</button>
+                                <button class="mypage_bottom_color_btn_inner" type="button">업로드</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- 레이어팝업/파일재전송 end -->
+
+        <!-- 레이어팝업/클레임요청 start -->
+        <div class="layerpopup layerpopup_claim">
+            <div class="layerpopup_contents">
+                <table class="layerpopup_table">
+                    <tr>
+                        <td style="text-align:center;">
+                            배송완료시에 클레임요청이 가능합니다.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="mypage_bottom_color_btn_inner btn_layerpopup_hide" type="button">확인</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- 레이어팝업/클레임요청 end -->
+
+        <!-- 레이어팝업/메모 start -->
+        <div class="layerpopup layerpopup_memo">
+            <div class="layerpopup_contents">
+                <div class="layerpopup_title">
+                    <p class="main_title">메모</p>
+                </div>
+                <table class="layerpopup_table">
+                    <tr>
+                        <td>
+                            <textarea class="basic_input mypage_memo" style="height:100px; font-size:1.063em !important;" readonly="readonly" placeholder="메모를 보여주는 창입니다."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="mypage_bottom_color_btn_inner btn_layerpopup_hide" type="button">닫기</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- 레이어팝업/메모 end -->
+
+        <!-- 레이어팝업 배경 start -->
+        <div class="layerpopup_bg"></div>
+        <!-- 레이어팝업 배경 end -->
+
+    </div>
+</body> 
+</html>

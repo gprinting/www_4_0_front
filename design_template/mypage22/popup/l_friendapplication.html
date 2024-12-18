@@ -1,0 +1,53 @@
+<header>
+    <h2>배송친구 신청</h2>
+    <button class="close" title="닫기"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_x_white.png" alt="X"></button>
+</header>
+<article>
+    <section class="searchCondition">
+        <dl class="full">
+            <dt>검색조건</dt>
+            <dd>
+                <select>
+                    <option>업체명</option>
+                </select>
+            </dd>
+            <dd class="last"><div class="inputWrap"><input type="text" id="search_txt" onkeydown="enterCheck(event);"></div></dd>
+            <button type="button" class="search" onclick="getDlvrFriendList();">검색</button>
+        </dl>
+    </section>
+    <table class="thead">
+        <colgroup>
+            <col width="40">
+            <col width="100">
+            <col width="250">
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th></th>
+                <th>업체명</th>
+                <th>주소</th>
+                <th>연락처</th>
+            </tr>
+        </thead>
+    </table>
+    <div class="tableScroll">
+        <div class="wrap">
+            <table class="list noEllipsis">
+                <colgroup>
+                    <col width="40">
+                    <col width="100">
+                    <col width="250">
+                    <col>
+                </colgroup>
+                <tbody id="dlvrfriend_list">
+                    [TPH_Vdlvrfriend_list]
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="function center">
+        <strong><button onclick="regiDlvrFriendSub();">신청</button></strong>
+        <button class="close">취소</button>
+    </div>
+</article>

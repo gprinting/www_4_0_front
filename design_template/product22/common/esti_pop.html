@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>견적서</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<link rel="stylesheet" type="text/css" href="/design_template/css/reset.css">
+<link rel="stylesheet" type="text/css" href="/design_template/css/common.css">
+<link rel="stylesheet" type="text/css" href="/design_template/css/main.css">
+<link rel="stylesheet" type="text/css" href="/design_template/css/mypage.css">
+<link rel="stylesheet" type="text/css" href="/design_template/css/product.css">
+<script src="/design_template/js/lib/jquery-1.11.2.min.js"></script>
+<script src="/design_template/js/common/common.js"></script>
+<script>
+    var jsonParam = JSON.parse('[TPH_Vjson_data]');
+    /**
+     * @brief 견적서 엑셀 다운로드
+     */
+    var downEstiExcel = function() {
+        var url = "/ajax/product/make_esti_excel.php";
+        var callback = function(result) {
+            console.log(result);
+            var downUrl  = "/common/down_esti_excel.php?";
+            downUrl += "filename=" + result;
+            downUrl += "&dvs=esti";
+            $("#file_ifr").attr("src", downUrl);
+        };
+    
+        ajaxCall(url, "html", jsonParam, callback);
+    };
+
+    //<![CDATA[
+    function printPage(){
+        var initBody;
+        window.onbeforeprint = function(){
+            initBody = document.body.innerHTML;
+            document.body.innerHTML =  document.getElementById('print').innerHTML;
+        };
+        window.onafterprint = function(){
+            document.body.innerHTML = initBody;
+        };
+        window.print();
+            return false;
+        }
+    //]]>
+</script>
+
+</head>
+<body style="background:none; overflow-x:hidden;">
+<div class="print_esti page">
+    <div class="div_print_esti_wrapper" id="print">
+        <!-- 견적서 start -->
+        <div class="div_print_esti">
+            <img src="/design_template/images/product/estimate_sign.png" alt="사인" class="img_sign">
+            [TPH_Vhtml_top]
+            [TPH_Vhtml_mid]
+            [TPH_Vhtml_bot]
+            [TPH_Vhtml_aft]
+            <!--[TPH_Vhtml_etc]-->
+            <!--
+            <table id="esti_cont" class="table_print_esti" width="100%;" border="0" cellspacing="0" cellpadding="0">
+                <colgroup>
+                    <col style="width:50%;">
+                    <col style="width:50%;">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th colspan="2"><h2>견 적 서</h2></th>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <table class="inner_table_print_esti">
+                                <caption>견적일 및 수신</caption>
+                                <colgroup>
+                                    <col style="width:25%;">
+                                    <col style="">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th>견적일</th>
+                                        <td>2018년 02월 21일</td>
+                                    </tr>
+                                    <tr>
+                                        <th>수&nbsp;&nbsp;신</th>
+                                        <td>엄준현 귀하</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td style="vertical-align: top;">
+                            <table class="inner_table_print_esti print_esti_supplier">
+                                <caption>공급자</caption>
+                                <colgroup>
+                                    <col style="width:20%;">
+                                    <col style="width:30%;">
+                                    <col style="width:20%;">
+                                    <col style="width:30%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th>상&nbsp;&nbsp;호</th>
+                                        <td>(주)굿프린팅</td>
+                                        <th>대표자</th>
+                                        <td>김시향</td>
+                                    </tr>
+                                    <tr>
+                                        <th>주&nbsp;&nbsp;소</th>
+                                        <td colspan="3">서울시 중구 필동로 8길 50-9 우리빌딩<br>(필동2가 84-12번지)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>전화번호</th>
+                                        <td>02-2260-9000</td>
+                                        <th>팩스</th>
+                                        <td>02-2260-9090</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <table class="inner_table_print_esti print_esti_price">
+                                <caption style="font-weight:100; margin-bottom:6px;">아래와 같이 견적합니다.</caption>
+                                <colgroup>
+                                    <col style="width:70%;">
+                                    <col style="">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th style="border-right:none !important; text-align:left; font-weight:100;">합계금액 \905,500 원 + 부가세 \90,550 원 + 배송비 별도</th>
+                                        <th style="border-left:none !important; text-align:right; color:#000;">총 합계금액 : \996,050 </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <table class="inner_table_print_esti">
+                                <colgroup>
+                                    <col style="width:35%;">
+                                    <col style="">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th colspan="2" class="table_title">재질 및 규격</th>
+                                    </tr>
+                                    <tr>
+                                        <th>품&nbsp;&nbsp;명</th>
+                                        <td>카탈로그/브로셔</td>
+                                    </tr>
+                                    <tr>
+                                        <th>재질(표지)</th>
+                                        <td>아르떼 울트라화이트 190g</td>
+                                    </tr>
+                                    <tr>
+                                        <th>재질(내지)</th>
+                                        <td>아르떼 울트라화이트 105g</td>
+                                    </tr>
+                                    <tr>
+                                        <th>재질(내지추가)</th>
+                                        <td>아트지 백색 150g</td>
+                                    </tr>
+                                    <tr>
+                                        <th>규&nbsp;&nbsp;격</th>
+                                        <td>210*297</td>
+                                    </tr>
+                                    <tr>
+                                        <th>수&nbsp;&nbsp;량</th>
+                                        <td>200 매</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td style="vertical-align: top;">
+                            <table class="inner_table_print_esti detail_info">
+                                <colgroup>
+                                    <col style="width:25%;">
+                                    <col style="">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th colspan="2" class="table_title">인쇄세부항목</th>
+                                    </tr>
+                                    <tr>
+                                        <th>용지대</th>
+                                        <td>30,000원</td>
+                                    </tr>
+                                    <tr>
+                                        <th>판&nbsp;&nbsp;비</th>
+                                        <td>30,000원</td>
+                                    </tr>
+                                    <tr>
+                                        <th>인쇄비</th>
+                                        <td>30,000원</td>
+                                    </tr>
+                                    <tr>
+                                        <th>오시비</th>
+                                        <td>30,000원</td>
+                                    </tr>
+                                    <tr>
+                                        <th>코팅비</th>
+                                        <td>30,000원</td>
+                                    </tr>
+                                    <tr>
+                                        <th>제&nbsp;&nbsp;본</th>
+                                        <td>30,000원</td>
+                                    </tr>
+                                    <tr>
+                                        <th>주문건</th>
+                                        <td>1건</td>
+                                    </tr>
+                                    <tr>
+                                        <th>합계</th>
+                                        <td>400,000원</td>
+                                    </tr>
+                                    <tr>
+                                        <th>부가세</th>
+                                        <td>30,000원</td>
+                                    </tr>
+                                    <tr>
+                                        <th>추가비용</th>
+                                        <td>10,000원</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="vertical-align: top;">
+                        <table class="inner_table_print_esti">
+                            <tbody>
+                                <tr>
+                                    <th class="table_title">후가공 세부내역</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table class="atfer_detail">
+                                            <tbody>
+                                                <tr>
+                                                    <td>제본 : 무선</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>오시 : 2줄</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>코팅 표지 : 단면유광써멀코팅</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="vertical-align: top;">
+                            <table class="inner_table_print_esti">
+                                <tbody>
+                                    <tr>
+                                        <th class="table_title">비고</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="height:40px;"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+                -->
+            </table>
+        </div>
+        <!-- 견적서 end -->
+        <ul class="hyphen notice print_esti_notice">
+            <li>본 견적의 유효기간은 견적일로부터 15일 입니다.</li>
+            <li>본 견적에서 배송비는 별도 입니다.</li>
+            <li>본 견적은 사양과 작업의 난이도에 따라서 가격이 변동이 될 수 있음을 알려드립니다.</li>
+        </ul>
+    </div>
+    <div class="btn_wrapper">
+        <button type="button" class="btn_type_02" onclick="window.print()">견적서 인쇄</button>
+        <button type="button" class="btn_type_01" onclick="downEstiExcel();">엑셀 저장하기</button>
+    </div>
+    <iframe id="file_ifr" name="file_ifr" width=0 height=0 style="display:none;"></iframe>
+</div>

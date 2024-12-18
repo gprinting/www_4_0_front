@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>굿프린팅</title>
+    <!--[if lt IE 9]><script src="../../lib/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="../../lib/reset.css">
+    <link rel="stylesheet" href="../../lib/common.css">
+    <link rel="stylesheet" href="../../lib/cscenter.css">
+    <script src="../../lib/jquery-1.11.2.min.js"></script>
+    <script src="../../lib/jquery-ui_dprinting.min.js"></script>
+    <script src="../common/header.js"></script>
+    <script src="../common/footer.js"></script>
+    <script src="./lnb.js"></script>
+    <script src="../../lib/common.js"></script>
+    <script src="../../lib/cscenter.js"></script>
+</head>
+<body>
+<header class="top"></header>
+<section class="contents lnb opinion">
+    <header class="title">
+        <h2><img src="../../images/cscenter/title.png" alt="고객센터"></h2>
+        <ol class="location">
+            <li><a href="#none" target="_self" title="첫 화면으로"><img src="../../images/common/contents_location_home.png" alt="HOME"></a></li>
+            <li><span>고객센터</span></li>
+            <li><span>고객의 소리</span></li>
+        </ol>
+    </header>
+    <nav class="lnb">
+    </nav>
+    <h3 class="pageTitle">고객의 소리</h3>
+    <table class="write">
+        <colgroup>
+            <col style="width:100px">
+            <col>
+        </colgroup>
+        <tbody>
+            <tr>
+                <th>제목</th>
+                <td class="subject"><div class="inputWrap"><input type="text"></div></td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td class="text">
+                    <div class="textareaWrap">
+                        <textarea></textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">첨부파일</th>
+                <td class="file">
+                    <div class="rowWrap"><input type="file"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="function narrow center">
+            <strong><button class="function">등록</button></strong>
+            <button class="function">취소</button>
+    </div>
+</section>
+<footer></footer>
+</body>
+</html>

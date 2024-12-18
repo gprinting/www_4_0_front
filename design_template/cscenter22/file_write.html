@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    [TPH_I/common/cs_head.html]
+</head>
+<body>
+<div class="wrapper">
+    <!-- 헤더 -->
+    [TPH_I/common/cs_header.html]
+
+<div class="div_sub_banner cs_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_fileroom.jpg" alt="서브배너" />
+</div>
+<div class="contents contents_02 cscenter knowledge">
+    <div class="lnb">
+        [TPH_I/cscenter/common/lnb.html]
+    </div>
+    <h3 class="pageTitle"><img src="[TPH_Vdesign_dir]/images/title/file_list.png" alt="공유 자료실"></h3>
+    <table class="write">
+        <colgroup>
+            <col style="width:100px">
+            <col>
+        </colgroup>
+        <tbody>
+            <tr>
+                <th>제목</th>
+                <td class="subject">
+                    <div class="inputWrap">
+                        <input type="text" name="title" id="title" value="[TPH_Vtitle]">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td class="text">
+                    <div class="textareaWrap">
+                        <textarea name="cont" id="cont">[TPH_Vcont]</textarea>
+                    </div>
+                </td>
+            </tr>
+            [TPH_Vfile_info]
+            <tr>
+                <th scope="row">첨부파일</th>
+                <td class="file">
+                    <div class="rowWrap">
+                        <input type="file" name="file" id="file" value="[TPH_Vfile_name]">
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="function narrow center">
+            [TPH_Vbtn_html]
+            <button class="function" onclick="location.href='[TPH_Vurl]'";>취소</button>
+    </div>
+</div>
+
+<!-- cs center 우측 컨텐츠 -->
+[TPH_I/common/cs_side_contents.html]
+
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

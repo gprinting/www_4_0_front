@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <!-- <style type="text/css">
+        ul.paging .first:after,
+        ul.paging .last:before { content: '···'; margin: 0 6px; }
+    </style> -->
+</head>
+<body>
+<div class="wrapper">
+    <!-- 로그인 박스 -->
+    [TPH_I/common/login.html]
+
+    <!-- 헤더 -->
+    <div class="div_header_wrapper">
+        [TPH_I/common/header.html]
+
+        <!-- 사이드 메뉴 -->
+        [TPH_I/common/side.html]
+
+        <!-- 네비게이션 -->
+        [TPH_I/common/tnb.html]
+    </div>
+    <div class="div_sub_banner">
+        <img class="" src="/design_template/images/sp_banner/banner_payment.jpg" alt="서브배너" />
+        <div class="inner">
+            <div class="title_wrap">
+                <h1>결제</h1>
+                <p>거래내역 및 선입금 충전 등 결제와 관련된 페이지입니다.</p>
+            </div>
+        </div>
+    </div>
+    <div class="contents contents_02 paymentInfo">
+        <div class="lnb">
+            [TPH_I/mypage/common/lnb.html]
+        </div>
+        <h3 class="pageTitle"><div class="bar_left"></div>입출금 내역</h3>
+        <div class="moneyInformation">
+            <dl class="prepaid">
+                <dt>선입금</dt>
+                <dd>&#8361;[TPH_Vprepay_price]</dd>
+            </dl>
+            <dl class="restAmount">
+                <dt>주문 부족 금액</dt>
+                <dd>&#8361;[TPH_Vorder_lack_price]</dd>
+            </dl>
+        </div>
+        <div class="searchCondition">
+            <div class="rowWrap">
+                <dl class="date">
+                    <dt>거래일</dt>
+                    <dd>
+                        [TPH_I/common/datepicker.html]
+                    </dd>
+                </dl>
+                <dl class="category last">
+                    <dt>구분</dt>
+                    <dd>
+                        <select id="dvs">
+                            <option value="">전체</option>
+                            <option value="입금">입금</option>
+                            <option value="사용">주문</option>
+                        </select>
+                    </dd>
+                </dl>
+            </div>
+            <button class="search" onclick="getPaymentList('', 1);">검색</button>
+        </div>
+        <table class="list searchResult _details benefits">
+            <caption>
+                <div class="resultNum" id="resultNum">
+                </div>
+                <select onchange="changeListNum(this.value);" class="listNum">
+                    <option value="10">10개씩 보기</option>
+                    <option value="20">20개씩 보기</option>
+                    <option value="50">50개씩 보기</option>
+                </select>
+            </caption>
+            <colgroup>
+                <col style="width:100px">
+                <col style="width:100px">
+                <col style="width:100px">
+                <col style="width:100px">
+                <col style="width:100px">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>거래일</th>
+                <th>구분</th>
+                <th>내용</th>
+                <th>충전금액</th>
+                <th>사용금액</th>
+            </tr>
+            </thead>
+            <tbody id="list">
+            </tbody>
+        </table>
+        <ul class="paging" id="paging">
+            <li><button class="on">1</button></li>
+        </ul>
+        [TPH_I/mypage/common/banner.html]
+    </div>
+    <footer>
+        [TPH_I/common/footer.html]
+    </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<script language="JavaScript">
+    function setCookieONE( name, value, expiredays ) {
+    var todayDate = new Date();
+    todayDate.setDate( todayDate.getDate() + expiredays );
+    document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+    }
+    function closeWinONE() {
+        console.log(document.notice_form.chkbox);
+    if ( document.notice_form.chkbox.checked ){
+    setCookieONE( "MlangLayer_CookieWindowONEWindow4", "done" , 1 );
+    }
+    document.all['popup_cookie_01'].style.visibility = "hidden";
+    }
+    </script>
+    <div id="popup_cookie_01" style="visibility: visible;">
+        <div class="main_24_pop_01">
+        <!--img src="[TPH_Vdesign_dir]/images22/gprinting_24pop.png"-->
+        <center>
+        <br><br>
+        인쇄기 고장으로 부품 수급이 원활하지 않아<br> 제작에 지연이 발생하고 있습니다<br>
+        <br>
+        현재 주문접수시 지연될 수 있으니 <br>접수전 참고해주시면 감사하겠습니다<br><br><br>
+        </center>    
+        </div>
+        <form name="notice_form" class="main_24_pop_form02">
+            <label><input type="checkbox" name="chkbox" value="checkbox" onclick="javascript:closeWinONE();">오늘 하루 이 창을 열지 않음</label>
+            <button type="button" onclick="PopupHide();" id="PopupHide">[닫기]</button>
+        </form>
+    </div>
+    <script language="Javascript">
+    cookiedata = document.cookie;
+    
+    if ( cookiedata.indexOf("MlangLayer_CookieWindowONEWindow4=done") < 0 ){
+    document.all['popup_cookie_01'].style.visibility = "visible";
+    }
+    else {
+    document.all['popup_cookie_01'].style.visibility = "hidden";
+    }
+    </script>
+    <script>
+    $(function () {
+        $("#PopupHide").on("click", function () {    
+            $("#popup_cookie_01").css({ "display": "none" });
+        });
+    });
+    </script>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    [TPH_I/common/cs_head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <style type="text/css">
+        ul.paging .first:after,
+        ul.paging .last:before { content: '···'; margin: 0 6px; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <!-- 헤더 -->
+    [TPH_I/common/cs_header.html]
+
+<div class="div_sub_banner cs_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_notice.jpg" alt="서브배너" />
+</div>
+<div class="contents contents_02 cscenter notice">
+    <div class="lnb">
+        [TPH_I/cscenter/common/lnb.html]
+    </div>
+    <h3 class="pageTitle"><img src="[TPH_Vdesign_dir]/images/title/notice.png" alt="공지사항"></h3>
+    <div class="searchCondition">
+        <div class="rowWrap">
+            <dl class="date">
+                <dt>등록일</dt>
+                <dd>
+                    [TPH_I/common/datepicker.html]
+                </dd>
+            </dl>
+        </div>
+        <div class="rowWrap">
+            <dl class="title full">
+                <dt>제목</dt>
+                <dd class="last"><div class="inputWrap"><input type="text" id="search_txt" onkeyup="searchKey(event);"></div></dd>
+            </dl>
+        </div>
+        <button class="search" onclick="searchTxt();">검색</button>
+    </div>
+    <table class="list searchResult update"  style="table-layout: auto;">
+        <caption>
+            <div class="resultNum" id="resultNum">
+            </div>
+            [TPH_I/common/list_num.html]
+        </caption>
+        <colgroup>
+            <col style="width=80px">
+            <col>
+            <col style="width=90px">
+            <col style="width=170px">
+            <col style="width=80px">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>등록일</th>
+                <th>조회</th>
+            </tr>
+        </thead>
+        <!--
+        <tbody>
+            [TPH_Vnoti]
+        </tbody>
+        -->
+        <tbody id="list">
+        </tbody>
+    </table>
+    <ul class="paging" id="paging">
+    </ul>
+</div>
+
+<!-- cs center 우측 컨텐츠 -->
+[TPH_I/common/cs_side_contents.html]
+
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

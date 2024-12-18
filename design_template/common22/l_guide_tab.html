@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+
+    <title>디프린팅 가이드</title>
+    <script src="/design_template/js/lib/jquery-1.11.2.min.js"></script>
+    <style>
+        ul, li, a {
+            margin:0;
+            padding:0;
+        }
+        body {
+            font-family: 'dotum', '돋움', 'arial', 'sans-serif';
+            margin:0px;
+        }
+        .guide_logo {
+            margin-right:40px;
+            padding-left:30px;
+        }
+        .guide_logo, .menu_container {
+            float: left;
+        }
+        .btn_guide_top {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height:36px;
+            cursor: pointer;
+            text-align: right;
+            padding-right:30px;
+        }
+        .btn_guide_top:hover img {
+            margin-top:-36px;
+        }
+        .ul_main_menu .top_menu {
+             overflow: hidden;
+             text-overflow: ellipsis;
+             height:16px;
+             cursor: pointer;
+        }
+        .ul_main_menu .top_menu:hover img  {
+             margin-top:-16px;
+        }
+        .ul_main_menu li {
+            color:#252525;
+            font-size:12px;
+            font-weight: 700;
+            list-style:none;
+            display: inline-block;
+            margin: 8px 40px 10px 0;
+            height:21px;
+        }
+        .guide_header_wrapper {
+            background: rgb(255, 255, 255);
+            opacity: 0.9;
+            border-top:6px solid #25437f;
+            border-bottom:1px solid #dfdfdf;
+            padding:20px 0px;
+            width: 100%;
+            position:fixed;
+            top:0;
+            z-index: 100;
+        }
+        .guide_contents_wrapper {
+            position: relative;
+            padding:100px 30px 30px 30px;
+        }
+        .guide_contents {
+            text-align:center;
+            width:860px;
+            padding-left: 150px;
+        }
+        .guide_contents img {
+            width:800px !important;
+        }
+        /* 프로그램별 서브메뉴 */
+        .ul_sub_menu_01 {
+            color:#656565;
+            position:absolute;
+            top:52px;
+            left:360px;
+            display: none;
+        }
+        /* 품목별 서브메뉴 */
+        .ul_sub_menu_02 {
+            color:#656565;
+            position:absolute;
+            top:52px;
+            left:360px;
+            display: none;
+        }
+        /* 후공정 서브메뉴 */
+        .ul_sub_menu_03 {
+            color:#656565;
+            position:absolute;
+            top:52px;
+            left:360px;
+            display: none;
+        }
+        /* 후공정 서브메뉴 */
+        .ul_sub_menu_04 {
+            color:#656565;
+            position:absolute;
+            top:52px;
+            left:548px;
+            display: none;
+        }
+
+        .ul_main_menu li ul li {
+            color:#656565;
+            list-style:none;
+            display: inline-block;
+            font-size:13px;
+            font-weight: 100;
+            padding:0px 5px 0px 5px;
+            margin:0px;
+            height: 20px;
+            line-height: 20px;
+            letter-spacing: -1px;
+        }
+        .ul_main_menu li ul li:hover {
+            background:#eb3b4b;
+            color:#fff;
+            list-style:none;
+            display: inline-block;
+            font-size:13px;
+            font-weight: 100;
+            padding:0px 5px 0px 5px;
+            margin:0;
+            height: 20px;
+            line-height: 20px;
+            letter-spacing: -1px;
+        }
+
+        /* lnb */
+        div.lnb { position: absolute; top:100px; left: 30px; width: 178px; border: 1px solid #ccc; background: #fafafa; height: auto;}
+        div.lnb li { border-top: 1px solid #ccc; list-style: none; }
+        div.lnb li a { display: block; line-height: 32px; padding: 0 15px; color: #555; font-size: 13px; padding: 0 15px; text-decoration: none;}
+        div.lnb li a:hover {color:#eb3b4b;}
+        div.lnb li:first-child { border-top: 0 none; }
+        div.lnb li ul { background: #fff; border-top: 1px solid #ccc; padding: 12px 0; }
+        div.lnb li li { position: relative; border-top: 0 none; }
+        div.lnb li li a { display: block; padding-left: 25px; font-size: 12px; line-height: 15px; }
+        div.lnb li li:before { content: ''; display: block; position: absolute; width: 2px; height: 2px; top: 6px; left: 16px; background: #111; }
+        div.lnb li li + li { margin-top: 5px; }
+        div.lnb span.num { color: #eb3b4b; font-weight: 600; }
+        div.lnb li.on a { background: #555; color: #fff; }
+        div.lnb li.on li a { color: #555; background: transparent; }
+        div.lnb li.on li.on a { font-weight: bold; }
+
+        div.lnb2 { position: absolute; left: 0; top: 970px; width: 178px; }
+        div.lnb2 li { border-top: 1px solid #ccc; }
+
+        .pageTitle {margin-bottom:10px;}
+        .pageTitle>span { display: inline; font-size: 12px; color: #898989; }
+        h4.information { padding: 10px 5px; height: 20px; line-height: 20px; color: #fff; background: #555; text-align: center; font-weight: 600; }
+        * + h4.information { margin-top: 30px; }
+
+
+    </style>
+
+    <script>
+    var imgNum = {
+        // 공통
+         "common"    : 3
+        // 프로그램
+        ,"quark"     : 1
+        ,"hwp"       : 1
+        ,"illust"    : 4
+        ,"correl"    : 4
+        ,"indesign"  : 1
+        ,"ppt"       : 1
+        ,"photoshop" : 1
+        // 품목별
+        ,"nc" : 6
+        ,"st" : 3
+        ,"bl" : 2
+        ,"ad" : 8
+        ,"ev" : 2
+        ,"mt" : 2
+        ,"sm" : 1
+        ,"mg" : 3
+        ,"vn" : 1
+        // 후공정
+        ,"coating"                : 1
+        ,"rounding_embossing"     : 2
+        ,"thomson_cutting"        : 1
+        ,"dotline_laminex"        : 2
+        ,"foil_bonding"           : 2
+        ,"impression_lotterysilk" : 2
+        ,"foldline"               : 1
+        ,"binding_punching"       : 2
+        //,"인쇄작업규약"            : 1
+        ,"press_numbering"        : 2
+        ,"code_mn"        : 1
+        ,"code_in"        : 1
+        ,"code_cl"        : 1
+        ,"code_ot"        : 1
+        ,"code_as"        : 1
+    };
+
+    $(document).ready(function(){
+        $('.top_menu').hover(
+            function() {
+                $('.top_menu').find('ul').hide();
+                $(this).children('ul').show();
+            }
+        );
+
+        $(".tab").on("click", function(event) {
+            var dvs = $(this).attr("dvs");
+            var url = "/design_template/images/guide/";
+
+            $("#img_div").html('');
+            for (var i = 1; i <= imgNum[dvs]; i++) {
+                var tmp = url + dvs + i + ".png";
+                var html = "<img src='" + tmp + "' style=\"width:860px;\" />";
+
+
+                $("#img_div").append(html);
+            }
+            event.stopPropagation();
+        });
+    });
+    </script>
+</head>
+<body>
+    <div class="guide_header_wrapper">
+        <div class="guide_logo">
+            <img src="/design_template/images/guide/guide_logo.png" alt="로고" />
+        </div>
+        <div class="menu_container">
+            <ul class="ul_main_menu">
+                <li class="tab top_menu" dvs="common">
+                    <img src="/design_template/images/guide/guide_menu_01.png" alt="공통주의사항" />
+                </li>
+                <li class="tab top_menu" dvs="illust">
+                    <img src="/design_template/images/guide/guide_menu_02.png" alt="프로그램별" />
+                    <ul class="ul_sub_menu_01">
+                        <li class="tab" dvs="illust"   >일러스트</li>
+                        <li class="tab" dvs="correl"   >코렐드로우</li>
+                        <li class="tab" dvs="photoshop">포토샵</li>
+                        <li class="tab" dvs="indesign" >인디자인</li>
+                        <li class="tab" dvs="quark"    >Quark</li>
+                        <li class="tab" dvs="ppt"      >파워포인트</li>
+                        <li class="tab" dvs="hwp"      >아래한글</li>
+                    </ul>
+                </li>
+
+                <li class="tab top_menu" dvs="nc">
+                    <img src="/design_template/images/guide/guide_menu_03.png" alt="품목별" />
+                    <ul class="ul_sub_menu_02">
+                        <li class="tab" dvs="nc">명함</li>
+                        <li class="tab" dvs="st">스티커</li>
+                        <li class="tab" dvs="bl">전단</li>
+                        <li class="tab" dvs="ad">광고홍보물</li>
+                        <li class="tab" dvs="ev">봉투</li>
+                        <li class="tab" dvs="mt">마스터(경인쇄)</li>
+                        <li class="tab" dvs="sm">초소량인쇄</li>
+                        <li class="tab" dvs="mg">자석홍보물</li>
+                        <li class="tab" dvs="vn">비닐</li>
+                    </ul>
+                </li>
+
+                <li class="tab top_menu" dvs="coating" class="tab">
+                    <img src="/design_template/images/guide/guide_menu_04.png" alt="후공정" />
+                    <ul class="ul_sub_menu_03">
+                        <li class="tab" dvs="coating"               >코팅</li>
+                        <li class="tab" dvs="rounding_embossing"    >귀도리/엠보싱</li>
+                        <li class="tab" dvs="impression_lotterysilk">오시/복권실크</li>
+                        <li class="tab" dvs="dotline_laminex"       >미싱/라미넥스</li>
+                        <li class="tab" dvs="foil_bonding"          >박/접착</li>
+                        <li class="tab" dvs="press_numbering"       >형압/넘버링</li>
+                        <li class="tab" dvs="binding_punching"      >제본/타공</li>
+                        <li class="tab" dvs="thomson_cutting"       >도무송/재단</li>
+                        <li class="tab" dvs="foldline"              >접지</li>
+                        <!--li class="tab" dvs="manufacture"           >가공</li-->
+                    </ul>
+                </li>
+
+                <li class="tab top_menu" dvs="code_mn" class="tab">
+                    <img src="/design_template/images/guide/guide_menu_05.png" alt="인쇄작업규약" />
+                    <ul class="ul_sub_menu_04">
+                        <li class="tab" dvs="code_mn">접수/입금</li>
+                        <li class="tab" dvs="code_in">접수방법</li>
+                        <li class="tab" dvs="code_cl">안쇄색상</li>
+                        <li class="tab" dvs="code_ot">출고/배송</li>
+                        <li class="tab" dvs="code_as">AS</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="btn_guide_top">
+            <a href="#" class="top">
+                <img src="/design_template/images/guide/btn_guide_top.png" alt="TOP" />
+            </a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    
+    <div class="guide_contents_wrapper">
+        <div class="lnb">
+            <ul>
+                <li class="tab" dvs="common">
+                    <a href="#">공통주의사항</a>
+                </li>
+                <li class="tab" dvs="illust">
+                    <a href="#">프로그램별</a>
+                    <ul>
+                        <li class="tab" dvs="illust"><a href="#">일러스트</a></li>
+                        <li class="tab" dvs="correl"><a href="#">코렐드로우</a></li>
+                        <li class="tab" dvs="photoshop"><a href="#">포토샵</a></li>
+                        <li class="tab" dvs="indesign"><a href="#">인디자인</a></li>
+                        <li class="tab" dvs="quark"><a href="#">Quark</a></li>
+                        <li class="tab" dvs="ppt"><a href="#">파워포인트</a></li>
+                        <li class="tab" dvs="hwp"><a href="#">아래한글</a></li>
+                    </ul>
+                </li>
+                <li class="tab" dvs="nc">
+                    <a href="#">품목별</a>
+                    <ul>
+                        <li class="tab" dvs="nc"><a href="#">명함</a></li>
+                        <li class="tab" dvs="st"><a href="#">스티커</a></li>
+                        <li class="tab" dvs="bl"><a href="#">전단</a></li>
+                        <li class="tab" dvs="ad"><a href="#">광고홍보물</a></li>
+                        <li class="tab" dvs="ev"><a href="#">봉투</a></li>
+                        <li class="tab" dvs="mt"><a href="#">마스터(경인쇄)</a></li>
+                        <li class="tab" dvs="sm"><a href="#">초소량인쇄</a></li>
+                        <li class="tab" dvs="mg"><a href="#">자석홍보물</a></li>
+                        <li class="tab" dvs="vn"><a href="#">비닐</a></li>
+                    </ul>
+                </li>
+                <li class="tab" dvs="coating">
+                    <a href="#">후공정</a>
+                    <ul>
+                        <li class="tab" dvs="coating"><a href="#">코팅</a></li>
+                        <li class="tab" dvs="rounding_embossing"><a href="#">귀도리/엠보싱</a></li>
+                        <li class="tab" dvs="impression_lotterysilk"><a href="#">오시/복권실크</a></li>
+                        <li class="tab" dvs="dotline_laminex"><a href="#">미싱/라미넥스</a></li>
+                        <li class="tab" dvs="foil_bonding"><a href="#">박/접착</a></li>
+                        <li class="tab" dvs="press_numbering"><a href="#">형압/넘버링</a></li>
+                        <li class="tab" dvs="binding_punching"><a href="#">제본/타공</a></li>
+                        <li class="tab" dvs="thomson_cutting"><a href="#">도무송/재단</a></li>
+                        <li class="tab" dvs="foldline"><a href="#">접지</a></li>
+                    </ul>
+                </li>
+                <li class="tab" dvs="code_mn">
+                    <a href="#">인쇄작업규약</a>
+                    <ul>
+                        <li class="tab" dvs="code_mn"><a href="#">접수/입금</a></li>
+                        <li class="tab" dvs="code_in"><a href="#">접수방법</a></li>
+                        <li class="tab" dvs="code_cl"><a href="#">인쇄색상</a></li>
+                        <li class="tab" dvs="code_ot"><a href="#">출고/배송</a></li>
+                        <li class="tab" dvs="code_as"><a href="#">AS</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="container guide_contents" id="img_div">
+            <img id="imgSrc" src="/design_template/images/guide/common1.png">
+            <img id="imgSrc" src="/design_template/images/guide/common2.png">
+            <img id="imgSrc" src="/design_template/images/guide/common3.png">
+        </div>
+    </div>
+    <!--
+    <div class="a">
+        <a href="#" class="top">Top</a>
+    </div>
+    -->
+</body>
+</html>

@@ -1,0 +1,375 @@
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<meta property="og:image" content="[TPH_Vdesign_dir]/[TPH_Vopengraph]">
+<title>[TPH_Vcompany_name]</title>
+<link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/css/reset.css">
+<link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/css/[TPH_Vcommon_css]">
+<link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/css/main.css">
+<link rel="stylesheet" href="[TPH_Vdesign_dir]/css/[TPH_Vdir].css">
+<link rel="shortcut icon" href="[TPH_Vdesign_dir]/[TPH_Vfavicon]">
+<style type="text/css" media="all">
+    body {
+        position:relative;
+        padding:0;
+    }
+    h2 {
+        color:#fff;
+        font-size:90%;
+        font-family:arial;
+        margin:10px;
+        font-weight:bold;
+    }
+    h2 span {
+        font-size:105%;
+        font-weight:normal;
+    }
+    #sideBar {
+        position: absolute;
+        width: auto;
+        /*height: auto;*/
+        top: 200px;
+        right:0;
+        background-image:url('[TPH_Vdesign_dir]/images/common/background.gif');
+        background-position:top left;
+        background-repeat:repeat-y;
+    }
+    #sideBarTab {
+        float:left;
+        height:137px;
+        width:28px;
+    }
+    #sideBarTab img {
+        border:0 solid #FFF;
+    }
+    #sideBarContents {
+        overflow:hidden !important;
+    }
+    #sideBarContentsInner {
+        width:200px;
+    }
+    .top .items {
+        border-top: medium none;
+    }
+    .table_sub_menu_list {
+        display : none;
+    }
+    .table_sub_menu_list {
+        display : none;
+    }
+</style>
+
+<script src="[TPH_Vdesign_dir]/js/lib/jquery-1.11.2.min.js"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
+        integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx" crossorigin="anonymous"></script>
+<!--
+-->
+
+<script>
+    var popup = null;
+    var interval = null;
+
+    // 헤더고정
+    $(document).ready(function(){
+        $(window).scroll(function(){
+            var top = $(window).scrollTop();
+
+            if (top < 121) {
+                $(".sub").removeClass("no_bg");
+                $("#header_01").removeClass("header_01");
+                $("#header_02").removeClass("header_02");
+                $(".div_fixed_wrapper").hide();
+                $("#main_banner").css("margin-top", "0px");
+            } else {
+                $(".sub").addClass("no_bg");
+                $("#header_01").addClass("header_01");
+                $("#header_02").addClass("header_02");
+                $(".div_fixed_wrapper").show();
+                $("#main_banner").css("margin-top", "204px");
+            }
+        });
+
+        // 사이드메뉴 top버튼
+        $("#div_side_menu_top").click(function() {
+            $("html, body").stop().animate({scrollTop:0}, 500, 'swing');
+        });
+
+        $(".login_layerpopup").click(function() {
+            hideLoginBox();
+            hideJoinBoxBef();
+            hideJoinBox();
+            hideFindIdBox();
+        });
+
+        var ieVersion = ieVersionChk();
+
+        $("#id_save").click(function() {
+            if ($("#login_id_save").is(':checked') == true) {
+                $("#login_id_save").prop("checked", false);
+            } else {
+                $("#login_id_save").prop("checked", true);
+            }
+        });
+
+        if (getCookie("id")) {
+            $("#id_placeholder").hide();
+            $("#id").val(getCookie("id"));
+            $("#login_id_save").prop("checked", true);
+        }
+
+        if (0 < ieVersion && ieVersion < 9) {
+            $("#btn_kakao").hide();
+            $("#btn_fb").hide();
+            $("#btn_chat").hide();
+            $(".div_login_text").show();
+            $("#link_kakao").hide();
+            $("#link_fb").hide();
+        }
+
+        window.addEventListener("message", function (e) {
+            if(e.data == "success") {
+                if($("#purlogin").val() == "1") {
+                    $("#il").val('1');
+                    hideLoginBox();
+                    orderNextFunc();
+                } else {
+                    window.location.reload();
+                }
+            }
+        });
+    });
+
+    /**** 17.09.26 추가(IE 하위버전 대응) ****/
+    var showTopNavi = function(dvs) {
+        var affArea = dvs.substring(7, 9);
+        $('.table_sub_menu_list.sub_menu_list_' + affArea + '').show();
+    };
+
+    var closeTopNavi = function(dvs) {
+        var affArea = dvs.substring(7, 9);
+        $('.table_sub_menu_list.sub_menu_list_' + affArea + '').hide();
+    }
+
+    var showMainContLayer = function(dvs) {
+        $('#main_' + dvs + '').show();
+        $('#img_' + dvs + '').stop(true).animate({opacity: 0.2}, 100);
+    };
+
+    var closeMainContLayer = function(dvs) {
+        $('#main_' + dvs + '').hide();
+        $('#img_' + dvs + '').stop(true).animate({opacity: 1}, 100);
+    };
+    /**** 17.09.26 ****/
+
+        // 메인페이지 소셜로그인
+    var showSocialLogin = function(dvs) {
+            switch(dvs) {
+                case "naver" :
+                    popup = window.open('/oauth/info_redir.php?dvs=naver','','width=500, height=760, scrollbars=no');
+                    break;
+
+                case "kakao" :
+                    popup = window.open('/oauth/info_redir.php?dvs=kakao','','width=500, height=760, scrollbars=no');
+                    //loginWithKakao();
+                    break;
+
+                case "fb" :
+                    fbLogin();
+                    break;
+
+                case "google" :
+                    popup = window.open('/oauth/info_redir.php?dvs=google','','width=500, height=760, scrollbars=no');
+                    break;
+            }
+        };
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId   : '1976862682519726',
+            cookie  : true,
+            xfbml   : true,
+            version : 'v2.10'
+        });
+
+        FB.AppEvents.logPageView();
+    };
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/ko_KR/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    } (document, 'script', 'facebook-jssdk'));
+
+    var fbLogin = function() {
+        var callback = function(res1) {
+
+            FB.api(
+                "/me?fields=id,name,email",
+                "post",
+                {
+                    "access_token" : res1.authResponse.accessToken,
+                    "fields" : "name,email"
+                },
+                function(res2) {
+                    $.ajax({
+                        type     : "POST",
+                        url      : "/oauth/oauth_callback_facebook.php",
+                        data     : res2,
+                        //dataType : "text",
+                        success  : function(result) {
+                            location.reload();
+                        }
+                    });
+                }
+            );
+
+            //FB.logout(function(){});
+        };
+
+        FB.login(callback, {"scope" : "public_profile,email"});
+    };
+
+    Kakao.init('67a501026822a563580b31b1df9cc32a');
+    function loginWithKakao() {
+        Kakao.Auth.authorize({
+            redirectUri: 'https://new.gprinting.co.kr/oauth/oauth_callback_kakao.php',
+            //scope: 'account_email,name'
+            scope: 'account_email,profile_nickname'
+        });
+    };
+    /*
+    */
+
+    // 상품상세페이지 팁 노출
+    $(function(){
+        $('.icon_delivery_price').mouseenter(function(){
+            $(".tip_delivery_price").show();
+        });
+        $('.icon_delivery_price').mouseleave(function(){
+            $(".tip_delivery_price").hide();
+        });
+
+        $('.icon_delivery_scheduled').mouseenter(function(){
+            $(".tip_delivery_scheduled").show();
+        });
+        $('.icon_delivery_scheduled').mouseleave(function(){
+            $(".tip_delivery_scheduled").hide();
+        });
+
+        $('.icon_favorite_product').mouseenter(function(){
+            $(".tip_favorite_product").show();
+        });
+        $('.icon_favorite_product').mouseleave(function(){
+            $(".tip_favorite_product").hide();
+        });
+
+        $('.icon_cutting_label').mouseenter(function(){
+            $(".tip_cutting_label").show();
+        });
+        $('.icon_cutting_label').mouseleave(function(){
+            $(".tip_cutting_label").hide();
+        });
+
+        $('.icon_title_thomson').mouseenter(function(){
+            $(".tip_thomson").show();
+        });
+        $('.icon_title_thomson').mouseleave(function(){
+            $(".tip_thomson").hide();
+        });
+
+        $('.icon_title_thomson_type').mouseenter(function(){
+            $(".tip_thomson_type").show();
+        });
+        $('.icon_title_thomson_type').mouseleave(function(){
+            $(".tip_thomson_type").hide();
+        });
+
+        $('.icon_check_depo').mouseenter(function(){
+            $(".tip_check_depo").show();
+        });
+        $('.icon_check_depo').mouseleave(function(){
+            $(".tip_check_depo").hide();
+        });
+
+    });
+
+    // 선입금 정보 박스
+    $(function(){
+        $(".myCash").mouseenter(function(){
+            $(".tip_myCash").show();
+        });
+        $(".myCash_wrapper").mouseleave(function(){
+            $(".tip_myCash").hide();
+        });
+    });
+
+
+    // IE 버전 체크
+    var ieVersionChk = function() {
+
+        var word;
+        var version = -1;
+
+        var agent = navigator.userAgent.toLowerCase();
+        var name = navigator.appName;
+
+        // IE 구버전(10또는 그 이하)
+        if (name == "Microsoft Internet Explorer") {
+            word = "msie ";
+        } else {
+            // IE 11
+            if (agent.search("trident") > -1) {
+                word = "trident/.*rv:";
+                // IE 12
+            } else if (agent.search("edge/") > -1) {
+                word = "edge/";
+            }
+        }
+
+        var reg = new RegExp(word + "([0-9]{1,})(\\.{0,}[0-9]{0,1})");
+        if (reg.exec(agent) != null) {
+            version = RegExp.$1;
+        }
+
+        return parseInt(version);
+    };
+</script>
+
+<!-- Test -->
+<!--script src="http://testpg.easypay.co.kr/webpay/EasypayCard_Web.js"></script-->
+<!-- Real -->
+<script src="https://pg.easypay.co.kr/webpay/EasypayCard_Web.js"></script>
+
+<script src="[TPH_Vdesign_dir]/js/design/common_design.js"></script>
+<script src="[TPH_Vdesign_dir]/js/common/common.js"></script>
+<script src="[TPH_Vdesign_dir]/js/lib/jquery-ui_dprinting.min.js"></script>
+<script src="[TPH_Vdesign_dir]/js/design/[TPH_Vdir]_design.js"></script>
+[TPH_Vscript_hide_open]
+<script src="[TPH_Vdesign_dir]/js/common/[TPH_Vdir].js"></script>
+<script src="[TPH_Vdesign_dir]/js/[TPH_Vdir]/[TPH_Vpage].js"></script>
+[TPH_Vscript_hide_close]
+
+
+<!-- Start of gprinting Zendesk Widget script -->
+<!--
+<script>
+    /*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="gprinting.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();
+/*]]>*/
+    window.zESettings = {
+        webWidget: {
+            offset: {horizontal : '30px'}
+        }
+    };
+</script>
+-->
+<!-- End of gprinting Zendesk Widget script -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-145783810-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-145783810-1');
+</script>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common22/head.html]
+    <link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/css/product.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    
+    <main id="main" class="mypage wrap estimate">
+        <header class="good pages">
+            <h2>
+                <span class="en">MY PAGE</span>
+                <span class="ko">마이페이지</span>
+            </h2>
+            <h3>
+                <ol>
+                    <li>상담</li>
+                    <li>견적내역</li>
+                </ol>
+            </h3>
+            <hr>
+        </header>
+        
+        [TPH_I/mypage22/common/lnb.html]
+        
+        <section class="contents">
+            <form name="searchFrm" id="searchFrm">
+                <div class="searchCondition">
+                    <div class="rowWrap">
+                        <dl class="date">
+                            <dt>요청일</dt>
+                            <dd>
+                                [TPH_I/common22/datepicker.html]
+                            </dd>
+                        </dl>
+                        <dl class="status last">
+                            <dt>진행상태</dt>
+                            <dd>
+                            <select id="state" name="state" class="fix_width150">
+                                <option value="">상태(전체)</option>
+                                [TPH_Vstate_html]
+                            </select>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="rowWrap">
+                        <dl class="title">
+                            <dt>문의제목</dt>
+                            <dd><input type="text" onkeyup="searchEnt(event);return false;" name="title" id="title"></dd>
+                        </dl>
+                    </div>
+                    <button class="search" onclick="search();return false;">검색</button>
+                </div>
+            </form>
+            <form name="frm" id="frm">
+                <input type="hidden" id="seq" name="seq"/>
+                <input type="hidden" id="searchParam" name="searchParam" value="[TPH_VsearchParam]"/>
+            </form>
+            <table class="list info searchResult update ordered">
+                <caption>
+                    <div class="resultNum" id="resultNum">
+                    </div>
+                    <select onchange="changeListSize();" id="listSize" class="listNum">
+                        <option value="10">10개씩 보기</option>
+                        <option value="20">20개씩 보기</option>
+                        <option value="50">50개씩 보기</option>
+                    </select>
+                </caption>
+                <colgroup>
+                    <col class="check">
+                    <col class="date">
+                    <col>
+                    <col class="price">
+                    <col class="date">
+                    <col class="name">
+                    <col class="status">
+                    <col class="btn">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th><label class="check"><input type="checkbox" class="_general"><i><i></i></i></label></th>
+                        <th>요청일</th>
+                        <th class="left">상품정보</th>
+                        <th class="price">견적금액</th>
+                        <th>견적일</th>
+                        <th>담당자</th>
+                        <th>상태</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody id="list" class="hiddenRow">
+                </tbody>
+            </table>
+            <hr class="end">
+            <div class="function withEnd">
+                <button class="remove" onclick="deleteEsti();">선택 견적 삭제</button>
+            </div>
+            <ul class="paging" id="page">
+                <li><button class="on">1</button></li>
+            </ul>
+        </section>
+        [TPH_I/mypage22/common/banner.html]
+        [TPH_I/common22/esti_pop_form.html]
+    </main>
+    <footer>
+        [TPH_I/common22/footer.html]
+    </footer>
+</body>
+</html>

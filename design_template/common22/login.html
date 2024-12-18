@@ -1,0 +1,348 @@
+<!-- 로그인 영역 시작 -->
+<div id="login_box" class="popup2Mask" style="display:none;">
+    <section class="popup2 member login">
+        <header class="popup2">
+            <h2>로그인</h2>
+            <button class="close" title="닫기" onclick="hideLoginBox();">닫기</button>
+        </header>
+        <article>
+            <p class="boxC">로그인하시면 <strong>다양한 서비스</strong>를<br>이용하실 수 있습니다.
+                <br>
+                (기존 회원은 굿프린팅 아이디와 비밀번호를 사용하여 로그인 하실 수 있습니다.)
+            </p>
+            <ul class="form">
+                <li class="id" id="div_id">
+                    <label>
+                        <span class="title">이메일</span>
+                        <input id="id" type="text" placeholder="기존 회원은 굿프린팅 아이디를 입력해주세요." onkeyup="loginKey(event, '');">
+                    </label>
+                                    </li>
+                <li class="pw" id="div_pw">
+                    <label>
+                        <span class="title">비밀번호</span>
+                        <input id="pw" type="password" onkeyup="loginKey(event, '');">
+                    </label>
+                </li>
+            </ul>
+            <div class="function">
+                <label class="left saveId">
+                    <input type="checkbox" id="login_id_save"><i><i></i></i>
+                    아이디 저장
+                </label>
+                <button type="button" class="right subGray" onclick="showFindIdBox()">ID/PW찾기</button>
+            </div>
+            <hr class="end">
+            <footer class="action login_footer">
+                <button type="button" class="exe" onclick="login();">로그인</button>
+                <button type="button" onclick="showJoinBoxBef();">회원가입</button>
+            </footer>
+            <div class="snsLogin">
+                <button type="button" id="btn_naver" onclick="showSocialLogin('naver')">
+                    <span class="service">네이버 아이디</span>
+                    <span>로그인</span>
+                </button>
+                <button type="button" id="btn_kakao" onclick="showSocialLogin('kakao')">
+                    <span class="service">카카오톡 아이디</span>
+                    <span>로그인</span>
+                </button>
+                  <p id="token-result"></p>
+                <!--button type="button" id="btn_fb" onclick="showSocialLogin('fb')">
+                    <span class="service">페이스북 아이디</span>
+                    <span>로그인</span>
+                </button>
+                <button type="button" id="btn_google" onclick="showSocialLogin('google')">
+                    <span class="service">구글 아이디</span>
+                    <span>로그인</span>
+                </button-->
+            </div>
+            <p class="boxC" style="display:none;">IE 8.0 이하에서는 카카오와 페이스북 로그인이 동작하지 않습니다.</p>
+        </article>
+    </section>
+</div>
+<!-- 로그인 영역 끝 -->
+
+<!-- 회원가입 도입 영역 시작 -->
+<div id="join_box_bef" class="popup2Mask" style="display:none;">
+    <section class="popup2 member join step1">
+        <header class="popup2">
+            <h2>간편회원가입</h2>
+            <button class="close" title="닫기" onclick="hideJoinBoxBef();">닫기</button>
+        </header>
+        <article>
+            <p class="boxC">
+                <em>아직 회원이 아니신가요?</em>
+                회원이 되셔서 상품을 <strong>할인가</strong>로 구매하실 수 있는<br>
+                <strong>등급혜택 서비스</strong>를 받아보세요.
+            </p>
+            <footer class="action">
+                <button type="button" class="exe full reg_bt" onclick="showJoinBox();">일반회원가입</button>
+				<button type="button" class="exe full reg_bt company_button" onclick="showJoinBox2();">기업회원가입</button>
+            </footer>
+                        <!--div class="snsLogin">
+                <button type="button" id="btn_naver" onclick="showSocialLogin('naver')">
+                    <span class="service">네이버 아이디</span>
+                    <span>로그인</span>
+                </button>
+                <button type="button" id="btn_kakao" onclick="showSocialLogin('kakao')">
+                    <span class="service">카카오톡 아이디</span>
+                    <span>로그인</span>
+                </button>
+                <button type="button" id="btn_fb" onclick="showSocialLogin('fb')">
+                    <span class="service">페이스북 아이디</span>
+                    <span>로그인</span>
+                </button>
+                <button type="button" id="btn_google" onclick="showSocialLogin('google')">
+                    <span class="service">구글 아이디</span>
+                    <span>로그인</span>
+                </button>
+            </div-->
+            <p class="boxC" style="display:none;">IE 8.0 이하에서는 카카오와 페이스북 로그인이 동작하지 않습니다.</p>
+        </article>
+    </section>
+</div>
+<!-- 회원가입 도입 영역 끝 -->
+
+<!-- 회원가입 영역 시작 -->
+<div id="join_box" class="popup2Mask" style="display:none;">
+    <section class="popup2 member join step2">
+        <header class="popup2_reg">
+            <p class="t01">일반회원가입</p>
+            <p class="t02">기업회원가입</p>
+            <button class="close" title="닫기" onclick="hideJoinBox();">닫기</button>
+        </header>
+        <article class="reg_form">
+            <ul class="form">
+                <!-- 이메일-->
+                <li class="email">
+                    <label>
+                        <span class="title">아이디(이메일주소)</span>
+                                            </label>
+                    <input id="join_id" type="text">
+                    <button type="button" class="function" onclick="chkDupMember();">중복확인</button>
+                    <input type="hidden" id="chk_dup" />
+                                    </li>
+                <!-- 비밀번호-->
+                <li class="pw">
+                    <label>
+                        <span class="title">비밀번호</span>
+                                            </label>
+                    <input id="join_pw" type="password" placeholder="영문 숫자 조합 6~16자리를 입력해주세요." class="full">
+                </li>
+                <!-- 비밀번호확인-->
+                <li class="pw2">
+                    <label>
+                        <span class="title">비밀번호 확인</span>
+                                            </label>
+                    <input id="join_pw_check" type="password" placeholder="비밀번호를 확인하기위해 한번 더 입력해주세요." class="full">
+                </li>
+            <!-- 상호명-->
+				<li class="name">
+					<label>
+						<span class="title">이름(업체명)</span>
+					</label>
+					<input id="join_name" type="text" placeholder="한글 또는 영문 2글자 이상 입력해주세요." class="full">
+				</li>
+				<!-- 전화번호 -->
+                <li class="hp">
+                    <label>
+                        <span class="title">전화번호</span>
+                    </label>
+					<input id="join_hp01" type="number" oninput='handleOnInput(this, 3)' placeholder="" class="full">
+					<input id="join_hp02" type="number" oninput='handleOnInput(this, 4)' placeholder="" class="full">
+					<input id="join_hp03" type="number" oninput='handleOnInput(this, 4)' placeholder="" class="full">
+
+                </li>
+				<!-- 휴대폰번호 -->
+                <li class="hp">
+                    <label>
+                        <span class="title">휴대폰번호</span>
+                    </label>
+					<input id="join_call01" type="number" oninput='handleOnInput(this, 3)' placeholder="" class="full">
+					<input id="join_call02" type="number" oninput='handleOnInput(this, 4)' placeholder="" class="full">
+					<input id="join_call03" type="number" oninput='handleOnInput(this, 4)' placeholder="" class="full">
+				</li>
+				<script>
+				function handleOnInput(el, maxlength) {
+				  if(el.value.length > maxlength)  {
+					el.value 
+					  = el.value.substr(0, maxlength);
+				  }
+				}
+				</script>
+				<!-- 휴대폰번호 -->
+                <li class="addr" style="align-items: flex-start;">
+					<label>
+						<span class="title">주소</span>
+					</label>
+					<span>
+						<input type="text" class="" id="search_zipcode"><button class="function" onclick="getPostcode2('search_');"><i class="fa fa-search"></i>주소검색</button>
+						<input type="text" class="" id="search_addr">
+						<input type="text" class="" id="search_addr2">
+					</span>
+				</li>
+				<span class="step2_reg">
+                    <input type="hidden" id="companyCheck" name="companyCheck" value="">
+                    <hr class="end">
+					<!-- 사업자등록번호 -->
+					<li class="hp">
+						<label>
+							<span class="title">사업자등록번호</span>
+						</label>
+						<input id="join_crn01" type="text" placeholder="" class="full">
+						<input id="join_crn02" type="text" placeholder="" class="full">
+						<input id="join_crn03" type="text" placeholder="" class="full">
+					</li>
+					<!-- 대표이사 성함 -->
+					<li class="name">
+						<label>
+							<span class="title">대표이사 성함</span>
+						</label>
+						<input id="member_name" type="text" placeholder="한글 또는 영문 2글자 이상 입력해주세요." class="full">
+					</li>
+                    <li class="name">
+						<label>
+							<span class="title">업태/업종</span>
+						</label>
+						<input id="bc" type="text" placeholder="업태" class="full">
+                        <input id="tob" type="text" placeholder="업종" class="full">
+					</li>
+                    <li class="name">
+						<label>
+							<span class="title">이메일</span>
+						</label>
+						<input id="bemail" type="text" placeholder="이메일" class="full">
+					</li>
+                    <li class="addr" style="align-items: flex-start;">
+                        <label>
+                            <span class="title">사업장 주소</span>
+                        </label>
+                        <span>
+                            <input type="text" class="" id="search2_zipcode"><button class="function" onclick="getPostcode2('search2_');"><i class="fa fa-search"></i>주소검색</button>
+                            <input type="text" class="" id="search2_addr">
+                            <input type="text" class="" id="search2_addr2">
+                        </span>
+                    </li>
+				</span>
+            <hr class="end">
+            </ul>
+        
+            <div class="function">
+                <li><p class="fc_title">세금계산서(현금영수증)발행</p><label><input type="radio"  name="join_terms" value="Y" class="join_terms"><i><i></i></i>동의</label>
+                <label><input type="radio" name="join_terms" value="N"  class="join_terms"><i><i></i></i>동의안함</label></li>
+                <li><p class="fc_title">SMS 수신</p><label><input type="radio" value="Y" name="calling" class="calling"><i><i></i></i>동의</label>
+				<label><input type="radio" name="calling" class="calling" value="N"><i><i></i></i>동의안함</label></li>
+				<li><p class="fc_title">이메일 수신</p><label><input type="radio" value="Y" name="mailing" class="mailing"><i><i></i></i>동의</label>
+				<label><input type="radio" name="mailing" class="mailing" value="N"><i><i></i></i>동의안함</label></li>
+
+            </div>
+            <footer class="action">
+                <button type="button" class="exe" onclick="memberJoin();">가입하기</button>
+            </footer>
+        </article>
+    </section>
+</div>
+<!-- 회원가입 영역 끝 -->
+
+<!-- 아이디찾기 영역 시작 -->
+<div id="find_id_box" class="popup2Mask" style="display:none;">
+    <section class="popup2 member find">
+        <header class="popup2">
+            <h2>아이디/비밀번호 찾기</h2>
+            <button class="close" title="닫기" onclick="hideFindIdBox();">닫기</button>
+        </header>
+        <article>
+            <ul class="form">
+                <!-- 상호명-->
+                <li class="name">
+                    <label>
+                        <span class="title">이름 또는 상호명</span>
+                        <input id="find_name"type="text" class="full">
+                    </label>
+                    <p class="note">가입시 등록한 이름을 입력해주세요.</p>
+                </li>
+                <!-- 이메일-->
+                <li class="email">
+                    <label>
+                        <span class="title">이메일(아이디)</span>
+                        <input id="find_id" type="text" class="full">
+                    </label>
+                    <p class="note">가입시 등록한 이메일 주소를 입력해주세요.</p>
+                </li>
+            </ul>
+            <hr class="end">
+            <footer class="action" id="find_acc">
+                <button type="button" class="exe" onclick="findAccount();">아이디 / 비밀번호 찾기</button>
+            </footer>
+            <ul class="guide">
+                <li>회원 가입시 등록했던 이름(상호명)과<br>이메일 정보를 입력해주세요.</li>
+                <li>회원님의 이메일 주소로 아이디와<br>임시 비밀번호가 발송됩니다.</li>
+                <li>이메일 정보 확인이 불가능한 경우,<br>고객센터로 연락 주시기 바랍니다.
+                    <dl class="telNum">
+                        <dt>고객센터</dt>
+                        <dd>02-2260-9000</dd>
+                    </dl>
+                </li>
+            </ul>
+        </article>
+    </section>
+</div>
+
+<div id="result_id_box" class="popup2Mask" style="display:none;">
+    <section class="popup2 member find result">
+        <header class="popup2">
+            <h2>아이디 찾기</h2>
+            <button class="close" title="닫기" onclick="hideResultIdBox();">닫기</button>
+        </header>
+        <article>
+            <div class="result boxM" id="result_id"></div>
+            <hr class="end">
+            <footer class="action">
+                <button type="button" onclick="goLoginBox()">돌아가기</button>
+            </footer>
+        </article>
+    </section>
+</div>
+<!-- 아이디찾기 영역 끝 --> 
+			<script>
+			//우편번호 팝업
+			var getPostcode2 = function(el) {
+				new daum.Postcode({
+					oncomplete: function(data) {
+					   var fullAddr = ''; // 최종 주소 변수
+					   var extraAddr = ''; // 조합형 주소 변수
+
+					   // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+					   if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+						   fullAddr = data.roadAddress;
+
+					   } else { // 사용자가 지번 주소를 선택했을 경우(J)
+						   fullAddr = data.jibunAddress;
+					   }
+
+					   // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+					   if (data.userSelectedType === 'R'){
+						   //법정동명이 있을 경우 추가한다.
+						   if(data.bname !== ''){
+							   extraAddr += data.bname;
+						   }
+						   // 건물명이 있을 경우 추가한다.
+						   if(data.buildingName !== ''){
+							   extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+						   }
+						   // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+						   fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+					   }
+
+					   // 우편번호와 주소 정보를 해당 필드에 넣는다.
+					   $("#" + el + "zipcode").val(data.zonecode); //5자리 새우편번호 사용
+					   $("#" + el + "addr").val(fullAddr);
+
+					   // 커서를 상세주소 필드로 이동한다.
+					 //  $("#" + el + "addr_detail").focus();
+					}
+				}).open({
+					popupName: 'postcodePopup'
+				});
+			}
+			</script>
+			<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=true"></script>

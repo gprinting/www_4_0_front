@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    [TPH_I/mypage/common/mypage_head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet"  href="[TPH_Vdesign_dir]/css/lightslider.css"/>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <!-- <style type="text/css">
+        ul.paging .first:after,
+        ul.paging .last:before { content: '···'; margin: 0 6px; }
+    </style> -->
+    <script src="[TPH_Vdesign_dir]/js/lib/lightslider.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <!-- 로그인 박스 -->
+    [TPH_I/common/login.html]
+
+    <!-- 헤더 -->
+    <div class="div_header_wrapper">
+        [TPH_I/common/header.html]
+
+        <!-- 사이드 메뉴 -->
+        [TPH_I/common/side.html]
+
+        <!-- 네비게이션 -->
+        [TPH_I/common/tnb.html]
+    </div>
+    <div class="div_sub_banner">
+        <img class="" src="/design_template/images/sp_banner/banner_mypage_order.jpg" alt="서브배너" />
+        <div class="inner">
+            <div class="title_wrap">
+                <h1>주문</h1>
+                <p>고객님께서 담은 상품과 주문내역을 확인하세요.</p>
+            </div>
+        </div>
+    </div>
+    <div class="contents contents_02 orderList">
+        <div class="lnb">
+            [TPH_I/mypage/common/lnb.html]
+        </div>
+        <h3 class="pageTitle"><div class="bar_left"></div>장바구니</h3>
+
+        <!-- 검색 결과 start -->
+
+        <table class="list ordered _details searchResult">
+            <caption>
+                <div class="resultNum">
+                    총 <em id="cart_cnt"></em>건의 검색결과가 있습니다.
+                </div>
+            </caption>
+            <colgroup>
+                <col style="width:30px">
+                <col style="width:50px">
+                <col style="width:90px">
+                <col>
+                <col style="width:130px">
+                <col style="width:80px">
+                <col style="width:100px">
+                <col style="width:130px">
+            </colgroup>
+            <thead>
+            <tr>
+                <th><input type="checkbox" class="_general" onclick="calcCartListPriceBox('all');"></th>
+                <th>번호</th>
+                <th>담은날</th>
+                <th>상품정보</th>
+                <th>후가공</th>
+                <th>수량(건)</th>
+                <th>결제예정금액</th>
+                <th>파일</th>
+            </tr>
+            </thead>
+            <tbody id="cart_list">
+            </tbody>
+        </table>
+        <!--
+        <ul class="paging" id="paging">
+            <li><button class="on">1</button></li>
+        </ul>
+        -->
+        <div class="priceSummary">
+            <dl class="ordinary">
+                <dt>정상판매가</dt>
+                <dd><strong><span id="sell_price"></span></strong> 원</dd>
+            </dl>
+            <dl class="membershipDiscount">
+                <dt>회원등급할인</dt>
+                <dd><strong><span id="grade_sale_price"></span></strong> 원</dd>
+            </dl>
+            <!--
+            <dl class="eventDiscount">
+                <dt>이벤트할인</dt>
+                <dd><strong>[TPH_Vevent_sale_price]</strong> 원</dd>
+            </dl>
+            -->
+            <dl class="memberDiscount">
+                <dt>회원특별할인</dt>
+                <dd><strong><span id="member_sale_price"></span></strong> 원</dd>
+            </dl>
+            <dl class="paymentAmount">
+                <dt>결제예정금액</dt>
+                <dd><strong><span id="sale_price"></span></strong> 원</dd>
+            </dl>
+        </div>
+        <div class="function">
+            <div class="right">
+                <button class="c_btn-primary-reverse" onclick="goSheet(false);">선택 상품 주문</button>
+                <strong><button onclick="goSheet(true);">전체 상품 주문</button></strong>
+            </div>
+            <button style="padding:0;" class="c_btn-point-reverse function" onclick="delCart();">선택 상품 삭제</button>
+            [TPH_Vonefile_html]
+        </div>
+
+        <input type="hidden" id="sync_flag" value=[TPH_Vsync_flag] seq=[TPH_Vmember_seqno]>
+        <div class="tip">
+            <h6 class="tip_title"><span><img src="[TPH_Vdesign_dir]/images/common/icon_circle_alert.svg" alt="관리"></span> 꼭 확인해주세요!</h6>
+            <ol>
+                <li>장바구니에 담긴 상품은 담은 날로부터 <span>일주일이 경과</span>하면 자동으로 삭제됩니다.</li>
+                <li>주문하시기 전 <span>제품 및 작업사이즈를 꼭 확인</span>해주세요.</li>
+                <li>모든 서체는 꼭 <span>아웃라인(곡선처리)</span>을 해주세요. 아웃라인하지 않은 서체는 인쇄되지 않거나 다른 서체로 대체될 수 있습니다.</li>
+                <li>주문시 모든 효과는 <span>비트맵변환(이미지화)</span>을 해주세요. (특히 일러스트의 불투명 마스크 효과의 경우 인쇄가 나오지 않을 수 있습니다.)</li>
+                <li><span>작업 색상은 CMYK</span>를 기본으로 작업해주세요. CMYK가 아닌 경우 먹으로 인쇄되거나 다른 색상으로 대체되어 인쇄될 수 있습니다.</li>
+                <li><span>선 두께는 0.5포인트 이상</span>으로 작업해주셔야 인쇄됩니다. 0.2mm이상 0.5포인트 이하로 작업할 경우 인쇄되지 않을 수 있습니다.</li>
+                <li>데이터는 반드시 <span>그룹(Group)</span>처리해주세요.</li>
+            </ol>
+            <div class="btm_text">
+                <h6>보다 자세한 사항은 고객센터 이용안내를 참조해 주시기 바랍니다.</h6>
+                <a href="#none" onclick="goCscenter('/cscenter/guide.html?type=membership')">이용안내 바로가기</a>
+            </div>
+            <!-- <img src="[TPH_Vdesign_dir]/images/order/order_notice.png" alt="주의사항"> -->
+        </div>
+        [TPH_I/mypage/common/common_pop.html]
+        [TPH_I/mypage/common/banner.html]
+        [TPH_I/product/common/file_upload_popup.html]
+    </div>
+
+    <footer>
+        [TPH_I/common/footer.html]
+    </footer>
+</div>
+</body>
+</html>

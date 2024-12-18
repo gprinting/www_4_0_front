@@ -1,0 +1,40 @@
+<!-- 파일 업로드 팝업 -->
+<div class="modalMask l_orderInformation">
+    <div class="layerPopupWrap">
+        <button class="btn_popup_close close" title="닫기"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+        <div class="inner_padding">
+            <div class="layerPopup">
+                <div>
+                    <h2>[TPH_Vfile_pop_title]</h2>
+                </div>
+                <div class="layerPopup_contents">
+                    <em class="text_st_01" id="uploaded_file_name" onclick="" style="cursor:pointer;"></em>
+                    <div>
+                        <div style="border: 1px solid #c9c9c9; height: 28px; width: 448px; position: absolute;"></div>
+                        <div class="function" style="position: relative;margin-top: 0px;margin-bottom: 10px;">
+                            <button type="button" name="work_file" id="work_file" style="width: 110px; float: right; background:#667ba5; color:#fff; font-size: 13px; font-weight: 600; border: none; position: relative; z-index: 0;">파일첨부</button>
+                            <dl id="work_file_dl" style="left: 7px; position: relative; font-size: 12px; top: 8px;">
+                                <dd>
+                                    <span id="work_file_list"></span>
+                                </dd>
+                            </dl>
+                            <div id="html5_1c5shr4101scq1dkpkvu3kodqo3_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; right: 0px; width: 0px; height: 0px; overflow: hidden; z-index: 0;">
+                                <input id="html5_1c5shr4101scq1dkpkvu3kodqo3" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; right: 0px; width: 100%; height: 100%;" accept="application/zip,.egg,.rar,image/jpeg,.sit,.ai,image/png,.alz,.cdr,.cdt,.eps,.cmx,.7z,application/pdf">
+                            </div>
+                        </div>
+                        <iframe id="submit_ifr" name="submit_ifr" width="0" height="0" style="display:none;"></iframe>
+                    </div>
+                    <ul class="hyphen notice">
+                        <li>후공정 작업파일과 인쇄물 작업파일을 같이 압축해서 올려 주십시오.</li>
+                        <li>후공정 작업파일은 한 파일로 작업하여 올려 주십시오.</li>
+                    </ul>
+                </div>
+                <div class="btn_wrapper">
+                    <button type="button" class="btn_type_02" id="pop_upload_btn" onclick="">업로드</button>
+                    <button type="button" class="btn_type_01 close">취소</button>
+                </div>
+                <iframe id="submit_ifr" name="submit_ifr" width=0 height=0 style="display:none;"></iframe>
+            </div>
+        </div>
+    </div>
+</div><!-- 파일 업로드 팝업 -->

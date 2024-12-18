@@ -1,0 +1,236 @@
+            <form id="frm" action="/order/add_cart.html" method="post">
+                <div class="basic_table_wrapper _info">
+                    <table class="basic_table">
+                        <colgroup>
+                            <col style="width:20%;">
+                            <col style="">
+                        </colgroup>
+                        <tr>
+                            <th>제목</th>
+                            <td>
+                                <input class="basic_input" type="text" id="title" name="title" maxlength="30" value="[TPH_Vtitle]" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>상품명</th>
+                            <td>
+                                [TPH_Vcate_bot]
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>종이</th>
+                            <td>
+                                <select class="basic_input _summary _paper_info" id="nc_paper" name="nc_paper" onchange="changePaper('nc', this.value);">
+                                    [TPH_Vnc_paper]
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>인쇄도수</th>
+                            <td>
+                                <select class="basic_input _summary _bef_tmpt" onchange="changeTmpt('nc');" id="nc_print_tmpt" name="nc_bef_tmpt">
+                                    [TPH_Vnc_print_tmpt]
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>인쇄유형</th>
+                            <td>    
+                                <select class="basic_input" id="nc_print_purp" name="nc_print_purp" onchange="loadPrintTmpt('nc');">
+                                        [TPH_Vnc_print_purp]
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>사이즈</th>
+                            <td>
+                                <table class="basic_detail_table">
+                                    <colgroup>
+                                        <col style="width:50%;">
+                                        <col style="width:45%;">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding-right:5% !important;">
+                                                <select class="basic_input Column_02 _summary _size_dvs" id="size_dvs" name="nc_size_dvs" onchange="changeSizeDvs(this.value);">
+                                                    <option value="stan" class="_preset">규격사이즈</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select class="basic_input Column_02 _summary _size" id="nc_size" name="nc_size" def_cut_wid="[TPH_Vnc_def_cut_wid]" def_cut_vert="[TPH_Vnc_def_cut_vert]" def_val=[TPH_Vnc_def_stan_mpcode] onchange="changeData();">
+                                                    [TPH_Vnc_size]
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <table class="order_size_form">
+                                    <colgroup>
+                                        <col style="width:30%;">
+                                        <col style="width:35%;">
+                                        <col style="width:35%;">
+                                    </colgroup>
+                                    <tr>
+                                        <td><span class="order_size_form_text">재단사이즈</span></td>
+                                        <td style="text-align: center;">
+                                            <span class="order_size_form_text">가로 </span>
+                                            <input class="input_type_text_size _cut_size _wid" type="text" maxlength="3" id="nc_cut_wid_size" name="nc_cut_wid_size" type="text" maxlength="3" readonly="readonly">
+                                            <span class="order_size_form_text"> mm,</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span class="order_size_form_text">세로 </span>
+                                            <input class="input_type_text_size _cut_size _vert" type="text" maxlength="3" id="nc_cut_vert_size" name="nc_cut_vert_size" type="text" maxlength="3" readonly="readonly">
+                                            <span class="order_size_form_text"> mm</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="order_size_form_text _workingSize[TPH_Vnc_size_gap]" id="size_gap">작업사이즈</span></td>
+                                        <td style="text-align: center;">
+                                            <span class="order_size_form_text">가로 </span>
+                                            <input class="input_type_text_size _work_size _wid" type="text" id="work_wid_size" name="nc_work_wid_size" readonly="readonly">
+                                            <span class="order_size_form_text"> mm,</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span class="order_size_form_text">세로 </span>
+                                            <input class="input_type_text_size _work_size _vert" type="text" id="work_vert_size" name="nc_work_vert_size" readonly="readonly">
+                                            <span class="order_size_form_text"> mm</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="back_size">
+                                        <td><span class="order_size_form_text">백판사이즈</span></td>
+                                        <td style="text-align: center;">
+                                            <span class="order_size_form_text">가로 </span>
+                                            <input class="input_type_text_size" type="text" id="back_wid_size" name="nc_back_wid_size" readonly="readonly">
+                                            <span class="order_size_form_text"> mm,</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span class="order_size_form_text">세로 </span>
+                                            <input class="input_type_text_size" type="text" id="back_vert_size" name="nc_back_vert_size" readonly="readonly">
+                                            <span class="order_size_form_text"> mm</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="back_pos">
+                                        <td colspan="3">
+                                            <table class="basic_detail_table">
+                                                <colgroup>
+                                                    <col style="width:25%;">
+                                                    <col style="width:25%;">
+                                                    <col style="width:25%;">
+                                                    <col style="width:25%;">
+                                                </colgroup>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><span class="order_size_form_text">백판위치</span></td>
+                                                        <td>
+                                                            <input type="radio" id="back_pos_both" name="back_pos_dvs" value="양면" /><label for="back_pos_both">양면</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" id="back_pos_bef" name="back_pos_dvs" value="전면" %s /><label for="back_pos_bef">전면</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" id="back_pos_aft" name="back_pos_dvs" value="후면" %s /><label for="back_pos_aft">후면</label>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>수량</th>
+                            <td>
+                                <table class="basic_detail_table">
+                                    <colgroup>
+                                        <col style="width:50%;">
+                                        <col style="width:45%;">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding-right:5% !important;">
+                                                <select class="basic_input Column_02 _summary _amt" id="nc_amt" name="nc_amt" onchange="changeAmt();" amt_unit="[TPH_Vnc_amt_unit]">
+                                                    [TPH_Vnc_amt]
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select class="basic_input Column_02 _summary _count" id="count" name="nc_count" onchange="changeCount();">
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- 후가공 -->
+                <div class="sub_title_wrapper">
+                    <div class="sub_title after_option_title">
+                        후가공 옵션<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_on.png" alt="후가공 옵션보기">
+                    </div>
+                    <div class="sub_title after_option_title_on" style="display:none;">
+                        후가공 옵션<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_off.png" alt="후가공 옵션보기">
+                    </div>
+                </div>
+                <div class="basic_table_wrapper after_option_table" style="display:none;">
+                    [TPH_Vnc_add_after]
+                </div>
+                <!-- 후가공 끝 -->
+    
+                <!-- 옵션 -->
+                <div class="sub_title_wrapper">
+                    <div class="sub_title option_title">
+                        옵션<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_on.png" alt="후가공 옵션보기">
+                    </div>
+                    <div class="sub_title option_title_on" style="display:none;">
+                        옵션<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_off.png" alt="후가공 옵션보기">
+                    </div>
+                </div>
+    
+                <div class="basic_table_wrapper option_table" style="display:none;">
+                    [TPH_Vnc_add_opt]
+                </div>
+                <!-- 옵션 끝 -->
+    
+                <!-- 공통 -->
+                <input type="hidden" name="flag" value="flag" /><!-- chk -->
+                <input type="hidden" id="nc_flattyp_yn" name="nc_flattyp_yn" value="[TPH_Vnc_flattyp_yn]" /><!-- 낱장형여부 -->
+                <input type="hidden" id="prdt_dvs" name="prdt_dvs" value="nc" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+                <input type="hidden" id="order_detail" name="nc_order_detail" value="" /><!-- 제품상세값 -->
+                <input type="hidden" name="nc_cate_name" value="" /><!-- 카테고리명-->
+                <input type="hidden" name="nc_amt_unit" value="" /><!-- 수량단위 -->
+                <input type="hidden" id="nc_tmpt_dvs" value="[TPH_Vnc_tmpt_dvs]" /><!-- 도수구분 -->
+                <input type="hidden" id="nc_typ" name="nc_typ" value="[TPH_Vnc_page_dvs]" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+                <input type="hidden" id="nc_amt_sale_rate" value="[TPH_Vnc_amt_sale_rate]" />
+                <input type="hidden" id="nc_amt_sale_aplc" value="[TPH_Vnc_amt_sale_aplc]" />
+                <!-- 후가공, 주문요약 표시용 -->
+                <input type="hidden" id="after_basic" value="[TPH_Vnc_basic_after]" /><!-- 요약정보 표시용 변수 -->
+                <!-- 표시용 -->
+                <input type="hidden" name="cart_flag" id="cart_flag" value="Y" /><!-- 장바구니 이동여부 -->
+                <!-- 종이 -->
+                <input type="hidden" name="nc_paper_name" value="" /><!-- 종이명 -->
+                <!-- 인쇄 -->
+                <input type="hidden" name="nc_page" value="[TPH_Vnc_page]" /><!-- 페이지수 -->
+                <input type="hidden" name="nc_bef_tmpt_name" value="" /><!-- 도수명 -->
+                <!-- 사이즈 -->
+                <input type="hidden" name="nc_size_name" value="" /><!-- 사이즈명 -->
+                <!-- 가격정보 -->
+                <input type="hidden" name="nc_prdt_price" id="nc_prdt_price" value="[TPH_Vnc_prdt_price]" /><!-- 상품금액 -->
+                <input type="hidden" name="nc_sell_price" value="" /><!-- 판매금액 -->
+                <input type="hidden" name="nc_sale_price" value="" /><!-- 할인금액 -->
+                <input type="hidden" name="nc_member_sale_rate" id="nc_member_sale_rate" value="[TPH_Vnc_member_sale_rate]" /><!-- 회원할인률 -->
+                <input type="hidden" name="nc_grade_sale_rate" id="nc_grade_sale_rate" value="[TPH_Vnc_grade_sale_rate]" /><!-- 등급할인률 -->
+                <input type="hidden" name="nc_after_price" value="" /><!-- 후공정금액 -->
+                <input type="hidden" name="opt_price" value="" /><!-- 옵션금액 -->
+                <!-- 옵션 -->
+                <input type="hidden" name="opt_add" value="" /><!-- 추가옵션 맵핑코드 -->
+                <input type="hidden" name="opt_add_price" value="" /><!-- 추가옵션 가격 -->
+                <input type="hidden" id="nc_mono_yn" value="[TPH_Vnc_mono_dvs]" />
+            </form>

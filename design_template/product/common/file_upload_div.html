@@ -1,0 +1,32 @@
+            <div style="padding:0px; border-top: 1px dashed #e1e1e1;">
+                <dl style="padding: 5px 10px;">
+                    <dt>파일</dt>
+                    <dd id="work_file_dl" style="position:relative;">
+                        <span id="order_file_list" class="file_upload_inputText" style="z-index:1000;"></span>
+                        <div class="file_upload_box">&nbsp
+                            <div id="file_content" style="margin-top: -50px;margin-left: -10px;"></div>
+                        </div>
+                        <button type="button" name="order_file" id="order_file" class="btn_addFile">파일추가</button>
+                        <input type="file" id="uploader" style="display: none;" />
+                        <input type="hidden" id="file_name" />
+                        <input type="hidden" id="file_size" />
+                        <input type="hidden" id="file_seqno" />
+                    </dd>
+                </dl>
+            </div>
+            <div style="padding:0px; border-top: 1px dashed #e1e1e1;display: none;">
+                <dl style="padding: 5px 10px;">
+                    <dt>이미지사용</dt>
+                    <dd style="position:relative;">
+                        <label><input type="radio" name="owncompany_img_num" value="" checked=""> 없음</label>
+                        <label style="margin:0 20px;"><input type="radio" name="owncompany_img_num" value="Y"> 있음</label>
+                        <span style="color:#eb3b4b;">당사에서 제공하는 이미지를 사용하셨을 경우, 있음으로 체크해 주시기 바랍니다!</span>
+                    </dd>
+                </dl>
+            </div>
+            <div style="padding:0px;">
+                <dl style="padding: 5px 10px;">
+                    <dt>메모</dt>
+                    <dd class=""><div class="inputWrap"><input type="text" class="memo_textarea" id="cust_memo" placeholder="메모를 적어주세요"></div></dd>
+                </dl>
+            </div>

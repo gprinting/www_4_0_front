@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    [TPH_I/common/cs_head.html]
+</head>
+<body>
+<div class="wrapper">
+    <!-- 헤더 -->
+    [TPH_I/common/cs_header.html]
+
+<div class="div_sub_banner cs_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_faq.jpg" alt="서브배너" />
+</div>
+<div class="contents contents_02 cscenter faq">
+    <div class="lnb">
+        [TPH_I/cscenter/common/lnb.html]
+    </div>
+    <h3 class="pageTitle"><img src="[TPH_Vdesign_dir]/images/title/faq.png" alt="FAQ"></h3>
+    <input type="hidden" name="type" id="type" value="[TPH_Vtype]" />
+    <div class="pageTab">
+        <ul>[TPH_VpageTab]</ul>
+    </div>
+    <div class="search">
+        <div class="select_wrapper">
+            <select id="search_dvs">
+                <option>제목</option>
+                <option>내용</option>
+            </select>
+        </div>
+        <div class="wrap">
+            <input type="text" id="cont" name="cont" onkeyup="searchKey(event);" placeholder="궁금하신 내용을 입력하세요.">
+            <button type="button" title="검색" onclick="cndSearch(1);"><img src="[TPH_Vdesign_dir]/images/cscenter/icon_search.png" alt="검색"></button>
+        </div>
+    </div>
+
+    <table class="list faq_list_table">
+        <caption>
+            <div class="resultNum" id="resultNum"></div>
+        </caption>
+        <colgroup>
+            <col width="">
+            <col width="120">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>제목</th>
+                <th>등록일</th>
+            </tr>
+        </thead>
+        <tbody id="faq_list" class="">
+            <tr>
+                <td class="left_td faq_list">급한 인쇄물은 어떻게 신청하나요?</td>
+                <td>2018-01-17</td>
+            </tr>
+            <tr>
+                <td class="detail_view" colspan="2" style="display:none;">
+                    <div class="faq_guide" style="display:none;">
+                        <p>
+                            급한 인쇄물은 오전 12시 이전 접수 건에 대하여 당일 출고를 약속하는 제도로서
+                            <br>주문페이지에서 클릭 한 번 하는 것만으로 간편하게 신청하실 수 있습니다.
+                        </p>
+                        <ol class="manual">
+                            <li>
+                                <div>
+                                    <div>
+                                        <span class="num">01</span>
+                                        <span class="text">원하는 상품을 골라 상세 선택사항을 설정합니다.</span>
+                                    </div>
+                                    <img src="/design_template/images/service/order_rapid_figure1.png">
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <div>
+                                        <span class="num">02</span>
+                                        <span class="text">
+                                            요청사항 중 당일판 항목에 체크합니다.<br>
+                                            항목이 없는 경우 [급한 인쇄물] 서비스를 제공 하지 않는 서비스입니다.
+                                        </span>
+                                    </div>
+                                    <img src="/design_template/images/service/order_rapid_figure2.png">
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <div>
+                                        <span class="num">03</span>
+                                        <span class="text">주문 후 자세한 진행 현황은 마이페이지에서 확인하실 수 있습니다.</span>
+                                    </div>
+                                    <img src="/design_template/images/service/order_rapid_figure3.png">
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                </td>
+            </tr>
+            <!--
+            <tr>
+                <td class="left_td faq_list">가상계좌변경은 어떻게 하나요?</td>
+                <td>2018-01-17</td>
+            </tr>
+            <tr>
+                <td class="detail_view" colspan="2" style="display:none;">
+                    <p style="display:none;">
+                    안녕하세요. 고객님. 굿프린팅을 이용해주셔서 감사합니다.
+                    가상계좌변경은 한달에 한번 변경가능하며 변경신청은
+                    고객센터(02-2260-9000)를 통해 전화신청으로만 받고 있습니다.
+                    </p>
+                </td>
+            </tr>
+            -->
+            <tr>
+                <td class="left_td">주문내용을 변경하고 싶은데 어떻게 해야하나요?</td>
+                <td>2018-01-17</td>
+            </tr>
+            <tr>
+                <td class="left_td">회원 탈퇴를 했는데 기존 내역을 확인을 할 수 있나요?</td>
+                <td>2018-01-17</td>
+            </tr>
+            <tr>
+                <td class="left_td">이미 발송된 상품의 배송지를 변경할 수 있나요?</td>
+                <td>2018-01-17</td>
+            </tr>
+            <tr>
+                <td class="left_td">상품에 하자가 있을 땐 어떻게 해야하나요?</td>
+                <td>2018-01-17</td>
+            </tr>
+            <tr>
+                <td class="left_td">주문내용을 변경하고 싶은데 어떻게 해야하나요?</td>
+                <td>2018-01-17</td>
+            </tr>
+            <tr>
+                <td class="left_td">가상계좌변경은 어떻게 하나요?</td>
+                <td>2018-01-17</td>
+            </tr>
+            <tr>
+                <td class="left_td">회원 탈퇴를 했는데 기존 내역을 확인을 할 수 있나요?</td>
+                <td>2018-01-17</td>
+            </tr>
+            <tr>
+                <td class="left_td">이미 발송된 상품의 배송지를 변경할 수 있나요?</td>
+                <td>2018-01-17</td>
+            </tr>
+            <tr>
+                <td class="left_td">상품에 하자가 있을 땐 어떻게 해야하나요?</td>
+                <td>2018-01-17</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="paging" id="paging">
+        <li><button class="on">1</button></li>
+    </ul>
+</div>
+<input type="hidden" id="top_search_word" value="[TPH_Vsearch_word]" />
+
+<!-- cs center 우측 컨텐츠 -->
+[TPH_I/common/cs_side_contents.html]
+
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>[TPH_Vcompany_name]</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="/design_template/js/lib/jquery-1.11.2.min.js"></script>
+    <script>
+        var slider   = null;
+        var slideArr = null;
+        var slideMax = null;
+
+        var subAutoRolling;
+        var subRollingInterval = 5 * 1000;
+        var smoStart = false;
+
+        $(document).ready(function() {
+            slider   = $("#best_prdt_list_wrap");
+            slideArr = slider.children('ul').children('li');
+            slideMax = slideArr.length - 1;
+
+            // 서브배너 세팅
+            var subList  = $("#bp_list");
+            var subLists = $("#bp_list").children('li');
+            var nav      = $("nav");
+            var navUl    = nav.children('ul');
+
+            $(".btn_prdt_next").on('click', function() {
+                if (smoStart) {
+                    return;
+                }
+
+                sliderMov('next');
+                clearTimeout(subAutoRolling);
+                subAutoRolling = setTimeout(function() {sliderMov('next');}, subRollingInterval);
+            });
+
+            $(".btn_prdt_prev").on('click', function() {
+                if (smoStart) {
+                    return;
+                }
+
+                sliderMov('prev');
+                clearTimeout(subAutoRolling);
+                subAutoRolling = setTimeout(function() {sliderMov('next');}, subRollingInterval);
+            });
+
+
+            // 서브배너 기본 회전
+            subLists.each(function() {
+                navUl.append('<li><button></button></li>');
+            });
+
+            navUl.children('li:first-child').addClass('subBanner_navi_on');
+            subAutoRolling = setTimeout(function() {sliderMov('next');}, subRollingInterval);
+
+            navUl.find("li").on("click", function() {
+                if (smoStart) {
+                    return;
+                }
+
+                curSlideNo = $(".subBanner_navi_on").index();
+                var idx = $(this).index();
+
+                var curr = navUl.children('.subBanner_navi_on');
+                var target = navUl.children('li:nth-child(' + (idx + 1) + ')');
+
+                subBtnFunc(curr, target, "next", idx);
+
+                clearTimeout(subAutoRolling);
+                subAutoRolling = setTimeout(function() {sliderMov('next');}, subRollingInterval);
+            });
+        });
+
+        // 서브배너 함수
+        var sliderMov = function(direction) {
+            var x = 1180;
+            var nav      = $("nav");
+            var navUl    = nav.children('ul');
+
+            // '>' 버튼 클릭
+            if (direction == "next") {
+                curSlideNo = $(".subBanner_navi_on").index();
+
+                var curr = navUl.children('.subBanner_navi_on');
+                var target = null;
+
+                if (curr.next().length > 0) {
+                    target = navUl.children('.subBanner_navi_on').next();
+                } else {
+                    target = navUl.children('li:first-child');
+                }
+
+                subBtnFunc(curr, target, "next", null);
+
+                clearTimeout(subAutoRolling);
+                subAutoRolling = setTimeout(function() {sliderMov('next');}, subRollingInterval);
+                // '<' 버튼 클릭
+            } else if (direction == "prev") {
+                curSlideNo = $(".subBanner_navi_on").index();
+
+                var curr = navUl.children('.subBanner_navi_on');
+                var target = null;
+
+                if (curr.prev().length > 0) {
+                    target = navUl.children('.subBanner_navi_on').prev();
+                } else {
+                    target = navUl.children('li:last-child');
+                }
+
+                subBtnFunc(curr, target, "prev", null);
+
+                clearTimeout(subAutoRolling);
+                subAutoRolling = setTimeout(function() {sliderMov('next');}, subRollingInterval);
+            }
+        }
+
+        var subBtnFunc = function (curr, target, pos, next) {
+            var subList  = $("#bp_list");
+            var x        = 1180;
+            var nav      = $("#main_cont_wrap").children('nav');
+            var navUl    = nav.children('ul');
+
+            if (pos == "next") {
+                for (i = 0; i <= slideMax; i++) {
+                    if (i !== curSlideNo) {
+                        $(slideArr[i]).css("left" , x + "px");
+                        $(slideArr[i]).css("right", "0px");
+                    }
+                }
+
+                if (next === null) {
+                    next = curSlideNo + 1;
+                    if (next > slideMax) {
+                        next = 0;
+                    }
+                }
+
+                var changeSlide = function() {
+                    if (smoStart) {
+                        return;
+                    }
+
+                    smoStart = true;
+                    sliding();
+                }
+
+                changeSlide();
+
+                function sliding() {
+                    var curX  = parseInt($(slideArr[curSlideNo]).css("left"), 10);
+                    var nextX = parseInt($(slideArr[next]).css("left"), 10);
+
+                    if (isNaN(curX)) {
+                        curX = 0;
+                    }
+                    if (isNaN(nextX)) {
+                        curX = 0;
+                    }
+
+                    var newCurX  = curX - 10;
+                    var newNextX = nextX - 10;
+
+                    if (newNextX < 0) {
+                        $(slideArr[curSlideNo]).css("left", x + "px");
+                        $(slideArr[next]).css("left", "0px");
+
+                        smoStart = false;
+                        return;
+                    }
+
+                    $(slideArr[curSlideNo]).css("left", newCurX + "px");
+                    $(slideArr[next]).css("left", newNextX + "px");
+
+                    setTimeout(function () {
+                        sliding();
+                    }, 10);
+                }
+
+            } else if (pos == "prev") {
+                var prev = curSlideNo - 1;
+
+                if (curSlideNo == 0) {
+                    prev = slideMax;
+                }
+
+                $(slideArr[prev]).css("left", (-1 * x) + "px");
+
+                var next = 1;
+                var changeSlide = function() {
+                    if (smoStart) {
+                        return;
+                    }
+
+                    smoStart = true;
+                    sliding();
+                }
+
+                changeSlide();
+
+                function sliding() {
+                    var curX  = parseInt($(slideArr[curSlideNo]).css("left"), 10);
+                    var prevX = parseInt($(slideArr[prev]).css("left"), 10);
+
+                    if (isNaN(curX)) {
+                        curX = 0;
+                    }
+                    if (isNaN(prevX)) {
+                        curX = 0;
+                    }
+
+                    var newCurX  = curX + 10;
+                    var newPrevX = prevX + 10;
+
+                    if (newPrevX > 0) {
+                        $(slideArr[curSlideNo]).css("left", x + "px");
+                        $(slideArr[prev]).css("left", "0px");
+
+                        smoStart = false;
+                        return;
+                    }
+
+                    $(slideArr[curSlideNo]).css("left", newCurX + "px");
+                    $(slideArr[prev]).css("left", newPrevX + "px");
+
+                    setTimeout(function () {
+                        sliding();
+                    }, 10);
+                }
+
+            } else {
+                btnIdx = $(btnObj).parent('li').index();
+                if (btnIdx == 0) {
+                    for (i = 0; i <= slideMax; i++) {
+                        slideArr[i].style.marginLeft = 0;
+                    }
+                } else if (btnIdx == slideMax) {
+                    for (i = 0; i <= slideMax; i++) {
+                        if (i < slideMax) {
+                            slideArr[i].style.marginLeft = -x + "px";
+                        } else {
+                            slideArr[i].style.marginLeft = 0;
+                        }
+                    }
+                } else {
+                    for (i = 0; i <= slideMax; i++) {
+                        if (i < slideMax - 1) {
+                            slideArr[i].style.marginLeft = -x + "px";
+                        } else {
+                            slideArr[i].style.marginLeft = 0;
+                        }
+                    }
+
+                    smoStart = false;
+                    var next = 1;
+                    var changeSlide = function() {
+                        if (smoStart === true) {
+                            return;
+                        }
+                        next = curSlideNo + 1;
+                        if (next > slideMax) {
+                            next = 0;
+                        }
+                        smoStart = true;
+                        //sliding();
+                    }
+
+                    changeSlide();
+                }
+
+            }
+
+            $(curr).removeClass('subBanner_navi_on');
+            $(target).addClass('subBanner_navi_on');
+        };
+    </script>
+</head>
+<body>
+<div class="main_contents_wrapper">
+    <div id="best_prdt_list_wrap" class="best_prdt_list_wrapper">
+        <ul id="bp_list" class="best_prdt_list">
+            <li style="position:absolute; top:0; left:0;">
+                <!--카다로그-->
+                <div class="left_best_prdt">
+                    <div class="best_prdt_text_box">
+                        <div class="best_prdt_title">수입지 카다로그</div>
+                        <p class="best_prdt_text_01 basic_text">회사소개, 안내서 등에 최적화된 고급 상품</p>
+                        <p class="best_prdt_text_02 basic_text">사용 용도</p>
+                        <p class="best_prdt_text_03 basic_text">제품소개/회사소개/포트폴리오 등</p>
+                        <a class="c_btn-primary-reverse btn_prdt_view" href="/product/ad_catabro.html?cs=001001001" target="_parent">상품보러가기</a>
+                    </div>
+                    <div class="best_prdt_img_wrapper">
+                        <a href="/product/ad_catabro.html?cs=001001001" target="_parent"><img class="best_prdt_img" src="../images/main/best_prdt_01.jpg" /></a>
+                    </div>
+                </div>
+                <!--리플렛-->
+                <div class="right_best_prdt">
+                    <div class="best_prdt_text_box">
+                        <div class="best_prdt_title">3단 리플릿</div>
+                        <p class="best_prdt_text_01 basic_text">비치용 홍보물로 최적화된 상품</p>
+                        <p class="best_prdt_text_02 basic_text">사용 용도</p>
+                        <p class="best_prdt_text_03 basic_text">실내 스토어 비치용</p>
+                        <a class="c_btn-primary-reverse btn_prdt_view" href="/product/ad_stan.html?cs=001002001" target="_parent">상품보러가기</a>
+                    </div>
+                    <div class="best_prdt_img_wrapper">
+                        <a  href="/product/ad_stan.html?cs=001002001" target="_parent"><img class="best_prdt_img" src="../images/main/best_prdt_02.jpg" /></a>
+                    </div>
+                </div>
+            </li>
+            <li style="position:absolute; top:0; left:1180px;">
+                <!--포스터-->
+                <div class="left_best_prdt">
+                    <div class="best_prdt_text_box">
+                        <div class="best_prdt_title">아트지 포스터</div>
+                        <p class="best_prdt_text_01 basic_text">벽면이나 게시판에 부착하는<br>광고 홍보 상품</p>
+                        <p class="best_prdt_text_02 basic_text">사용 용도</p>
+                        <p class="best_prdt_text_03 basic_text">광고/프로모션/전시 등</p>
+                        <a class="c_btn-primary-reverse btn_prdt_view" href="/product/ad_poster.html?cs=001003001" target="_parent">상품보러가기</a>
+                    </div>
+                    <div class="best_prdt_img_wrapper">
+                        <a  href="/product/ad_poster.html?cs=001003001" target="_parent"><img class="best_prdt_img" src="../images/main/best_prdt_03.jpg" /></a>
+                    </div>
+                </div>
+                <!--PET배너-->
+                <div class="right_best_prdt">
+                    <div class="best_prdt_text_box">
+                        <div class="best_prdt_title">PET배너</div>
+                        <p class="best_prdt_text_01 basic_text">광고효율이 좋은 가장 대중적인 배너</p>
+                        <p class="best_prdt_text_02 basic_text">사용 용도</p>
+                        <p class="best_prdt_text_03 basic_text">실내 및 실외의 공간에 홍보물로 비치</p>
+                        <a class="c_btn-primary-reverse btn_prdt_view" href="/product/ao.html?cs=002002001" target="_parent">상품보러가기</a>
+                    </div>
+                    <div class="best_prdt_img_wrapper">
+                        <a  href="/product/ao.html?cs=002002001" target="_parent"><img class="best_prdt_img" src="../images/main/best_prdt_04.jpg" /></a>
+                    </div>
+                </div>
+            </li>
+            <li style="position:absolute; top:0; left:3540px;">
+                <!--투명배너-->
+                <div class="left_best_prdt">
+                    <div class="best_prdt_text_box">
+                        <div class="best_prdt_title">투명배너</div>
+                        <p class="best_prdt_text_01 basic_text">배너 원단에 투명한 소재를 사용한<br>독특한 배너</p>
+                        <p class="best_prdt_text_02 basic_text">사용 용도</p>
+                        <p class="best_prdt_text_03 basic_text">실내 및 실외의 공간에 홍보물로 비치</p>
+                        <a class="c_btn-primary-reverse btn_prdt_view" href="/product/ao.html?cs=002002002" target="_parent">상품보러가기</a>
+                    </div>
+                    <div class="best_prdt_img_wrapper">
+                        <a  href="/product/ao.html?cs=002002002" target="_parent"><img class="best_prdt_img" src="../images/main/best_prdt_05.jpg" /></a>
+                    </div>
+                </div>
+                <!--현수막-->
+                <div class="right_best_prdt">
+                    <div class="best_prdt_text_box">
+                        <div class="best_prdt_title">현수막</div>
+                        <p class="best_prdt_text_01 basic_text">날씨, 기후에 상관없이 꾸준한 효율의 상품</p>
+                        <p class="best_prdt_text_02 basic_text">사용 용도</p>
+                        <p class="best_prdt_text_03 basic_text">광고/프로모션/전시 등</p>
+                        <a class="c_btn-primary-reverse btn_prdt_view" href="/product/ao_placard.html?cs=002005003" target="_parent">상품보러가기</a>
+                    </div>
+                    <div class="best_prdt_img_wrapper">
+                        <a  href="/product/ao_placard.html?cs=002005003" target="_parent"><img class="best_prdt_img" src="../images/main/best_prdt_06.jpg" /></a>
+                    </div>
+                </div>
+            </li>
+            <li style="position:absolute; top:0; left:4720px;">
+                <!--등신대-->
+                <div class="left_best_prdt">
+                    <div class="best_prdt_text_box">
+                        <div class="best_prdt_title">등신대(UV인쇄)</div>
+                        <p class="best_prdt_text_01 basic_text">주목도를 올릴 수 있는 개성 넘치는<br>상품입니다.</p>
+                        <p class="best_prdt_text_02 basic_text">사용 용도</p>
+                        <p class="best_prdt_text_03 basic_text">모델 및 상품을 부각시키는 광고</p>
+                        <a class="c_btn-primary-reverse btn_prdt_view" href="/product/ao.html?cs=002004001" target="_parent">상품보러가기</a>
+                    </div>
+                    <div class="best_prdt_img_wrapper">
+                        <a  href="/product/ao.html?cs=002004001" target="_parent"><img class="best_prdt_img" src="../images/main/best_prdt_07.jpg" /></a>
+                    </div>
+                </div>
+                <!--수입명함-->
+                <div class="right_best_prdt">
+                    <div class="best_prdt_text_box">
+                        <div class="best_prdt_title">수입명함</div>
+                        <p class="best_prdt_text_01 basic_text">품격을 높이기 위한 고급 수입지<br>명함 상품</p>
+                        <p class="best_prdt_text_02 basic_text">사용 용도</p>
+                        <p class="best_prdt_text_03 basic_text">개인명함/회사명함 등</p>
+                        <a class="c_btn-primary-reverse btn_prdt_view" href="/product/nc.html?cs=003002001" target="_parent">상품보러가기</a>
+                    </div>
+                    <div class="best_prdt_img_wrapper">
+                        <a  href="/product/nc.html?cs=003002001" target="_parent"><img class="best_prdt_img" src="../images/main/best_prdt_08.jpg" /></a>
+                    </div>
+                </div>
+            </li>
+            <li style="position:absolute; top:0; left:5900px;">
+                <!--특수지스티커-->
+                <div class="left_best_prdt">
+                    <div class="best_prdt_text_box">
+                        <div class="best_prdt_title">특수지스티커</div>
+                        <p class="best_prdt_text_01 basic_text">일반스티커와 달리 각종 특수지로<br>제작되어 차별화한 상품</p>
+                        <p class="best_prdt_text_02 basic_text">사용 용도</p>
+                        <p class="best_prdt_text_03 basic_text">홍보용 스티커 및 상품라벨 등</p>
+                        <a class="c_btn-primary-reverse btn_prdt_view" href="/product/st_cut.html?cs=004002001" target="_parent">상품보러가기</a>
+                    </div>
+                    <div class="best_prdt_img_wrapper">
+                        <a  href="/product/st_cut.html?cs=004002001" target="_parent"><img class="best_prdt_img" src="../images/main/best_prdt_09.jpg" /></a>
+                    </div>
+                </div>
+                <!--독판전단지-->
+                <div class="right_best_prdt">
+                    <div class="best_prdt_text_box">
+                        <div class="best_prdt_title">독판전단지</div>
+                        <p class="best_prdt_text_01 basic_text">용지선택과 후가공이 가능하여<br>완성도가 더 높은 전단지 상품</p>
+                        <p class="best_prdt_text_02 basic_text">사용 용도</p>
+                        <p class="best_prdt_text_03 basic_text">프로모션/제품소개 등</p>
+                        <a class="c_btn-primary-reverse btn_prdt_view" href="/product/bl_mono.html?cs=005002001" target="_parent">상품보러가기</a>
+                    </div>
+                    <div class="best_prdt_img_wrapper">
+                        <a  href="/product/bl_mono.html?cs=005002001" target="_parent"><img class="best_prdt_img" src="../images/main/best_prdt_10.jpg" /></a>
+                    </div>
+                </div>
+            </li>
+            <li style="position:absolute; top:0; left:7080px;">
+                <!--컬러봉투-->
+                <div class="left_best_prdt">
+                    <div class="best_prdt_text_box">
+                        <div class="best_prdt_title">컬러봉투</div>
+                        <p class="best_prdt_text_01 basic_text">실생활에서 많이 쓰이는 대중적인<br>봉투 상품</p>
+                        <p class="best_prdt_text_02 basic_text">사용 용도</p>
+                        <p class="best_prdt_text_03 basic_text">기업 및 프로모션 등</p>
+                        <a class="c_btn-primary-reverse btn_prdt_view" href="/product/ev.html?cs=006001001" target="_parent">상품보러가기</a>
+                    </div>
+                    <div class="best_prdt_img_wrapper">
+                        <a  href="/product/ev.html?cs=006001001" target="_parent"><img class="best_prdt_img" src="../images/main/best_prdt_11.jpg" /></a>
+                    </div>
+                </div>
+                <!--양식지-->
+                <div class="right_best_prdt">
+                    <div class="best_prdt_text_box">
+                        <div class="best_prdt_title">양식지</div>
+                        <p class="best_prdt_text_01 basic_text">다양한 형태로 활용이 가능한 상품</p>
+                        <p class="best_prdt_text_02 basic_text">사용 용도</p>
+                        <p class="best_prdt_text_03 basic_text">가입양식 등 기입이 필요한 문서</p>
+                        <a class="c_btn-primary-reverse btn_prdt_view" href="/product/mt_form.html?cs=007002001" target="_parent">상품보러가기</a>
+                    </div>
+                    <div class="best_prdt_img_wrapper">
+                        <a  href="/product/mt_form.html?cs=007002001" target="_parent"><img class="best_prdt_img" src="../images/main/best_prdt_12.jpg" /></a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <input type="hidden" id="current_slide" value=""/>
+    </div>
+    <nav>
+        <ul></ul>
+        <button class="btn_prdt_prev" type="button"><img src="../images/main/btn_best_prev.png" alt="<"></button>
+        <button class="btn_prdt_next" type="button"><img src="../images/main/btn_best_next.png" alt=">"></button>
+    </nav>
+</div>
+</body>
+</html>

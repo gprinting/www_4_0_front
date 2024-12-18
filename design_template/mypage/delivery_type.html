@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>굿프린팅</title>
+    <!--[if lt IE 9]><script src="../../lib/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="../../lib/reset.css">
+    <link rel="stylesheet" href="../../lib/common.css">
+    <link rel="stylesheet" href="../../lib/mypage.css">
+    <script src="../../lib/jquery-1.11.2.min.js"></script>
+    <script src="../../lib/jquery-ui_dprinting.min.js"></script>
+    <script src="../common/header.js"></script>
+    <script src="../common/footer.js"></script>
+    <script src="./lnb.js"></script>
+    <script src="../../lib/common.js"></script>
+    <script src="../../lib/mypage.js"></script>
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="div_sub_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_mypage_delivery.jpg" alt="서브배너" />
+</div>
+<div class="contents lnb deliveryInfo">
+    <div class="lnb">
+        [TPH_I/mypage/common/lnb.html]
+    </div>
+    <h3 class="pageTitle"><img src="[TPH_Vdesign_dir]/images/title/delivery_address.png" alt="나의 배송지관리"></h3>
+    <div class="setInformation">
+        <dl class="default">
+            <dt>기본배송지 <a href="#none" target="_self"><img src="../../images/common/btn_circle_setting.png" alt="관리"></a></dt>
+            <dd>서울시 마포구 연남동 229-12</dd>
+        </dl>
+        <dl class="type">
+            <dt>배송유형</dt>
+            <dd>무료직배송 이용중</dd>
+        </dl>
+    </div>
+    <div class="deliveryType">
+        <dl class="home">
+            <dt>무료 택배</dt>
+            <dd>
+                <p>신청 후 일일 일회 묶음배송이 40,000원을 초과하여 주문하시는 고객에 한하여 무료로 택배를 발송해 드립니다.<br>단, 명함/스티커의 품목에 한하여 적용이 되고 제주도 및 해외는 제외입니다. 당사의 묶음 포장 기준을 참고 하십시요.
+                </p>
+                <em>묶음배송 기준<br>40,000원 초과 시<br> 자동 적용</em>
+            </dd>
+        </dl>
+        <dl class="direct">
+            <dt>무료 직배송</dt>
+            <dd>
+                <p>신청 후 월 거래금액이 330,000원(VAT 포함) 이상 시에는 무료배송 기준이 되어 다음달에는 자동으로 55,000원(VAT포함) 이 이월됩니다. 이월된 55,000원은 환불되지 않습니다.<br>다만 이월된 금액의 사용은 고객의 요청에 따라 일시정지나 포인트 이월금으로 활용할 수 있습니다.
+                </p>
+                <em>55,000(VAT포함)</em>
+                <p class="freeStatus">무료 직배송 혜택까지<br><strong>&#8361;130,000</strong><br>남았습니다.</p>
+                <button class="last applicated" onclick="layerPopup('l_directApplication', 'popup/l_directapplication.html')" disabled>이용 중</button>
+            </dd>
+        </dl>
+        <!--
+        <dl class="friend">
+            <dt>배송친구</dt>
+            <dd>
+                <p>배송친구를 신청하시면 가까운 근처의 배송친구 메인 업체에서 물건을 수령하실 수 있습니다.<br>물량이 주기적이지 않거나 적은 소규모의 기획사무실에 적합하며 월 11,000원의 저렴한 비용으로 물건을 받아 보실 수 있습니다.</p>
+                <em>11,000원(VAT포함)</em>
+                <button onclick="layerPopup('l_friendApplication', 'popup/l_friendapplication.html');">배송친구 신청</button>
+                <p>배송친구 메인업체는 자사에서 엄격한 심사를 거쳐 선정되며 선정된 배송친구 메인업체는 포인트나 쿠폰 등 다양한 혜택을 드립니다.</p>
+                <button class="last" onclick="layerPopup('l_friendMainApplication', 'popup/l_friendmainapplication.html');">배송친구 메인 업체 신청</button>
+            </dd>
+        </dl>
+        -->
+    </div>
+</div>
+<footer></footer>
+</div>
+</body>
+</html>

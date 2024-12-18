@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+<header class="top">
+    [TPH_I/common/header.html]
+</header>
+<section class="contents lnb ftfInquery">
+    <header class="title">
+        <h2><img src="[TPH_Vdesign_dir]/images/mypage/title.png" alt="마이페이지"></h2>
+        <ol class="location">
+            [TPH_I/common/home_btn.html]
+            <li><a href="/mypage/main.html"><span>마이페이지</span></a></li>
+            <li><a href="/mypage/pre_event.html"><span>--임시--</span></a></li>
+            <li><a href="/mypage/pre_event.html"><span>이벤트 게시판</span></a></li>
+        </ol>
+    </header>
+    <nav class="lnb">
+	    [TPH_I/mypage/common/lnb.html]
+    </nav>
+    <form name="frm" id="frm" action="/proc/mypage/pre_event/regi_list.php" method="post" enctype="multipart/form-data">
+    <table class="information input question">
+        <colgroup>
+            <col style="width:120px">
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th colspan="2">상세사항</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">제목</th>
+                <td><div class="inputWrap"><input type="text" id="title" name="title"></div></td>
+            </tr>
+            <tr>
+                <th scope="row">유형</th>
+                <td>
+                    <select class="type" id="inq_typ" name="inq_typ">
+                        <option value="오류_e">오류</option>
+                        <option value="개선사항_e">개선사항</option>
+                        <option value="기타_e">기타</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">신청자명</th>
+                <td><input type="text" class="name" value="[TPH_Vname]" readonly></td>
+            </tr>
+            <tr>
+                <th scope="row">연락처</th>
+                <td>
+                    <select id="tel_num" name="tel_num">
+                        <option value="02">02</option>
+                        <option value="031">031</option>
+                        <option value="032">032</option>
+                        <option value="033">033</option>
+                        <option value="041">041</option>
+                        <option value="042">042</option>
+                        <option value="043">043</option>
+                        <option value="044">044</option>
+                        <option value="051">051</option>
+                        <option value="052">052</option>
+                        <option value="053">053</option>
+                        <option value="054">054</option>
+                        <option value="055">055</option>
+                        <option value="061">061</option>
+                        <option value="062">062</option>
+                        <option value="063">063</option>
+                        <option value="064">064</option>
+                    </select>
+                    <input type="text" onkeyup="onlyNumber(event); chkMaxLength(this); return false;" maxLength="4" id="tel_num2" name="tel_num2">
+                    <input type="text" onkeyup="onlyNumber(event); chkMaxLength(this); return false;" maxLength="4" id="tel_num3" name="tel_num3">
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">휴대전화</th>
+                <td>
+                    <select id="cell_num" name="cell_num">
+                        <option value="010">010</option>
+                        <option value="011">011</option>
+                        <option value="016">016</option>
+                        <option value="017">017</option>
+                    </select>
+                    <input type="text" onkeyup="onlyNumber(event); chkMaxLength(this); return false;" maxLength="4" id="cell_num2" name="cell_num2">
+                    <input type="text" onkeyup="onlyNumber(event); chkMaxLength(this); return false;" maxLength="4" id="cell_num3" name="cell_num3">
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">문의 내용</th>
+                <td>
+                    <div class="textareaWrap">
+                        <textarea id="cont" name="cont"></textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">파일첨부</th>
+                <td>
+                    <div class="fileWrap"><input type="file" id="file1" name="file[]"></div>
+                    <div class="fileWrap"><input type="file" id="file2" name="file[]"></div>
+                    <div class="fileWrap"><input type="file" id="file3" name="file[]"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+    <div class="function center">
+        <strong><button class="function" onclick="regiReq(); return false;">등록</button></strong>
+        <button class="function" onclick="goList(); return false;">취소</button>
+    </div>
+    [TPH_I/mypage/common/banner.html]
+</section>
+<footer></footer>
+</body>
+</html>

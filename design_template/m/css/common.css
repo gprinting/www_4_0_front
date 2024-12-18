@@ -1,0 +1,168 @@
+@charset 'utf-8';
+
+/* base */
+html { position: relative; height: 100%; max-width:100%; overflow-x: hidden; -webkit-overflow-scrolling:touch; font-size:100%;}
+body { position: relative; overflow-x: hidden; margin:0; padding:0;  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; height: 100%; max-width:100%;
+       font-family:'arial', 'helvetica', 'droid sans fallback', 'apple sd gothic neo', 'AppleGothic', sans-serif; color:#252525; font-size:1em; font-weight:400;}
+
+@media (max-width: 400px) { 
+    html { font-size: 80%; }
+}
+@media all and (min-width:401px) and (max-width:767px) { 
+    html { font-size: 120%; } 
+}
+@media (min-width:768px) {
+    html { font-size: 150%; } 
+}
+/*
+@media (min-width: 360px) { 
+    html { font-size: 84%; }
+}
+@media (min-width: 400px) { 
+    html { font-size: 100%; } 
+}
+@media (min-width: 480px) { 
+    html { font-size: 110%; } 
+}
+@media all and (min-width:768px) and (max-width:1024px) {
+    html { font-size: 150%; } 
+}
+*/
+
+input, select {
+	text-indent:10px;
+}
+textarea {
+	padding:10px;
+	line-height: 150%;
+}
+
+input[type=text][readonly], input[type=password][readonly], select[disabled] {
+	background: #eee;
+}
+btn:active {
+	outline: none;
+}
+
+input[type=checkbox] {
+	/* Double-sized Checkboxes */
+	-ms-transform: scale(2); /* IE */
+	-moz-transform: scale(2); /* FF */
+	-webkit-transform: scale(2); /* Safari and Chrome */
+	-o-transform: scale(2); /* Opera */
+	padding: 10px;
+}
+input[type=checkbox] { display:none; }
+input[type=checkbox] + label {
+	display: inline-block;
+	cursor: pointer;
+	background: url('../images/common/check_off.png') left no-repeat;
+	background-size: 28px;
+	background-position-x: 0;
+	padding-left: 34px;
+	color:#535353;
+	line-height: 300%;
+	font-size:1.063em;
+}
+input[type=checkbox]:checked + label {
+	background: url('../images/common/check_on.png') left no-repeat;
+}
+
+input[type=radio]
+{
+	/* Double-sized Checkboxes */
+	-ms-transform: scale(2); /* IE */
+	-moz-transform: scale(2); /* FF */
+	-webkit-transform: scale(2); /* Safari and Chrome */
+	-o-transform: scale(2); /* Opera */
+	padding: 10px;
+}
+input[type=radio] { display:none; }
+input[type=radio] + label {
+	display: inline-block;
+	cursor: pointer;
+	background: url('../images/common/radio_off.png') left no-repeat;
+	background-size:28px;
+	background-position-x: 0;
+	padding-left:34px;
+	color:#535353;
+	line-height: 300%;
+	font-size:1.063em;
+}
+input[type=radio]:checked + label {
+	background: url('../images/common/radio_on.png') left no-repeat;
+}
+select {
+	display: inline-block; 
+	cursor: pointer;
+	background: url('../images/common/icon_select_drop.png') right no-repeat;
+	background-position-x: right;
+	-webkit-appearance: none; /* 화살표 없애기 for chrome*/
+	-moz-appearance: none;    /* 화살표 없애기 for firefox*/
+	appearance: none;         /* 화살표 없애기 공통*/
+}
+@media (max-width: 400px) { 
+	select { background-size:26px; }
+}
+@media all and (min-width:401px) and (max-width:767px) { 
+    select { background-size:30px; }
+}
+@media (min-width:768px) {
+    select { background-size:36px; }
+}
+select::-ms-expand {
+	display: none;            /* 화살표 없애기 for IE10, 11*/
+}
+
+
+
+@media (max-width: 400px) { 
+    input[type=checkbox] + label {
+		background-size: 26px;
+		padding-left: 30px;
+	}
+	input[type=checkbox]:checked + label {
+		background-size: 26px;
+	}
+	input[type=radio] + label {
+		background-size: 26px;
+		padding-left: 30px;
+	}
+	input[type=radio]:checked + label {
+		background-size: 26px;
+	}
+}
+
+@media all and (min-width:401px) and (max-width:767px) { 
+    input[type=checkbox] + label {
+		background-size: 32px;
+		padding-left: 38px;
+	}
+	input[type=checkbox]:checked + label {
+		background-size: 32px;
+	}
+	input[type=radio] + label {
+		background-size:32px;
+		padding-left:38px;
+	}
+	input[type=radio]:checked + label {
+		background-size: 32px;
+	}
+}
+
+@media (min-width:768px) {
+	input[type=checkbox] + label {
+		background-size: 36px;
+		padding-left: 42px;
+	}
+	input[type=checkbox]:checked + label {
+		background-size: 36px;
+	}
+	input[type=radio] + label {
+		background-size:36px;
+		padding-left:42px;
+	}
+	input[type=radio]:checked + label {
+		background-size: 36px;
+	}
+}

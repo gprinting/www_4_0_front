@@ -1,0 +1,56 @@
+<button class="btn_popup_close close" title="닫기"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+<div class="inner_padding">
+    <div class="layerPopup">
+        <div>
+            <h2>환불계좌 등록</h2>
+        </div>
+        <div class="layerPopup_contents">
+            <div [TPH_Vstyle]>
+                <table class="input to">
+                    <colgroup>
+                        <col width="120">
+                        <col width="300">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th scope="row">예금주</th>
+                            <td class="name"><input type="text" name="refund_name" id="refund_name" style="width:370px;"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">입금 은행명</th>
+                            <td class="name">
+                                <select id="refund_bank_name" name="refund_bank_name" style="width:382px;">
+                                    <option value="기업은행" selected="">기업은행</option>
+                                    <option value="국민은행">국민은행</option>
+                                    <option value="농협중앙회">농협중앙회</option>
+                                    <option value="우리은행">우리은행</option>
+                                    <option value="SC제일은행">SC제일은행</option>
+                                    <option value="신한은행">신한은행</option>
+                                    <option value="부산은행">부산은행</option>
+                                    <option value="우체국">우체국</option>
+                                    <option value="하나은행">하나은행</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">환불 계좌번호</th>
+                            <td class="name">
+                                <input type="text" name="refund_ba_num" id="refund_ba_num" style="width:370px;">
+                                <p class="note">'-'없이 숫자만 기재해 주세요.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input type="hidden" id="id_over_yn" name="id_over_yn" value="N">
+                <ul class="hyphen notice">
+                    <li>환불 금액이 발생하여 승인 완료는 매주 0요일, 0요일에 환불전산 처리가 되어 입금이 됩니다.</li>
+                    <li>환불계좌 등록 이후에는 수정이 어려우니 유의하시기 바랍니다.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="btn_wrapper">
+            <button type="button" class="btn_type_02" onclick="regiRefundAcc(); return false;">환불계좌 등록</button>
+            <button type="button" class="btn_type_01 close">취소</button>
+        </div>
+    </div>
+</div>

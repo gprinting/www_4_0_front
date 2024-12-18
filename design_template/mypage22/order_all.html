@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common22/head.html]
+    [TPH_I/mypage22/common/mypage_head.html]
+    <link rel="stylesheet"  href="[TPH_Vdesign_dir]/css/jquery-ui.css"/>
+    <link rel="stylesheet"  href="[TPH_Vdesign_dir]/css/lightslider.css"/>
+    <script src="[TPH_Vdesign_dir]/js/lib/jquery-ui.min.js"></script>
+    <script src="[TPH_Vdesign_dir]/js/lib/lightslider.js"></script>
+    <!--script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false"></script-->
+    <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    
+    <main id="main" class="mypage wrap orderHistory">
+        <header class="good pages">
+            <h2>
+                <span class="en">MY PAGE</span>
+                <span class="ko">마이페이지</span>
+            </h2>
+            <h3>
+                <ol>
+                    <li>주문</li>
+                    <li>주문내역</li>
+                </ol>
+            </h3>
+            <hr>
+        </header>
+        
+        [TPH_I/mypage22/common/lnb.html]
+        
+        <div class="contents">
+            <section class="searchCondition">
+                <div class="rowWrap">
+                    <dl class="date">
+                        <dt>주문일</dt>
+                        <dd>
+                            [TPH_I/common22/datepicker.html]
+                        </dd>
+                    </dl>
+                    <dl class="status last">
+                        <dt>진행상태</dt>
+                        <dd>
+                            <select id="order_state">
+                                [TPH_Vorder_state]
+                            </select>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="rowWrap">
+                    <dl class="delivery">
+                        <dt>배송종류</dt>
+                        <dd>
+                            <select id="dlvr_way">
+                                <option value="">전체</option>
+                                <option value="01">택배</option>
+                                <option value="02">직배</option>
+                                <option value="04">퀵</option>
+                                <option value="06">인현동방문</option>
+                                <option value="07">성수동방문</option>
+                            </select>
+                        </dd>
+                    </dl>
+                    <dl class="title last">
+                        <dt>인쇄물제목</dt>
+                        <dd><input id="title" onkeydown="orderSearchKey(event);" name="title" type="text"></dd>
+                    </dl>
+                </div>
+                <button onclick="orderSearchTxt();" class="search">검색하기</button>
+            </section>
+            <table class="list info _details searchResult">
+                <caption>
+                    <div class="resultNum" id="resultNum">
+                    </div>
+                    [TPH_I/common/list_num.html]
+                </caption>
+                [TPH_Vhtml]
+            </table>
+            <hr class="end">
+            <ul class="paging" id="paging">
+                <li><button class="on">1</button></li>
+            </ul>
+            <input type="hidden" id="order_seqno" value="[TPH_Vorder_seqno]">
+            <input type="hidden" id="member_dvs" value="[TPH_Vmember_dvs]">
+        </div>
+            
+            [TPH_I/mypage22/common/common_pop.html]
+            [TPH_I/mypage22/common/banner.html]
+            [TPH_I/mypage22/common/pg_form.html]
+    </main>
+    
+    [TPH_I/common22/footer.html]
+</body>
+</html>

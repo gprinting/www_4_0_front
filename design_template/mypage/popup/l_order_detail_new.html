@@ -1,0 +1,192 @@
+<button class="btn_popup_close close" title="닫기"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+<div class="inner_padding">
+    <div class="layerPopup">
+        <div>
+            <h2>주문/배송 조회</h2>
+        </div>
+        <div class="layerPopup_contents" style="overflow-y: scroll; height: 50vh;">
+            <div class="orderStatus">
+                <div class="orderInfo">
+                    <dl>
+                        <dt>주문번호 : </dt>
+                        <dd class="orderNumber">[TPH_Vorder_num]</dd>
+                    </dl>
+                    <dl>
+                        <dt>주문제목 : </dt>
+                        <dd><span class="category_text">[[TPH_Vcate]]</span> <span class="order_list_title_text">[TPH_Vtitle] [TPH_Vcount]건</span></dd>
+                    </dl>
+                    <!-- <button type="button" class="btn_print">인쇄하기</button> -->
+                </div>
+                <div class="orderProgress">
+                    <div class="title">작업진행현황</div>
+                    <!-- 작업진행현황 START -->
+                    <ul class="byStatus _toggle">
+                        [TPH_Vstate_html]
+                    </ul>
+                    <!-- 작업진행현황 END -->
+                </div>
+            </div>
+            
+
+            <!-- 주문내용 START -->
+            <table class="input table_order_datail">
+                <colgroup>
+                    <col width="120">
+                    <col>
+                    <col width="120">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <caption>주문내용<!--button type="button" class="btn_imgView">이미지보기</button--></caption>
+                    [TPH_Vpreview_img_html]
+                    <tr>
+                        <th scope="row">주문제목</th>
+                        <td colspan="3">[TPH_Vtitle]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">재질 및 규격</th>
+                        <td colspan="3">[TPH_Vorder_detail]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">수량 및 건수</th>
+                        <td colspan="3">[TPH_Vamt]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">후가공</th>
+                        <td colspan="3">[TPH_Vafter]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">첨부파일</th>
+                        <td colspan="3" class="td_file"><a href="[TPH_Vfile_path]" download>[TPH_Vorigin_file_name]([TPH_Vfile_size])</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">요청사항</th>
+                        <td colspan="3">[TPH_Vcust_memo]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">작업메모</th>
+                        <td colspan="3">[TPH_Vwork_memo]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">주문일자</th>
+                        <td>[TPH_Vorder_regi_date]</td>
+                        <th scope="row">접수일자</th>
+                        <td>[TPH_Vaccept_regi_date]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">접수담당</th>
+                        <td colspan="3">02-2260-9013 ([TPH_Vorder_mng])</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">기타문의</th>
+                        <td colspan="3">02-2260-9000 (평일기준 : 09~20시)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 주문내용 END -->
+            <!-- <div class="btn_wrapper">
+                <button type="button" class="btn_orderInfoView">주문정보요약보기</button>
+            </div> -->
+
+            <!-- 주문고객정보 START -->
+            <table class="input">
+                <colgroup>
+                    <col width="120">
+                    <col>
+                    <col width="120">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <caption>주문고객정보</caption>
+                    <tr>
+                        <th scope="row">성명</th>
+                        <td colspan="3">[TPH_Vmember_name]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">전화번호</th>
+                        <td>[TPH_Vtel_num]</td>
+                        <th scope="row">휴대전화</th>
+                        <td>[TPH_Vcell_num]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">이메일</th>
+                        <td colspan="3">[TPH_Vmail]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">주소</th>
+                        <td colspan="3">[TPH_Vaddr]</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 주문고객정보 END -->
+
+            <!-- 보내는 고객정보 START -->
+            <table class="input">
+                <colgroup>
+                    <col width="120">
+                    <col>
+                    <col width="120">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <caption>보내는 고객정보</caption>
+                    <tr>
+                        <th scope="row">성명(상호)</th>
+                        <td colspan="3">[TPH_Vts_name]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">전화번호</th>
+                        <td colspan="3">[TPH_Vts_tel_num]</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 보내는 고객정보 END -->
+
+            <!-- 배송지정보 START -->
+            <table class="input">
+                <colgroup>
+                    <col width="120">
+                    <col>
+                    <col width="120">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <caption>배송지정보</caption>
+                    <tr>
+                        <th scope="row">배송지명</th>
+                        <td>[TPH_Vrs_name]</td>
+                        <th scope="row">받으실분</th>
+                        <td>[TPH_Vrs_recei]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">전화번호</th>
+                        <td>[TPH_Vrs_tel_num]</td>
+                        <th scope="row">휴대전화</th>
+                        <td>[TPH_Vrs_cell_num]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">배송방법</th>
+                        <td>[TPH_Vinvo_cpn]</td>
+                        <th scope="row">배송상태</th>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">배송담당</th>
+                        <td>-</td>
+                        <th scope="row">발송일</th>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">주소</th>
+                        <td colspan="3">[TPH_Vrs_addr]</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 배송지정보 END -->
+        </div>
+        <div class="btn_wrapper">
+            <!-- <button type="button" class="btn_type_02">인쇄하기</button> -->
+            <button type="button" class="btn_type_01 close">창닫기</button>
+        </div>
+    </div>
+</div>

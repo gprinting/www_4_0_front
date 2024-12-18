@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common22/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    
+    <main id="main" class="mypage wrap orderFavorite">
+        <header class="good pages">
+            <h2>
+                <span class="en">MY PAGE</span>
+                <span class="ko">마이페이지</span>
+            </h2>
+            <h3>
+                <ol>
+                    <li>주문</li>
+                    <li>관심상품</li>
+                </ol>
+            </h3>
+            <hr>
+        </header>
+        
+        [TPH_I/mypage22/common/lnb.html]
+        
+        <div class="contents">
+            <section class="searchCondition">
+                <div class="rowWrap">
+                    <dl class="title">
+                        <dt>제목</dt>
+                        <dd><input id="title" onkeydown="searchKey(event);" type="text"></dd>
+                    </dl>
+                </div>
+                <button onclick="searchTxt();" class="search">검색</button>
+            </section>
+            <table class="list info _details searchResult favorite">
+                <caption>
+                    <div class="resultNum" id="resultNum">
+                    </div>
+                    [TPH_I/common/list_num.html]
+                </caption>
+                <colgroup>
+                    <col class="check">
+                    <col class="date">
+                    <col class="orderDetail">
+                    <col class="post">
+                    <col class="amount">
+                    <col class="btn">
+                </colgroup>
+                <thead id="list">
+                    <tr>
+                        <th><label class="check"><input name="allCheck" type="checkbox" class="_general"><i><i></i></i></label></th>
+                        <th>등록일</th>
+                        <th class="left">상품정보</th>
+                        <th class="left">후가공</th>
+                        <th class="right">수량(건)</th>
+                        <th>주문</th>
+                    </tr>
+                </thead>
+            </table>
+            <hr class="end">
+            <div class="function withEnd">
+                <button onclick="removeSelect();" class="remove">선택상품 삭제</button>
+                <!--
+                <div class="right">
+                    <strong class="blue"><button onclick="putSelectPrdt();">선택 상품 장바구니 담기</button></strong>
+                    <strong><button onclick="putAllPrdt();">전체 상품 장바구니 담기</button></strong>
+                </div>
+                -->
+            </div>
+
+            <ul class="paging" id="paging">
+                <li><button class="on">1</button></li>
+            </ul>
+        </div>
+        [TPH_I/mypage22/common/banner.html]
+    </main>
+    <footer>
+        [TPH_I/common22/footer.html]
+    </footer>
+</body>
+</html>

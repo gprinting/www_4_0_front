@@ -1,0 +1,755 @@
+<form id="frm" action="/proc/product/insert_esti.php" method="post">
+    <!-- 최상단 공통영역, 인쇄물제목 / 포장방법 -->
+    <ul class="options">
+        <li>
+            <!-- 최상단 공통영역, 인쇄물제목 / 포장방법 -->
+            <h2 class="order_title_basic">기본<br>사항</h2>
+            <div class="selection">
+                <dl>
+                    <dt><label for="printTitle">인쇄물제목</label></dt>
+                    <dd><input type="text" id="title" name="title" maxlength="30" class="full" value="[TPH_Vtitle]"></dd>
+                    <dt><label for="productName">상품명</label></dt>
+                    <dd class="width3">
+                        [TPH_Vcate_bot]
+                    </dd>
+
+                    <dt><label for="cover_size">사이즈</label></dt>
+                    <dd class="_relatedSummary size cover_size">
+                        <ul class="depths width3">
+                            <li>
+                                <select class="withBtn _size" id="size_dvs" name="cover_size_dvs">
+                                    <option value="stan" class="_preset">규격사이즈</option>
+                                    <option value="manu" class="_custom">비규격사이즈</option>
+                                </select>
+                            </li>
+                            <li>
+                                <select class="_preset _on" id="esti_size" name="esti_size" def_cut_wid="[TPH_Vcover_def_cut_wid]" def_cut_vert="[TPH_Vcover_def_cut_vert]" def_val="[TPH_Vcover_def_stan_mpcode]">
+                                    <option value="-1">직접선택</option>
+                                    [TPH_Vcover_size]
+                                </select>
+                                <span id="similar_size" divide="1" style="display:none;"></span>
+                            </li>
+                        </ul>
+                        <dl class="sub">
+                            <dt>재단사이즈</dt>
+                            <dd class="_cuttingSize">
+                                <label>
+                                    가로
+                                    <span class="sizeArrow">
+                                        <input id="esti_cut_wid_size" name="esti_cut_wid_size" type="text" maxlength="3" readonly="readonly">
+                                        <hr class="sizeWidth">
+                                    </span>
+                                    mm
+                                </label>
+                                &times;
+                                <label>
+                                    세로
+                                    <span class="sizeArrow">
+                                        <input id="esti_cut_vert_size" name="esti_cut_vert_size" type="text" maxlength="3" readonly="readonly">
+                                        <hr class="sizeHeight">
+                                    </span>
+                                    mm
+                                </label>
+                            </dd>
+                            <dt>작업사이즈</dt>
+                            <dd class="_workingSize[TPH_Vcover_size_gap]" id="size_gap">
+                                <label>
+                                    가로
+                                    <span class="sizeArrow">
+                                        <input id="esti_work_wid_size" name="esti_work_wid_size" type="text" readonly="">
+                                        <hr class="sizeWidth">
+                                    </span>
+                                    mm
+                                </label>
+                                &times;
+                                <label>
+                                    세로
+                                    <span class="sizeArrow">
+                                        <input id="esti_work_vert_size" name="esti_work_vert_size" type="text" readonly="">
+                                        <hr class="sizeHeight">
+                                    </span>
+                                    mm
+                                </label>
+                            </dd>
+                        </dl>
+                    </dd>
+
+                    <dt class="binding">제본</dt>
+                    <dd>
+                        <ul class="depths">
+                            <li>
+                                <select id="binding_val" name="esti_binding_val" onchange="getAfterPrice.common('binding', 'esti');">
+                                    [TPH_Vcover_binding_depth2]
+                                </select>
+                            </li>
+                            <li>
+                                <select id="binding_depth1" onchange="loadBindingDepth2(this.value, 'esti');" class="withBtn">
+                                    [TPH_Vcover_binding_depth1]
+                                </select>
+                            </li>
+                            <li class="button">
+                                <button type="button" class="softC" onclick="showBindingPop()">제본 미리보기</button>
+                            </li>
+                        </ul>
+                    </dd>
+
+                    <dt class="amount"><label for="amount">수량</label></dt>
+                    <dd class="_relatedSummary amount">
+                    <!-- 옵션가격 수량따라 변할 경우 changeData -> getOptPrice 구현 필요 -->
+                        <select class="_amount" id="esti_amt" name="esti_amt" amt_unit="[TPH_Vcover_amt_unit]">
+                            [TPH_Vcover_amt]
+                        </select>
+                    </dd>
+                </dl>
+                <div class="div_esti_memo_02 memo option">
+                    <div>
+                        <dl>
+                            <dt></dt>
+                            <dd>
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div><!-- 최상단 공통영역 -->
+        </li>
+        <li>
+            <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 실제 표지 정보 섹션 시작 -->
+            <h2 class="order_title">표지</h2>
+            <div class="pages selection">
+                <dl>
+                    <dt><label for="paper">종이</label></dt>
+                    <dd>
+                        <ul class="depths width3">
+                            <li>
+                                <select id="cover_paper_sort" onchange="changePaperSort('cover', this.value);">
+                                    <option value="-1">직접선택</option>
+                                    [TPH_Vcover_paper_sort]
+                                </select>
+                            </li>
+                            <li class="custom">
+                                <input type="text" class="full" id="cover_ext_paper" name="cover_ext_paper" placeholder="종이가 없는 경우 적어주세요..">
+                            </li>
+                            <li>
+                                <select id="cover_paper_name" onchange="loadPaperInfo('cover', this.value);">
+                                    [TPH_Vcover_paper_name]
+                                </select>
+                            </li>
+                            <li>
+                                <select id="cover_paper" name="cover_paper">
+                                    [TPH_Vcover_paper]
+                                </select>
+                            </li>
+                        </ul>
+                    </dd>
+
+                    <dt><label for="color">인쇄도수</label></dt>
+                    <dd class="colorDetails">
+                        <dl class="sub">
+                            <dt><label for="esti_bef_tmpt">전면</label></dt>
+                            <dd>
+                                <ul class="depths width3">
+                                    <li>
+                                        <select id="esti_bef_tmpt" name="esti_bef_tmpt" class="_relatedSummary">
+                                            [TPH_Vcover_bef_print_tmpt]
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <select class="color_option" onchange="changeSpColor('cover', 'bef', this.value);">
+                                            <option value="-1">별색없음</option>
+                                            <option value="1">별색추가</option>
+                                        </select>
+                                    </li>
+                                    <li class="custom">
+                                        <input type="text" id="cover_ext_bef_tmpt" name="cover_ext_bef_tmpt" placeholder="원하시는 별색을 넣어주세요.">
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                        <dl class="sub">
+                            <dt><label for="esti_aft_tmpt">후면</label></dt>
+                            <dd>
+                                <ul class="depths width3">
+                                    <li>
+                                        <select id="esti_aft_tmpt" name="esti_aft_tmpt" class="_relatedSummary">
+                                            [TPH_Vcover_aft_print_tmpt]
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <select class="color_option" onchange="changeSpColor('cover', 'aft', this.value);">
+                                            <option value="-1">별색없음</option>
+                                            <option value="1">별색추가</option>
+                                        </select>
+                                    </li>
+                                    <li class="custom">
+                                        <input type="text" id="cover_ext_aft_tmpt" name="cover_ext_aft_tmpt" placeholder="원하시는 별색을 넣어주세요.">
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </dd>
+
+                    <dt class="amount"><label for="amount">페이지</label></dt>
+                    <dd class="_relatedSummary">
+                        <select class="_amount" id="cover_page" name="cover_page" amt_unit="p" onchange="showCoverPageExt(this.value);">
+                            [TPH_Vcover_page]
+                        </select>
+                    </dd>
+                </dl>
+                <!--
+                <div class="div_esti_memo_02 memo option" style="right:35px; border-left:none;">
+                    <div>
+                        <dl>
+                            <dt></dt>
+                            <dd>
+                                <input type="text" id="cover_ext_paper" name="cover_ext_paper" placeholder="종이가 없는 경우 적어주세요.">
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                                <input type="text" id="cover_ext_bef_tmpt" name="cover_ext_bef_tmpt" placeholder="전면도수가 없는 경우 적어주세요.">
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                                <input type="text" id="cover_ext_aft_tmpt" name="cover_ext_aft_tmpt" placeholder="후면도수가 없는 경우 적어주세요.">
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                                <input type="text" id="cover_ext_print_purp" name="cover_ext_print_purp" placeholder="인쇄유형이 없는 경우 적어주세요.">
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                                <input type="text" id="cover_ext_page" name="cover_ext_page" placeholder="책날개 관련 내용을 적어주세요." style="display:none;">
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                -->
+            </div><!-- 선택 -->
+            <!-- 후공정 -->
+            <div class="after aft_sec cover_after _folding">
+                <dl>
+                    <dt>후공정</dt>
+                    <dd class="overview cover_overview">
+                        <button type="button" title="열기" class="softC _folding _off">후공정 선택</button>
+                        <ul>
+                        </ul>
+                    </dd>
+                    <dd class="_folder cover_after_list list">
+                        [TPH_Vcover_after]
+                        [TPH_Vcover_add_after]
+                    </dd>
+                    <dd>
+                        <input type="text" class="full" id="cover_ext_after" name="cover_ext_after" placeholder="후공정이 없는 경우 적어주세요.">
+                    </dd>
+                </dl>
+            </div><!-- 후공정 -->
+            <!-- 실제 표지 정보 섹션 끝 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+        </li>
+        <li>
+            <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 실제 내지1 정보 섹션 시작 -->
+            <h2 class="order_title">내지1</h2>
+            <div class="pages selection">
+                <dl>
+                    <dt><label for="inner1_paper">종이</label></dt>
+                    <dd>
+                        <ul class="depths width3">
+                            <li>
+                                <select id="inner1_paper_sort" onchange="changePaperSort('inner1', this.value);">
+                                    <option value="-1">직접선택</option>
+                                    [TPH_Vinner1_paper_sort]
+                                </select>
+                            </li>
+                            <li class="custom">
+                                <input type="text" class="full" id="inner1_ext_paper" name="inner1_ext_paper" placeholder="종이가 없는 경우 적어주세요.">
+                            </li>
+                            <li>
+                                <select id="inner1_paper_name" onchange="loadPaperInfo('inner1', this.value);">
+                                    [TPH_Vinner1_paper_name]
+                                </select>
+                            </li>
+                            <li>
+                                <select id="inner1_paper" name="inner1_paper">
+                                    [TPH_Vinner1_paper]
+                                </select>
+                            </li>
+                        </ul>
+                    </dd>
+
+                    <dt><label for="color">인쇄도수</label></dt>
+                    <dd class="colorDetails">
+                        <dl class="sub">
+                            <dt><label for="inner1_bef_tmpt">전면</label></dt>
+                            <dd>
+                                <ul class="depths width3">
+                                    <li>
+                                        <select id="inner1_bef_tmpt" name="inner1_bef_tmpt" class="_relatedSummary">
+                                            [TPH_Vinner1_bef_print_tmpt]
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <select class="color_option" onchange="changeSpColor('inner1', 'bef', this.value);">
+                                            <option value="-1">별색없음</option>
+                                            <option value="1">별색추가</option>
+                                        </select>
+                                    </li>
+                                    <li class="custom">
+                                        <input type="text" id="inner1_ext_bef_tmpt" name="inner1_ext_bef_tmpt" placeholder="원하시는 별색을 넣어주세요.">
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                        <dl class="sub">
+                            <dt><label for="inner1_aft_tmpt">후면</label></dt>
+                            <dd>
+                                <ul class="depths width3">
+                                    <li>
+                                        <select id="inner1_aft_tmpt" name="inner1_aft_tmpt" class="_relatedSummary">
+                                            [TPH_Vinner1_aft_print_tmpt]
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <select class="color_option" onchange="changeSpColor('inner1', 'aft', this.value);">
+                                            <option value="-1">별색없음</option>
+                                            <option value="1">별색추가</option>
+                                        </select>
+                                    </li>
+                                    <li class="custom">
+                                        <input type="text" id="inner1_ext_aft_tmpt" name="inner1_ext_aft_tmpt" placeholder="원하시는 별색을 넣어주세요.">
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </dd>
+                    <dt class="amount"><label for="amount">페이지</label></dt>
+                    <dd class="_relatedSummary">
+                        <select class="_amount" id="inner1_page" name="inner1_page" amt_unit="p">
+                            [TPH_Vinner1_page]
+                        </select>
+                    </dd>
+                </dl>
+                <!--
+                <div class="div_esti_memo_02 memo option" style="right:35px; border-left:none;">
+                    <div>
+                        <dl>
+                            <dt></dt>
+                            <dd>
+                                <input type="text" id="inner1_ext_paper" name="inner1_ext_paper" placeholder="종이가 없는 경우 적어주세요.">
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                                <input type="text" id="inner1_ext_bef_tmpt" name="inner1_ext_bef_tmpt" placeholder="전면도수가 없는 경우 적어주세요.">
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                                <input type="text" id="inner1_ext_aft_tmpt" name="inner1_ext_aft_tmpt" placeholder="후면도수가 없는 경우 적어주세요.">
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                                <input type="text" id="inner1_ext_print_purp" name="inner1_ext_print_purp" placeholder="인쇄유형이 없는 경우 적어주세요.">
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                -->
+            </div>
+            <!-- 후공정 -->
+            <div class="after aft_sec inner1_after _folding">
+                <dl>
+                    <dt>후공정</dt>
+                    <dd class="overview inner1_overview">
+                        <button type="button" title="열기" class="softC _folding _off">후공정 선택</button>
+                        <ul>
+                        </ul>
+                    </dd>
+                    <dd class="_folder inner1_after_list list">
+                        [TPH_Vinner1_after]
+                        [TPH_Vinner1_add_after]
+                    </dd>
+                    <dd>
+                        <input type="text" class="full" id="inner1_ext_after" name="inner1_ext_after" placeholder="후공정이 없는 경우 적어주세요.">
+                    </dd>
+                </dl>
+            </div><!-- 후공정 -->
+            <!-- 실제 내지1 정보 섹션 끝 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+        </li>
+        <li>
+            <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 실제 내지2 정보 섹션 시작 -->
+            <h2 class="order_title">내지2</h2>
+            <div class="pages selection _folding _off">
+                <button type="button" title="열기" class="_add addBtn"><img src="/design_template/images/common/btn_circle_plus.png" alt="+" onclick="dvsOnOff.exec('inner2', true);"></button>
+                <button type="button" title="닫기" class="_del delBtn"><img src="/design_template/images/common/btn_circle_x.png" alt="X" onclick="dvsOnOff.exec('inner2', false);"></button>
+                <div class="_folder" style="display: none;">
+                    <dl>
+                        <dt><label for="inner2_paper">종이</label></dt>
+                        <!-- 수정 START -->
+                        <dd>
+                            <select id="inner2_paper_sort" onchange="changePaperSort('inner2', this.value);">
+                                <option value="-1">직접선택</option>
+                                [TPH_Vinner1_paper_sort]
+                            </select>
+
+                            <input type="text" id="inner2_ext_paper" name="inner2_ext_paper" placeholder="종이가 없는 경우 적어주세요." style="display:none;">
+
+                            <select id="inner2_paper_name" onchange="loadPaperInfo('inner2', this.value);">
+                                [TPH_Vinner1_paper_name]
+                            </select>
+                            <select id="inner2_paper" name="inner2_paper">
+                                [TPH_Vinner1_paper]
+                            </select>
+                        </dd>
+
+                        <dt><label for="color">인쇄도수</label></dt>
+                        <dd class="colorDetails">
+                            <!-- 수정 START -->
+                            <dl>
+                                <dt><label for="inner2_bef_tmpt">전면</label></dt>
+                                <dd>
+                                    <select id="inner2_bef_tmpt" name="inner2_bef_tmpt" class="_relatedSummary">
+                                        [TPH_Vinner1_bef_print_tmpt]
+                                    </select>
+                                    <select class="color_option" onchange="changeSpColor('inner2', 'bef', this.value);">
+                                        <option value="-1">별색없음</option>
+                                        <option value="1">별색추가</option>
+                                    </select>
+                                    <input type="text" id="inner2_ext_bef_tmpt" name="inner2_ext_bef_tmpt" placeholder="원하시는 별색을 넣어주세요." style="display:none;">
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><label for="inner2_aft_tmpt">후면</label></dt>
+                                <dd>
+                                    <select id="inner2_aft_tmpt" name="inner2_aft_tmpt" class="_relatedSummary">
+                                        [TPH_Vinner1_aft_print_tmpt]
+                                    </select>
+                                    <select class="color_option" onchange="changeSpColor('inner2', 'aft', this.value);">
+                                        <option value="-1">별색없음</option>
+                                        <option value="1">별색추가</option>
+                                    </select>
+                                    <input type="text" id="inner2_ext_aft_tmpt" name="inner2_ext_aft_tmpt" placeholder="원하시는 별색을 넣어주세요." style="display:none;">
+                                </dd>
+                            </dl>
+                        </dd>
+                        <dt class="amount"><label for="amount">페이지</label></dt>
+                        <dd class="_relatedSummary amount">
+                            <select class="_amount" id="inner2_page" name="inner2_page" amt_unit="p">
+                                [TPH_Vinner1_page]
+                            </select>
+                        </dd>
+                    </dl>
+                    <!--
+                    <div class="div_esti_memo_02 memo option" style="right:35px; border-left:none;">
+                        <div>
+                            <dl>
+                                <dt></dt>
+                                <dd>
+                                    <input type="text" id="inner2_ext_paper" name="inner2_ext_paper" placeholder="종이가 없는 경우 적어주세요.">
+                                </dd>
+                                <dt></dt>
+                                <dd>
+                                    <input type="text" id="inner2_ext_bef_tmpt" name="inner2_ext_bef_tmpt" placeholder="전면도수가 없는 경우 적어주세요.">
+                                </dd>
+                                <dt></dt>
+                                <dd>
+                                    <input type="text" id="inner2_ext_aft_tmpt" name="inner2_ext_aft_tmpt" placeholder="후면도수가 없는 경우 적어주세요.">
+                                </dd>
+                                <dt></dt>
+                                <dd>
+                                    <input type="text" id="inner2_ext_print_purp" name="inner2_ext_print_purp" placeholder="인쇄유형이 없는 경우 적어주세요.">
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    -->
+                </div>
+            </div>
+            <!-- 후공정 -->
+            <div class="after aft_sec inner2_after _folding">
+                <dl>
+                    <dt>후공정</dt>
+                    <dd class="overview inner2_overview">
+                        <button type="button" title="열기" class="softC _folding _off">후공정 선택</button>
+                        <ul>
+                        </ul>
+                    </dd>
+                    <dd class="_folder inner2_after_list list">
+                        [TPH_Vinner2_after]
+                        [TPH_Vinner2_add_after]
+                    </dd>
+                    <dd>
+                        <input type="text" class="full" id="inner2_ext_after" name="inner2_ext_after" placeholder="후공정이 없는 경우 적어주세요.">
+                    </dd>
+                </dl>
+            </div><!-- 후공정 -->
+            <!-- 실제 내지2 정보 섹션 끝 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+        </li>
+        <li>
+            <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 실제 내지3 정보 섹션 시작 -->
+            <h2 class="order_title">내지3</h2>
+            <div class="pages selection _folding _off">
+                <button type="button" title="열기" class="_add addBtn"><img src="/design_template/images/common/btn_circle_plus.png" alt="+" onclick="dvsOnOff.exec('inner3', true);"></button>
+                <button type="button" title="닫기" class="_del delBtn"><img src="/design_template/images/common/btn_circle_x.png" alt="X" onclick="dvsOnOff.exec('inner3', false);"></button>
+                <div class="_folder" style="display: none;">
+                    <dl>
+                        <dt><label for="inner3_paper">종이</label></dt>
+                        <dd>
+                            <select id="inner3_paper_sort" onchange="changePaperSort('inner3', this.value);">
+                                <option value="-1">직접선택</option>
+                                [TPH_Vinner1_paper_sort]
+                            </select>
+
+                            <input type="text" id="inner3_ext_paper" name="inner3_ext_paper" placeholder="종이가 없는 경우 적어주세요." style="display:none;">
+
+                            <select id="inner3_paper_name" onchange="loadPaperInfo('inner3', this.value);">
+                                <option value="-1">직접선택</option>
+                                [TPH_Vinner1_paper_name]
+                            </select>
+                            <select id="inner3_paper" name="inner3_paper">
+                                <option value="-1">직접선택</option>
+                                [TPH_Vinner1_paper]
+                            </select>
+                        </dd>
+
+                        <dt><label for="color">인쇄도수</label></dt>
+                        <dd class="colorDetails">
+                            <!-- 수정 START -->
+                            <dl>
+                                <dt><label for="inner3_bef_tmpt">전면</label></dt>
+                                <dd>
+                                    <select id="inner3_bef_tmpt" name="inner3_bef_tmpt" class="_relatedSummary">
+                                        [TPH_Vinner1_bef_print_tmpt]
+                                    </select>
+                                    <select class="color_option" onchange="changeSpColor('inner3', 'bef', this.value);">
+                                        <option value="-1">별색없음</option>
+                                        <option value="1">별색추가</option>
+                                    </select>
+                                    <input type="text" id="inner3_ext_bef_tmpt" name="inner3_ext_bef_tmpt" placeholder="원하시는 별색을 넣어주세요." style="display:none;">
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><label for="inner3_aft_tmpt">후면</label></dt>
+                                <dd>
+                                    <select id="inner3_aft_tmpt" name="inner3_aft_tmpt" class="_relatedSummary">
+                                        [TPH_Vinner1_aft_print_tmpt]
+                                    </select>
+                                    <select class="color_option" onchange="changeSpColor('inner3', 'aft', this.value);">
+                                        <option value="-1">별색없음</option>
+                                        <option value="1">별색추가</option>
+                                    </select>
+                                    <input type="text" id="inner3_ext_aft_tmpt" name="inner3_ext_aft_tmpt" placeholder="원하시는 별색을 넣어주세요." style="display:none;">
+                                </dd>
+                            </dl>
+                            <!-- 수정 END -->
+                            <!-- 원본소스 START//
+                            <dl>
+                                <dt class="esti_book_title_size_ct"><label for="inner3_bef_tmpt">전면</label></dt>
+                                <dd>
+                                    <select id="inner3_bef_tmpt" name="inner3_bef_tmpt" class="_relatedSummary">
+                                        <option value="-1">직접선택</option>
+                                        [TPH_Vinner1_bef_print_tmpt]
+                                    </select>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt class="esti_book_title_size_ct"><label for="inner3_aft_tmpt">후면</label></dt>
+                                <dd>
+                                    <select id="inner3_aft_tmpt" name="inner3_aft_tmpt" class="_relatedSummary">
+                                        <option value="-1">직접선택</option>
+                                        [TPH_Vinner1_aft_print_tmpt]
+                                    </select>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt class="esti_book_title_size_ct">인쇄방식</dt>
+                                <dd>
+                                    <select id="inner3_print_purp" name="inner3_print_purp">
+                                        <option value="-1">직접선택</option>
+                                        [TPH_Vinner1_print_purp]
+                                    </select>
+                                </dd>
+                            </dl>
+                            원본소스 END// -->
+                        </dd>
+                        <dt class="amount"><label for="amount">페이지</label></dt>
+                        <dd class="_relatedSummary amount">
+                            <select class="_amount" id="inner3_page" name="inner3_page" amt_unit="p">
+                                [TPH_Vinner1_page]
+                            </select>
+                        </dd>
+                    </dl>
+                    <!--
+                    <div class="div_esti_memo_02 memo option" style="right:35px; border-left:none;">
+                        <div>
+                            <dl>
+                                <dt></dt>
+                                <dd>
+                                    <input type="text" id="inner3_ext_paper" name="inner3_ext_paper" placeholder="종이가 없는 경우 적어주세요.">
+                                </dd>
+                                <dt></dt>
+                                <dd>
+                                    <input type="text" id="inner3_ext_bef_tmpt" name="inner3_ext_bef_tmpt" placeholder="전면도수가 없는 경우 적어주세요.">
+                                </dd>
+                                <dt></dt>
+                                <dd>
+                                    <input type="text" id="inner3_ext_aft_tmpt" name="inner3_ext_aft_tmpt" placeholder="후면도수가 없는 경우 적어주세요.">
+                                </dd>
+                                <dt></dt>
+                                <dd>
+                                    <input type="text" id="inner3_ext_print_purp" name="inner3_ext_print_purp" placeholder="인쇄유형이 없는 경우 적어주세요.">
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    -->
+                </div>
+            </div>
+            <!-- 후공정 -->
+            <div class="after aft_sec inner3_after _folding">
+                <dl>
+                    <dt>후공정</dt>
+                    <dd class="overview inner3_overview">
+                        <button type="button" title="열기" class="softC _folding _off">후공정 선택</button>
+                        <ul>
+                        </ul>
+                    </dd>
+                    <dd class="_folder inner3_after_list list">
+                        [TPH_Vinner3_after]
+                        [TPH_Vinner3_add_after]
+                    </dd>
+                    <dd>
+                        <input type="text" class="full" id="inner3_ext_after" name="inner3_ext_after" placeholder="후공정이 없는 경우 적어주세요.">
+                    </dd>
+                </dl>
+            </div><!-- 후공정 -->
+            <!-- 실제 내지3 정보 섹션 끝 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+        </li>
+    </ul>
+    <hr class="summary header">
+    <!-- 요청 -->
+    <!--
+    <div class="after _folding">
+        <dl>
+            <dt id="opt_default_price" price="">옵션</dt>
+            <dd class="list" style="padding-left: 0px;" id="opt">
+                [TPH_Vopt]
+                [TPH_Vadd_opt]
+            </dd>
+        </dl>
+    </div>
+    -->
+    <!-- 요청 -->
+
+    <!-- 공통 -->
+    <input type="hidden" id="common_prdt_dvs" name="common_prdt_dvs" value="esti"><!-- 상품 페이지에 들어가있는 제품구분값 -->
+    <input type="hidden" id="file_seqno" name="file_seqno" value="" />
+    <input type="hidden" id="prdt_dvs" name="prdt_dvs" value="cover|inner1|inner2|inner3"><!-- 상품 페이지에 들어가있는 제품구분값 -->
+    <input type="hidden" id="esti_amt_unit" name="esti_amt_unit" value=""><!-- 수량단위 -->
+    <input type="hidden" id="esti_mono_yn" value="1"><!-- 계산형 구분 -->
+    <input type="hidden" id="esti_flattyp_yn" value="N"><!-- 낱장형여부 -->
+    <input type="hidden" id="esti_sheet_count" name="esti_sheet_count" value=""><!-- 장수 -->
+    <input type="hidden" id="esti_detail" name="esti_detail" value=""><!-- 주문상세 -->
+    <input type="checkbox" id="binding" name="esti_chk_after[]" checked="checked" value="제본" aft="binding" style="display:none;"><!-- 요약정보 표시용 변수 -->
+
+    <!-- ########################################################### -->
+    <!--                           표  지                          -->
+    <!-- ########################################################### -->
+    <input type="hidden" id="cover_cate_sortcode" name="cover_cate_sortcode" value="">
+    <input type="hidden" id="cover_mono_yn" value="1"><!-- 계산형 구분 -->
+    <input type="hidden" name="cover_amt_info" value="">
+    <input type="hidden" name="cover_amt_unit" value="">
+    <input type="hidden" name="cover_cut_wid_size" value="">
+    <input type="hidden" name="cover_cut_vert_size" value="">
+    <input type="hidden" name="cover_work_wid_size" value="">
+    <input type="hidden" name="cover_work_vert_size" value="">
+    <input type="hidden" id="cover_typ" name="cover_typ" value="표지"><!-- 상품 페이지에 들어가있는 제품구분값 -->
+    <!-- 종이 -->
+    <input type="hidden" name="cover_paper_info" value=""><!-- 종이명 -->
+    <!-- 사이즈 -->
+    <!-- 인쇄 -->
+    <input type="hidden" name="cover_bef_tmpt_info" value=""><!-- 도수명 -->
+    <input type="hidden" name="cover_aft_tmpt_info" value=""><!-- 도수명 -->
+    <input type="hidden" id="cover_print_purp_info" name="cover_print_purp_info" value=""><!-- 인쇄용도 정보 -->
+    <input type="hidden" id="cover_page_info" name="cover_page_info" value=""><!-- 페이지 정보 -->
+    <input type="hidden" id="cover_after_info" name="cover_after_info" value=""><!-- 후공정 정보 -->
+    <input type="hidden" id="cover_size_name" name="cover_size_name" value=""><!-- 사이즈명 -->
+
+    <!-- ########################################################### -->
+    <!--                          내지1부분                          -->
+    <!-- ########################################################### -->
+    <input type="hidden" id="inner1_cate_sortcode" name="inner1_cate_sortcode" value="">
+    <input type="hidden" id="inner1_mono_yn" value="1"><!-- 계산형 구분 -->
+    <input type="hidden" name="inner1_amt_info" value="">
+    <input type="hidden" name="inner1_amt_unit" value="">
+    <input type="hidden" name="inner1_cut_wid_size" value="">
+    <input type="hidden" name="inner1_cut_vert_size" value="">
+    <input type="hidden" name="inner1_work_wid_size" value="">
+    <input type="hidden" name="inner1_work_vert_size" value="">
+    <input type="hidden" id="inner1_typ" name="inner1_typ" value="내지1"><!-- 상품 페이지에 들어가있는 제품구분값 -->
+    <!-- 종이 -->
+    <input type="hidden" name="inner1_paper_info" value=""><!-- 종이명 -->
+    <!-- 사이즈 -->
+    <!-- 인쇄 -->
+    <input type="hidden" name="inner1_bef_tmpt_info" value=""><!-- 도수명 -->
+    <input type="hidden" name="inner1_aft_tmpt_info" value=""><!-- 도수명 -->
+    <input type="hidden" id="inner1_print_purp_info" name="inner1_print_purp_info" value=""><!-- 인쇄용도 정보 -->
+    <input type="hidden" id="inner1_page_info" name="inner1_page_info" value=""><!-- 페이지 정보 -->
+    <input type="hidden" id="inner1_after_info" name="inner1_after_info" value=""><!-- 후공정 정보 -->
+    <input type="hidden" id="inner1_size_name" name="inner1_size_name" value=""><!-- 사이즈명 -->
+
+    <!-- ########################################################### -->
+    <!--                          내지2부분                          -->
+    <!-- ########################################################### -->
+    <input type="hidden" id="inner2_cate_sortcode" name="inner2_cate_sortcode" value="">
+    <input type="hidden" id="inner2_mono_yn" value="1"><!-- 계산형 구분 -->
+    <input type="hidden" name="inner2_amt_info" value="">
+    <input type="hidden" name="inner2_amt_unit" value="">
+    <input type="hidden" name="inner2_cut_wid_size" value="">
+    <input type="hidden" name="inner2_cut_vert_size" value="">
+    <input type="hidden" name="inner2_work_wid_size" value="">
+    <input type="hidden" name="inner2_work_vert_size" value="">
+    <input type="hidden" id="inner2_typ" name="inner2_typ" value="내지2"><!-- 상품 페이지에 들어가있는 제품구분값 -->
+    <!-- 종이 -->
+    <input type="hidden" name="inner2_paper_info" value=""><!-- 종이명 -->
+    <!-- 사이즈 -->
+    <!-- 인쇄 -->
+    <input type="hidden" name="inner2_bef_tmpt_info" value=""><!-- 도수명 -->
+    <input type="hidden" name="inner2_aft_tmpt_info" value=""><!-- 도수명 -->
+    <input type="hidden" id="inner2_print_purp_info" name="inner2_print_purp_info" value=""><!-- 인쇄용도 정보 -->
+    <input type="hidden" id="inner2_page_info" name="inner2_page_info" value=""><!-- 페이지 정보 -->
+    <input type="hidden" id="inner2_after_info" name="inner2_after_info" value=""><!-- 후공정 정보 -->
+    <input type="hidden" id="inner2_size_name" name="inner2_size_name" value=""><!-- 사이즈명 -->
+
+    <!-- ########################################################### -->
+    <!--                          내지3부분                          -->
+    <!-- ########################################################### -->
+    <input type="hidden" id="inner3_cate_sortcode" name="inner3_cate_sortcode" value="">
+    <input type="hidden" id="inner3_mono_yn" value="1"><!-- 계산형 구분 -->
+    <input type="hidden" name="inner3_amt_info" value="">
+    <input type="hidden" name="inner3_amt_unit" value="">
+    <input type="hidden" name="inner3_cut_wid_size" value="">
+    <input type="hidden" name="inner3_cut_vert_size" value="">
+    <input type="hidden" name="inner3_work_wid_size" value="">
+    <input type="hidden" name="inner3_work_vert_size" value="">
+    <input type="hidden" id="inner3_typ" name="inner3_typ" value="내지3"><!-- 상품 페이지에 들어가있는 제품구분값 -->
+    <!-- 종이 -->
+    <input type="hidden" name="inner3_paper_info" value=""><!-- 종이명 -->
+    <!-- 사이즈 -->
+    <!-- 인쇄 -->
+    <input type="hidden" name="inner3_bef_tmpt_info" value=""><!-- 도수명 -->
+    <input type="hidden" name="inner3_aft_tmpt_info" value=""><!-- 도수명 -->
+    <input type="hidden" id="inner3_print_purp_info" name="inner3_print_purp_info" value=""><!-- 인쇄용도 정보 -->
+    <input type="hidden" id="inner3_page_info" name="inner3_page_info" value=""><!-- 페이지 정보 -->
+    <input type="hidden" id="inner3_after_info" name="inner3_after_info" value=""><!-- 후공정 정보 -->
+    <input type="hidden" id="inner3_size_name" name="inner3_size_name" value=""><!-- 사이즈명 -->
+
+    <input type="hidden" id="is_admin" name="is_admin" value="[TPH_Vadmin]" /><!-- 낱장형여부 -->
+</form>

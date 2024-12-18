@@ -1,0 +1,35 @@
+<header class="popup">
+    <h2>가상계좌 등록</h2>
+    <button class="close">닫기</button>
+</header>
+<article>
+    <h3>은행선택</h3>
+    <ul id="EP_bank_cd" class="options radio">
+        <li><label class="radio"><input type="radio" name="EP_bank_cd" value="기업은행" checked><i><i></i></i> 기업은행</label></li>
+        <li><label class="radio"><input type="radio" name="EP_bank_cd" value="국민은행"><i><i></i></i> 국민은행</label></li>
+        <li><label class="radio"><input type="radio" name="EP_bank_cd" value="농협중앙회"><i><i></i></i> 농협중앙회</label></li>
+        <li><label class="radio"><input type="radio" name="EP_bank_cd" value="우리은행"><i><i></i></i> 우리은행</label></li>
+        <li><label class="radio"><input type="radio" name="EP_bank_cd" value="SC제일은행"><i><i></i></i> SC제일은행</label></li>
+        <li><label class="radio"><input type="radio" name="EP_bank_cd" value="신한은행"><i><i></i></i> 신한은행</label></li>
+        <li><label class="radio"><input type="radio" name="EP_bank_cd" value="부산은행"><i><i></i></i> 부산은행</label></li>
+        <li><label class="radio"><input type="radio" name="EP_bank_cd" value="우체국"><i><i></i></i> 우체국</label></li>
+        <li><label class="radio"><input type="radio" name="EP_bank_cd" value="하나은행"><i><i></i></i> 하나은행</label></li>
+    </ul>
+    <table class="sheetForm horizontal">
+        <colgroup>
+            <col class="th">
+            <col>
+        </colgroup>
+        <tbody>
+            <th scope="row">입금자명</th>
+            <td><input type="text" id="depo_name" class="full" maxlength="20"></td>
+        </tbody>
+    </table>
+    <footer class="action">
+        <button type="button" class="exe" onclick="regiBa();">등록하기</button>
+        <button type="button" class="close">취소</button>
+    </footer>
+    <ul class="guide">
+        <li>이곳에 설명이 들어갑니다.</li>
+    </ul>
+</article>

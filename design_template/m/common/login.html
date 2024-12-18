@@ -1,0 +1,225 @@
+        <div class="layerpopup">
+            <!-- 로그인 -->
+            <div id="login_box" class="layerpopup_contents login_box">
+                <div class="layerpopup_title">
+                    <p class="main_title">로그인</p>
+                </div>
+                <div class="login_form_wrapper">
+                    <div class="div_text_service">
+                        로그인 하시고 <span style="color:#eb3b4b;">다양한 서비스</span>를 이용하세요.
+                    </div>
+                    <div class="div_login_placeholder" id="div_id">
+                        <input id="id" class="login_input_type_text" type="text" placeholder="아이디를 입력해주세요." style="margin: 1% 0 !important;">
+                    </div>
+                    <div class="div_login_placeholder" id="div_pw" style="margin-top:10px !important;">
+                        <input id="pw" class="login_input_type_text" type="password" placeholder="비밀번호를 입력해주세요." style="margin: 1% 0 !important;">
+                    </div>
+                    <div class="id_idfind_wrapper">
+                        <table class="table_login_submenu">
+                            <colgroup>
+                                <col style="width:50%;">
+                                <col style="width:50%;">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <td class="td_id_save">
+                                        <input type="checkbox" class="id_save_checkbox" id="login_id_save">
+                                        <label for="login_id_save" class="id_save_label"><a id="login_id_save" class="a_login_id_save" href="#">아이디 저장</a></label>
+                                    </td>
+                                    <td class="td_id_find">
+                                        <a id="id_find" class="a_login_id_save" href="#none" onclick="showFindIdBox()" style="font-size:0.875em !important;">ID/PW찾기</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a href="#" class="btn_common_login" onclick="login('');">로그인</a>
+                    <a href="#" onclick="showJoinBoxBef();" class="btn_common_join">간편회원가입</a>
+                    <a href="#" class="btn_layerpopup_hide">닫기</a>
+                    <div class="div_social_box">
+                        <a href="#none" id="btn_naver" onclick="showSocialLogin('naver')">
+                            <div class="btn_social_login">
+                                <img class="img_top" src="[TPH_Vdesign_dir]/images/common/btn_login_naver.jpg" alt="네이버로그인">
+                            </div>
+                        </a>
+                        <a href="#none" id="btn_kakao" onclick="showSocialLogin('kakao')">
+                            <div class="btn_social_login">
+                                <img class="img_top" src="[TPH_Vdesign_dir]/images/common/btn_login_kakaotalk.jpg" alt="카카오로그인">
+                            </div>
+                        </a>
+                        <a href="#none" id="btn_fb" onclick="showSocialLogin('fb')">
+                            <div class="btn_social_login">
+                                <img class="img_top" src="[TPH_Vdesign_dir]/images/common/btn_login_facebook.jpg" alt="페이스북로그인">
+                            </div>
+                        </a>
+                        <a href="#none" id="btn_google" onclick="showSocialLogin('google')">
+                            <div class="btn_social_login">
+                                <img class="img_top" src="[TPH_Vdesign_dir]/images/common/btn_login_google.jpg" alt="구글로그인">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 회원가입유도 -->
+            <div id="login_box" class="layerpopup_contents join_box" style="display:none;">
+                <div class="layerpopup_title">
+                    <p class="main_title">간편회원가입</p>
+                </div>
+                <div class="login_form_wrapper">
+                    <div class="div_text_service_02"><img src="[TPH_Vdesign_dir]/images/common/member_sub_text.png" alt="다양한 혜택"></div>
+                    <a href="#" class="btn_common_login link_join_form">간편회원가입</a>
+                    <a href="#" class="btn_layerpopup_hide">닫기</a>
+                    <div class="div_social_box">
+                        <a href="#none" id="btn_naver" onclick="showSocialLogin('naver')">
+                            <div class="btn_social_login">
+                                <img class="img_top" src="[TPH_Vdesign_dir]/images/common/btn_login_naver.jpg" alt="네이버로그인">
+                            </div>
+                        </a>
+                        <a href="#none" id="btn_kakao" onclick="showSocialLogin('kakao')">
+                            <div class="btn_social_login">
+                                <img class="img_top" src="[TPH_Vdesign_dir]/images/common/btn_login_kakaotalk.jpg" alt="카카오로그인">
+                            </div>
+                        </a>
+                        <a href="#none" id="btn_fb" onclick="showSocialLogin('fb')">
+                            <div class="btn_social_login">
+                                <img class="img_top" src="[TPH_Vdesign_dir]/images/common/btn_login_facebook.jpg" alt="페이스북로그인">
+                            </div>
+                        </a>
+                        <a href="#none" id="btn_google" onclick="showSocialLogin('google')">
+                            <div class="btn_social_login">
+                                <img class="img_top" src="[TPH_Vdesign_dir]/images/common/btn_login_google.jpg" alt="구글로그인">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 회원가입 폼 -->
+            <div id="" class="layerpopup_contents join_form_box" style="display: none;">
+                <div class="layerpopup_title">
+                    <p class="main_title">간편회원가입</p>
+                </div>
+                <div class="login_form_wrapper">
+                    <table class="logrin_form_table">
+                        <tr>
+                            <td>이름 또는 상호명</td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom:3%;">
+                                <input id="join_name" class="login_input_type_text" type="text" placeholder="한글 또는 영문 2글자 이상 입력해주세요."/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="position:relative;">
+                                이메일(아이디)<button type="button" class="btn_login_id_check" onclick="chkDupMember();">중복체크</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom:3%;">
+                                <input id="join_id" class="login_input_type_text" type="text" placeholder="사용하시는 이메일 주소를 입력해주세요."/>
+                                <input type="hidden" id="chk_dup" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>비밀번호</td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom:3%;">
+                                <input id="join_pw" class="login_input_type_text" type="password" placeholder="영문 숫자 조합 6~16자리를 입력해주세요."/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>비밀번호 확인</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input id="join_pw_check" class="login_input_type_text" type="password" placeholder="비밀번호를 한번 더 입력해주세요."/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table style="width:100%;">
+                                    <colgroup>
+                                        <col style="width:70%;">
+                                        <col style="width:30%;">
+                                    </colgroup>
+                                    <tr>
+                                        <td>
+                                            <a href="/member/private.html" target="_blank"><b>개인정보처리방침</b></a><a href="/member/agreement.html" target="_blank"><b>이용약관</b></a>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <input type="checkbox" class="id_save_label" id="join_terms"><label for="join_terms" class="id_save_label">동의</label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="button_wrapper" style="margin-top: 5%;">
+                                    <button class="mypage_bottom_basic_btn_inner btn_layerpopup_hide" type="button">취소하기</button>
+                                    <button class="mypage_bottom_color_btn_inner" type="button" onclick="memberJoin();">가입하기</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!--회원가입 폼 끝 -->
+
+            <!-- 아이디찾기 -->
+            <div id="" class="layerpopup_contents id_find_form_box" style="display: none;">
+                <div class="layerpopup_title">
+                    <p class="main_title">아이디/비밀번호찾기</p>
+                </div>
+                <div class="login_form_wrapper">
+                    <table class="logrin_form_table">
+                        <tr>
+                            <td>이름 또는 상호명</td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom:3%;">
+                                <input id="jname" class="login_input_type_text" type="text" placeholder="가입시 등록한 이름을 입력해주세요."/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="position:relative;">
+                                이메일(아이디)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom:3%;">
+                                <input id="jid" class="login_input_type_text" type="text" placeholder="가입시 등록한 이메일 주소를 입력해주세요."/>
+                                <input type="hidden" id="chk_dup" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="div_radius_frame_02" style="margin-bottom: 10%;">
+                                    <div class="div_radius_frame_text">
+                                        <p>회원 가입시 등록했던 이름(상호명)과 이메일 정보를 입력해주세요.</p>
+                                        <p>회원님의 이메일 주소로 아이디와 임시 비밀번호가 발송됩니다.</p>
+                                        <p>이메일 정보 확인이 불가능한 경우, 고객센터로 연락 주시기 바랍니다.<br>고객센터 : 02-2260-9000</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="button_wrapper">
+                                    <button class="mypage_bottom_basic_btn_inner btn_layerpopup_hide" type="button">취소하기</button>
+                                    <button class="mypage_bottom_color_btn_inner" type="button" onclick="">찾기</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- 아이디찾기 끝 -->
+
+        </div>
+
+        <!-- 레이어팝업 배경 -->
+        <div class="layerpopup_bg">
+        </div>

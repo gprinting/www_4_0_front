@@ -1,0 +1,96 @@
+<header>
+    <h2>관리 사업자등록증 추가</h2>
+    <button class="close" title="닫기"><img src="../../images/common/btn_circle_x_white.png" alt="X"></button>
+</header>
+<article>
+    <table class="input to">
+        <colgroup>
+            <col width="105">
+            <col>
+            <col width="56">
+            <col>
+        </colgroup>
+        <tbody>
+            <tr>
+                <th scope="row">사업자등록증 번호</th>
+                <td colspan="3"><input type="text" style="width: 112px;"></td>
+            </tr>
+            <tr>
+                <th scope="row">대표자</th>
+                <td class="name" colspan="3"><input type="text"> (10자 이내)</td>
+            </tr>
+            <tr>
+                <th scope="row">업태</th>
+                <td><div class="inputWrap"><input type="text"></div></td>
+                <th scope="row">종목</th>
+                <td><div class="inputWrap"><input type="text"></div></td>
+            </tr>
+            <tr>
+                <th scope="row">전화번호</th>
+                <td colspan="3">
+                    <select>
+                        <option>02</option>
+                    </select>
+                    <input type="text">
+                    <input type="text">
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">주소</th>
+                <td colspan="3">
+                    <div class="rowWrap">
+                        <input type="text" readonly>
+                        <input type="text" readonly>
+                        <button>우편번호 찾기</button>
+                    </div>
+                    <div class="rowWrap">
+                        <div class="inputWrap"><input type="text" class="address" readonly></div>
+                    </div>
+                    <div class="rowWrap">
+                        <div class="inputWrap"><input type="text" class="address"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>회계담당자</th>
+                <td colspan="3">
+                    <dl class="input">
+                        <dt>이름</dt>
+                        <dd>
+                            <input type="text">
+                        </dd>
+                        <dt>직급</dt>
+                        <dd>
+                            <input type="text">
+                        </dd>
+                        <dt class="email">이메일</dt>
+                        <dd class="info _email">
+                            <input type="text">
+                            <span>@</span>
+                            <input type="text" class="_domain">
+                            <select class="_domain">
+                                <option class="_custom">직접입력</option>
+                                <option>naver.com</option>
+                            </select>
+                        </dd>
+                    </dl>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="function center">
+        <strong><button>신규등록</button></strong>
+        <button onclick="confirmClosePopup(event, '입력하신 모든 내용이 사라집니다. 취소하시겠습니까?');">취소</button>
+    </div>
+    <script>
+        $('.l_businessRegistration select._domain').on('change', function () {
+            if ($(this).children('option:selected').hasClass('_custom')) {
+                $(this).prev().val('');
+                $(this).prev()[0].readOnly = false;
+            } else {
+                $(this).prev().val($(this).children('option:selected').text());
+                $(this).prev()[0].readOnly = true;
+            }
+        });
+    </script>
+</article>

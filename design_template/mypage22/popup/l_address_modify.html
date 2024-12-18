@@ -1,0 +1,100 @@
+<button class="btn_popup_close close" title="닫기"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_x_white.png" alt="X"></button>
+<div class="inner_padding">
+    <div class="layerPopup">
+        <div>
+            <h2>배송지 변경</h2>
+        </div>
+        <div class="layerPopup_contents">
+            <div>
+                <!-- 새로운 소스-->
+                <table class="input to">
+                    <colgroup>
+                        <col width="120">
+                        <col width="">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th scope="row">배송방법</th>
+                            <td>
+                                <select name="to_1_dlvr_way" id="to_1_dlvr_way" class="dlvr_way" onchange="getDlvrCost.exec('to_1');">
+                                    
+                                    <option value="01">택배</option>
+                                    <option value="04">퀵(오토바이)</option>
+                                    <option value="05">퀵(다마스)</option>
+                                    <option value="06">방문(인현동)</option>
+                                    <option value="07">방문(성수동)</option>
+                                </select>
+                                <input type="hidden" class="dlvr_price" id="to_1_dlvr_price" name="to_1_dlvr_price" value="2750">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">배송비 지불</th>
+                            <td>
+                                <label style="margin-right:24px;"><input type="radio" checked="checked" name="to_1_dlvr_sum_way" onchange="getDlvrCost.exec('to_1');" value="01"> 선불</label>
+                                <label><input type="radio" name="to_1_dlvr_sum_way" onchange="getDlvrCost.exec('to_1');" value="02"> 착불</label>
+                                <label id="to_1_dlvr_warning" style="color:#FF0000"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">업체/상호명</th>
+                            <td><input name="to_1_dlvr_name" id="to_1_dlvr_name" type="text" class="name"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">수신자</th>
+                            <td><input name="to_1_recei" id="to_1_recei" type="text" class="name"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">전화번호</th>
+                            <td>
+                                <select id="to_1_tel_num1" name="to_1_tel_num1">
+                                    <option value="02">02</option><option value="031">031</option><option value="032">032</option><option value="033">033</option><option value="041">041</option><option value="042">042</option><option value="043">043</option><option value="044">044</option><option value="051">051</option><option value="052">052</option><option value="053">053</option><option value="054">054</option><option value="055">055</option><option value="061">061</option><option value="062">062</option><option value="063">063</option><option value="064">064</option><option value="010">010</option><option value="070">070</option>
+                                </select>
+                                <input id="to_1_tel_num2" name="to_1_tel_num2" maxlength="4" onkeyup="onlyNumber(event, this.value);" type="text">
+                                <input id="to_1_tel_num3" name="to_1_tel_num3" maxlength="4" onkeyup="onlyNumber(event, this.value);" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">휴대전화</th>
+                            <td>
+                                <select id="to_1_cell_num1" name="to_1_cell_num1">
+                                    <option value="010">010</option><option value="011">011</option><option value="016">016</option><option value="017">017</option><option value="018">018</option>
+                                </select>
+                                <input id="to_1_cell_num2" name="to_1_cell_num2" maxlength="4" onkeyup="onlyNumber(event, this.value);" type="text">
+                                <input id="to_1_cell_num3" name="to_1_cell_num3" maxlength="4" onkeyup="onlyNumber(event, this.value);" type="text">
+                            </td>
+                        </tr>
+                        <tr id="to_1_addr">
+                            <th scope="row">주소</th>
+                            <td colspan="3" style="position:relative;">
+                                <div class="rowWrap">
+                                    <input type="text" id="to_1_zipcode" name="to_1_zipcode" onchange="getDlvrCost.exec('to_1');" readonly="">
+                                    <button type="button" class="postcode_btn" onclick="getPostcode('to_1');">우편번호 찾기</button>
+                                </div>
+                                <div class="rowWrap">
+                                    <input type="text" id="to_1_addr_top" name="to_1_addr_top" class="address" readonly="">
+                                    <input type="text" id="to_1_addr_detail" name="to_1_addr_detail" class="address_detail">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- 새로운 소스-->
+                <script>
+                    $('.l_address select._domain').on('change', function () {
+                        if ($(this).children('option:selected').hasClass('_custom')) {
+                            $(this).prev().val('');
+                            $(this).prev()[0].readOnly = false;
+                        } else {
+                            $(this).prev().val($(this).children('option:selected').text());
+                            $(this).prev()[0].readOnly = true;
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+        <div class="btn_wrapper">
+            <button type="button" class="btn_type_02" onclick="edit('[TPH_Vseq]'); return false;">배송지 수정</button>
+            <button type="button" class="btn_type_01" onclick="confirmClosePopup(event, '입력하신 모든 내용이 사라집니다. 취소하시겠습니까?');">취소</button>
+        </div>
+    </div>
+</div>

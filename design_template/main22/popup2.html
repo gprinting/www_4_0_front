@@ -1,0 +1,48 @@
+
+<script language="JavaScript">
+    function setCookie(name, value, expiredays) {
+        var date = new Date();
+        date.setDate(date.getDate() + expiredays);
+        document.cookie = escape(name) + "=" + escape(value) + "; expires=" + date.toUTCString();
+    }
+
+    function closePopup() {
+        if (document.getElementById("check").value) {
+            setCookie("popupYN", "N", 1);
+            self.close();
+        }
+    }
+</script>
+<!--http://gprinting.co.kr/sp_customer_dp/notice.php?mode=view&number=59801&page=1&b_name=notice -->
+
+<div id="mainPop">
+<div class="contents">
+    <img src="/design_template/pub22/images/layout/popup_20231023_002.png"  usemap="#imgmap2023410145437" alt="notice" width="600px"  />
+    <div class="mainPop_close">
+        <form name="pop_form">
+    <input type="checkbox" id="check" align="right" onclick="closePopup();">
+
+  <font style="text-align:right; font-size: 13px">24시간 동안 다시 열람하지 않습니다.</font>
+        </form>
+    </div>
+</div>
+<div class="Pop_bg"></div>
+</div>
+
+<!--div id="mainPop">
+<div class="contents">
+        <img src="http://gprinting.co.kr/SEditor/userUpload/popup20230410.jpg"  usemap="#imgmap2023410145437" alt="notice" width="382px"  />
+        <map id="imgmap2023410145437" name="imgmap2023410145437">
+            <area shape="rect" alt="" title="" coords="1,2,223,285" href="http://new.gprinting.co.kr/product22/single.html?cs=012007002 " target="_blank" />
+            <area shape="rect" alt="" title="" coords="234,4,448,286" href="http://new.gprinting.co.kr/product22/single.html?cs=012007001" target="_blank" />
+        </map>
+    <div class="mainPop_close">
+        <form name="pop_form">
+    <input type="checkbox" id="check" align="right" onclick="closePopup();">
+
+  <font style="text-align:right; font-size: 13px">24시간 동안 다시 열람하지 않습니다.</font>
+        </form>
+    </div>
+</div>
+<div class="Pop_bg"></div>
+</div-->

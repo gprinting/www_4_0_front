@@ -1,0 +1,148 @@
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>[TPH_Vcompany_name]</title>
+<link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/pub22/reset.css">
+<link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/pub22/common.css">
+<link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/pub22/popup.css">
+<link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/pub22/[TPH_Vdir].css">
+<script src="[TPH_Vdesign_dir]/pub22/jquery-3.6.0.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="[TPH_Vdesign_dir]/pub22/common.js"></script>
+<script src="[TPH_Vdesign_dir]/pub22/[TPH_Vdir].js"></script>
+
+<link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/pub22/owl.carousel.min.css">
+<script src="[TPH_Vdesign_dir]/pub22/owl.carousel.min.js"></script>
+
+<!-- Test -->
+<!--script src="http://testpg.easypay.co.kr/webpay/EasypayCard_Web.js"></script-->
+<!-- Real -->
+<script src="https://pg.easypay.co.kr/webpay/EasypayCard_Web.js"></script>
+<!--<script src="[TPH_Vdesign_dir]/js/design/common_design.js"></script>-->
+<script src="[TPH_Vdesign_dir]/js22/common/common.js"></script>
+<script src="[TPH_Vdesign_dir]/js22/lib/jquery-ui_dprinting.min.js"></script>
+<!--<script src="[TPH_Vdesign_dir]/js/design/[TPH_Vdir]_design.js"></script>-->
+[TPH_Vscript_hide_open]
+<script src="[TPH_Vdesign_dir]/js22/common/[TPH_Vdir].js"></script>
+<script src="[TPH_Vdesign_dir]/js22/[TPH_Vdir]/[TPH_Vpage].js"></script>
+[TPH_Vscript_hide_close]
+
+<!-- Start of gprinting Zendesk Widget script -->
+<!--
+<script>
+    /*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="gprinting.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();
+/*]]>*/
+    window.zESettings = {
+        webWidget: {
+            offset: {horizontal : '30px'}
+        }
+    };
+</script>
+-->
+<!-- End of gprinting Zendesk Widget script -->
+
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108022578-1"></script>
+<script>
+    $(document).ready(function(){
+       // alert("환영합니다");
+        window.addEventListener("message", function (e) {
+            if(e.data == "success") {
+                if($("#purlogin").val() == "1") {
+                    $("#il").val('1');
+                    hideLoginBox();
+                    orderNextFunc();
+                } else {
+                    window.location.reload();
+                }
+            }
+        });
+
+    });
+
+    var showSocialLogin = function(dvs) {
+        switch(dvs) {
+            case "naver" :
+                popup = window.open('/oauth/info_redir.php?dvs=naver','','width=500, height=760, scrollbars=no');
+                break;
+
+            case "kakao" :
+                popup = window.open('/oauth/info_redir.php?dvs=kakao','','width=500, height=760, scrollbars=no');
+                //loginWithKakao();
+                break;
+
+            case "fb" :
+                fbLogin();
+                break;
+
+            case "google" :
+                popup = window.open('/oauth/info_redir.php?dvs=google','','width=500, height=760, scrollbars=no');
+                break;
+        }
+    };
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId   : '1976862682519726',
+            cookie  : true,
+            xfbml   : true,
+            version : 'v2.10'
+        });
+
+        FB.AppEvents.logPageView();
+    };
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/ko_KR/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    } (document, 'script', 'facebook-jssdk'));
+
+    var fbLogin = function() {
+        var callback = function(res1) {
+
+            FB.api(
+                "/me?fields=id,name,email",
+                "post",
+                {
+                    "access_token" : res1.authResponse.accessToken,
+                    "fields" : "name,email"
+                },
+                function(res2) {
+                    $.ajax({
+                        type     : "POST",
+                        url      : "/oauth/oauth_callback_facebook.php",
+                        data     : res2,
+                        //dataType : "text",
+                        success  : function(result) {
+                            location.reload();
+                        }
+                    });
+                }
+            );
+
+            //FB.logout(function(){});
+        };
+
+        FB.login(callback, {"scope" : "public_profile,email"});
+    };
+
+    /*
+    Kakao.init('67a501026822a563580b31b1df9cc32a');
+    function loginWithKakao() {
+        Kakao.Auth.authorize({
+            redirectUri: 'https://biz.papier.co.kr/oauth/oauth_callback_kakao.php',
+            //scope: 'account_email,name'
+            scope: 'account_email,profile_nickname'
+        });
+    };
+*/
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-108022578-1');
+</script>

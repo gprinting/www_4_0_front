@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common22/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    
+    <main id="main" class="mypage wrap consulting">
+        <header class="good pages">
+            <h2>
+                <span class="en">MY PAGE</span>
+                <span class="ko">마이페이지</span>
+            </h2>
+            <h3>
+                <ol>
+                    <li>상담</li>
+                    <li>1:1 문의</li>
+                </ol>
+            </h3>
+            <hr>
+        </header>
+        
+        [TPH_I/mypage22/common/lnb.html]
+
+        <section class="contents">
+            <header class="section question">1:1 문의 상세사항</header>
+            <article class="tableWrap">
+                <table class="sheetForm horizontal">
+                    <colgroup>
+                        <col class="th">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1:1 문의 제목</th>
+                            <td>[TPH_Vtitle]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">문의 유형</th>
+                            <td>[TPH_Vinq_typ]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">신청자명</th>
+                            <td>[TPH_Vmember_name]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">연락처</th>
+                            <td>[TPH_Vtel_num]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">휴대전화</th>
+                            <td>[TPH_Vcell_num]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">문의 내용</th>
+                            <td>[TPH_Vcont]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">파일첨부</th>
+                            <td>[TPH_Vinq_file_html]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">이메일</th>
+                            <td>[TPH_Vmail][TPH_Vansw_mail]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+            <hr class="end">
+            <header class="section answer">1:1 문의 답변</header>
+            <article class="tableWrap">
+                <table class="sheetForm horizontal">
+                    <colgroup>
+                        <col class="th">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>첨부파일</th>
+                            <td>[TPH_Vreply_file_html]</td>
+                        </tr>
+                        <tr>
+                            <th>답변내용</th>
+                            <td>[TPH_Vansw_cont]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+            <form name="frm" id="frm">
+                <input type="hidden" name="searchParam" id="searchParam" value="[TPH_VsearchParam]" >
+            </form>
+            <hr class="end">
+            <footer class="action decide">
+                <div class="sub">
+                    <button type="text" class="exe" id="del_req" onclick="deleteReq([TPH_Vreq_seq], this.id);">삭제하기</button>
+                </div>
+                <button type="text" onclick="goList();">목록으로</button>
+            </footer>
+            [TPH_I/mypage22/common/banner.html]
+        </section>
+    </main>
+    <footer>
+        [TPH_I/common22/footer.html]
+    </footer>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common22/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    
+    <main id="main" class="mypage wrap consulting">
+        <header class="good pages">
+            <h2>
+                <span class="en">MY PAGE</span>
+                <span class="ko">마이페이지</span>
+            </h2>
+            <h3>
+                <ol>
+                    <li>상담</li>
+                    <li>1:1 문의</li>
+                </ol>
+            </h3>
+            <hr>
+        </header>
+        
+        [TPH_I/mypage22/common/lnb.html]
+        
+        <section class="contents">
+            <form name="searchFrm" id="searchFrm">
+                <div class="searchCondition">
+                    <div class="rowWrap">
+                        <dl class="date">
+                            <dt>의뢰일</dt>
+                            <dd>
+                                [TPH_I/common22/datepicker.html]
+                            </dd>
+                        </dl>
+                        <dl class="status last">
+                            <dt>답변상태</dt>
+                            <dd>
+                                <select id="answ_yn">
+                                    <option value="">전체</option>
+                                    <option value="N">대기</option>
+                                    <option value="Y">완료</option>
+                                </select>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="rowWrap">
+                        <dl class="type">
+                            <dt>문의유형</dt>
+                            <dd>
+                                <select id="inq_typ">
+                                    <option value="">전체</option>
+                                    <option value="버그">버그</option>
+                                    <option value="견적">견적</option>
+                                    <option value="사고">사고</option>
+                                    <option value="정보">정보</option>
+                                    <option value="기타">기타</option>
+                                </select>
+                            </dd>
+                        </dl>
+                        <dl class="title last">
+                            <dt>문의제목</dt>
+                            <dd><input type="text" onkeydown="searchKey(event);" name="title" id="title" ></dd>
+                        </dl>
+                    </div>
+                    <button onclick="searchTxt();" type="button" class="search">검색</button>
+                </div>
+            </form>
+            <table class="list info searchResult update">
+                <caption>
+                    <div class="resultNum" id="resultNum">
+                    </div>
+                    [TPH_I/common22/list_num.html]
+                </caption>
+                <colgroup>
+                    <col class="no">
+                    <col class="date">
+                    <col class="category">
+                    <col>
+                    <col class="date">
+                    <col class="status">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>의뢰일</th>
+                        <th>문의유형</th>
+                        <th>문의제목</th>
+                        <th>답변등록일</th>
+                        <th>상태</th>
+                    </tr>
+                </thead>
+                <tbody id="list">
+        <!--
+                    <tr class="waiting">
+                        <td>10</td>
+                        <td>2015-03-20</td>
+                        <td>인쇄/제작</td>
+                        <td class="subject"><a href="#none" target="_self">코팅을 빼면 출고가 어느정도 빨라지나요?코팅을 빼면 출고가 어느정도 빨라지나요?코팅을 빼면 출고가 어느정도 빨라지나요?</a></td>
+                        <td>2015-03-20</td>
+                        <td class="status"><img src="/design_template/images/mypage/text_question_waiting.png" alt="답변대기"></td>
+                    </tr>
+                    <tr class="waiting new">
+                        <td>9</td>
+                        <td>2015-03-20</td>
+                        <td>인쇄/제작</td>
+                        <td class="subject"><a href="#none" target="_self">코팅을 빼면 출고가 어느정도 빨라지나요?코팅을 빼면 출고가 어느정도 빨라지나요?코팅을 빼면 출고가 어느정도 빨라지나요?</a></td>
+                        <td>2015-03-20</td>
+                        <td class="status"><img src="/design_template/images/mypage/text_question_waiting.png" alt="답변대기"></td>
+                    </tr>
+                    <tr class="new">
+                        <td>8</td>
+                        <td>2015-03-20</td>
+                        <td>인쇄/제작</td>
+                        <td class="subject"><a href="#none" target="_self">코팅을 빼면 출고가 어느정도 빨라지나요?</a></td>
+                        <td>2015-03-20</td>
+                        <td class="status"><img src="/design_template/images/mypage/text_question_waiting.png" alt="답변대기"></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>2015-03-20</td>
+                        <td>인쇄/제작</td>
+                        <td class="subject"><a href="#none" target="_self">코팅을 빼면 출고가 어느정도 빨라지나요?</a></td>
+                        <td>2015-03-20</td>
+                        <td class="status"><img src="../../images/mypage/text_question_waiting.png" alt="답변대기"></td>
+                    </tr>
+        -->
+                </tbody>
+            </table>
+            <form name="frm" id="frm">
+                <input type="hidden" id="seq" name="seq"/>
+                <input type="hidden" id="searchParam" name="searchParam" value="[TPH_VsearchParam]"/>
+            </form>
+            <hr class="end">
+            <footer class="action">
+                <div class="left">
+                    <button onclick="ftfWrite();"><span class="number">1:1</span>문의 작성하기</button>
+                </div>
+                <ul class="paging" id="paging">
+                    <li><button class="on">1</button></li>
+                </ul>
+            </footer>
+            [TPH_I/mypage22/common/banner.html]
+        </section>
+    </main>
+    <footer>
+        [TPH_I/common22/footer.html]
+    </footer>
+</body>
+</html>

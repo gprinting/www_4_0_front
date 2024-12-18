@@ -1,0 +1,50 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/common/FrontCommonDAO.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/eventmall/EventmallDAO.inc");
+
+
+$frontUtil = new FrontCommonUtil();
+
+if ($is_login === false) {
+        $frontUtil->errorGoBack("로그인 후 확인 가능합니다.");
+            exit;
+}
+
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$dao = new FrontCommonDAO();
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+$eventmallDao = new EventmallDAO();
+
+$special_list = $eventmallDao->selectSpecialList($conn);
+$special_list_html = makeSpecialListHTML($conn, $special_list);
+
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "eventmall"); 
+$template->reg("page", "special"); 
+
+//design_dir 경로
+$template->reg("design_dir" , "/design_template"); 
+//서버시간
+$template->reg("year", date("Y"));
+$template->reg("month",date("m"));
+$template->reg("day", date("d"));
+$template->reg("hour",date("H"));
+$template->reg("min", date("i"));
+$template->reg("sec", date("s"));
+//html
+$template->reg("special_list_html", $special_list_html);
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+?>

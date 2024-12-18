@@ -1,0 +1,31 @@
+        <h2 class="order_title">파일 및 메모</h2>
+        <div style="padding:0px;">
+            <dl style="padding: 5px 10px;">
+                <dt>파일</dt>
+                <dd id="work_file_dl" class="work_file_wrap">
+                    <span id="esti_file_list" class="file_upload_inputText" style="z-index:1000;"></span>
+                    <div class="file_upload_box">&nbsp;</div>
+                    <button type="button" name="esti_file" id="esti_file" class="btn_addFile">파일추가</button>
+                </dd>
+            </dl>
+        </div>
+        <div style="padding:0px;">
+            <dl style="padding: 5px 10px;">
+                <dt>메모</dt>
+                <!--
+                <dd class=""><div class="inputWrap"><input type="text" class="memo_textarea" id="cust_memo" placeholder="메모를 적어주세요"></textarea></div></dd>
+                -->
+                <dd class=""><div class="inputWrap"><textarea class="memo_textarea" id="cust_memo" style="height: 75px;" placeholder="메모를 적어주세요"></textarea></div></dd>
+            </dl>
+        </div>
+
+        <div class="purchase" style="padding-top:20px; margin-left: -2px;">
+			<div class="function" style="text-align:right;">
+                <strong id="admin_mode" class="">
+                    <button onclick="insertEsti();" type="button" style="width:190px; color:#fff; border:none;" class="c_btn-primary sub">주문입력</button>
+                </strong>
+                <strong id="user_mode">
+                    <button onclick="insertEstiAdmin();" type="button" style="width:190px; color:#fff; border:none;" class="c_btn-primary sub">견적 문의하기</button>
+                </strong>
+			</div>
+		</div>

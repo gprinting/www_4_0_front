@@ -1,0 +1,135 @@
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>고객센터</title>
+<link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/css/reset.css">
+<link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/css/common.css">
+<link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/css/main.css">
+<link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/css/cscenter.css">
+<link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/css/open_beta.css">
+<link rel="stylesheet" href="[TPH_Vdesign_dir]/css/[TPH_Vdir].css">
+<style type="text/css" media="all">
+    body {
+        position:relative;
+        padding:0;
+    }
+    h2 {
+        color:#fff;
+        font-size:90%;
+        font-family:arial;
+        margin:10px;
+        font-weight:bold;
+    }
+    h2 span {
+        font-size:105%;
+        font-weight:normal;
+    }
+    #sideBar {
+        position: absolute;
+        width: auto;
+        /*height: auto;*/
+        top: 200px;
+        right:0;
+        background-image:url('[TPH_Vdesign_dir]/images/common/background.gif');
+        background-position:top left;
+        background-repeat:repeat-y;
+    }
+    #sideBarTab {
+        float:left;
+        height:137px;
+        width:28px;
+    }
+    #sideBarTab img {
+        border:0 solid #FFF;
+    }
+    #sideBarContents {
+        overflow:hidden !important;
+    }
+    #sideBarContentsInner {
+        width:200px;
+    }
+    .top .items {
+        border-top: medium none;
+    }
+    .table_sub_menu_list {
+        display : none;
+    }
+    .table_sub_menu_list {
+        display : none;
+    }
+</style>
+
+<script src="[TPH_Vdesign_dir]/js/lib/jquery-1.11.2.min.js"></script>
+
+<script src="[TPH_Vdesign_dir]/js/common/common.js"></script>
+<script src="[TPH_Vdesign_dir]/js/common/cscenter.js"></script>
+<script src="[TPH_Vdesign_dir]/js/cscenter/main.js"></script>
+<script src="[TPH_Vdesign_dir]/js/design/common_design.js"></script>
+<script src="[TPH_Vdesign_dir]/js/lib/jquery-ui_dprinting.min.js"></script>
+<script>
+    $(document).ready(function(){
+        //닫기 버튼을 눌렀을 때
+        $('.pop_mail .close').click(function (e) {
+            //링크 기본동작은 작동하지 않도록 한다.
+            e.preventDefault();
+            $('.modalMask').hide();
+        });
+
+        //검은 막을 눌렀을 때
+        $('.modalMask').click(function () {
+            $(this).hide();
+            $('.modalMask').hide();
+        });
+
+        $(".popular_search_input").click(function(){
+            $(".populer_keyword_wrapper").slideDown();
+        });
+        $(".popular_close_btn").click(function(){
+            $(".populer_keyword_wrapper").slideUp();
+        });
+
+        $(".faq_list").click(function(){
+            $(".detail_view").slideDown();
+            $(".faq_guide").slideDown();
+            $(".faq_list").addClass('faq_list_on');
+        });
+
+        $(".detail_view").click(function(){
+            $(".detail_view").slideUp();
+            $(".faq_guide").slideUp();
+            $(".faq_list").removeClass('faq_list_on');
+        });
+
+    });
+
+    var showTopNavi = function(dvs) {
+        var affArea = dvs.substring(7, 9);
+        $('.table_sub_menu_list.sub_menu_list_' + affArea + '').show();
+    };
+
+    var closeTopNavi = function(dvs) {
+        var affArea = dvs.substring(7, 9);
+        $('.table_sub_menu_list.sub_menu_list_' + affArea + '').hide();
+    }
+</script>
+<!-- Start of gprinting Zendesk Widget script -->
+<!--
+<script>
+    /*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="gprinting.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();
+/*]]>*/
+    window.zESettings = {
+        webWidget: {
+            offset: {horizontal : '30px'}
+        }
+    };
+</script>
+-->
+<!-- End of gprinting Zendesk Widget script -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-145783810-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-145783810-1');
+</script>

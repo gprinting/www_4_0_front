@@ -1,0 +1,24 @@
+<!-- 견적서 출력 팝업 -->
+<div class="modalMask l_estimate">
+    <div class="layerPopupWrap">
+        <div class="layerPopup">
+            <header>
+                <h2>견적서 출력</h2>
+                <button class="close" title="닫기"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_x_white.png" alt="X"></button>
+            </header>
+            <article id="esti_cont">
+            </article>
+            <footer>
+                <div class="function">
+                    <strong><button type="button" onclick="window.print();">견적서 인쇄</button></strong>
+                    <!--strong class="blue"><button type="button" onclick="showEmailPop();">이메일 발송</button></strong-->
+                    <strong class="blue"><button type="button" onclick="downEstiExcel();">엑셀 저장하기</button></strong>
+                    <div class="right">
+                        <button class="close">취소</button>
+                    </div>
+                </div>
+                <iframe id="file_ifr" name="file_ifr" width=0 height=0 style="display:none;"></iframe>
+            </footer>
+        </div>
+    </div>
+</div><!-- 견적서 출력 팝업 -->

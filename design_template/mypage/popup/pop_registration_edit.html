@@ -1,0 +1,99 @@
+<header>
+    <h2>관리 사업자등록증 수정/삭제</h2>
+    <button class="close" title="닫기"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_x_white.png" alt="X"></button>
+</header>
+<article>
+    <form name="frm" id="frm">
+    <table class="input to">
+    <colgroup>
+        <col width="105">
+        <col>
+        <col width="56">
+        <col>
+    </colgroup>
+    <tbody>
+    <tr>
+        <th scope="row">사업자등록증 번호</th>
+        <td colspan="3"><input type="text"  onkeyup="this.value=this.value.replace(/[^-0-9]/g,'');" placeholder="xxx-xx-xxxxx" maxlength="12" id="crn" name="crn" style="width: 112px;" value="[TPH_Vcrn]"></td>
+    </tr>
+    <tr>
+        <th scope="row">회사명</th>
+        <td><div class="inputWrap"><input type="text" id="corp_name" name="corp_name" value="[TPH_Vcorp_name]"></div></td>
+        <th scope="row">대표자</th>
+        <td class="name"><input type="text" id="repre_name" name="repre_name" maxlength="10" value="[TPH_Vrepre_name]"> (10자 이내)</td>
+    </tr>
+    <tr>
+        <th scope="row">업태</th>
+        <td><div class="inputWrap"><input type="text" id="bc" name="bc" value="[TPH_Vbc]"></div></td>
+        <th scope="row">종목</th>
+        <td><div class="inputWrap"><input type="text" id="tob" name="tob" value="[TPH_Vtob]"></div></td>
+    </tr>
+    <tr>
+        <th scope="row">전화번호</th>
+        <td colspan="3">
+            <select id="tel_num" name="tel_num" value="[TPH_Vtel_num]">
+                [TPH_VtelOpt]
+            </select>
+            <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4" id="tel_num2" name="tel_num2" value="[TPH_Vtel_num2]">
+            <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4" id="tel_num3" name="tel_num3" value="[TPH_Vtel_num3]">
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">주소</th>
+        <td colspan="3">
+            <div class="rowWrap">
+                <input type="text" id="zipcode" name="zipcode" value="[TPH_Vzipcode]" readonly>
+                <button type="button" onclick="getPostcode();">우편번호 찾기</button>
+            </div>
+            <div class="rowWrap">
+                <div class="inputWrap"><input type="text" id="addr" name="addr" class="address" value="[TPH_Vaddr]" readonly></div>
+            </div>
+            <div class="rowWrap">
+                <div class="inputWrap"><input type="text" id="addr_detail" name="addr_detail" class="address" value="[TPH_Vaddr_detail]"></div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <th>회계담당자</th>
+        <td colspan="3">
+            <dl class="input">
+                <dt>이름</dt>
+                <dd>
+                    <input type="text" id="mng_name" name="mng_name" value="[TPH_Vmng_name]">
+                </dd>
+                <dt>직급</dt>
+                <dd>
+                    <input type="text" id="posi" name="posi" value="[TPH_Vposi]">
+                </dd>
+                <dt class="email">이메일</dt>
+                <dd class="info _email">
+                    <input type="text" onkeyup="this.value=this.value.replace(/[^-_a-zA-Z0-9]/g,'');" style="ime-mode:disabled" id="mail" name="mail" value="[TPH_Vmail]">
+                    <span>@</span>
+                    <input type="text" class="_domain" onkeyup="this.value=this.value.replace(/[^.a-zA-Z0-9]/g,'');" style="ime-mode:disabled" id="mail2" name="mail2" value="[TPH_Vmail2]">
+                    <select class="_domain">
+                        [TPH_VmailOpt]
+                    </select>
+                </dd>
+            </dl>
+        </td>
+    </tr>
+    </tbody>
+    </table>
+    </form>
+    <div class="function center">
+        <strong class="blue" onclick="edit('[TPH_Vseq]'); return false;"><button>수정</button></strong>
+        <strong><button onclick="del('[TPH_Vseq]'); return false;">삭제</button></strong>
+        <button onclick="confirmClosePopup(event, '입력하신 모든 내용이 사라집니다. 취소하시겠습니까?');">취소</button>
+    </div>
+    <script>
+        $('.l_businessRegistration select._domain').on('change', function () {
+            if ($(this).children('option:selected').hasClass('_custom')) {
+                $(this).prev().val('');
+                $(this).prev()[0].readOnly = false;
+            } else {
+                $(this).prev().val($(this).children('option:selected').text());
+                $(this).prev()[0].readOnly = true;
+            }
+        });
+    </script>
+</article>

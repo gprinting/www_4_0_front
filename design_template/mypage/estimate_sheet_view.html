@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <script>
+        var url = "/order/esti_order.html?seqno=" + "[TPH_Vesti_seqno]";
+        var goCart = function() {
+            location.replace(url + "&cart=Y");
+        };
+        var goOrder = function() {
+            location.replace(url + "&cart=N");
+        };
+        var showEstiPopMypage = function(seqno) {
+            var url = "/ajax/mypage/esti_list/load_esti_pop_data.php";
+            var data = {
+                "esti_seqno" : seqno
+            };
+            var callback = function(result) {
+                var jsonStr = JSON.stringify(result);
+                $("#json").val(jsonStr);
+
+                var pop = window.open('', 'estiPop', 'width=800, height=780, location=no, status=no, scrollbars=yes');
+                $("#esti_frm").attr('target', 'estiPop');
+                $("#esti_frm").submit();
+            };
+
+            ajaxCall(url, "json", data, callback);
+        };
+    </script>
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="contents bl_normal">
+    <div class="div_sub_banner">
+        <img class="" src="/design_template/images/sp_banner/banner_order_esti_01.jpg" alt="서브배너" />
+    </div>
+
+    <div class="rightWrap productOptions">
+        <!-- 선택 -->
+        <div class="selection">
+            <dl>
+                <dt><label for="printTitle">인쇄물제목</label></dt>
+                <dd class="full">[TPH_Vtitle]</dd>
+                <!--
+                <dt><label for="productName">상품명</label></dt>
+                <dd class="full">[TPH_Vcate_name]</dd>
+                -->
+                <dt><label for="esti_paper">종이</label></dt>
+                <dd class="full">[TPH_Vcover_paper]</dd>
+                <dt><label for="color">인쇄도수</label></dt>
+                <dd class="colorDetails">
+                    <dl>
+                        <dt><label for="esti_bef_tmpt">전면</label></dt>
+                        <dd>[TPH_Vcover_bef_tmpt]</dd>
+                    </dl>
+                    <dl>
+                        <dt><label for="esti_aft_tmpt">후면</label></dt>
+                        <dd>[TPH_Vcover_aft_tmpt]</dd>
+                    </dl>
+                </dd>
+                <dt><label for="color">인쇄유형</label></dt>
+                <dd>[TPH_Vcover_print_purp]</dd>
+                <dt><label for="size">사이즈</label></dt>
+                <dd class="_relatedSummary size">
+                    [TPH_Vcover_size]
+                    <dl>
+                        <dt>재단사이즈</dt>
+                        <dd class="_cuttingSize">
+                            <label>가로 <input type="text" value="[TPH_Vcover_cut_size_wid]" readonly="readonly">mm</label>,
+                            <label>세로 <input type="text" value="[TPH_Vcover_cut_size_vert]" readonly="readonly">mm</label>
+                        </dd>
+                        <dt>작업사이즈</dt>
+                        <dd class="_workingSize[TPH_Vesti_size_gap]" id="size_gap">
+                            <label>가로 <input type="text" value="[TPH_Vcover_work_size_wid]" readonly="readonly">mm</label>,
+                            <label>세로 <input type="text" value="[TPH_Vcover_work_size_vert]" readonly="readonly">mm</label>
+                        </dd>
+                    </dl>
+                </dd>
+                <dt class="amount"><label>수량</label></dt>
+                <dd class="_relatedSummary amount">
+                    [TPH_Vamt][TPH_Vamt_unit][TPH_Vsheet_count]
+                    <span>x</span>
+                    <label>[TPH_Vcount]건</label>
+                </dd>
+            </dl>
+        </div><!-- 선택 -->
+        <!-- 후공정 -->
+        <div class="after aft_sec esti_after">
+            <dl>
+                <dt id="after_default_price">후가공</dt>
+                <dd class="overview esti_overview">
+                    <ul>
+                        <li>[TPH_Vcover_after_det]</li>
+                    </ul>
+                    <ul>
+                        <li>[TPH_Vcover_after_note]</li>
+                    </ul>
+                </dd>
+            </dl>
+        </div><!-- 후공정 -->
+
+        <div style="padding:0px;">
+            <dl style="padding: 5px 10px;">
+                <dt>전달사항</dt>
+                <dd class=""><div class="inputWrap"><input type="text" class="memo_textarea" value="[TPH_Vesti_memo]" disabled="disabled"></div></dd>
+            </dl>
+        </div>
+
+        <div class="purchase">
+			<div class="function">
+                <strong style="float:right;"><button onclick="goOrder();" type="button">즉시주문</button></strong>
+                <strong style="float:right;"><button onclick="goCart();" type="button">장바구니</button></strong>
+                <button onclick="showEstiPopMypage([TPH_Vesti_seqno]);" type="button">견적서 출력</button>
+			</div>
+		</div>
+    </div>
+
+    <div class="leftWrap">
+        <div class="picture" id="">
+            <div class="zoom" style="width:398px; height:315px;">
+                <img id="" src="/design_template/images/product/img_esti_sheet.jpg">
+            </div>
+        </div>    
+
+        [TPH_I/common/is_login.html]
+    </div>
+
+    <div class="quickEstimate">
+        <h3><div class="wrap"><img src="[TPH_Vdesign_dir]/images/product/.png" alt="견적가"></div></h3>
+
+        <div id="quick_esti" class="div_quick_esti">
+            <dl>
+                <dt>종이비</dt>
+                <dd><span>[TPH_Vpaper_price]</span> 원</dd>
+                <dt>출력비</dt>
+                <dd><span>[TPH_Voutput_price]</span> 원</dd>
+                <dt>인쇄비</dt>
+                <dd><span>[TPH_Vprint_price]</span> 원</dd>
+
+                [TPH_Vafter_price_html]
+
+                <dt class="esti_count_info">주문건</dt>
+                <dd class="esti_count_info">
+                    <span id="esti_count">[TPH_Vcount]</span> 건
+                </dd>
+            </dl>
+            <dl class="price">
+                <dt>공급가</dt>
+                <dd><span>[TPH_Vorigin_price]</span> 원</dd>
+                <dt>할인금액</dt>
+                <dd><span>-[TPH_Vsale_price]</span> 원</dd>
+                <dt>견적금액</dt>
+                <dd><span>[TPH_Vesti_price]</span> 원</dd>
+                <dt>부가세</dt>
+                <dd><span>[TPH_Vvat]</span> 원</dd>
+                <dt>최종견적금액</dt>
+                <dd><strong>[TPH_Vorder_price]</strong> 원</dd>
+            </dl>
+
+            <div class="function" style="margin-top:5px;">
+                <button type="button" onclick="goCart();" style="width: 82px; height: 36px; margin-right: 2px;">장바구니</button>
+                <button type="button" class="sub" onclick="goOrder();" style="width: 81px; height: 36px;">즉시주문</button>
+            </div>
+        </div>
+    </div>
+</div>
+[TPH_I/common/esti_pop_form.html]
+[TPH_I/common/footer.html]
+</div>
+</body>
+</html>

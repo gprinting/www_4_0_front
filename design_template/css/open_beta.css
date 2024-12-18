@@ -1,0 +1,14 @@
+@charset 'utf-8';
+
+/* 베타오픈 주문체험 */
+.div_order_test {
+    display: none;
+    position: fixed;
+    bottom: 90px;
+    right: 40px;
+    z-index: 1;
+}
+
+.div_ftf {
+    display: none;
+}

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	[TPH_I/common22/head.html]
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+
+    <header class="good">
+        <ol class="location">
+            <li>독립상품<span class="en">Special Item</span></li>
+            <li>반팔셔츠</li>
+        </ol>
+        <hr>
+        <h2 class="productName">17수 라운드 반팔티셔츠</h2>
+        <p class="desc">자주 빨아도 나만의 개성은 선명하게! / 17수 면 100% / 남녀공용 스탠다드 핏</p>
+        <section class="util">
+            <button type="button" class="expect">
+                <div class="title">
+                    지금 주문 시 출고 예정일시
+                    <div class="tipButton">?</div>
+                    <dl class="tipContents">
+                        <dt>출고 예정일 안내</dt>
+                        <dd>
+                            상품을 주문했을 때 상품을 받아볼 수 있는 출고 예정일입니다.<br>
+                            클릭하시면 보다 자세한 내용을 확인하실 수 있습니다.
+                        </dd>
+                    </dl>
+                </div>
+                <div class="result">
+                    <span id="expect_date" class="date">07.26</span>
+                    <span id="expect_day" class="day">Tue</span>
+                    <span id="expect_hour" class="span_util_date_l">15</span>
+                    :
+                    <span id="expect_min" class="span_util_date_r">00</span>
+                </div>
+            </button>
+        </section>
+    </header>
+    <main class="items view wrap">
+        <section class="photo">
+            <div class="owl-carousel">
+                <div class="item">
+                    <img src="/design_template/pub22/images/sample/items-photo.png" alt="상품사진">
+                </div>
+                <div class="item">
+                    <img src="/design_template/pub22/images/sample/items-photo.png" alt="상품사진">
+                </div>
+                <div class="item">
+                    <img src="/design_template/pub22/images/sample/items-photo.png" alt="상품사진">
+                </div>
+                <div class="item">
+                    <img src="/design_template/pub22/images/sample/items-photo.png" alt="상품사진">
+                </div>
+                <div class="item">
+                    <img src="/design_template/pub22/images/sample/items-photo.png" alt="상품사진">
+                </div>
+                <div class="item">
+                    <img src="/design_template/pub22/images/sample/items-photo.png" alt="상품사진">
+                </div>
+                <div class="item">
+                    <img src="/design_template/pub22/images/sample/items-photo.png" alt="상품사진">
+                </div>
+                <div class="item">
+                    <img src="/design_template/pub22/images/sample/items-photo.png" alt="상품사진">
+                </div>
+                <div class="item">
+                    <img src="/design_template/pub22/images/sample/items-photo.png" alt="상품사진">
+                </div>
+                <div class="item">
+                    <img src="/design_template/pub22/images/sample/items-photo.png" alt="상품사진">
+                </div>
+                <div class="item">
+                    <img src="/design_template/pub22/images/sample/items-photo.png" alt="상품사진">
+                </div>
+                <div class="item">
+                    <img src="/design_template/pub22/images/sample/items-photo.png" alt="상품사진">
+                </div>
+                <div class="item">
+                    <img src="/design_template/pub22/images/sample/items-photo.png" alt="상품사진">
+                </div>
+                <div class="item">
+                    <img src="/design_template/pub22/images/sample/items-photo.png" alt="상품사진">
+                </div>
+                <div class="item">
+                    <img src="/design_template/pub22/images/sample/items-photo.png" alt="상품사진">
+                </div>
+            </div>
+            <nav></nav>
+        </section>
+        <aside class="purchase init">
+            <section class="options">
+                <dl class="printPosition">
+                    <dt>
+                        인쇄위치
+                        <span class="note">다중 선택 가능</span>
+                    </dt>
+                    <dd class="items">
+                        <label><input type="checkbox"><span>앞면</span></label>
+                        <label><input type="checkbox"><span>뒷면</span></label>
+                        <label><input type="checkbox"><span>목뒤</span></label>
+                        <label><input type="checkbox"><span>오른팔</span></label>
+                        <label><input type="checkbox"><span>왼팔</span></label>
+                    </dd>
+                </dl>
+                <dl class="printType">
+                    <dt>
+                        인쇄방식
+                        <button class="tip" onclick="$('.popupMask.printTypeGuide').addClass('on');">상세보기<i></i></button>
+                    </dt>
+                    <dd class="items2">
+                        <label><input type="radio" name="printType"><span>열전사</span></label>
+                        <label><input type="radio" name="printType"><span>디지털 프린팅</span></label>
+                        <label><input type="radio" name="printType"><span>날염</span></label>
+                        <label><input type="radio" name="printType"><span>홀로그램 전사</span></label>
+                        <label><input type="radio" name="printType"><span>글리터 전사</span></label>
+                        <label><input type="radio" name="printType"><span>네온 전사</span></label>
+                    </dd>
+                </dl>
+                <dl class="color">
+                    <dt>색상</dt>
+                    <dd class="items">
+                        <label><input type="radio" name="color"><span class="bright" style="background-color: #fff;">화이트</span></label>
+                        <label><input type="radio" name="color"><span style="background-color: #191919;"><i>블랙</i></span></label>
+                        <label><input type="radio" name="color"><span class="bright" style="background-color: #fff500;"><i>옐로우</i></span></label>
+                        <label><input type="radio" name="color"><span style="background-color: #ff6a81;"><i>핑크</i></span></label>
+                        <label><input type="radio" name="color"><span style="background-color: #ff1400;"><i>레드</i></span></label>
+                        <label><input type="radio" name="color"><span style="background-color: #57292b;"><i>버건디</i></span></label>
+                        <label><input type="radio" name="color"><span class="bright" style="background-color: #ccff20;"><i>라임</i></span></label>
+                        <label><input type="radio" name="color"><span style="background-color: #2cbe00;"><i>그린</i></span></label>
+                        <label><input type="radio" name="color"><span class="bright" style="background-color: #93ceff;"><i>라이트블루</i></span></label>
+                        <label><input type="radio" name="color"><span style="background-color: #30a3d9;"><i>터콰이즈</i></span></label>
+                        <label><input type="radio" name="color"><span style="background-color: #344c9d;"><i>로얄블루</i></span></label>
+                        <label><input type="radio" name="color"><span style="background-color: #0d273f;"><i>네이비</i></span></label>
+                    </dd>
+                </dl>
+                <dl class="sizeAmount">
+                    <dt>사이즈 &times; 수량</dt>
+                    <dd class="items _hasDetail">
+                        <ul>
+                            <li><label><input type="checkbox" value="XS"><span>XS</span></label></li>
+                            <li><label><input type="checkbox" value="S"><span>S</span></label></li>
+                            <li><label><input type="checkbox" value="M"><span>M</span></label></li>
+                            <li><label><input type="checkbox" value="L"><span>L</span></label></li>
+                            <li><label><input type="checkbox" value="2XL"><span>2XL</span></label></li>
+                        </ul>
+                    </dd>
+                    <dd class="_detailSetting settings">
+                        <ul>
+                            <li name="XS">
+                                <dl>
+                                    <dt>XS</dt>
+                                    <dd>
+                                        <div class="spinWrap">
+                                            <button type="button" class="minus" title="감소">-</button>
+                                            <input type="number" value="1">
+                                            <button type="button" class="plus" title="증가">+</button>
+                                        </div>
+                                        <input type="hidden" name="unitCost" value="16900">
+                                        <span class="price"></span>
+                                        <button type="button" class="cancel" title="선택취소">선택취소</button>
+                                    </dd>
+                                </dl>
+                            </li>
+                            <li name="S">
+                                <dl>
+                                    <dt>S</dt>
+                                    <dd>
+                                        <div class="spinWrap">
+                                            <button type="button" class="minus" title="감소">-</button>
+                                            <input type="number" value="1">
+                                            <button type="button" class="plus" title="증가">+</button>
+                                        </div>
+                                        <input type="hidden" name="unitCost" value="">
+                                        <span class="price"></span>
+                                        <button type="button" class="cancel" title="선택취소">선택취소</button>
+                                    </dd>
+                                </dl>
+                            </li>
+                            <li name="M">
+                                <dl>
+                                    <dt>M</dt>
+                                    <dd>
+                                        <div class="spinWrap">
+                                            <button type="button" class="minus" title="감소">-</button>
+                                            <input type="number" value="1">
+                                            <button type="button" class="plus" title="증가">+</button>
+                                        </div>
+                                        <input type="hidden" name="unitCost" value="16900">
+                                        <span class="price"></span>
+                                        <button type="button" class="cancel" title="선택취소">선택취소</button>
+                                    </dd>
+                                </dl>
+                            </li>
+                            <li name="L">
+                                <dl>
+                                    <dt>L</dt>
+                                    <dd>
+                                        <div class="spinWrap">
+                                            <button type="button" class="minus" title="감소">-</button>
+                                            <input type="number" value="1">
+                                            <button type="button" class="plus" title="증가">+</button>
+                                        </div>
+                                        <input type="hidden" name="unitCost" value="16900"> 
+                                        <span class="price"></span>
+                                        <button type="button" class="cancel" title="선택취소">선택취소</button>
+                                    </dd>
+                                </dl>
+                            </li>
+                            <li name="2XL">
+                                <dl>
+                                    <dt>2XL</dt>
+                                    <dd>
+                                        <div class="spinWrap">
+                                            <button type="button" class="minus">-</button>
+                                            <input type="number" value="1">
+                                            <button type="button" class="plus">+</button>
+                                        </div>
+                                        <input type="hidden" name="unitCost" value="16900">
+                                        <span class="price"></span>
+                                        <button type="button" class="cancel" title="선택취소">선택취소</button>
+                                    </dd>
+                                </dl>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+            </section>
+            <section class="summary">
+                <dl class="orderDetail">
+                    <dt>주문내역</dt>
+                    <dd>앞면+뒷면 / 열전사 / 화이트 / XS(5)+S(2)+M(1)</dd>
+                </dl>
+                <dl class="ordinaryPrice">
+                    <dt>정상판매가</dt>
+                    <dd>
+                        <span class="price"><strong>100,200 원</strong></span>
+                        <span class="description">부가세 10% 포함</span>
+                        <button type="button" class="foldingBtn off">
+                            할인상세
+                            <span class="off">접기</span>
+                            <span class="on">보기</span>
+                        </button>
+                    </dd>
+                    <dd class="DCdetail">
+                        <dl>
+                            <dt>회원등급 할인</dt>
+                            <dd>
+                                <button type="button" class="gradeBenefit">등급할인혜택</button>
+                            </dd>
+                            <dd class="description">로그인시 할인받으실 수 있는 금액입니다.</dd>
+                            <dd class="DCamount"><strong>-10,000</strong>원</dd>
+                        </dl>
+                    </dd>
+                </dl>
+                <dl class="paymentPrice">
+                    <dt>결제금액</dt>
+                    <dd>
+                        <span class="price"><strong class="saledPrice" val="100100">90,200</strong> 원</span>
+                        <span class="detail">공급가 : <span class="supplyPrice">82,000</span>원 + 부가세 : <span class="tax">8,200</span>원</span>
+                    </dd>
+                </dl>
+                <dl class="file">
+                    <dt>
+                        파일
+                        <button type="button" class="softC">등록</button>
+                    </dt>
+                    <dd>
+                        
+                        <span id="order_file_list" class="file_upload_inputText"></span>
+                        <div class="file_upload_box"></div>
+                    </dd>
+                </dl>
+                <!--dl>
+                    <dt>이미지사용</dt>
+                    <dd>
+                        <label class="radio"><input type="radio" name="owncompany_img_num" value="" checked><i><i></i></i> 없음</label>
+                        <label class="radio"><input type="radio" name="owncompany_img_num" value="Y"><i><i></i></i> 있음</label>
+                    </dd>
+                    <dd class="note">당사에서 제공하는 이미지를 사용하셨을 경우, 있음으로 체크해 주시기 바랍니다!</dd>
+                </dl-->
+                <dl class="memo">
+                    <dt>메모</dt>
+                    <dd><input type="text" class="full" id="cust_memo" placeholder="메모를 적어주세요"></dd>
+                </dl>
+            </section>
+            <footer class="action">
+                <button class="progress" type="button">바로 주문하기</button>
+                <button type="button">장바구니</button>
+                <button type="button" class="sub">견적서 출력</button>
+                <button type="button" class="sub favorite">관심상품 등록
+                    <div class="tipButton" title="TIP">?</div>
+                    <dl class="tipContents">
+                        <dt>관심상품 등록 안내</dt>
+                        <dd>
+                            관심상품 등록은 상품과 옵션을<br>
+                            저장해놓고 추후에 편리하게<br>
+                            재주문할 수 있는 서비스입니다.
+                        </dd>
+                    </dl>
+                </button>
+            </footer>
+        </aside>
+        <section class="detailInfo">
+            <header class="good">
+                <h2>
+                    PRODUCT<br>
+                    DETAILS <span class="ko">제품상세설명</span>
+                </h2>
+                <hr>
+                <div class="util">
+                    <ul class="function">
+                        <li>
+                            <button class="cubic guide" type="button">작업가이드 보기 <i></i></button>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <article>
+`               <!-- 제품설명 -->
+                <img border="0" src="/design_template/pub22/images/details/cmp-nc-bs-1.jpg" class="tab_detail_img">
+                <img border="0" src="/design_template/pub22/images/details/cmp-nc-bs-2.jpg" class="tab_detail_img">
+            </article>
+        </section>
+    </main>
+    <input type="hidden" id="sync_flag" value=[TPH_Vsync_flag] seq=[TPH_Vmember_seqno]>
+    <!-- 푸터 -->
+    [TPH_I/common22/footer.html]
+    <!-- //푸터 -->
+    <div class="popupMask printTypeGuide">
+        <section class="popup">
+            <header class="popup noIcon">
+                <h2>인쇄방식 안내</h2>
+                <button class="close" title="닫기" onclick="closePopup($(this).closest('.popupMask'));">닫기</button>
+            </header>
+            <article>
+                상세 설명 입력
+            </article>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<script src="https://www.google.com/recaptcha/api.js?render=6LezRKkpAAAAANaepcZDa5-Pnrx7A0HuY6_a1Clf"></script>
+<script>
+    function frm_submit(_){
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6LezRKkpAAAAANaepcZDa5-Pnrx7A0HuY6_a1Clf', {action: 'homepage'}).then(function(token) {
+                var response = document.getElementById("g-recaptcha-response");
+                if(typeof(response) != 'undefined' && response != null){
+                    document.getElementById('g-recaptcha-response').value = token;
+                    _.submit();
+                    return true;
+                }
+            });
+        });
+    }
+</script>
+<form id="frm" action="/order/add_cart.html" method="post" onsubmit="frm_submit(this); return false;">
+    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+    <div style="display:none;">
+        [TPH_Vcate_bot]
+        <input id="sg_paper" name="sg_paper" value="" />
+        <input id="sg_size" name="sg_size" value="" />
+
+        <select class="withBtn _size" id="size_dvs" name="sg_size_dvs" onchange="changeSizeDvs(this.value);">
+            <option value="stan" class="_preset">규격사이즈</option>
+            <option value="manu" class="_custom" [TPH_Vhide_manu]>비규격사이즈</option>
+        </select>
+        <select id="sg_mono_yn" name="sg_mono_yn" onchange="changeData();">
+            [TPH_Vsg_mono_dvs]
+        </select>
+        </dd>
+        <select id="sg_print_purp" name="sg_print_purp" onchange="loadPrintTmpt('sg');">
+            [TPH_Vsg_print_purp]
+        </select>
+        <select class="_amount" id="[TPH_Vpage]_amt" name="[TPH_Vpage]_amt" onchange="changeAmt();" amt_unit="[TPH_Vsg_amt_unit]">
+            [TPH_Vsg_amt]
+        </select>
+    </div>
+    <aside class="purchase init">
+        <section class="options">
+            <dl class="printType">
+                <dt>
+                    선택한상품
+                </dt>
+                <dd class="items">
+                    [TPH_Vsg_paper]
+                </dd>
+            </dl>
+            <dl class="printType" [TPH_Voption2_display]>
+                <dt>
+                    옵션2
+                </dt>
+                <dd class="items">
+                    [TPH_Vsg_size]
+                </dd>
+            </dl>
+            <dl class="[TPH_Voption3_kind]" [TPH_Voption3_display]>
+                <dt>
+                    색상
+                </dt>
+                <dd class="items">
+                    [TPH_Vsg_print_tmpt]
+                </dd>
+            </dl>
+            <dl class="sizeAmount">
+                <dt>수량</dt>
+                <dd class="_detailSetting settings">
+                    <ul>
+                        <li name="개수">
+                            <dl>
+                                <dt>개수</dt>
+                                <dd>
+                                    <div class="spinWrap">
+                                        <button type="button" class="minus" title="감소" onclick="changeCount();">-</button>
+                                        <input type="number" id="count" name="[TPH_Vpage]_count" onchange="changeCount();" value="1">
+                                        <button type="button" class="plus" title="증가" onclick="changeCount();">+</button>
+                                    </div>
+                                    <input type="hidden" name="unitCost" value="16900">
+                                    <span class="price"></span>
+                                    <!--button type="button" class="cancel" title="선택취소">선택취소</button-->
+                                </dd>
+                            </dl>
+                        </li>
+                    </ul>
+                </dd>
+            </dl>
+        </section>
+        <section class="summary">
+            <dl class="orderDetail">
+                <dt>주문내역</dt>
+                <dd id="order_detail2"></dd>
+            </dl>
+            <dl class="ordinaryPrice" style="display:none;">
+                <dt>정상판매가</dt>
+                <dd>
+                    <span id="sell_price" val="[TPH_Vsg_sell_price]" class="price"><strong>[TPH_Vsg_sell_price]</strong> 원</span>
+                    <span class="description">부가세 10% 포함</span>
+                    <button type="button" class="foldingBtn off">
+                        할인상세
+                        <span class="off">접기</span>
+                        <span class="on">보기</span>
+                    </button>
+                </dd>
+                <dd class="DCdetail">
+                    <dl>
+                        <dt>회원등급 할인</dt>
+                        <dd>
+                            <button type="button" class="gradeBenefit">등급할인혜택</button>
+                        </dd>
+                        <dd class="description">로그인시 할인받으실 수 있는 금액입니다.</dd>
+                        <dd class="DCamount"><strong>-10,000</strong>원</dd>
+                    </dl>
+                </dd>
+            </dl>
+            <dl class="paymentPrice">
+                <dt>결제금액</dt>
+                <dd>
+                    <span class="price"><strong id="sale_price" val="[TPH_Vsg_sale_price]">[TPH_Vsg_sale_price]</strong> 원</span>
+                    <span class="detail">공급가 : <span id="supply_price" >[TPH_Vsg_supply_price]</span>원 + 부가세 : <span id="tax" >[TPH_Vsg_tax]</span>원</span>
+                    <span>본 상품은 <span style="color: #f7424f;font-size: 13px;">무료배송 프로모션</span> 상품입니다.</span>
+                </dd>
+            </dl>
+            <dl class="memo">
+                <dt>메모</dt>
+                <dd><input type="text" class="full" id="cust_memo" placeholder="메모를 적어주세요"></dd>
+            </dl>
+        </section>
+        <footer class="action">
+            <button class="progress" type="button" onclick="purProduct();">바로 주문하기</button>
+            <button type="button" style="width: 48%;" onclick="goCart();">장바구니</button>
+            <button type="button" style="width: 48%;" class="sub">견적서 출력</button>
+        </footer>
+    </aside>
+    <section class="detailInfo">
+        <header class="good">
+            <h2>
+                PRODUCT<br>
+                DETAILS <span class="ko">제품상세설명</span>
+            </h2>
+            <hr>
+            <div class="util">
+                <ul class="function">
+                    <li>
+                        <button class="cubic guide" type="button">작업가이드 보기 <i></i></button>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <article>
+            <!-- 제품설명 -->
+            [TPH_Vtab]
+        </article>
+    </section>
+
+    <!-- 공통 -->
+    <input type="hidden" name="flag" value="flag" /><!-- chk -->
+    <input type="hidden" id="expect_release_hour" name="expect_release_hour" value="" /><!-- 예상출고일 -->
+    <input type="hidden" id="sg_flattyp_yn" name="sg_flattyp_yn" value="[TPH_Vsg_flattyp_yn]" /><!-- 낱장형여부 -->
+    <input type="hidden" id="prdt_dvs" name="prdt_dvs" value="sg" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+    <input type="hidden" id="file_seqno" name="file_seqno" value="" />
+    <input type="hidden" id="need_file_upload" name="need_file_upload" value="N" />
+    <input type="hidden" id="title" name="title" value="[TPH_Vproduct_name]" />
+    <input type="hidden" id="oper_sys" name="oper_sys" value="" />
+    <input type="hidden" name="sg_cate_name" value="" /><!-- 카테고리명-->
+    <input type="hidden" name="sg_amt_unit" value="" /><!-- 수량단위 -->
+    <input type="hidden" id="sg_tmpt_dvs" value="[TPH_Vsg_tmpt_dvs]" /><!-- 도수구분 -->
+    <input type="hidden" id="sg_typ" name="sg_typ" value="[TPH_Vsg_page_dvs]" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+    <input type="hidden" id="order_detail" name="sg_order_detail" value="" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+    <input type="hidden" id="sg_amt_sale_rate" value="[TPH_Vsg_amt_sale_rate]" />
+    <input type="hidden" id="sg_amt_sale_aplc" value="[TPH_Vsg_amt_sale_aplc]" />
+    <input type="hidden" id="expect_box_num" name="expect_box_num" value="" /><!-- 배송덩어리값 -->
+    <input type="hidden" id="expec_weight" name="expec_weight" value="" /><!-- 배송덩어리값 -->
+    <!-- 후가공, 주문요약 표시용 -->
+    <input type="hidden" id="after_basic" value="[TPH_Vsg_basic_after]" /><!-- 요약정보 표시용 변수 -->
+    <!-- 표시용 -->
+    <input type="hidden" name="cart_flag" id="cart_flag" value="Y" /><!-- 장바구니 이동여부 -->
+    <!-- 종이 -->
+    <input type="hidden" name="sg_paper_name" value="" /><!-- 종이명 -->
+    <!-- 인쇄 -->
+    <input type="hidden" name="sg_page" value="[TPH_Vsg_page]" /><!-- 페이지수 -->
+    <input type="hidden" name="sg_bef_tmpt_name" value="" /><!-- 도수명 -->
+    <input type="hidden" name="sg_bef_tmpt" value="" /><!-- 도수명 -->
+    <!-- 사이즈 -->
+    <input type="hidden" name="sg_size_name" value="" /><!-- 사이즈명 -->
+    <!-- 가격정보 -->
+    <input type="hidden" name="sg_prdt_price" id="sg_prdt_price" value="[TPH_Vsg_prdt_price]" /><!-- 상품금액 -->
+    <input type="hidden" name="sg_sell_price" value="" /><!-- 판매금액 -->
+    <input type="hidden" name="sg_sale_price" value="" /><!-- 할인금액 -->
+    <input type="hidden" name="sg_member_sale_rate" id="sg_member_sale_rate" value="[TPH_Vsg_member_sale_rate]" /><!-- 회원할인률 -->
+    <input type="hidden" name="sg_grade_sale_rate" id="sg_grade_sale_rate" value="[TPH_Vsg_grade_sale_rate]" /><!-- 등급할인률 -->
+    <input type="hidden" name="sg_after_price" value="" /><!-- 후공정금액 -->
+    <input type="hidden" name="opt_price" value="" /><!-- 옵션금액 -->
+    <!-- 옵션 -->
+    <input type="hidden" name="opt_add" value="" /><!-- 추가후공정 맵핑코드 -->
+    <input type="hidden" name="opt_add_price" value="" /><!-- 추가옵션 가격 -->
+    <input type="hidden" id="order_cut_wid" value="[TPH_Vorder_cut_wid]" />
+    <input type="hidden" id="order_cut_vert" value="[TPH_Vorder_cut_vert]" />
+    <input type="hidden" id="order_count" value="[TPH_Vorder_count]" />
+    <input type="hidden" id="order_common_seqno" name="order_common_seqno" value="[TPH_Vorder_common_seqno]" />
+</form>

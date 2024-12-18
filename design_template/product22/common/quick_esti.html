@@ -1,0 +1,29 @@
+<aside class="quickEstimate">
+    <button type="button" class="folding">접기/펴기</button>
+    <div id="quick_esti" class="formWrap">
+        <h3>빠른 견적서</h3>
+        [TPH_Vquick_esti]
+    </div>
+    <div class="action">
+        <button class="exe" onclick="purProduct();" type="button">바로 주문하기<!--[TPH_Vorder_btn_name]--></button>
+        <button type="button" onclick="goCart();">장바구니</button>
+        <button type="button" class="sub" onclick="showEstiPop();">견적서 출력</button>
+    </div>
+    <div class="delivery formWrap">
+        <h3>
+            택배 예상금액
+            <button class="tip" title="TIP">?</button>
+            <dl class="tipContents">
+                <dt>택배 예상금액 안내</dt>
+                <dd>택배 배송 시 상품의 무게와<br>덩어리가 합산된 예상금액입니다.</dd>
+            </dl>
+        </h3>
+        <div class="form">
+            <input type="text" readonly id="expect_weight" name="expect_weight" class="kg"> kg
+            &times;
+            <input type="text" readonly id="expect_box" class="block"> Box
+            <div class="total">= <strong id="expect_dlvr_price">0</strong>원</div>
+        </div>
+    </div>
+    [TPH_I/common22/esti_pop_form.html]
+</aside>

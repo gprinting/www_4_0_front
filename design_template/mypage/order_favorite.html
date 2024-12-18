@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <!-- <style type="text/css">
+        ul.paging .first:after,
+        ul.paging .last:before { content: '···'; margin: 0 6px; }
+    </style> -->
+</head>
+<body>
+<div class="wrapper">
+    <!-- 로그인 박스 -->
+    [TPH_I/common/login.html]
+
+    <!-- 헤더 -->
+    <div class="div_header_wrapper">
+        [TPH_I/common/header.html]
+
+        <!-- 사이드 메뉴 -->
+        [TPH_I/common/side.html]
+
+        <!-- 네비게이션 -->
+        [TPH_I/common/tnb.html]
+    </div>
+    <div class="div_sub_banner">
+        <img class="" src="/design_template/images/sp_banner/banner_mypage_order.jpg" alt="서브배너" />
+        <div class="inner">
+            <div class="title_wrap">
+                <h1>주문</h1>
+                <p>고객님께서 담은 상품과 주문내역을 확인하세요.</p>
+            </div>
+        </div>
+    </div>
+    <div class="contents contents_02 orderList">
+        <div class="lnb">
+            [TPH_I/mypage/common/lnb.html]
+        </div>
+        <h3 class="pageTitle"><div class="bar_left"></div>관심 상품</h3>
+        <!--
+        <div class="notice">
+            <img src="[TPH_Vdesign_dir]/images/order/order_favorite.png" alt="관심 상품">
+        </div>
+        -->
+        <div class="searchCondition">
+            <div class="rowWrap">
+                <dl class="product full">
+                    <dt>제목</dt>
+                    <dd class="last"><div class="inputWrap"><input id="title" onkeydown="searchKey(event);" type="text"></div></dd>
+                </dl>
+            </div>
+            <button onclick="searchTxt();" class="search">검색</button>
+        </div>
+        <table class="list ordered _details searchResult favorite">
+            <caption>
+                <div class="resultNum" id="resultNum">
+                </div>
+                [TPH_I/common/list_num.html]
+            </caption>
+            <colgroup>
+                <col style="width:50px">
+                <col style="width:90px">
+                <col style="">
+                <col style="width:180px">
+                <col style="width:90px">
+                <col style="width:60px">
+            </colgroup>
+            <thead id="list">
+            <tr>
+                <th><input name="allCheck" type="checkbox" class="_general"></th>
+                <th>등록일</th>
+                <th>상품정보</th>
+                <th>후가공</th>
+                <th>수량(건)</th>
+                <th>주문</th>
+            </tr>
+            </thead>
+        </table>
+
+        <ul class="paging" id="paging">
+            <li><button class="on">1</button></li>
+        </ul>
+        <div class="function narrow">
+            <button onclick="removeSelect();" class="c_btn-point-reverse function">선택상품 삭제</button>
+            <!--
+            <div class="right">
+                <strong class="blue"><button onclick="putSelectPrdt();">선택 상품 장바구니 담기</button></strong>
+                <strong><button onclick="putAllPrdt();">전체 상품 장바구니 담기</button></strong>
+            </div>
+            -->
+        </div>
+
+        [TPH_I/mypage/common/banner.html]
+    </div>
+    <footer>
+        [TPH_I/common/footer.html]
+    </footer>
+</div>
+</body>
+</html>

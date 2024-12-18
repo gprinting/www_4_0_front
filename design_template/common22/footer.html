@@ -1,0 +1,102 @@
+<footer class="common">
+    <div class="wrap">
+        <h2><a href="#none" target="_self" style="background-image:url(/design_template[TPH_Vlogo_footer])">굿프린팅</a></h2>
+        <article class="left tel">
+            <div class="number">
+                문의전화
+                <strong>[TPH_Vrepre_num]</strong>
+                <dl class="hours">
+                    <dt>평일</dt>
+                    <dd>09:00-20:00</dd>
+                </dl>
+            </div>
+            <dl class="lunch">
+                <dt>점심시간</dt>
+                <dd>
+                    <dl>
+                        <dt>접수팀</dt>
+                        <dd>12:30-13:30</dd>
+                    </dl>
+                    <dl>
+                        <dt>출고팀</dt>
+                        <dd>11:30-13:00</dd>
+                    </dl>
+                </dd>
+            </dl>
+        </article>
+        <article class="right">
+            <nav class="intro">
+                <a href="/introduction/main/" target="_blank" class="company">기업소개</a>
+                <a href="/cscenter22/contact_map.html" target="_self" class="contact">오시는길</a>
+				<a href="/cscenter22/gprinting.pdf" id="business" target="_blank" class="contact business">사업자등록증</a>
+                <a href="/cscenter22/intro_product_cmp-nc.html" target="_self" class="guide">이용안내</a>
+                <a href="/cscenter22/sitemap.html" target="_self" class="sitemap">사이트맵</a>
+            </nav>
+            <nav class="document">
+                <a href="/member22/agreement.html" target="_self" class="agreement">이용약관</a>
+                <a href="/member22/private.html" target="_self" class="privacy">개인정보취급방침</a>
+                <a href="/member22/emailprotection.html" target="_self" class="emailProtection">이메일무단수집거부</a>
+            </nav>
+        </article>
+    </div>
+	<script>
+		var str = window.location.href;
+		if (str.indexOf('gprinting') != -1) {
+			document.getElementById("business").href = "/cscenter22/gprinting.pdf";
+		}
+		if (str.indexOf('dprinting') != -1) {
+			document.getElementById("business").href = "/cscenter22/dprinting.pdf";
+		}
+	</script>
+    <ul class="info">
+        <li>
+            <dl>
+                <dt>상호</dt>
+                <dd>[TPH_Vcompany_name]</dd>
+            </dl>
+        </li>
+        <li>
+            <dl>
+                <dt>대표자</dt>
+                <dd>[TPH_Vrepre_name]</dd>
+            </dl>
+        </li>
+        <li>
+            <dl>
+                <dt>사업자등록번호</dt>
+                <dd>[TPH_Vlicensee_num]</dd>
+            </dl>
+        </li>
+        <li>
+            <dl>
+                <dt>통신판매업신고</dt>
+                <dd>[TPH_Ve_commerce_info]</dd>
+            </dl>
+        </li>
+        <li>
+            <dl>
+                <dt>주소</dt>
+                <dd>[TPH_Vaddr]</dd>
+            </dl>
+        </li>
+        <li>
+            <dl>
+                <dt>정보관리책임자</dt>
+                <dd>[TPH_Vindivi_info_admin]</dd>
+            </dl>
+        </li>
+        <li>
+            <dl>
+                <dt>전국상담전화</dt>
+                <dd>[TPH_Vrepre_num]</dd>
+            </dl>
+        </li>
+        <li>
+            <dl>
+                <dt>이메일</dt>
+                <dd>[TPH_Vrepre_mail]</dd>
+            </dl>
+        </li>
+    </ul>
+    <p class="copyrights">COPYRIGHTS [TPH_Vhomepage_address] ALL RIGHTS RESERVED.</p>
+</footer>

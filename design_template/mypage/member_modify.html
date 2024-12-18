@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <!--script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false"></script-->
+    <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+    <script>
+        //우편번호 팝업
+        var getPostcode = function(dvs) {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    var fullAddr = ''; // 최종 주소 변수
+                    var extraAddr = ''; // 조합형 주소 변수
+
+                    // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                        fullAddr = data.roadAddress;
+
+                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                        fullAddr = data.jibunAddress;
+                    }
+
+                    // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+                    if (data.userSelectedType === 'R'){
+                        //법정동명이 있을 경우 추가한다.
+                        if(data.bname !== ''){
+                            extraAddr += data.bname;
+                        }
+                        // 건물명이 있을 경우 추가한다.
+                        if(data.buildingName !== ''){
+                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                        fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                    }
+
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    document.getElementById(dvs + 'zipcode').value = data.zonecode; //5자리 새우편번호 사용
+                    document.getElementById(dvs + 'addr').value = fullAddr;
+
+                    // 커서를 상세주소 필드로 이동한다.
+                    document.getElementById(dvs + 'addr_detail').focus();
+                }
+            }).open({
+                popupName: 'postcodePopup'
+            });
+        }
+
+        function isBa() {
+            var is_ba = "[TPH_Vis_ba]";
+            if (is_ba == "false") {
+                layerPopup('l_virt_ba', '/mypage/popup/l_virt_ba_moidfy.html?local=modify');
+            }
+        }
+
+    </script>
+    <link href="../css/mypageInfoChange.css" rel="stylesheet" type="text/css">
+    <style>
+        tr th{
+            /* display:inline-block; */
+            text-align: left;
+            padding-left:20px;
+            /* box-sizing: border-box; */
+            /* font-weight: 700; */
+            color:var(--primary-color);
+            /* background-color:#f5f5f5; */
+        }
+        tr td{
+            text-align: left;
+            padding-left:20px;
+            padding-right:20px;
+        }
+        .subtitle {
+            margin-top: 30px;
+            margin-bottom:10px;
+            font-size:14px;
+            font-weight: 700;
+            display:flex;
+            align-items: center;
+            gap:10px;
+        }
+        .subtitle::before{
+            content:"";
+            display:block;
+            width:5px;
+            height:5px;
+            background-color:var(--primary-color);
+            border-radius: 100px;
+        }
+
+
+        .button_wrapper{
+            display:flex;
+            align-items: center;
+            border-bottom: 0;
+        }
+        .mypage_bottom_color_btn_inner {
+            margin: 20px auto 0 auto;
+            color: #fff;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            transition-duration: 0.3s;
+            /* font-weight: 700; */
+        }
+        .mypage_bottom_color_btn_inner:hover{
+            background-color: var(--primary-color-effect);
+        }
+        .mypage_bottom_sub{
+            /* background-color: #a6a6a6; */
+            border:1px solid #ccc;
+            margin:0;
+            height:34px;
+            flex-shrink: 0;
+            padding:0 20px;
+        }
+        .w100{
+            width:100%;
+        }
+        .flex_center{
+            display:flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .position_center{
+            position:Absolute;
+            top:50%;
+            left: 50%;
+            transform:translate(-50%, -50%);
+        }
+        .border_none{
+            border:0;
+        }
+
+        ol.emailInfoTable{
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        ol.emailInfoTable li{
+            width:30%;
+        }
+        ol.emailInfoTable li:nth-child(2){
+            width:2%;
+        }
+        ol.emailInfoTable li select{
+            width:100%;
+        }
+
+        ol.telInfoTable{
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        ol.telInfoTable li{
+            width:39%;
+        }
+        ol.telInfoTable li:nth-child(1){
+            width:18%;
+        }
+        ol.telInfoTable li select{
+            width:100%;
+        }
+
+        ol.address{
+            display:flex;
+            flex-direction: column;
+            gap:10px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        ol.address li,
+        ol.address li input{
+            width:100%;
+        }
+        ol.address li:nth-of-type(1){
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+            gap:10px;
+        }
+        /* ol.address li:nth-of-type(1) .mypage_bottom_sub{
+            margin:0;
+            height:34px;
+            flex-shrink: 0;
+            padding:0 20px;
+        } */
+
+        .optionsTable ul{
+            display:flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap:30px;
+            margin-bottom:10px;
+        }
+
+        /* 성향정보 START */
+        .sub_title_wrapper .sub_title{
+            display:flex;
+            align-items: center;
+            gap:10px;
+            margin-top:50px;
+            /* justify-content: center; */
+        }
+        .sub_title_wrapper .sub_title .subtitle{
+            margin-top:15px;
+        }
+        .sub_title_wrapper .sub_title img{
+            width:20px;
+            height:20px;
+            cursor:pointer;
+        }
+
+        .selectTable{
+            display:flex;
+            justify-content: space-between;
+            gap:2%;
+        }
+        .selectTable li{
+            width:49%;
+        }
+        .selectTable li select{
+            width:100%;
+        }
+
+        .checkboxTable{
+            display:flex;
+            gap:20px;
+            flex-wrap:wrap;
+        }
+
+        .companiesTable{
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+            gap:10px;
+        }
+        .companiesTable+.companiesTable{
+            margin-top:10px;
+        }
+        .companiesTable li:nth-child(2){
+            width:100%;
+            margin:0;
+        }
+        /* 성향정보 END */
+    </style>
+</head>
+<!--body onload="isBa();"-->
+<body>
+<div class="wrapper">
+    <!-- 로그인 박스 -->
+    [TPH_I/common/login.html]
+
+    <!-- 헤더 -->
+    <div class="div_header_wrapper">
+        [TPH_I/common/header.html]
+
+        <!-- 사이드 메뉴 -->
+        [TPH_I/common/side.html]
+
+        <!-- 네비게이션 -->
+        [TPH_I/common/tnb.html]
+    </div>
+    <div class="div_sub_banner">
+        <img class="" src="/design_template/images/sp_banner/banner_member_info.jpg" alt="서브배너" />
+        <div class="inner">
+            <div class="title_wrap">
+                <h1>회원</h1>
+                <p>회원정보 관리 및 배송 관리를 하실 수 있는 페이지입니다.</p>
+            </div>
+        </div>
+    </div>
+    <div class="contents contents_02 memberInfo">
+        <div class="lnb">
+            [TPH_I/mypage/common/lnb.html]
+        </div>
+        <h3 class="pageTitle"><div class="bar_left"></div>회원정보 변경</h3>
+        <input type="hidden" id="member_seqno" value="[TPH_Vmember_seqno]">
+        <input type="hidden" id="member_dvs" value="[TPH_Vmember_dvs]">
+        [TPH_Vstandard_html]
+        [TPH_Vhtml]
+        <div class="function center">
+            <strong><button class="function" onclick="modiMemberDetailInfo();">수정 완료</button></strong>
+            <strong class="blue"><button class="function" onclick="location.href='/mypage/main.html'">취소</button></strong>
+        </div>
+        [TPH_I/mypage/common/banner.html]
+    </div>
+    <footer>
+        [TPH_I/common/footer.html]
+    </footer>
+</div>
+</body>
+</html>

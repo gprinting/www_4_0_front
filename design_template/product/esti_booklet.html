@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    [TPH_I/product/common/product_head.html]
+    [TPH_I/product/esti/esti_script.html]
+	<script src="[TPH_Vdesign_dir]/js/product/ad_catabro_preview.js"></script>
+    <style>
+        /*
+        .memo {left: 430px !important;}
+        */
+        .memo dd {width: 560px !important;}
+        .memo dd input {width: 168px !important; font-size:11px;}
+        .memo option {top:29px;}
+    </style>
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="contents bl_normal">
+    [TPH_I/product/common/sub_banner.html]
+
+    <div class="rightWrap productOptions">
+        [TPH_I/product/esti/booklet_info.html]
+        [TPH_I/product/common/file_upload_popup.html]
+        [TPH_I/product/esti/esti_bot_common.html]
+    </div>
+
+    <div class="leftWrap">
+        <div class="picture" id="">
+            <div class="zoom" style="width:398px; height:315px;">
+                <img id="" src="/design_template/images/product/img_esti_booklet.jpg">
+            </div>
+        </div>    
+
+        [TPH_I/common/is_login.html]
+    </div>
+</div>
+
+[TPH_I/common/footer.html]
+
+[TPH_I/product/common/common_pop.html]
+</div>
+</body>
+</html>

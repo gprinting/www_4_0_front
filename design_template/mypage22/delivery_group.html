@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common22/head.html]
+    [TPH_I/mypage22/common/mypage_head.html]
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    
+    <main id="main" class="mypage wrap orderFavorite">
+        <header class="good pages">
+            <h2>
+                <span class="en">MY PAGE</span>
+                <span class="ko">마이페이지</span>
+            </h2>
+            <h3>
+                <ol>
+                    <li>주문</li>
+                    <li>묶음배송</li>
+                </ol>
+            </h3>
+            <hr>
+        </header>
+        
+        [TPH_I/mypage22/common/lnb.html]
+        
+        <div class="contents">
+        
+            <table class="list info delivery_group_list searchResult _details">
+                <caption>
+                    <div class="resultNum" id="resultNum">고객님의 묶음 상품은 <em id="group_count">-</em>건 <em id="group_order_count">-</em>개 입니다.</div>
+                </caption>
+                <colgroup>
+                    <col class="orderDetail">
+                    <col class="orderDetail">
+                    <col class="orderDetail">
+                    <col class="post">
+                    <col class="date">
+                    <col class="amount">
+                    <col class="weight">
+                    <col class="btn">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th colspan="3" class="left">상품정보</th>
+                        <th class="left">후공정</th>
+                        <th>출고예정일</th>
+                        <th class="amount">수량(건)</th>
+                        <th>중량</th>
+                        <th>그룹풀기</th>
+                    </tr>
+                </thead>
+                <tbody id="group_list">
+                </tbody>
+            </table>
+            <hr class="end">
+            <table class="list info delivery_group_list searchResult">
+                <caption>
+                    <div class="resultNum" id="resultNum">추가로 묶음 가능한 상품은 <em id="unit_order_count">-</em>개 입니다.</div>
+                </caption>
+                <colgroup>
+                        <col class="orderDetail">
+                        <col class="orderDetail">
+                        <col class="orderDetail">
+                        <col class="post">
+                        <col class="date">
+                        <col class="amount">
+                        <col class="weight">
+                        <col class="btn">
+                </colgroup>
+                <thead id="list">
+                    <tr>
+                        <th colspan="3" class="left">상품정보</th>
+                        <th class="left">후공정</th>
+                        <th>출고예정일</th>
+                        <th class="amount">수량(건)</th>
+                        <th>중량</th>
+                        <th>그룹묶기</th>
+                    </tr>
+                </thead>
+                <tbody id="unit_list">
+                </tbody>
+            </table>
+            <hr class="end">
+            <article class="caution">
+                <header class="icon">꼭 확인해주세요.</header>
+                <ul class="guide">
+                    <li>리스트에 나오지 않는 상품은 묶을 수 없는 상품입니다.</li>
+                    <li>묶이는 상품은 <strong>출고일을 기준</strong>으로 묶여집니다.</li>
+                    <li>묶을 수 있는 상품은 기본적으로 <strong>자동으로 묶입니다.</strong></li>
+                    <li>묶음으로 인해서 발생한 차액은 익일 자동으로 환급처리됩니다.</li>
+                    <li>묶음 상품은 <strong>12Kg 이상을 초과할 수 없고 초과 시 추가요금이 발생</strong>합니다.</li>
+                    <li>보다 자세한 사항은 <a class="link" href="/cscenter22/guide.html?type=membership" target="_blank">고객센터 이용안내</a>를 참조해 주시기 바랍니다.</li>
+                </ul>
+            </article>
+            <input type="hidden" id="member_dvs" value="[TPH_Vmember_dvs]">
+        </div>
+        [TPH_I/mypage22/common/common_pop.html]
+        [TPH_I/mypage22/common/banner.html]
+    </main>
+    <footer>
+        [TPH_I/common22/footer.html]
+    </footer>
+</body>
+</html>

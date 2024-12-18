@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet"  href="[TPH_Vdesign_dir]/css/lightslider.css"/>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <style type="text/css">
+        ul.paging .first:after,
+        ul.paging .last:before { content: '···'; margin: 0 6px; }
+    </style>
+    <script src="[TPH_Vdesign_dir]/js/lib/lightslider.js"></script>
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="div_sub_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_mypage_order.jpg" alt="서브배너" />
+</div>
+<div class="contents contents_02 orderList">
+    <div class="lnb">
+        [TPH_I/mypage/common/lnb.html]
+    </div>
+    <h3 class="pageTitle"><img src="/design_template/images/title/order_unpaid.png" alt="미결제 주문"></h3>
+    <div class="searchCondition">
+        <div class="rowWrap">
+            <dl class="date">
+                <dt>주문일</dt>
+                <dd>
+                    [TPH_I/common/datepicker.html]
+                </dd>
+            </dl>
+            <dl class="status last">
+                <dt>진행상태</dt>
+                <dd>
+                    <select id="order_state" disabled>
+                        <option>입금대기</option>
+                    </select>
+                </dd>
+            </dl>
+        </div>
+        <div class="rowWrap">
+            <dl class="delivery">
+                <dt>배송종류</dt>
+                <dd>
+                    <select id="dlvr_way">
+                        <option value="">전체</option>
+                        <option value="택배">택배</option>
+                        <option value="직배송">직배송</option>
+                        <option value="퀵">퀵</option>
+                    </select>
+                </dd>
+            </dl>
+            <dl class="title last">
+                <dt>인쇄물제목</dt>
+                <dd><input id="title" onkeydown="orderSearchKey(event)" name="title" type="text"></dd>
+            </dl>
+        </div>
+        <button onclick="orderSearchTxt();" class="search">검색</button>
+    </div>
+    <table class="list ordered _details searchResult">
+        <caption>
+            <div class="resultNum" id="resultNum">
+            </div>
+            [TPH_I/common/list_num.html]
+        </caption>
+        [TPH_Vhtml]
+    </table>
+    <ul class="paging" id="paging">
+        <li><button class="on">1</button></li>
+    </ul>
+    <input type="hidden" id="member_dvs" value="[TPH_Vmember_dvs]">
+    [TPH_I/mypage/common/banner.html]
+</div>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<header class="popup">
+    <h2>환불계좌 등록</h2>
+    <button class="close">닫기</button>
+</header>
+<article>
+    <table class="sheetForm horizontal">
+        <colgroup>
+            <col class="th">
+            <col class="">
+        </colgroup>
+        <tbody>
+            <tr>
+                <th scope="row">예금주</th>
+                <td class="name"><input type="text" name="refund_name" id="refund_name"></td>
+            </tr>
+            <tr>
+                <th scope="row">입금 은행명</th>
+                <td class="name">
+                    <select id="refund_bank_name" name="refund_bank_name">
+                        <option value="기업은행" selected="">기업은행</option>
+                        <option value="국민은행">국민은행</option>
+                        <option value="농협중앙회">농협중앙회</option>
+                        <option value="우리은행">우리은행</option>
+                        <option value="SC제일은행">SC제일은행</option>
+                        <option value="신한은행">신한은행</option>
+                        <option value="부산은행">부산은행</option>
+                        <option value="우체국">우체국</option>
+                        <option value="하나은행">하나은행</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">환불 계좌번호</th>
+                <td class="name">
+                    <input type="text" name="refund_ba_num" id="refund_ba_num" class="full" placeholder="숫자만 기재해 주세요.">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <input type="hidden" id="id_over_yn" name="id_over_yn" value="N">
+    <hr class="end">
+    <footer class="action">
+        <button type="button" class="exe" onclick="regiRefundAcc(); return false;">환불계좌 등록</button>
+        <button type="button" class="close">취소</button>
+    </footer>
+    <ul class="guide">
+        <li>환불금액은 매주 <strong>O요일, O요일에 전산으로 승인 처리</strong>되어<br> 환불계좌에 입금 됩니다.</li>
+        <li>환불계좌 <strong>등록 이후에는 수정이 어려우니 유의</strong>하시기 바랍니다.</li>
+    </ul>
+</article>

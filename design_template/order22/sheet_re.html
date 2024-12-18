@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>디프린팅</title>
+    <!--[if lt IE 9]><script src="../../lib/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="../../lib/reset.css">
+    <link rel="stylesheet" href="../../lib/common.css">
+    <link rel="stylesheet" href="../../lib/order.css">
+    <script src="../../lib/jquery-1.11.2.min.js"></script>
+    <script src="../../lib/jquery-ui_dprinting.min.js"></script>
+    <script src="../common/header.js"></script>
+    <script src="../common/footer.js"></script>
+    <script src="../../lib/common.js"></script>
+    <script src="../../lib/order.js"></script>
+</head>
+<body>
+<header class="top"></header>
+<section class="contents sheet">
+    <header class="title">
+        <ol class="location">
+            <li><a href="#none" target="_self" title="첫 화면으로"><img src="../../images/common/contents_location_home.png" alt="HOME"></a></li>
+            <li><span>주문서 작성</span></li>
+        </ol>
+        <h2><img src="../../images/order/title/sheet.png" alt="주문서 작성"></h2>
+        <span class="description">주문정보와 배송정보를 입력하세요.</span>
+        <ol class="sequence">
+            <li><img src="../../images/order/sequence_step1.png" alt="STEP1 장바구니"></li>
+            <li><img src="../../images/order/sequence_step2_on.png" alt="STEP2 주문서 작성"></li>
+            <li><img src="../../images/order/sequence_step3.png" alt="STEP3 주문완료"></li>
+        </ol>
+    </header>
+    <section class="form order">
+        <h3><img src="../../images/order/sheet_title_order.png" alt="주문정보"></h3>
+        <table class="list _details order fileUploads">
+            <colgroup>
+                <col width="40">
+                <col width="80">
+                <col width="180">
+                <col>
+                <col width="90">
+                <col width="50">
+                <col width="100">
+                <col width="80">
+                <col width="50">
+                <col width="50">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>등록일</th>
+                    <th>인쇄물제목</th>
+                    <th>상품정보</th>
+                    <th>수량(건)</th>
+                    <th>쿠폰</th>
+                    <th>상품금액</th>
+                    <th>배송비</th>
+                    <th>상세/수정</th>
+                    <th>삭제</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>2015-01-30</td>
+                    <td class="_name">한솥도시락 컬러 전단1</td>
+                    <td class="subject">
+                        <ul class="information">
+                            <li>코팅명함</li>
+                            <li>아트지백색 100g</li>
+                            <li>A4</li>
+                            <li>단면칼라 4도</li>
+                        </ul>
+                    </td>
+                    <td>500(1건)</td>
+                    <td>
+                        <button onclick="layerPopup('l_coupon', 'popup/l_coupon.html')" class="coupon" title="쿠폰 적용"><img src="../../images/order/btn_usecoupon.png" alt="적용"></button>
+                    </td>
+                    <td>25,000 원</td>
+                    <td>2,500 원</td>
+                    <td>
+                        <button class="viewOrderDetails _showOrderDetails _on" title="상세보기"><img src="../../images/common/btn_table_circle_bottom.png" alt="▼"></button>
+                        <button class="viewOrderDetails _hideOrderDetails" title="상세접기"><img src="../../images/common/btn_table_circle_top_blue.png" alt="▲"></button>
+                    </td>
+                    <td><button class="deleteOrder" title="삭제"><img src="../../images/common/btn_circle_x_red.png" alt="X"></button></td>
+                </tr>
+                <tr class="_orderDetails">
+                    <td colspan="10">
+                        <div class="wrap">
+                            <figure><img src="../../images/sample/order_cart_product.png" alt="상품명"></figure>
+                            <dl>
+                                <dt>인쇄물 제목</dt>
+                                <dd>
+                                    <span class="_output">한솥도시락 컬러 전단1</span>
+                                    <input type="text" class="printTitle _input" value="한솥도시락 컬러 전단1">
+                                    <button class="_modify _on">수정</button>
+                                    <button class="_modify _save">저장</button>
+                                    <button class="_modify _cancel">취소</button>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>상품내역</dt>
+                                <dd>
+                                    <ul class="information">
+                                        <li>
+                                            <span class="_output">합판전단(주문형)1</span>
+                                            <select class="_input">
+                                                <option>합판전단(주문형)1</option>
+                                                <option>합판전단(주문형)2</option>
+                                            </select>
+                                            <button class="_modify  _on">수정</button>
+                                            <button class="_modify _save">저장</button>
+                                            <button class="_modify _cancel">취소</button>
+                                        </li>
+                                        <li>아트지 백색 100g</li>
+                                        <li>A4</li>
+                                        <li>단면칼라 4도</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>후공정</dt>
+                                <dd>
+                                    <ul class="information">
+                                        <li>코팅</li>
+                                        <li>네귀돌이</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>수량/건</dt>
+                                <dd>
+                                    <span class="_output">1,000</span>
+                                    <select class="_input">
+                                        <option>1,000</option>
+                                        <option>2,000</option>
+                                    </select>
+                                    <span>x</span>
+                                    <span class="_output">1</span>
+                                    <select class="_input">
+                                        <option>1</option>
+                                        <option>2</option>
+                                    </select>
+                                    건
+                                    <button class="_modify _on">수정</button>
+                                    <button class="_modify _save">저장</button>
+                                    <button class="_modify _cancel">취소</button>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>할인내역</dt>
+                                <dd>
+                                    <ul class="information">
+                                        <li>회원등급할인 &#8361; 5,000</li>
+                                        <li>이벤트할인 &#8361; 0</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>예상무게</dt>
+                                <dd>0.2Kg</dd>
+                            </dl>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody class="fileUploads">
+                <tr>
+                    <td colspan="10">
+                        <table class="input">
+                            <colgroup>
+                                <col width="120">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>자사 이미지 사용 여부</th>
+                                    <td>
+                                        <label><input type="radio" name="dprintingImage"> 예</label>
+                                        <label><input type="radio" name="dprintingImage"> 아니오</label>
+                                        <span class="note">당사에서 제공하는 이미지를 사용하셨을 경우, “예”로 체크해 주시기 바랍니다.</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>특이사항</th>
+                                    <td>
+                                        <textarea class="memo"></textarea>
+                                        <p class="note">인쇄 시 작업자가 참고해야 할 사항을 적어주세요.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="list _details order fileUploads">
+            <colgroup>
+                <col width="40">
+                <col width="80">
+                <col width="180">
+                <col>
+                <col width="90">
+                <col width="50">
+                <col width="100">
+                <col width="80">
+                <col width="50">
+                <col width="50">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>등록일</th>
+                    <th>인쇄물제목</th>
+                    <th>상품정보</th>
+                    <th>수량(건)</th>
+                    <th>쿠폰</th>
+                    <th>상품금액</th>
+                    <th>배송비</th>
+                    <th>상세/수정</th>
+                    <th>삭제</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>2015-01-30</td>
+                    <td class="_name">한솥도시락 컬러 전단2</td>
+                    <td class="subject">
+                        <ul class="information">
+                            <li>코팅명함</li>
+                            <li>아트지백색 100g</li>
+                            <li>A4</li>
+                            <li>단면칼라 4도</li>
+                        </ul>
+                    </td>
+                    <td>500(1건)</td>
+                    <td>
+                        <button onclick="layerPopup('l_coupon', 'popup/l_coupon.html')" class="coupon" title="쿠폰 적용"><img src="../../images/order/btn_usecoupon.png" alt="적용"></button>
+                    </td>
+                    <td>25,000 원</td>
+                    <td>2,500 원</td>
+                    <td>
+                        <button class="viewOrderDetails _showOrderDetails _on" title="상세보기"><img src="../../images/common/btn_table_circle_bottom.png" alt="▼"></button>
+                        <button class="viewOrderDetails _hideOrderDetails" title="상세접기"><img src="../../images/common/btn_table_circle_top_blue.png" alt="▲"></button>
+                    </td>
+                    <td><button class="deleteOrder" title="삭제"><img src="../../images/common/btn_circle_x_red.png" alt="X"></button></td>
+                </tr>
+                <tr class="_orderDetails">
+                    <td colspan="10">
+                        <div class="wrap">
+                            <figure><img src="../../images/sample/order_cart_product.png" alt="상품명"></figure>
+                            <dl>
+                                <dt>인쇄물 제목</dt>
+                                <dd>
+                                    <span class="_output">한솥도시락 컬러 전단2</span>
+                                    <input type="text" class="printTitle _input" value="한솥도시락 컬러 전단2">
+                                    <button class="_modify _on">수정</button>
+                                    <button class="_modify _save">저장</button>
+                                    <button class="_modify _cancel">취소</button>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>상품내역</dt>
+                                <dd>
+                                    <ul class="information">
+                                        <li>
+                                            <span class="_output">합판전단(주문형)1</span>
+                                            <select class="_input">
+                                                <option>합판전단(주문형)1</option>
+                                                <option>합판전단(주문형)2</option>
+                                            </select>
+                                            <button class="_modify  _on">수정</button>
+                                            <button class="_modify _save">저장</button>
+                                            <button class="_modify _cancel">취소</button>
+                                        </li>
+                                        <li>아트지 백색 100g</li>
+                                        <li>A4</li>
+                                        <li>단면칼라 4도</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>후공정</dt>
+                                <dd>
+                                    <ul class="information">
+                                        <li>코팅</li>
+                                        <li>네귀돌이</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>수량/건</dt>
+                                <dd>
+                                    <span class="_output">1,000</span>
+                                    <select class="_input">
+                                        <option>1,000</option>
+                                        <option>2,000</option>
+                                    </select>
+                                    <span>x</span>
+                                    <span class="_output">1</span>
+                                    <select class="_input">
+                                        <option>1</option>
+                                        <option>2</option>
+                                    </select>
+                                    건
+                                    <button class="_modify _on">수정</button>
+                                    <button class="_modify _save">저장</button>
+                                    <button class="_modify _cancel">취소</button>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>할인내역</dt>
+                                <dd>
+                                    <ul class="information">
+                                        <li>회원등급할인 &#8361; 5,000</li>
+                                        <li>이벤트할인 &#8361; 0</li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>예상무게</dt>
+                                <dd>0.2Kg</dd>
+                            </dl>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody class="fileUploads">
+                <tr>
+                    <td colspan="10">
+                        <table class="input">
+                            <colgroup>
+                                <col width="120">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>자사 이미지 사용 여부</th>
+                                    <td>
+                                        <label><input type="radio" name="dprintingImage"> 예</label>
+                                        <label><input type="radio" name="dprintingImage"> 아니오</label>
+                                        <span class="note">당사에서 제공하는 이미지를 사용하셨을 경우, “예”로 체크해 주시기 바랍니다.</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>특이사항</th>
+                                    <td>
+                                        <textarea class="memo"></textarea>
+                                        <p class="note">인쇄 시 작업자가 참고해야 할 사항을 적어주세요.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ol class="priceInfomation">
+            <li class="plus">
+                <dl>
+                    <dt>상품금액</dt>
+                    <dd>850,000</dd>
+                </dl>
+            </li>
+            <li class="minus">
+                <dl>
+                    <dt>배송비</dt>
+                    <dd>
+                        <span class="wrap">
+                            9,000
+                            <span class="detail">(18,000 - 9,000)</span>
+                        </span>
+                    </dd>
+                </dl>
+            </li>
+            <li class="minus">
+                <dl>
+                    <dt>쿠폰적용</dt>
+                    <dd>18,000</dd>
+                </dl>
+            </li>
+            <li class="equal">
+                <dl>
+                    <dt>
+                        포인트
+                        <button onclick="layerPopup('l_point', 'popup/l_point.html')" title="포인트 사용" class="point"><img src="../../images/order/btn_usepoint.png" alt="사용"></button>
+                    </dt>
+                    <dd>4,700</dd>
+                </dl>
+            </li>
+            <li>
+                <dl>
+                    <dt>최종결제금액</dt>
+                    <dd><strong>836,300</strong></dd>
+                </dl>
+            </li>
+        </ol>
+    </section>
+    <section class="form delivery">
+        <h3><img src="../../images/order/sheet_title_delivery.png" alt="배송정보"></h3>
+        <table class="input from">
+            <colgroup>
+                <col width="120">
+                <col>
+                <col width="120">
+                <col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>보내시는 분</th>
+                    <td colspan="3">
+                        <label><input type="radio" name="fromPreset"> 회원정보와 동일</label>
+                        <label><input type="radio" name="fromPreset"> 디프린팅 정보 입력</label>
+                        <label><input type="radio" name="fromPreset"> 새로운 정보 입력</label>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">성명/상호</th>
+                    <td colspan="3"><input type="text" class="name"></td>
+                </tr>
+                <tr>
+                    <th scope="row">연락처</th>
+                    <td>
+                        <select>
+                            <option>02</option>
+                        </select>
+                        <input type="text">
+                        <input type="text">
+                    </td>
+                    <th scope="row">휴대전화</th>
+                    <td>
+                        <select>
+                            <option>02</option>
+                        </select>
+                        <input type="text">
+                        <input type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">주소</th>
+                    <td colspan="3">
+                        <div class="rowWrap">
+                            <input type="text" readonly>
+                            <input type="text" readonly>
+                            <button>우편번호 찾기</button>
+                        </div>
+                        <div class="rowWrap">
+                            <input type="text" class="address" readonly>
+                            <input type="text" class="address">
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <section class="toSetting">
+            <label class="right"><input type="checkbox"> 배송정보를 문자메시지(SMS)로 수신합니다.</label>
+        </section>
+        <table class="input to">
+            <colgroup>
+                <col width="120">
+                <col>
+                <col width="120">
+                <col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>받으시는 분</th>
+                    <td colspan="3">
+                        <label><input type="radio" name="fromPreset"> 회원정보와 동일</label>
+                        <label><input type="radio" name="fromPreset"> 디프린팅 정보 입력</label>
+                        <label><input type="radio" name="fromPreset"> 새로운 정보 입력</label>
+                        <button onclick="layerPopup('l_addressList', 'popup/l_addresslist.html')">나의배송지 선택</button>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">배송상품</th>
+                    <td colspan="3">
+                        <button class="selectItem" onclick="layerPopup('l_selectItem', 'popup/l_selectitem.html')">상품선택</button>
+                        <ul class="items">
+                            <li>
+                                브랜뉴소다 브로셔
+                                <button class="del">삭제</button>
+                            </li>
+                            <li>
+                                브랜뉴소다 브로셔
+                                <button class="del">삭제</button>
+                            </li>
+                            <li>
+                                브랜뉴소다 브로셔
+                                <button class="del">삭제</button>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">배송방법</th>
+                    <td>
+                        <select>
+                            <option>선택</option>
+                        </select>
+                        <span class="deliveryFee">배송비 <strong>6,000</strong> 원</span>
+                    </td>
+                    <th scope="row">배송비 지불</th>
+                    <td>
+                        <label><input type="radio" name="pamentType"> 선불</label>
+                        <label><input type="radio" name="pamentType"> 착불</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">성명/상호</th>
+                    <td colspan="3" class="name"><input type="text"></td>
+                </tr>
+                <tr>
+                    <th scope="row">연락처</th>
+                    <td>
+                        <select>
+                            <option>02</option>
+                        </select>
+                        <input type="text">
+                        <input type="text">
+                    </td>
+                    <th scope="row">휴대전화</th>
+                    <td>
+                        <select>
+                            <option>010</option>
+                        </select>
+                        <input type="text">
+                        <input type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">주소</th>
+                    <td colspan="3">
+                        <button class="addressRegist" onclick="layerPopup('l_addressRegister', 'popup/l_addressregister.html')">나의배송지로 등록</button>
+                        <div class="rowWrap">
+                            <input type="text" readonly>
+                            <input type="text" readonly>
+                            <button>우편번호 찾기</button>
+                        </div>
+                        <div class="rowWrap">
+                            <input type="text" class="address" readonly>
+                            <input type="text" class="address">
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="input to">
+            <colgroup>
+                <col width="120">
+                <col>
+                <col width="120">
+                <col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>받으시는 분</th>
+                    <td colspan="3">
+                        <label><input type="radio" name="fromPreset"> 회원정보와 동일</label>
+                        <label><input type="radio" name="fromPreset"> 디프린팅 정보 입력</label>
+                        <label><input type="radio" name="fromPreset"> 새로운 정보 입력</label>
+                        <button onclick="layerPopup('l_addressList', 'popup/l_addresslist.html')">나의배송지 선택</button>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">배송상품</th>
+                    <td colspan="3">
+                        <button class="selectItem" onclick="layerPopup('l_selectItem', 'popup/l_selectitem.html')">상품선택</button>
+                        <ul class="items">
+                            <li>
+                                브랜뉴소다 브로셔
+                                <button class="del">삭제</button>
+                            </li>
+                            <li>
+                                브랜뉴소다 브로셔
+                                <button class="del">삭제</button>
+                            </li>
+                            <li>
+                                브랜뉴소다 브로셔
+                                <button class="del">삭제</button>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">배송방법</th>
+                    <td>
+                        <select>
+                            <option>선택</option>
+                        </select>
+                        <span class="deliveryFee">배송비 <strong>6,000</strong> 원</span>
+                    </td>
+                    <th scope="row">배송비 지불</th>
+                    <td>
+                        <label><input type="radio" name="pamentType"> 선불</label>
+                        <label><input type="radio" name="pamentType"> 착불</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">성명/상호</th>
+                    <td colspan="3" class="name"><input type="text"></td>
+                </tr>
+                <tr>
+                    <th scope="row">연락처</th>
+                    <td>
+                        <select>
+                            <option>02</option>
+                        </select>
+                        <input type="text">
+                        <input type="text">
+                    </td>
+                    <th scope="row">휴대전화</th>
+                    <td>
+                        <select>
+                            <option>010</option>
+                        </select>
+                        <input type="text">
+                        <input type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">주소</th>
+                    <td colspan="3">
+                        <button class="addressRegist" onclick="layerPopup('l_addressRegister', 'popup/l_addressregister.html')">나의배송지로 등록</button>
+                        <div class="rowWrap">
+                            <input type="text" readonly>
+                            <input type="text" readonly>
+                            <button>우편번호 찾기</button>
+                        </div>
+                        <div class="rowWrap">
+                            <input type="text" class="address" readonly>
+                            <input type="text" class="address">
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="addDelevery">+ 받으시는 분 추가</button>
+    </section>
+    <section class="form memo">
+        <h3><img src="../../images/order/sheet_title_memo.png" alt="주문메모"></h3>
+        <textarea class="memo" placeholder="주문에 대해 기억해야할 사항이나 관리를 위한 여러가지 내용을 메모하세요."></textarea>
+    </section>
+    <section class="form payment">
+        <h3><img src="../../images/order/sheet_title_payment.png" alt="결제정보"></h3>
+        <ol class="priceInfomation">
+            <li class="plus">
+                <dl>
+                    <dt>상품금액</dt>
+                    <dd>850,000</dd>
+                </dl>
+            </li>
+            <li class="minus">
+                <dl>
+                    <dt>배송비</dt>
+                    <dd>
+                        <span class="wrap">
+                            9,000
+                            <span class="detail">(18,000 - 9,000)</span>
+                        </span>
+                    </dd>
+                </dl>
+            </li>
+            <li class="minus">
+                <dl>
+                    <dt>쿠폰적용</dt>
+                    <dd>18,000</dd>
+                </dl>
+            </li>
+            <li class="equal">
+                <dl>
+                    <dt>
+                        포인트
+                        <button onclick="layerPopup('l_point', 'popup/l_point.html')" title="포인트 사용" class="point"><img src="../../images/order/btn_usepoint.png" alt="사용"></button>
+                    </dt>
+                    <dd>4,700</dd>
+                </dl>
+            </li>
+            <li>
+                <dl>
+                    <dt>최종결제금액</dt>
+                    <dd><strong>836,300</strong></dd>
+                </dl>
+            </li>
+        </ol>
+        <dl class="paymentType">
+            <dt>
+                <label><input type="radio" name="paymentType" value="prepaid" checked> 선입금</label>
+                <label><input type="radio" name="paymentType"> 카드결제</label>
+            </dt>
+            <dd>
+                <ol>
+                    <li class="minus">
+                        <dl>
+                            <dt>선입금</dt>
+                            <dd>1,250,000</dd>
+                        </dl>
+                    </li>
+                    <li class="equal">
+                        <dl>
+                            <dt>최종결제금액</dt>
+                            <dd><strong>475,000</strong></dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>주문부족금액</dt>
+                            <dd>0</dd>
+                        </dl>
+                    </li>
+                </ol>
+            </dd>
+        </dl>
+        <dl class="reciept">
+            <dt><label><input type="radio" name="recieptType" checked> 현금영수증</label></dt>
+            <dd class="cash">
+                <div class="wrap">
+                    <label>
+                        증빙구분
+                        <select>
+                            <option>소득공제용</option>
+                            <option>지출증빙용</option>
+                        </select>
+                    </label>
+                    <select>
+                        <option>주민등록번호</option>
+                        <option>휴대폰번호</option>
+                        <option>카드번호</option>
+                    </select>
+                    <input type="text">
+                </div>
+            </dd>
+            <dt><label><input type="radio" name="recieptType"> 세금계산서</label></dt>
+            <dd class="tax">
+                <div class="wrap">
+                    <ul class="data">
+                        <li><label><input type="radio" name="dataType" disabled checked> 회원정보와 동일</label></li>
+                        <li><label><input type="radio" name="dataType" disabled onclick="layerPopup('l_organizer', 'popup/l_organizer.html')"> 관리사업자 불러오기</label></li>
+                        <li><label><input type="radio" name="dataType" disabled class="_edit"> 수정</label></li>
+                        <li><label><input type="radio" name="dataType" disabled class="_edit _new"> 별도 기입</label></li>
+                    </ul>
+                    <ul class="input">
+                        <li><label>회원명 : <input type="text" disabled readonly value="회원명"></label></li>
+                        <li><label>공급받는자 : <input type="text" disabled readonly value="공급받는자"></label></li>
+                        <li><label>사업자번호 : <input type="text" disabled readonly value="사업자번호"></label></li>
+                        <li><label>대표자 : <input type="text" disabled readonly></label></li>
+                        <li class="address"><label>주소 : <input type="text" disabled readonly></label></li>
+                        <li><label>업태 : <input type="text" disabled readonly></label></li>
+                        <li><label>종목 : <input type="text" disabled readonly></label></li>
+                    </ul>
+                </div>
+            </dd>
+            <dt><label><input type="radio" name="recieptType" class="_disabled"> 미발행</label></dt>
+        </dl>
+    </section>
+    <div class="function center">
+        <strong><button onclick="layerPopup('l_confirm', 'popup/l_confirm.html')">결제하기</button></strong>
+        <button class="gray">장바구니로 돌아가기</button>
+    </div>
+</section>
+<footer></footer>
+</body>
+</html>

@@ -1,0 +1,261 @@
+	<script src="[TPH_Vdesign_dir]/js/product/aft_lib.js"></script>
+	<script src="[TPH_Vdesign_dir]/js/product/aft_restrict.js"></script>
+	<script src="[TPH_Vdesign_dir]/js/product/aft_[TPH_Vpage].js"></script>
+	<script src="[TPH_Vdesign_dir]/js/product/opt_lib.js"></script>
+	<script src="[TPH_Vdesign_dir]/js/product/opt_restrict.js"></script>
+    <script src="[TPH_Vdesign_dir]/js/lib/jquery.magnify.js"></script>
+    <link rel="stylesheet" href="[TPH_Vdesign_dir]/css/magnify.css">
+    <script src="[TPH_Vdesign_dir]/js/lib/jquery.elevatezoom.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.445.0.min.js"></script>
+    <script>
+
+        /*
+        var commonObj = {
+            "listId"     : "[TPH_Vfile_list_id]",
+            "uploader"   : null,
+            "fileSeq"    : '',
+            "operSys"    : '',
+            "isComplete" : false,
+            "removeList" : function(id) {
+                commonObj.uploader.removeFile(id);
+                $('#' + id).remove();
+            }
+        };
+*/
+        var file;
+        var filename = '';
+        var filesize = '';
+        var s3;
+
+        var strArray = '';
+        var cvt_file = '';
+        var filesizeH = '';
+        var savefile = '';
+        var org_file = '';
+        $(document).ready(function() {
+            $("#order_file").on("click", function () {
+                $("#uploader").trigger("click");
+            });
+
+            $("#uploader").on("change", function(e) {
+                file = e.target.files[0];
+                filename = e.target.files[0].name;
+                filesize = e.target.files[0].size;
+                console.log(file);
+
+
+                var fn  = file.name;
+                var ext = fn.split(".")[1].toLowerCase();
+                // 봉투일 때 PDF 파일 업로드 불가
+                /*
+                if ($("#prdt_dvs").val() == "ev") {
+                    if (ext == 'pdf') {
+                        removeFile();
+                        return alertReturnFalse("봉투주문은 PDF 파일을 업로드 할 수 없습니다.");
+                    }
+                }
+                */
+
+                // 그린백일 때 일러스트, 코렐만 가능
+                if ($("#prdt_dvs").val() == "gb") {
+                    if (ext == 'ai' || ext == "eps" ||
+                        ext == "cdr") {
+                    } else {
+                        removeFile();
+                        return alertReturnFalse("그린백 주문은 ai, eps, cdr(일러스트, 코렐)파일 외엔 업로드 할 수 없습니다.");
+                    }
+                }
+
+                if (file.size > 2147483648) {
+                    removeFile();
+                    return alertReturnFalse("2GB를 넘는 파일은 웹하드를 이용해주세요.");
+                }
+
+                $('#file_content').html(
+                    "<div id=\"" + file.id + "\">" +
+                    file.name + " (" +
+                    humanFileSize(file.size) +
+                    ")<b></b>" +
+                    "&nbsp;" +
+                    "<img src=\"/design_template/images/common/btn_circle_x_red.png\"" +
+                    "     id=\"esti_file_del" +
+                    "     alt=\"X\"" +
+                    "     onclick=\"removeFile();\"" +
+                    "     style=\"cursor:pointer; top:-1px; position:relative;\" /></div>"
+                );
+                $("#file_id").val(file.id);
+                $("#file_uploading_name").html(file.name + " (" + humanFileSize(file.size) + ")");
+                $("#file_name").val(file.name);
+                $("#file_size").val(file.size);
+                $('#uploader').val('');
+            });
+
+
+            //var listId = commonObj.listId;
+
+            /*
+            var uploader = new plupload.Uploader({
+                url                 : "[TPH_Vfile_upload_url]",
+                runtimes            : runtimes,
+                container           : document.getElementById("work_file_dl"),
+                browse_button       : "[TPH_Vfile_button_id]", // you can pass in id...
+                flash_swf_url       : "/design_template/js/uploader/Moxie.swf",
+                silverlight_xap_url : "/design_template/js/uploader/Moxie.xap",
+                multi_selection     : false,
+
+                filters : {
+                    max_file_size : "[TPH_Vfile_max_size]",
+                    mime_types    : mimeTypes
+                },
+                init : {
+                    PostInit : function() {
+                        $("#" + listId).html('');
+                    },
+                    FilesAdded : function(up, files) {
+                        // 파일을 새로 추가할 경우
+                        commonObj.isComplete = false;
+
+                        if (up.files.length > 1) {
+                            up.removeFile(up.files[0]);
+                        }
+
+                        var fn  = files[0].name;
+                        var ext = fn.split(".")[1].toLowerCase();
+                        // 봉투일 때 PDF 파일 업로드 불가
+                        if ($("#prdt_dvs").val() == "ev") {
+                            if (ext == 'pdf') {
+                                up.removeFile(up.files[0]);
+                                return alertReturnFalse("봉투주문은 PDF 파일을 업로드 할 수 없습니다.");    
+                            }
+                        }
+
+                        // 그린백일 때 일러스트, 코렐만 가능
+                        if ($("#prdt_dvs").val() == "gb") {
+                            if (ext == 'ai' || ext == "eps" || 
+                                    ext == "cdr") {
+                            } else {
+                                up.removeFile(up.files[0]);
+                                return alertReturnFalse("그린백 주문은 ai, eps, cdr(일러스트, 코렐)파일 외엔 업로드 할 수 없습니다.");    
+                            }
+                        }
+
+                        plupload.each(files, function(file) {
+                            if (file.size > 2147483648) {
+                                up.removeFile(up.files[0]);
+                                return alertReturnFalse("2GB를 넘는 파일은 웹하드를 이용해주세요.");
+                            }
+
+                            $('#' + listId).html(
+                                "<div id=\"" + file.id + "\">" +
+                                file.name + " (" +
+                                plupload.formatSize(file.size) +
+                                ")<b></b>" +
+                                "&nbsp;" +
+                                "<img src=\"/design_template/images/common/btn_circle_x_red.png\"" +
+                                "     id=\"esti_file_del" +
+                                "     alt=\"X\"" +
+                                "     onclick=\"commonObj.removeList('" + file.id + "');\"" +
+                                "     style=\"cursor:pointer; top:-1px; position:relative;\" /></div>"
+                            );
+                            $("#file_id").val(file.id);
+                            $("#file_uploading_name").html(file.name + " (" + plupload.formatSize(file.size) + ")");
+                        });
+
+                    },
+                    UploadProgress : function(up, file) {
+
+                        openFileProgress(); // 파일 업로드 진행도 레이어 열음
+
+                        document.getElementById("file_progress")
+                                .style.width = file.percent + "%";
+                    },
+                    FileUploaded : function(up, file, response) {
+                        var jsonObj = JSON.parse(response.response);
+                        if (!jsonObj.success) {
+                            alert(jsonObj.message);
+                            up.stop();
+                            return false;
+                        }
+
+                        if (!checkBlank(jsonObj.oper_sys)) {
+                            commonObj.operSys = jsonObj.oper_sys;
+                        }
+
+                        commonObj.fileSeq = jsonObj.file_seqno;
+                    },
+                    UploadComplete : function(up, files) {
+                        //if (files.length === 0) {
+                        //    return alertReturnFalse("파일을 업로드해주세요.");
+                        //}
+
+                        if (files.length > 0) {
+                            if (up.total.queue > 0 && up.total.percent < 100) {
+                                return alertReturnFalse("모든 파일이 업로드 되지 않았습니다.");
+                            }
+
+                            commonObj.isComplete = true;
+
+                            var name = '';
+
+                            plupload.each(files, function(file) {
+                                name = file.name.split('.')[0];
+                            });
+
+                            if (checkBlank($("#title").val())) {
+                                if (confirm("업로드하신 파일명을 인쇄물제목으로 사용하시겠습니까?")) {
+                                    $("#title").val(name);
+                                    closeFileProgress(); // 파일 업로드 진행도 레이어 닫음
+                                } else {
+                                    closeFileProgress(); // 파일 업로드 진행도 레이어 닫음
+                                    return false;
+                                }
+                            }
+                        }
+
+                        fileNextFunc();
+                    },
+                    Error : function(up, err) {
+                        if (checkBlank(err.code) === false
+                                && err.code == -600) {
+                            return alertReturnFalse("2GB를 넘는 파일은 웹하드를 이용해주세요.");
+                        }
+
+                        $("#" + listId).html("\nError #" + err.code + ": " + err.message);
+                    }
+                }
+            });
+
+            uploader.init();
+
+            commonObj.uploader = uploader;
+             */
+        });
+
+        function removeFile() {
+            $("#file_content").html("");
+        }
+
+        function humanFileSize(bytes, si=true, dp=1) {
+            const thresh = si ? 1000 : 1024;
+
+            if (Math.abs(bytes) < thresh) {
+                return bytes + ' B';
+            }
+
+            const units = si
+                ? ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+                : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+            let u = -1;
+            const r = 10**dp;
+
+            do {
+                bytes /= thresh;
+                ++u;
+            } while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
+
+
+            return bytes.toFixed(dp) + ' ' + units[u];
+        }
+    </script>
+    <input type="hidden" id="logo_218_218" value="[TPH_Vdesign_dir][TPH_Vlogo_218_218]" />
+    <iframe id="file_ifr" name="file_ifr" width=0 height=0 style="display:none;"></iframe>

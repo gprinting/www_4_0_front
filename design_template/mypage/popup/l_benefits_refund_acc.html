@@ -1,0 +1,38 @@
+<button class="btn_popup_close close" title="닫기"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+<div class="inner_padding">
+    <div class="layerPopup">
+        <div>
+            <h2>환불요청 등록</h2>
+        </div>
+        <div class="layerPopup_contents">
+            <div [TPH_Vstyle]>
+                <table class="input to">
+                    <colgroup>
+                        <col width="120">
+                        <col width="300">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th scope="row">총 환불 가능금액</th>
+                            <td class="name"><input type="text" id="refund_max" style="width:370px;" value="[TPH_Vrefund_max]" disabled="disabled"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">환불 요청금액</th>
+                            <td class="name">
+                                <input type="text" name="refund_amount" id="refund_amount" style="width:370px;">
+                                <p class="note">숫자만 기재해 주세요.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul class="hyphen notice">
+                    <li>환불 금액이 발생하여 승인 완료는 매주 0요일, 0요일에 환불전산 처리가 되어 입금이 됩니다.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="btn_wrapper">
+            <button type="button" class="btn_type_02" onclick="regiRefundAmount(); return false;">확인</button>
+            <button type="button" class="btn_type_01 close">취소</button>
+        </div>
+    </div>
+</div>

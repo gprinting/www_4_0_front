@@ -1,0 +1,69 @@
+@charset 'utf-8';
+
+.sheet .complete .message {
+    height: 290px; text-align: center; color: #1847a6; 
+    background: url('./images/pages/ornm-thanks.png') center no-repeat, url('./images/pages/ptrn-thanks.png') left top repeat; 
+}
+.sheet .complete .message dt,
+.sheet .complete .message dd { width: 160px; margin: 0 auto; }
+.sheet .complete .message dt {
+    font-size: 28px; font-weight: 700; padding: 80px 0 4px 10px;
+    text-shadow: 2px 2px #fff, 3px 3px #ccc;
+    border-bottom: 2px solid #f0f2fa; line-height: 60px;
+}
+.sheet .complete dl.message dd {
+    font-size: 15px; line-height: 20px; font-weight: 400; padding-top: 14px; 
+}
+.sheet .complete dl.message dd strong { font-weight: 500; }
+
+.sheet .complete dl.orderNum {
+    height: 150px; text-align: center; font-size: 13px; font-weight: 500;
+    background: url('./images/pages/ptrn-thanks.png') left top repeat; 
+    color: #47517d;
+}
+.sheet .complete dl.orderNum dt { position: relative; line-height: 20px; }
+.sheet .complete dl.orderNum dt:before,
+.sheet .complete dl.orderNum dt:after {
+    content: ''; display: inline-block; height: 1px; width: 100px;
+    background: #1847a6; vertical-align: middle; margin: 0 10px;
+    margin-top: -3px;
+}
+.sheet .complete dl.orderNum dd strong {
+    display: block; width: 260px; height: 48px; margin: 10px auto; background: #fff;
+    border-radius: 24px; line-height: 50px; font-weight: 900; color: #1847a6;
+    font-family: 'NanumSquareRound', sans-serif; font-size: 18px;
+}
+.sheet .complete ol.payment,
+.sheet .complete dl.bankAccount {
+    float: left; background: #fff; box-shadow: 1px 1px 0 #e8e8e8;
+    box-sizing: border-box; height: 100px; border-radius: 0 0 5px 5px;
+    padding: 26px 0; font-weight: 500; font-size: 13px; color: #444;
+    line-height: 30px;
+}
+.sheet .complete ol.payment { width: 650px; text-align: center; }
+.sheet .complete dl.bankAccount { float: right; width: 440px; padding-left: 65px; }
+.sheet .complete ol.payment dt,
+.sheet .complete dl.bankAccount dt { line-height: 20px; }
+.sheet .complete ol.payment li {
+    display: inline-block; vertical-align: top; text-align: left; position: relative;
+}
+.sheet .complete ol.payment li+li { padding-left: 100px; }
+.sheet .complete ol.payment li:nth-child(2):before,
+.sheet .complete ol.payment li:nth-child(3):before {
+    font-family: 'NanumSquareRound', sans-serif; font-size: 38px;
+    width: 100px; font-weight: 900; color: #ccc; text-align: center;
+    position: absolute; top: 2px; bottom: 0; left: 0; height: 24px; margin: auto 0;
+}
+/*.sheet .complete ol.payment li:nth-child(2):before { content: '-'; font-size: 48px; }
+.sheet .complete ol.payment li:nth-child(3):before { content: '='; }*/
+.sheet .complete ol.payment dd { color: #47517d; }
+.sheet .complete ol.payment dd.prepaid { color: #4584e3; }
+.sheet .complete ol.payment dd.restAmount { color: #f7424f; }
+.sheet .complete dl.bankAccount dd { color: #1847a6; }
+.sheet .complete ol.payment strong,
+.sheet .complete dl.bankAccount .no {
+    font-family: 'NanumSquareRound', sans-serif; font-size: 18px; font-weight: 900;
+}
+
+.sheet .complete .thanks { clear: both; }
+.sheet .complete .thanks header { padding-top: 5px; padding-bottom: 5px; }

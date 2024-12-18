@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+    [TPH_I/m/common/head.html]
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 네비게이션 -->
+        [TPH_I/m/common/nav.html]
+        <!-- 헤더 -->
+        [TPH_I/m/common/header.html]
+
+        <div class="contents">
+            <!-- 타이틀 start -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title">
+                    선입금 내역
+                </div>
+            </div>
+            <!-- 타이틀 end -->
+
+            <!-- 금액정보 start -->
+            <div class="mypage_main_table_wrapper">
+                <table class="mypage_main_table">
+                    <colgroup>
+                        <col style="width:40%;">
+                        <col style="width:60%;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img class="prepayment_icon" src="[TPH_Vdesign_dir]/images/common/icon_side_cash.png" alt="선입금">
+                                <p class="side_table_text">선입금<br>
+                            </td>
+                            <td class="cash_text_color_01">
+                                <span class="prepayment_text cash_text_color_01">100,000,000</span>원
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="prepayment_icon" src="[TPH_Vdesign_dir]/images/common/icon_mypage_cash_lack.png" alt="주문부족금액">
+                                <p class="side_table_text">주문부족금액<br>
+                            </td>
+                            <td class="cash_text_color_02">
+                                <span class="prepayment_text cash_text_color_02">0</span>원
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 금액정보 end -->
+
+            <!-- 검색 창 start -->
+            <div class="basic_table_wrapper">
+                <table class="basic_table">
+                    <colgroup>
+                        <col style="width:20%;">
+                        <col style="">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>거래일</th>
+                        <td>
+                            <table class="basic_detail_table">
+                                <colgroup>
+                                    <col style="width:50%;">
+                                    <col style="width:45%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding-right:5% !important;">
+                                            <span class="input_type_text_date_warapper">
+                                                <input class="basic_input Column_02" type="text" readonly="readonly" style="background:#fff;">
+                                                <img class="icon_calendar" src="[TPH_Vdesign_dir]/images/common/btn_calendar.png" alt="">
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="input_type_text_date_warapper">
+                                                <input class="basic_input Column_02" type="text" readonly="readonly" style="background:#fff;">
+                                                <img class="icon_calendar" src="[TPH_Vdesign_dir]/images/common/btn_calendar.png" alt="">
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="btn_date_section_wrapper">
+                                <button type="button">당일</button>
+                                <button type="button">전일</button>
+                                <button type="button">금주</button>
+                                <button type="button">전주</button>
+                                <button type="button">당월</button>
+                                <button type="button">전월</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="btn_mypage_search" type="button">검색</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+            <!-- 검색 창 end -->
+
+            <!-- 검색 결과 start -->
+            <div class="mypage_status_top_info_wrapper">
+                <table class="mypage_status_top_info">
+                    <colgroup>
+                        <col style="width:70%;">
+                        <col style="width:30%;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p class="mypage_status_text_p">총 <span class="mypage_status_text_span">1</span>건의 검색결과가 있습니다.</p>
+                            </td>
+                            <td>
+                                <select class="select_basic_table_top">
+                                    <option selected="selected" value="">10개씩 보기</option>
+                                    <option value="">20개씩 보기</option>
+                                    <option value="">50개씩 보기</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <table class="board_type_table_top_02 benefits_receipt_mng">
+                <colgroup>
+                    <col style="width:25%;">
+                    <col style="width:51%;">
+                    <col style="width:23%;">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th>거래일</th>
+                        <th>거래내역</th>
+                        <th>결제상태</th>
+                    </tr>
+                    <tr>
+                        <td>2017.02.10</td>
+                        <td>
+                            선입금충전<br>
+                            300,000원
+                        </td>
+                        <td>
+                            <div class="icon_table_01">입금대기</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2017.02.10</td>
+                        <td>
+                            선입금충전<br>
+                            500,000원
+                        </td>
+                        <td>
+                            <div class="icon_table_02">결제완료</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 검색 결과 end -->
+
+            <!-- 페이지 탭 start -->
+            <div class="page_btn">
+                <span>
+                    <img src="[TPH_Vdesign_dir]/images/common/btn_board_first.png" alt="처음으로" />
+                </span>
+                <span>
+                    <img src="[TPH_Vdesign_dir]/images/common/btn_board_prev.png" alt="이전페이지" />
+                </span>
+                <span class="page_btn_select_page">
+                    1
+                </span>
+                <span>
+                    <img src="[TPH_Vdesign_dir]/images/common/btn_board_next.png" alt="다음페이지" />
+                </span>
+                <span>
+                    <img src="[TPH_Vdesign_dir]/images/common/btn_board_last.png" alt="마지막페이지" />
+                </span>
+            </div>
+            <!-- 페이지 탭 end -->
+
+            <!-- 하단버튼 start -->
+            <div class="button_wrapper" style="width:88%;">
+                <button class="mypage_bottom_color_btn_out btn_recharge" type="button">충전안내</button>
+            </div>
+            <!-- 하단버튼 end -->
+
+        </div>
+
+        <!-- 푸터 -->
+        [TPH_I/m/common/footer.html]
+
+        <!-- 레이어팝업 -->
+        <div class="layerpopup">
+            <!-- 로그인 -->
+            <div class="layerpopup_contents">
+                <div class="layerpopup_title">
+                    <p class="main_title">충전안내</p>
+                </div>
+                <table class="layerpopup_table">
+                    <colgroup>
+                        <col style="width:30%;">
+                        <col style="width:70%;">
+                    </colgroup>
+                    <tr>
+                        <td colspan="2" style="padding: 0 !important;">
+                            <div class="div_radius_frame_02">
+                                <div class="div_radius_frame_text">
+                                    <p>선입금은 PC에서 가상계좌 및 카드결제로 충전하실 수 있습니다.</p>
+                                    <p>농협이나 씨티카드로 결제하시는 경우, 결제 후 02-2260-9000(고객센터)로 연락바랍니다.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="mypage_bottom_color_btn_inner btn_rechage_cancel" type="button">확인</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- 레이어팝업 배경 start -->
+        <div class="layerpopup_bg">
+        </div>
+        <!-- 레이어팝업 배경 end -->
+    </div>
+</body> 
+</html>

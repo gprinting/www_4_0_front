@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="div_sub_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_mypage_claim.jpg" alt="서브배너" />
+</div>
+<div class="contents contents_02 claimInfo">
+    <div class="lnb">
+        [TPH_I/mypage/common/lnb.html]
+    </div>
+    <h3 class="pageTitle"><img src="[TPH_Vdesign_dir]/images/title/claim_write.png" alt="클레임 작성"></h3>
+    <form id="claim_form" action="../../mypage/claim_write_action.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="order_common_seqno" name="order_common_seqno" value="[TPH_Vorder_common_seqno]">
+        <table class="information input question _details">
+            <colgroup>
+                <col width="120">
+                <col>
+                <col width="120">
+                <col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th colspan="4">클레임 상세사항</th>
+                </tr>
+            </thead>
+            <tbody class="_on">
+                <tr class="_orderDetails">
+                    [TPH_Vdetail]
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <th scope="row">클레임 제목</th>
+                    <td colspan="3"><div class="inputWrap"><input maxlength="255" id="claim_title" name="claim_title" type="text"></div></td>
+                </tr>
+                <tr>
+                    <th scope="row">클레임 유형</th>
+                    <td>
+                        <select id="dvs" name="claim_dvs">
+                            <option value="인쇄잡티">인쇄잡티</option>
+                            <option value="파손">파손</option>
+                            <option value="환불">환불</option>
+                            <option value="반품">반품</option>
+                        </select>
+                    </td>
+                    <th scope="row">클레임 견본</th>
+                    <td><div class="fileWrap"><input type="file" name="sample_file" id="sample_file"></div></td>
+                </tr>
+                <tr>
+                    <th scope="row">클레임 내용</th>
+                    <td colspan="3">
+                        <div maxlength="65000" class="textareaWrap">
+                            <textarea id="claim_cont" name="claim_cont"></textarea>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </table>
+        <div class="function center">
+            <strong><button type="button" onclick="regiClaim()" class="function">등록</button></strong>
+            <button onclick="claimSelectMove();" class="function">취소</button>
+        </div>
+    </form>
+    [TPH_I/mypage/common/banner.html]
+</div>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="contents join">
+    <div class="div_sub_banner">
+        <img class="img_sub_banner" src="/design_template/images/sp_banner/banner_order_ad.jpg" alt="서브배너" />
+    </div>
+    <!-- <header class="title">
+        <ol class="location">
+            [TPH_I/common/home_btn.html]
+            <li><span>회원가입</span></li>
+            <li><span>회원유형선택</span></li>
+        </ol>
+    </header> -->
+    <img src="/design_template/images/member/join_title.png" alt="회원가입">
+    <!-- <ol class="joinSteps">
+        <li class="step1"><h3>회원유형 선택</h3></li>
+        <li class="step2">약관 동의</li>
+        <li class="step3">정보 입력</li>
+        <li class="step4">가입 완료</li>
+    </ol> -->
+    <div class="memberType">
+        <div class="text">
+          <img src="/design_template/images/member/welcome.png" alt="회원가입">
+          <p class="sub">회원 유형에 대해 잘 모르시면 <a href="/service/customer_designcompany.html" target="_blank">회원 유형 안내</a>를 참고하세요.</p>
+        </div>
+        <ul class="memberType">
+            <li>
+                <a style="cursor: pointer;" onclick="goPage('기업');" target="_self">
+                    <strong>기업</strong><br>
+                    COMPANY
+                </a>
+            </li>
+            <li>
+                <a style="cursor: pointer;" onclick="goPage('개인');" target="_self">
+                    <strong>개인</strong><br>
+                    PERSONAL
+                </a>
+            </li>
+            <li>
+                <a style="cursor: pointer;" onclick="goPage('외국인');" target="_self">
+                    <strong>외국인</strong><br>
+                    FOREIGNER
+                </a>
+            </li>
+        </ul>
+        <form name="frm" id="frm">
+          <input type="hidden" id="dvs" name="dvs">
+        </form>
+    </div>
+</div>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,648 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+
+<meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="pragma" content="no-store"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="Expires" content="-1"/>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<title>디프린팅</title> 
+<link rel="stylesheet" href="../css/reset.css">
+<link rel="stylesheet" href="../css/common.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/minitoggle.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<link rel="apple-touch-icon" href="../images/common/app_icon.png" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<script src="../js/swipe.js"></script>
+<script src="../js/minitoggle.js"></script>
+
+
+<script type="text/javascript">
+// 주소창 자동 닫힘 
+window.addEventListener("load", function(){ 
+setTimeout(loaded, 100); 
+
+}, false); 
+
+function loaded(){ 
+window.scrollTo(0, 1); 
+} 
+
+// 컨텐츠 높이 100%
+$(function () {
+    $(document).ready(function() {
+        var scroll_height = document.body.scrollHeight - 0;
+        scroll_height = scroll_height;
+
+        $(".btn_header_list_on").css("height", scroll_height);
+    });
+});
+
+//리스트 버튼
+$(function(){ 
+    $(".btn_header_list").click(function () {
+        
+        $(".btn_header_list").hide();
+        $(".btn_header_list_on").show();
+
+        $(".header_navi").animate({left: '0%'});
+
+        $(".wrapper").animate({left: '80%'});
+        $(".wrapper").attr('class','wrapper_on');
+    });
+
+    $(".btn_header_list_on").click(function () {
+
+        $(".btn_header_list_on").hide();
+        $(".btn_header_list").show();
+
+        $(".header_navi").animate({left: '-80%'});
+
+        $(".wrapper_on").animate({left: '0%'});
+        $(".wrapper_on").attr('class','wrapper');
+    });
+})
+
+//로그인
+$(function(){ 
+    $(".btn_header_login").click(function () {
+        $(".login_layerpopup").show();
+        $(".login_layerpopup_bg").show();
+    });
+    
+    $(".login_layerpopup_bg").click(function () {
+        $(".login_layerpopup").hide();
+        $(".login_layerpopup_bg").hide();
+    });
+})
+
+jQuery.fn.center = function () {
+    $(".login_layerpopup").css("position","fixed");
+    $(".login_layerpopup").css("top", Math.max(0, (($(window).height() - $(".login_layerpopup").outerHeight()) / 2) + $(window).scrollTop()) + "px");
+    $(".login_layerpopup").css("left", Math.max(0, (($(window).width() - $(".login_layerpopup").outerWidth()) / 2) + $(window).scrollLeft()) + "px");
+    return this;
+}
+
+//토글
+$(function(){
+    $('.toggle').minitoggle();
+
+    $('.toggle').on("toggle", function(e){
+    if (e.isActive)
+        $(".result").html("on")
+    else
+        $(".result").html("off")
+    });
+});
+
+//후가공 옵션 보기
+$(function(){ 
+    $(".after_option_title").click(function () {
+        $(".after_option_table").show();
+        $(".after_option_title").hide();
+        $(".after_option_title_on").show();
+    });
+
+    $(".after_option_title_on").click(function () {
+        $(".after_option_table").hide();
+        $(".after_option_title_on").hide();
+        $(".after_option_title").show();
+    });
+})
+
+//옵션 보기
+$(function(){ 
+    $(".option_title").click(function () {
+        $(".option_table").show();
+        $(".option_title").hide();
+        $(".option_title_on").show();
+    });
+
+    $(".option_title_on").click(function () {
+        $(".option_table").hide();
+        $(".option_title_on").hide();
+        $(".option_title").show();
+    });
+})
+
+//체크박스 전체선택
+$(document).ready(function(){
+    //최상단 체크박스 클릭
+    $("#chk_round_all").click(function(){
+        var check = $("#chk_round_all").prop("checked");
+        $("input[name=nc_rounding_dvs]").prop("checked", check);
+    })
+})
+
+//input value값 클릭시 초기화
+function clearText(y){ 
+    if (y.defaultValue==y.value) 
+    y.value = "" 
+} 
+
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="header_top_wrapper">
+                <div class="header_top">
+                    <a class="btn_header_list">
+                        <img src="../images/common/btn_header_list.png" alt="메뉴버튼" />
+                    </a>
+                    <a class="btn_header_list_on" style="display:none;">
+                        <img src="../images/common/btn_header_close.png" alt="메뉴버튼" />
+                    </a>
+                    <div class="img_header_bi">
+                        <img src="../images/common/img_header_bi.png" alt="로고" />
+                    </div>
+                    <div class="btn_header_login">
+                        <img src="../images/common/btn_header_login.png" alt="로그인버튼" />
+                    </div>
+                </div>
+            </div>
+            <div class="header_side_wrapper">
+                <div class="header_side">
+                    <img class="btn_side_menu left_reset" src="../images/common/header_icon_membership.png" alt="멤버십버튼" />
+                    <img class="btn_side_menu" src="../images/common/header_icon_delivery.png" alt="배송정보버튼" />
+                    <img class="btn_side_menu" src="../images/common/header_icon_basket.png" alt="장바구니버튼" />
+                    <img class="btn_side_menu" src="../images/common/header_icon_product.png" alt="상품소개버튼" />
+                    <img class="btn_side_menu" src="../images/common/header_icon_guide.png" alt="작업가이드버튼" />
+                    <img class="btn_side_menu" src="../images/common/header_icon_time.png" alt="접수시간안내버튼" />
+                    <img class="btn_side_menu" src="../images/common/header_icon_mypage.png" alt="마이페이지버튼" />
+                    <img class="btn_side_menu right_reset" src="../images/common/header_icon_center.png" alt="고객센터버튼" />
+                </div>
+            </div>
+        </div>
+
+        <div class="contents">
+            <!-- 상품이미지 -->
+            <div class="order_product_img">
+                <img src="../images/order/mt_01.jpg" alt="" />
+            </div>
+            <table class="page_tab" border="0" align="center" cellpadding="0" cellspacing="0">
+                <colgroup>
+                    <col style="width:50%;">
+                    <col style="width:50%;">
+                </colgroup>
+                <tr>
+                    <td class="on">NCR지</td>
+                    <td>양식지</td>
+                </tr>
+            </table>
+
+            <!-- 주문 기본입력폼  -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title">
+                    NCR지<span>입니다.</span>
+                </div>
+                <div class="delivery_date_wrapper">
+                    <div class="delivery_date_title">출고예정일: </div>
+                    <div class="delivery_date">
+                        <div class="delivery_date_text">12</div>
+                    </div>
+                    <div class="delivery_date">
+                        <div class="delivery_date_text">6</div>
+                    </div>
+                </div>
+            </div>
+            <div class="order_basic_table_wrapper">
+                <table class="order_basic_table">
+                    <colgroup>
+                        <col style="width:20%;">
+                        <col style="">
+                    </colgroup>
+                    <tr>
+                        <td>제목</td>
+                        <td>
+                            <input class="input_type_text" type="text" value="인쇄물 제목을 입력해주세요." onfocus="clearText(this)">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>상품명</td>
+                        <td>
+                            <select class="input_type_select">
+                                <option selected="selected" value="">카다로그, 브로셔</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>종이</td>
+                        <td>
+                            <table class="order_size_form">
+                                <colgroup>
+                                    <col style="width:10%;">
+                                    <col style="">
+                                </colgroup>
+                                <tr>
+                                    <td><span class="order_size_form_text_02">상</span></td>
+                                    <td>
+                                        <select class="input_type_select_02">
+                                            <option selected="selected" value="">테스트</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <table class="order_size_form">
+                                <colgroup>
+                                    <col style="width:10%;">
+                                    <col style="">
+                                </colgroup>
+                                <tr>
+                                    <td><span class="order_size_form_text_02">하</span></td>
+                                    <td>
+                                        <select class="input_type_select_02">
+                                            <option selected="selected" value="">테스트</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>사이즈</td>
+                        <td>
+                            <select class="input_type_select_twoColumn">
+                                <option value="stan" class="_preset">규격사이즈</option>
+                                <option value="manu" class="_custom">비규격사이즈</option>
+                            </select>
+                            <select class="input_type_select_twoColumn" style="float: right;">
+                                <option selected="selected" value="">-</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <table class="order_size_form">
+                                <colgroup>
+                                    <col style="width:34%;">
+                                    <col style="width:33%;">
+                                    <col style="width:33%;">
+                                </colgroup>
+                                <tr>
+                                    <td><span class="order_size_form_text">재단사이즈</span></td>
+                                    <td>
+                                        <span class="order_size_form_text">가로 </span>
+                                        <input class="input_type_text_size" type="text" maxlength="3" readonly="readonly">
+                                        <span class="order_size_form_text"> mm,</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span class="order_size_form_text">세로 </span>
+                                        <input class="input_type_text_size" type="text" maxlength="3" readonly="readonly">
+                                        <span class="order_size_form_text"> mm</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="order_size_form_text">작업사이즈</span></td>
+                                    <td>
+                                        <span class="order_size_form_text">가로 </span>
+                                        <input class="input_type_text_size" type="text" maxlength="3" readonly="readonly">
+                                        <span class="order_size_form_text"> mm,</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span class="order_size_form_text">세로 </span>
+                                        <input class="input_type_text_size" type="text" maxlength="3" readonly="readonly">
+                                        <span class="order_size_form_text"> mm</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>인쇄도수</td>
+                        <td>
+                            <select class="input_type_select_twoColumn">
+                                <option value="stan" class="">-</option>
+                                <option value="manu" class="_custom">비규격사이즈</option>
+                            </select>
+                            <span class="after_option_span" style="width:49%; text-align:right;">
+                                <input type="checkbox" id="diff_yn" name="diff_yn"><label for="diff_yn">내용다름</label>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>전면</td>
+                        <td>
+                            <table class="order_size_form" style="margin-bottom:2%;">
+                                <colgroup>
+                                    <col style="width:10%;">
+                                    <col style="">
+                                </colgroup>
+                                <tr>
+                                    <td>
+                                        <table style="width:100%;">
+                                            <tr>
+                                                <td>
+                                                    <span class="after_option_span">
+                                                        <input type="radio" id="mt_ncr_tmpt_chk_01" name="mt_ncr_tmpt_chk"><label for="mt_ncr_tmpt_chk_01">먹</label>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="after_option_span">
+                                                        <input type="radio" id="mt_ncr_tmpt_chk_02" name="mt_ncr_tmpt_chk"><label for="mt_ncr_tmpt_chk_02">원청</label>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="after_option_span">
+                                                        <input type="radio" id="mt_ncr_tmpt_chk_03" name="mt_ncr_tmpt_chk"><label for="mt_ncr_tmpt_chk_03">군청</label>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="after_option_span">
+                                                        <input type="radio" id="mt_ncr_tmpt_chk_04" name="mt_ncr_tmpt_chk"><label for="mt_ncr_tmpt_chk_04">원적</label>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="after_option_span">
+                                                        <input type="radio" id="mt_ncr_tmpt_chk_05" name="mt_ncr_tmpt_chk"><label for="mt_ncr_tmpt_chk_05">금적</label>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>후면</td>
+                        <td>
+                            <table class="order_size_form">
+                                <colgroup>
+                                    <col style="width:10%;">
+                                    <col style="">
+                                </colgroup>
+                                <tr>
+                                    <td>
+                                        <table style="width:100%;">
+                                            <tr>
+                                                <td>
+                                                    <span class="after_option_span">
+                                                        <input type="radio" id="mt_ncr_tmpt_chk_06" name="mt_ncr_tmpt_chk"><label for="mt_ncr_tmpt_chk_06">먹</label>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="after_option_span">
+                                                        <input type="radio" id="mt_ncr_tmpt_chk_07" name="mt_ncr_tmpt_chk"><label for="mt_ncr_tmpt_chk_07">원청</label>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="after_option_span">
+                                                        <input type="radio" id="mt_ncr_tmpt_chk_08" name="mt_ncr_tmpt_chk"><label for="mt_ncr_tmpt_chk_08">군청</label>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="after_option_span">
+                                                        <input type="radio" id="mt_ncr_tmpt_chk_09" name="mt_ncr_tmpt_chk"><label for="mt_ncr_tmpt_chk_09">원적</label>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="after_option_span">
+                                                        <input type="radio" id="mt_ncr_tmpt_chk_10" name="mt_ncr_tmpt_chk"><label for="mt_ncr_tmpt_chk_10">금적</label>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>제본</td>
+                        <td>
+                            <select class="input_type_select_twoColumn">
+                                <option value="" class="">가로상철</option>
+                            </select>
+                            <select class="input_type_select_twoColumn" style="float: right;">
+                                <option selected="selected" value="">인쇄방향</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>수량</td>
+                        <td>
+                            <select class="input_type_select">
+                                <option value="">100 권</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 후가공 -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title after_option_title">
+                    후가공 옵션<img class="btn_view_option" src="../images/common/btn_view_option_on.png" alt="후가공 옵션보기">
+                </div>
+                <div class="sub_title after_option_title_on" style="display:none;">
+                    후가공 옵션<img class="btn_view_option" src="../images/common/btn_view_option_off.png" alt="후가공 옵션보기">
+                </div>
+            </div>
+            <div class="order_basic_table_wrapper after_option_table" style="display:none;">
+
+                <!-- 미싱 -->
+                <table class="order_basic_table">
+                    <colgroup>
+                        <col style="width:20%;">
+                        <col style="">
+                    </colgroup>
+                    <tr>
+                        <td>미싱</td>
+                        <td>
+                            <!--
+                            <input class="input_type_check_after" type="checkbox"><label class="lable_order_after"></label>
+                            -->
+                            <div></div>
+                            <div class="toggle_wrapper">
+                                <div class="after_price">3,300원</div>
+                                <div class="toggle">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <select class="input_type_select_after_twoColumn">
+                                <option value="one" selected="selected">1줄</option>
+                                <option value="two">2줄</option>
+                                <option value="three">3줄</option>
+                                <option value="four">4줄</option>
+                            </select>
+                            <select class="input_type_select_after_twoColumn" style="float:right;">
+                                <option value="V" selected="selected">세로</option>
+                                <option value="H">가로</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td>
+                                        <span class="after_option_span">
+                                            <input type="radio" id="chk_dotline_1" name="nc_dotline_one_val"><label for="chk_dotline_1">중앙</label>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="after_option_span">
+                                            <input type="radio" id="chk_dotline_2" name="nc_dotline_one_val"><label for="chk_dotline_2">비중앙</label>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <table class="order_size_form">
+                                <colgroup>
+                                    <col style="width:50%;">
+                                    <col style="">
+                                </colgroup>
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="order_size_form_text_after">첫 번째 선 </span>
+                                        <input class="input_type_text_after_size" type="text" maxlength="3" readonly="readonly" style="padding: 3% 2% !important;">
+                                        <span class="order_size_form_text_after"> mm</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="order_size_form_text_after">두 번째 선 </span>
+                                        <input class="input_type_text_after_size" type="text" maxlength="3" readonly="readonly" style="padding: 3% 2% !important;">
+                                        <span class="order_size_form_text_after"> mm</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <span class="order_after_note">* 사이즈가 작아서 선 끝 2~3mm 후가공이 들어가지 않을 수 있습니다.</span>
+                        </td>
+                    </tr>
+                </table>
+                
+                <hr class="after_section">
+
+                <!-- 넘버링 -->
+                <table class="order_basic_table">
+                    <colgroup>
+                        <col style="width:20%;">
+                        <col style="">
+                    </colgroup>
+                    <tr>
+                        <td>넘버링</td>
+                        <td>
+                            <!--
+                            <input class="input_type_check_after" type="checkbox"><label class="lable_order_after"></label>
+                            -->
+                            <div></div>
+                            <div class="toggle_wrapper">
+                                <div class="after_price">3,300원</div>
+                                <div class="toggle">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <select class="input_type_select_after_twoColumn">
+                                <option value="one" selected="selected">1줄</option>
+                                <option value="two">2줄</option>
+                                <option value="three">3줄</option>
+                                <option value="four">4줄</option>
+                            </select>
+                            <select class="input_type_select_after_twoColumn" style="float:right;">
+                                <option value="V" selected="selected">세로</option>
+                                <option value="H">가로</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                
+            </div>
+            <!-- 후가공 끝 -->
+
+        </div>
+
+        <!-- 주문내역  -->
+        <div class="sub_title_wrapper">
+            <div class="sub_title">
+                주문내역
+            </div>
+        </div>
+        <div class="order_basic_table_wrapper order_summary_wrapper">
+            <table class="order_basic_table order_summary">
+                <colgroup>
+                    <col style="width:20%;">
+                    <col style="">
+                    <col style="width:30%;">
+                </colgroup>
+                <tr>
+                    <td class="order_summary_title">상품내용</td>
+                    <td colspan="2">코팅명함, 양면칼라8도, 86*52, 500장 * 1건</td>
+                </tr>
+                <tr>
+                    <td class="order_summary_title">판매가</td>
+                    <td>부가세 10% 포함</td>
+                    <td style="text-align:right; text-decoration: line-through;">15,000원</td>
+                </tr>
+                <tr>
+                    <td class="order_summary_title">등급할인</td>
+                    <td>회원 할인혜택이 적용됩니다.</td>
+                    <td style="text-align:right;"><span class="order_summary_text_st">-5,000원</span></td>
+                </tr>
+                <tr>
+                    <td class="order_summary_title">결제금액</td>
+                    <td colspan="2">공급가 : <span class="order_summary_text_st">13,855원</span> + 부가세 : <span class="order_summary_text_st">1,385원</span></td>
+                </tr>
+                <tr>
+                    <td class="order_summary_title" style="border:none;">합계</td>
+                    <td class="order_sumary_totalprice" colspan="2" style="border:none;">10,000,000원</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 하단버튼 -->
+        <div class="order_bottom_btn_wrapper">
+            <button class="order_bottom_btn" type="button" style="background-color:#8f8f8f; color:#fff; border:none;">장바구니</button>
+            <button class="order_bottom_btn" type="button">견적서</button>
+            <button class="order_bottom_btn" type="button">관심상품</button>
+            <button class="order_bottom_btn" type="button" style="background-color:#e95664; color:#fff; border:none;">바로주문</button>
+        </div>
+
+        <!-- 푸터 -->
+        <div class="footer">
+            <div class="footer_text">
+                <p>서울시 중구 필동로 8길 50-9 우리빌딩(필동2가 84-12번지)</p>
+                <p>상담전화 : 02-2260-9000</p>
+                <p>Copyright © dprinting.co.kr All Rights Reserved.</p>
+            </div>
+        </div>
+
+    </div>
+</body> 
+</html>

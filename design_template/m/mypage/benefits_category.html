@@ -1,0 +1,632 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+    [TPH_I/m/common/head.html]
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 네비게이션 -->
+        [TPH_I/m/common/nav.html]
+        <!-- 헤더 -->
+        [TPH_I/m/common/header.html]
+        
+        <div class="contents">
+            <div class="sub_title_wrapper">
+                <div class="sub_title">
+                    카테고리별 할인
+                </div>
+            </div>
+            
+            <!-- 상단 탭 start -->
+            <div class="mypage_main_table_wrapper">
+                <table class="mypage_main_table">
+                    <colgroup>
+                        <col style="width:25%;">
+                        <col style="width:25%;">
+                        <col style="width:25%;">
+                        <col style="width:25%;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td onclick="location.href='benefits_event.html'">
+                                <img class="side_table_icon" src="[TPH_Vdesign_dir]/images/common/icon_mypage_event.png" alt="이벤트">
+                                <p class="side_table_text">
+                                    참여 이벤트<br><span class="side_table_text_span">0</span>건
+                                </p>
+                            </td>
+                            <td onclick="location.href='benefits_point.html'">
+                                <img class="side_table_icon" src="[TPH_Vdesign_dir]/images/common/icon_side_point.png" alt="포인트">
+                                <p class="side_table_text">
+                                    포인트<br><span class="side_table_text_span">500</span>P
+                                </p>
+                            </td>
+                            <td onclick="location.href='benefits_coupon.html'">
+                                <img class="side_table_icon" src="[TPH_Vdesign_dir]/images/common/icon_side_coupon.png" alt="쿠폰">
+                                <p class="side_table_text">
+                                    쿠폰<br><span class="side_table_text_span">2</span>매
+                                </p>
+                            </td>
+                            <td onclick="location.href='benefits_category.html'" class="on">
+                                <img class="side_table_icon" src="[TPH_Vdesign_dir]/images/common/icon_side_sale_on.png" alt="할인율">
+                                <p class="side_table_text">
+                                    카테고리별<br>할인율
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 상단 탭 end -->
+
+            <!-- 상업인쇄 -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title_02">
+                    상업인쇄
+                </div>
+            </div>
+            <table class="mypage_discount_table">
+                <colgroup>
+                    <col style="width:33%;">
+                    <col style="width:34%;">
+                    <col style="width:33%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>상세분류
+                        <th>할인율</th>
+                    </tr>
+                </thead>
+                <tbody id="tb_ad_html">
+                    [TPH_Vtb_ad_html]
+                <!--
+                <tr>
+                    <td>카다로그/브로셔</td>
+                    <td>카다로그/브로셔</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>리플렛/팜플렛</td>
+                    <td>리플렛/팜플렛</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>포스터</td>
+                    <td>포스터</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>홀더</td>
+                    <td>홀더</td>
+                    <td>30%</td>
+                </tr>
+                -->
+                </tbody>
+            </table>
+
+            <!-- 디지털인쇄 -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title_02">
+                    디지털인쇄
+                </div>
+            </div>
+            <table class="mypage_discount_table">
+                <colgroup>
+                    <col style="width:33%;">
+                    <col style="width:34%;">
+                    <col style="width:26%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>상세분류
+                        <th>할인율</th>
+                    </tr>
+                </thead>
+                <tbody id="tb_dg_html">
+                    [TPH_Vtb_dg_html]
+                </tbody>
+                <!--
+                <tr>
+                    <td>디지털 명함</td>
+                    <td>디지털 명함</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>디지털 전단</td>
+                    <td>디지털 전단</td>
+                    <td>30%</td>
+                </tr>
+                -->
+            </table>
+
+            <!-- 실사출력 -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title_02">
+                    실사출력
+                </div>
+            </div>
+            <table class="mypage_discount_table">
+                <colgroup>
+                    <col style="width:33%;">
+                    <col style="width:34%;">
+                    <col style="width:26%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>상세분류
+                        <th>할인율</th>
+                    </tr>
+                </thead>
+                <tbody id="tb_ao_html">
+                    [TPH_Vtb_ao_html]
+                </tbody>
+                <!--
+                <tr>
+                    <td rowspan="4">배너</td>
+                    <td>페트배너</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>투명배너</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>메쉬배너</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>가로등배너</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>미니배너</td>
+                    <td>미니배너</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td rowspan="3">현수막</td>
+                    <td>현수막</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>게릴라 현수막</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>족자 현수막</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>등신대(UV인쇄)</td>
+                    <td>등신대(UV인쇄)</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>배너거치대</td>
+                    <td>배너거치대</td>
+                    <td>30%</td>
+                </tr>
+                -->
+            </table>
+
+            <!-- 명함 -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title_02">
+                    명함
+                </div>
+            </div>
+            <table class="mypage_discount_table">
+                <colgroup>
+                    <col style="width:33%;">
+                    <col style="width:34%;">
+                    <col style="width:26%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>상세분류
+                        <th>할인율</th>
+                    </tr>
+                </thead>
+                <tbody id="tb_nc_html">
+                    [TPH_Vtb_nc_html]
+                </tbody>
+                <!--
+                <tr>
+                    <td>무코팅명함</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>고품격코팅명함</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>고품격무코팅명함</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>수입명함</td>
+                    <td>수입명함</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>카드명함</td>
+                    <td>카드명함</td>
+                    <td>30%</td>
+                </tr>
+                -->
+            </table>
+
+            <!-- 스티커 -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title_02">
+                    스티커
+                </div>
+            </div>
+            <table class="mypage_discount_table">
+                <colgroup>
+                    <col style="width:33%;">
+                    <col style="width:34%;">
+                    <col style="width:26%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>상세분류
+                        <th>할인율</th>
+                    </tr>
+                </thead>
+                <tbody id="tb_st_html">
+                    [TPH_Vtb_st_html]
+                </tbody>
+                <!--
+                <tr>
+                    <td>컬러스티커</td>
+                    <td>강접스티커</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>특수지스티커</td>
+                    <td>특수지스티커</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td rowspan="9">도무송스티커</td>
+                    <td>보험도무송</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>원형도무송</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>정사각도무송</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>반원도무송</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>하트도무송</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>직사각도무송</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>타원도무송</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>비디오, 카세트</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>자유형도무송</td>
+                    <td>30%</td>
+                </tr>
+                -->
+            </table>
+
+            <!-- 전단 -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title_02">
+                    전단
+                </div>
+            </div>
+            <table class="mypage_discount_table">
+                <colgroup>
+                    <col style="width:33%;">
+                    <col style="width:34%;">
+                    <col style="width:26%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>상세분류
+                        <th>할인율</th>
+                    </tr>
+                </thead>
+                <tbody id="tb_bl_html">
+                    [TPH_Vtb_bl_html]
+                </tbody>
+                <!--
+                <tr>
+                    <td>합판전단지</td>
+                    <td>합판전단지</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>독판전단지</td>
+                    <td>독판전단지</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>초소량인쇄</td>
+                    <td>초소량인쇄</td>
+                    <td>30%</td>
+                </tr>
+                -->
+            </table>
+
+            <!-- 봉투 -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title_02">
+                    봉투
+                </div>
+            </div>
+            <table class="mypage_discount_table">
+                <colgroup>
+                    <col style="width:33%;">
+                    <col style="width:34%;">
+                    <col style="width:26%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>상세분류
+                        <th>할인율</th>
+                    </tr>
+                </thead>
+                <tbody id="tb_ev_html">
+                    [TPH_Vtb_ev_html]
+                </tbody>
+                <!--
+                <tr>
+                    <td rowspan="2">컬러봉투</td>
+                    <td>일반형봉투</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>자켓형봉투</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td rowspan="10">마스터봉투</td>
+                    <td>레자크각대봉투</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>각대봉투</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>신규격(16절규격)</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>사각봉투</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>카드봉투</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>월급봉투</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>수강료봉투</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>티켓봉투</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>장교봉투</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>창봉투</td>
+                    <td>30%</td>
+                </tr>
+                -->
+            </table>
+
+            <!-- 경인쇄 -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title_02">
+                    경인쇄
+                </div>
+            </div>
+            <table class="mypage_discount_table">
+                <colgroup>
+                    <col style="width:33%;">
+                    <col style="width:34%;">
+                    <col style="width:26%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>상세분류
+                        <th>할인율</th>
+                    </tr>
+                </thead>
+                <tbody id="tb_mt_html">
+                    [TPH_Vtb_mt_html]
+                </tbody>
+                <!--
+                <tr>
+                    <td rowspan="3">NCR지</td>
+                    <td>2매 1조</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>3매 1조</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>4매 1조</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>양식지</td>
+                    <td>모조양식지</td>
+                    <td>30%</td>
+                </tr>
+                -->
+            </table>
+
+            <!-- 기타인쇄 -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title_02">
+                    기타인쇄
+                </div>
+            </div>
+            <table class="mypage_discount_table">
+                <colgroup>
+                    <col style="width:33%;">
+                    <col style="width:34%;">
+                    <col style="width:26%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>상세분류
+                        <th>할인율</th>
+                    </tr>
+                </thead>
+                <tbody id="tb_etc_html">
+                    [TPH_Vtb_etc_html]
+                </tbody>
+                <!--
+                <tr>
+                    <td rowspan="6">기타인쇄</td>
+                    <td>복권</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>메뉴판</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>합판 문어발</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>독판 문어발</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>문고리</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>메모지</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td rowspan="3">자석판촉물</td>
+                    <td>종이자석 사각귀돌이</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>자석스티커 사각귀돌이</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>자석오프너</td>
+                    <td>30%</td>
+                </tr>
+                -->
+            </table>
+            
+            <!-- 그린백 -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title_02">
+                    그린백
+                </div>
+            </div>
+            <table class="mypage_discount_table">
+                <colgroup>
+                    <col style="width:33%;">
+                    <col style="width:34%;">
+                    <col style="width:26%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>상세분류
+                        <th>할인율</th>
+                    </tr>
+                </thead>
+                <tbody id="tb_gb_html">
+                    [TPH_Vtb_gb_html]
+                </tbody>
+                <!--
+                <tr>
+                    <td rowspan="2">그린백</td>
+                    <td>M타입 봉투</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td>사각타입 봉투</td>
+                    <td>30%</td>
+                </tr>
+                -->
+            </table>
+
+            <!-- 별도견적 -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title_02">
+                    별도견적
+                </div>
+            </div>
+            <table class="mypage_discount_table">
+                <colgroup>
+                    <col style="width:33%;">
+                    <col style="width:34%;">
+                    <col style="width:26%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>상세분류
+                        <th>할인율</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="2">별도견적</td>
+                        <td>낱장형 별도견적</td>
+                        <td>30%</td>
+                    </tr>
+                    <tr>
+                        <td>책자형 별도견적</td>
+                        <td>30%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 푸터 -->
+        [TPH_I/m/common/footer.html]
+    </div>
+</body> 
+</html>

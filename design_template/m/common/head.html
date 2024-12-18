@@ -1,0 +1,406 @@
+<meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="pragma" content="no-store"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="Expires" content="-1"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<link rel="apple-touch-icon" href="[TPH_Vdesign_dir]/images/common/app_icon.png" />
+
+<title>디프린팅</title> 
+
+<link rel="stylesheet" href="[TPH_Vdesign_dir]/css/reset.css">
+<link rel="stylesheet" href="[TPH_Vdesign_dir]/css/common.css">
+<link rel="stylesheet" href="[TPH_Vdesign_dir]/css/layout.css">
+<link rel="stylesheet" href="[TPH_Vdesign_dir]/css/jquery.bxslider.css">
+
+<script src="[TPH_Vdesign_dir]/js/jquery.min.js"></script>
+<script src="[TPH_Vdesign_dir]/js/jquery.bxslider.min.js"></script>
+<script src="[TPH_Vdesign_dir]/js/swipe.js"></script>
+<script src="[TPH_Vroot_design_dir]/js/common/common.js"></script>
+<script src="[TPH_Vroot_design_dir]/js/common/[TPH_Vdir].js"></script>
+<script src="[TPH_Vroot_design_dir]/js/[TPH_Vdir]/[TPH_Vpage].js"></script>
+
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+<script>
+    // 주소창 자동 닫힘 
+    window.addEventListener("load", function(){ 
+        setTimeout(loaded, 100); 
+    }, false); 
+
+    function loaded(){ 
+        window.scrollTo(0, 1); 
+    } 
+
+    $(document).ready(function(){
+        // 베스트 상품
+        $('.slider_best').bxSlider();
+
+        if (getCookie("id")) {
+            $("#id").val(getCookie("id")); 
+            $("#login_id_save").prop("checked", true); 
+        }
+
+        // 컨텐츠 높이 100%
+        var scroll_height = document.body.scrollHeight - 0;
+        scroll_height = scroll_height;
+
+        $(".btn_header_list_on").css("height", scroll_height);
+
+        //메인 슬라이드
+        var sliderMain = document.getElementById('sliderMain');
+        var sliderObj = new Swipe(sliderMain);
+        $('.arrowBox a').eq(0).click(function(){
+            sliderObj.next();
+        })
+        $('.arrowBox a').eq(1).click(function(){
+            sliderObj.prev();
+        })
+
+        //리스트 버튼
+        $(".btn_header_list").click(function () {
+            
+            $(".btn_header_list").hide();
+            $(".btn_header_list_on").show();
+
+            $(".header_navi").animate({left: '0%'});
+
+            $(".wrapper").animate({left: '80%'});
+            $(".wrapper").attr('class','wrapper_on');
+        });
+
+        $(".btn_header_list_on").click(function () {
+
+            $(".btn_header_list_on").hide();
+            $(".btn_header_list").show();
+
+            $(".header_navi").animate({left: '-80%'});
+
+            $(".wrapper_on").animate({left: '0%'});
+            $(".wrapper_on").attr('class','wrapper');
+        });
+
+        //사이드메뉴 버튼
+        $(".side_member").click(function () {
+            $(".contents_side_member").hide();
+            $(".contents_side_delivery").hide();
+            $(".contents_side_basket").hide();
+            $(".contents_side_product").hide();
+            $(".contents_side_guide").hide();
+            $(".contents_side_closing").hide();
+            $(".contents_side_mypage").hide();
+            $(".contents_side_center").hide();
+            $(".side_contents_close").show();
+
+            $(".contents_side_member").show();
+
+            $(".side_detail_wrapper").show();
+            $(".side_detail_wrapper").animate({top: '100%'});
+        });
+
+        $(".side_delivery").click(function () {
+            $(".contents_side_member").hide();
+            $(".contents_side_delivery").hide();
+            $(".contents_side_basket").hide();
+            $(".contents_side_product").hide();
+            $(".contents_side_guide").hide();
+            $(".contents_side_closing").hide();
+            $(".contents_side_mypage").hide();
+            $(".contents_side_center").hide();
+            $(".side_contents_close").show();
+
+            $(".contents_side_delivery").show();
+
+            $(".side_detail_wrapper").show();
+            $(".side_detail_wrapper").animate({top: '100%'});
+        });
+
+        $(".side_basket").click(function () {
+            $(".contents_side_member").hide();
+            $(".contents_side_delivery").hide();
+            $(".contents_side_basket").hide();
+            $(".contents_side_product").hide();
+            $(".contents_side_guide").hide();
+            $(".contents_side_closing").hide();
+            $(".contents_side_mypage").hide();
+            $(".contents_side_center").hide();
+            $(".side_contents_close").show();
+
+            $(".contents_side_basket").show();
+
+            $(".side_detail_wrapper").show();
+            $(".side_detail_wrapper").animate({top: '100%'});
+        });
+
+        $(".side_product").click(function () {
+            $(".contents_side_member").hide();
+            $(".contents_side_delivery").hide();
+            $(".contents_side_basket").hide();
+            $(".contents_side_product").hide();
+            $(".contents_side_guide").hide();
+            $(".contents_side_closing").hide();
+            $(".contents_side_mypage").hide();
+            $(".contents_side_center").hide();
+            $(".side_contents_close").show();
+
+            $(".contents_side_product").show();
+
+            $(".side_detail_wrapper").show();
+            $(".side_detail_wrapper").animate({top: '100%'});
+        });
+
+        $(".side_guide").click(function () {
+            $(".contents_side_member").hide();
+            $(".contents_side_delivery").hide();
+            $(".contents_side_basket").hide();
+            $(".contents_side_product").hide();
+            $(".contents_side_guide").hide();
+            $(".contents_side_closing").hide();
+            $(".contents_side_mypage").hide();
+            $(".contents_side_center").hide();
+            $(".side_contents_close").show();
+
+            $(".contents_side_guide").show();
+
+            $(".side_detail_wrapper").show();
+            $(".side_detail_wrapper").animate({top: '100%'});
+        });
+        $(".side_closing").click(function () {
+            $(".contents_side_member").hide();
+            $(".contents_side_delivery").hide();
+            $(".contents_side_basket").hide();
+            $(".contents_side_product").hide();
+            $(".contents_side_guide").hide();
+            $(".contents_side_closing").hide();
+            $(".contents_side_mypage").hide();
+            $(".contents_side_center").hide();
+            $(".side_contents_close").show();
+
+            $(".contents_side_closing").show();
+
+            $(".side_detail_wrapper").show();
+            $(".side_detail_wrapper").animate({top: '100%'});
+        });
+        $(".side_mypage").click(function () {
+            $(".contents_side_member").hide();
+            $(".contents_side_delivery").hide();
+            $(".contents_side_basket").hide();
+            $(".contents_side_product").hide();
+            $(".contents_side_guide").hide();
+            $(".contents_side_closing").hide();
+            $(".contents_side_mypage").hide();
+            $(".contents_side_center").hide();
+            $(".side_contents_close").show();
+
+            $(".contents_side_mypage").show();
+
+            $(".side_detail_wrapper").show();
+            $(".side_detail_wrapper").animate({top: '100%'});
+        });
+        $(".side_center").click(function () {
+            $(".contents_side_member").hide();
+            $(".contents_side_delivery").hide();
+            $(".contents_side_basket").hide();
+            $(".contents_side_product").hide();
+            $(".contents_side_guide").hide();
+            $(".contents_side_closing").hide();
+            $(".contents_side_mypage").hide();
+            $(".contents_side_center").hide();
+            $(".side_contents_close").show();
+            $(".contents_side_center").show();
+            $(".side_detail_wrapper").show();
+            $(".side_detail_wrapper").animate({top: '100%'});
+        });
+
+        $(".side_contents_close").click(function () {
+            $(".side_contents_close").hide();
+            $(".side_detail_wrapper").animate({top: '-600%'});
+        });
+
+        // 인기 상품 전체보기
+        $(".btn_main_prdt_more").click(function () {
+            $(".hit_prdt_frame").show();
+            $(".btn_main_prdt_more").hide();
+        });
+
+        //로그인
+        $("#m_login").click(function () {
+            $(".layerpopup").show();
+            $(".layerpopup_bg").show();
+        });
+
+        $(".btn_common_join").click(function () {
+            $(".login_box").hide();
+            $(".join_box").show();
+        });
+
+        $("#id_find").click(function () {
+            $(".login_box").hide();
+            $(".id_find_form_box").show();
+        });
+        
+        $(".link_join_form").click(function () {
+            $(".join_box").hide();
+            $(".join_form_box").show();
+        });
+
+        $(".btn_layerpopup_hide").click(function () {
+            $(".login_box").show();
+            $(".join_box").hide();
+            $(".join_form_box").hide();
+            $(".id_find_form_box").hide();
+            $(".layerpopup").hide();
+            $(".layerpopup_bg").hide();
+        });
+
+        //로그아웃 
+        $("#m_logout").click(function() {
+            logout();
+        });
+
+        //테이블상세
+        $(".btn_mypage_slide_on").click(function () {
+            $(".btn_mypage_slide_on").hide();
+            $(".btn_mypage_slide_off").show();
+            $(".pollSlider").animate({right: '0%'});
+        });
+        $(".btn_mypage_slide_off").click(function () {
+            $(".btn_mypage_slide_off").hide();
+            $(".btn_mypage_slide_on").show();
+            $(".pollSlider").animate({right: '-100%'});
+        });
+        
+    });
+
+    // 메인페이지 소셜로그인
+    var showSocialLogin = function(dvs) {
+        switch(dvs) {
+            case "naver" :
+                popup = window.open('/oauth/info_redir.php?dvs=naver','','width=500, height=760, scrollbars=no');
+                break;
+            
+            case "kakao" :
+                loginWithKakao();
+                break;
+
+            case "fb" :
+                fbLogin();
+                break;
+
+            case "google" :
+                popup = window.open('/oauth/info_redir.php?dvs=google','','width=500, height=760, scrollbars=no');
+                break;
+        }
+    };
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId   : '1942240162459456',
+            cookie  : true,
+            xfbml   : true,
+            version : 'v2.10'
+        });
+
+        FB.AppEvents.logPageView();   
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/ko_KR/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    } (document, 'script', 'facebook-jssdk')); 
+
+    var fbLogin = function() {
+        var callback = function(res1) {
+            console.log(res1);
+
+            FB.api(
+                "/me?fields=id,name,email",
+                "post",
+                {
+                    "access_token" : res1.authResponse.accessToken,
+                    "fields" : "name,email"
+                },
+                function(res2) {
+                    $.ajax({
+                        type     : "POST",
+                        url      : "/oauth/oauth_callback_facebook.php",
+                        data     : res2,
+                        //dataType : "text",
+                        success  : function(result) {
+                            location.reload();
+                            console.log(result);
+                        }
+                    });
+                }
+            );
+
+            //FB.logout(function(){});
+        };
+
+        FB.login(callback, {"scope" : "public_profile,email"});
+    };
+
+    Kakao.init('d8ed4e0171350fa18a476a22ab1c2412');
+    function loginWithKakao() {
+        Kakao.Auth.login({
+            success: function(authObj) {
+                Kakao.API.request({
+                    url: '/v1/user/me',
+                    success: function(res) {
+                        $.ajax({
+                            type    : "POST",
+                            url     : "/oauth/oauth_callback_kakao.php", 
+                            data    : res,
+                            success : function(result) {
+                                if (checkBlank(result)) {
+                                    location.reload();
+                                } else {
+                                    return alertReturnFalse(result);
+                                }
+                            }
+                        });
+                    },
+                    fail: function(error) {
+                        alert(JSON.stringify(error));
+                    }
+                });
+            },
+            fail: function(err) {
+                alert(JSON.stringify(err));
+            }
+        });
+    };
+
+    jQuery.fn.center = function () {
+        $(".login_layerpopup").css("position","fixed");
+        $(".login_layerpopup").css("top", Math.max(0, (($(window).height() - $(".login_layerpopup").outerHeight()) / 2) + $(window).scrollTop()) + "px");
+        $(".login_layerpopup").css("left", Math.max(0, (($(window).width() - $(".login_layerpopup").outerWidth()) / 2) + $(window).scrollLeft()) + "px");
+        return this;
+    }
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108022578-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-108022578-1');
+</script>
+
+<!-- Start of gprinting Zendesk Widget script -->
+<script>
+    /*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="gprinting.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();
+/*]]>*/
+    window.zESettings = {
+        webWidget: {
+            offset: {horizontal : '30px'}
+        }
+    };
+</script>
+<!-- End of gprinting Zendesk Widget script -->

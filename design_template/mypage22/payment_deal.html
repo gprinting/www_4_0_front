@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common22/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    
+    <main id="main" class="mypage wrap paymentInfo">
+        <header class="good pages">
+            <h2>
+                <span class="en">MY PAGE</span>
+                <span class="ko">마이페이지</span>
+            </h2>
+            <h3>
+                <ol>
+                    <li>결제</li>
+                    <li>거래내역 조회</li>
+                </ol>
+            </h3>
+            <hr>
+        </header>
+        
+        [TPH_I/mypage22/common/lnb.html]
+        
+        <div class="contents">
+            <div class="information">
+                <article class="server">
+                    <h4>공급자</h4>
+                    <table class="view">
+                        <colgroup>
+                            <col class="th">
+                            <col>
+                            <col class="th">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row">등록번호</th>
+                                <td colspan="3">[TPH_Vlicensee_num]</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">상호</th>
+                                <td>[TPH_Vsell_site]</td>
+                                <th scope="row">대표자</th>
+                                <td>[TPH_Vrepre_name]</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">사업장소재지</th>
+                                <td colspan="3">[TPH_Vaddr] [TPH_Vaddr_detail]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </article>
+                <article class="client">
+                    <h4>공급받는 자</h4>
+                    <table class="view">
+                        <colgroup>
+                            <col class="th">
+                            <col>
+                            <col class="th">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row">등록번호</th>
+                                <td>[TPH_Ved_licensee_num]</td>
+                                <th scope="row">업태/종목</th>
+                                <td>[TPH_Ved_bc]/[TPH_Ved_tob]</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">상호</th>
+                                <td>[TPH_Ved_sell_site]</td>
+                                <th scope="row">대표자</th>
+                                <td>[TPH_Ved_repre_name]</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">사업장소재지</th>
+                                <td colspan="3">[TPH_Ved_addr] [TPH_Ved_addr_detail]</td>
+                            </tr>
+                            <tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                </article>
+            </div>
+            <hr class="end">
+            <div class="searchCondition">
+                <div class="rowWrap">
+                    <dl class="date">
+                        <dt>주문일</dt>
+                        <dd>
+                            [TPH_I/common22/datepicker.html]
+                        </dd>
+                    </dl>
+                </div>
+                <button class="search" onclick="getPaymentList(10, 1);">검색</button>
+            </div>
+            <table class="list info">
+                <caption class="center">
+                    <div class="resultNum" id="resultNum">
+                    </div>
+                </caption>
+                <colgroup>
+                    <col class="date">
+                    <col class="orderId">
+                    <col>
+                    <col class="amount">
+                    <col class="price">
+                    <col class="price">
+                    <col class="price">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>주문일</th>
+                        <th>주문번호</th>
+                        <th class="left">주문내용</th>
+                        <th class="amount">수량(건)</th>
+                        <th class="price">주문금액</th>
+                        <th class="price">할인금액</th>
+                        <th class="price">결제금액</th>
+                    </tr>
+                </thead>
+                <tbody id="list">
+                </tbody>
+            </table>
+            <hr class="end">
+            <footer class="action">
+                <div class="left">
+                    <button type="button" onclick="printLayerPopup();">인쇄하기</button>
+                    <button type="button" onclick="downloadExcel();">엑셀파일로 저장하기</button>
+                </div>
+                <ul class="paging" id="paging">
+                    <li><button class="on">1</button></li>
+                </ul>
+            </footer>
+        </div>
+    </main>
+    <iframe id="file_ifr" src="" style="display:none; width:0px; height:0px;" width=0 height=0></iframe>
+    [TPH_I/mypage22/common/banner.html]
+    <footer>
+        [TPH_I/common22/footer.html]
+    </footer>
+</body>
+</html>

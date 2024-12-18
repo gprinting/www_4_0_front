@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <script src="[TPH_Vdesign_dir]/js/lib/highcharts.js"></script>
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="div_sub_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_member_info.jpg" alt="서브배너" />
+</div>
+<div class="contents contents_02 benefits">
+    <div class="lnb">
+        [TPH_I/mypage/common/lnb.html]
+    </div>
+        [TPH_I/mypage/common/summary.html]
+    <div class="pageTab">
+        <ul>
+            <li class="on">회원등급</li>
+            <li><a href="/mypage/benefits_event.html">이벤트</a></li>
+            <li><a href="/mypage/benefits_point.html">포인트</a></li>
+            <li><a href="/mypage/benefits_coupon.html">쿠폰</a></li>
+            <li><a href="/mypage/benefits_category.html">카테고리별 할인</a></li>
+        </ul>
+    </div>
+    <div class="gradeStatus">
+      [TPH_Vgrade_status_html]
+    </div>
+    <dl class="gradeOverview">
+        [TPH_Vgrade_overview_html]
+        <dd class="note">
+            <ul class="hyphen">
+                <li>회원 등급에 마우스 커서를 올리면 해당 등급의 상세 설명을 보실 수 있습니다.</li>
+                <li>회원 등급은 이전 3개월 간의 구입 금액의 합을 기준으로 정해집니다.</li>
+                <li>회원 등급은 상향 후 최소 3개월간 유지됩니다.</li>
+            </ul>
+        </dd>
+    </dl>
+    <div class="gradeGraph">
+        <h4 class="sectionTitle">
+            <select onchange="getChart(this.value);">
+              [TPH_Vyear_html]
+            </select>
+            년도 월별 회원등급 추이
+        </h4>
+        <div id="chart">
+        </div>
+    </div>
+    [TPH_I/mypage/common/banner.html]
+</div>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

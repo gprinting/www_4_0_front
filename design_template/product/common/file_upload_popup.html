@@ -1,0 +1,32 @@
+    <div id="file_uploading" class="modalMask uploading _on" style="display: none; border-top:none;position: fixed;">
+        <div class="loading">
+            <img src="/design_template/images/common/icon_loading.gif" alt="불러오는 중입니다.">
+        </div>
+        <div class="layerPopupWrap" style="border-top:none;">
+            <div class="inner_padding">
+                <div class="layerPopup" style="padding:0px !important;">
+                    <div class="layerPopup_contents" style="padding: 0px 0px 40px 0px;">
+                        <!-- em 태그 hide로 섹션 분리 -->
+                        <em style="color:#e95664;">파일을 올리는 중입니다. 잠시만 기다려주세요.</em>
+                        <!--<em>하이모 마케팅팀 명함.ai (214 kb)</em>-->
+                        <em id="file_uploading_name"></em>
+                        <em id="ratio"></em>
+                        <input type="hidden" id="file_id" />
+                        <div class="file_progress_wrapper">
+                            <div id="file_progress" class="div_file_progress">
+
+                            </div>
+                        </div>
+                        <ul class="hyphen notice">
+                            <li>업로드가 진행되는 동안에 다른 명령을 내릴 경우 업로드에 문제가 발생할 수 있습니다.</li>
+                            <li>취소 버튼으로 언제든지 업로드를 중단할 수 있습니다.</li>
+                            <li>업로드가 완료되면 현재 창은 자동으로 닫힙니다.</li>
+                        </ul>
+                    </div>
+                    <!--div class="btn_wrapper" style="border:none;">
+                        <button type="button" class="btn_type_02 close" onclick="cancelFileUpload();">취소</button>
+                    </div-->
+                </div>
+            </div>
+        </div>
+    </div>

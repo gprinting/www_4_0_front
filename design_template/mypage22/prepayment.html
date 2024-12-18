@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common22/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    
+    <main id="main" class="mypage wrap paymentInfo">
+        <header class="good pages">
+            <h2>
+                <span class="en">MY PAGE</span>
+                <span class="ko">마이페이지</span>
+            </h2>
+            <h3>
+                <ol>
+                    <li>결제</li>
+                    <li>선입금 카드 결제</li>
+                </ol>
+            </h3>
+            <hr>
+        </header>
+        
+        [TPH_I/mypage22/common/lnb.html]
+        
+        <div class="contents">
+            <article class="information paid">
+                <dl class="shadowBox prepaid">
+                    <dt>선입금</dt>
+                    <dd><strong>[TPH_Vprepay_price]</strong> 원</dd>
+                </dl>
+                <dl class="shadowBox restAmount">
+                    <dt>주문 부족 금액</dt>
+                    <dd><strong>[TPH_Vorder_lack_price]</strong> 원</dd>
+                </dl>
+            </article>
+            <hr class="end">
+            <div class="searchCondition">
+                <div class="rowWrap">
+                    <dl class="date">
+                        <dt>거래일</dt>
+                        <dd>
+                            [TPH_I/common22/datepicker.html]
+                        </dd>
+                    </dl>
+                </div>
+                <button class="search" onclick="getPrepaymentList(10, 1);">검색</button>
+            </div>
+            <table class="list info _details">
+                <caption>
+                    <div class="resultNum" id="resultNum">
+                    </div>
+                    <select onchange="changeListNum(this.value);" class="listNum">
+                        <option value="10">10개씩 보기</option>
+                        <option value="20">20개씩 보기</option>
+                        <option value="50">50개씩 보기</option>
+                    </select>
+                </caption>
+                <colgroup>
+                    <col class="no">
+                    <col class="date">
+                    <col class="">
+                    <col class="price">
+                    <col class="btn">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>거래일</th>
+                        <th class="left">거래내역</th>
+                        <th class="price">결제금액</th>
+                        <th>영수증출력</th>
+                    </tr>
+                </thead>
+                <tbody id="list">
+                </tbody>
+            </table>
+            <hr class="end">
+            <footer class="action">
+                <div class="left">
+                    <button class="exe" onclick="showPrepaymentPop();">선입금 카드 결제</button>
+                </div>
+                <ul class="paging" id="paging">
+                    <li><button class="on">1</button></li>
+                </ul>
+            </footer>
+        </div>
+        [TPH_I/mypage22/common/banner.html]
+    </main>
+    <footer>
+        [TPH_I/common22/footer.html]
+    </footer>
+</body>
+</html>

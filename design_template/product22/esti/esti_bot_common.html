@@ -1,0 +1,31 @@
+<div class="summary file">
+<dl>
+    <dt>파일</dt>
+    <dd id="work_file_dl">
+        <span id="order_file_list" class="file_upload_inputText"></span>
+        <div class="file_upload_box">
+            <div id="file_content"></div>
+        </div>
+        <button type="button" name="order_file" id="order_file" class="softC">파일 추가하기</button>
+        <input type="file" id="uploader" style="display: none;" />
+        <input type="hidden" id="file_name" />
+        <input type="hidden" id="file_size" />
+        <input type="hidden" id="file_seqno" />
+    </dd>
+</dl>
+</div>
+<div class="summary memo">
+    <dl>
+        <dt>메모</dt>
+        <dd>
+            <textarea class="full" id="cust_memo" placeholder="메모를 적어주세요"></textarea>
+        </dd>
+    </dl>
+</div>
+<hr class="summary footer">
+<footer class="action purchase esti" id="admin_mode">
+        <button onclick="insertEsti();" type="button" class="exe progress">주문입력</button>
+</footer>
+<footer class="action purchase esti" id="user_mode">
+        <button onclick="insertEstiAdmin();" type="button" class="exe progress">견적 문의하기</button>
+</footer>

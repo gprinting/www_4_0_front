@@ -1,0 +1,123 @@
+        <ul class="util" id="util_btns">
+            <li class="date">
+                <div class="util_scale_01">
+                    <button class="util_scale_button_01" type="button" style="width:150px;cursor:pointer;" onclick="showDeliveryPop();">
+                        <div class="delivery_scheduled" style="cursor:pointer;">
+                            <div class="title">
+                                지금 주문 시 출고 예정일<img class="icon_delivery_scheduled" src="[TPH_Vdesign_dir]/images/common/icon_tip02.png" alt="tip">
+                            </div>
+                            <div class="">
+                                <div class="timeInfo_01">
+                                    <div id="expect_day" class="mon">Mon</div>
+                                    <div id="expect_date" class="date">00.00</div>
+                                </div>
+                                <div class="timeInfo_02">
+                                    <div class="span_util_date_l_wrapper">
+                                        <span id="expect_hour" class="span_util_date_l">00</span>
+                                    </div>
+                                    <div class="span_util_date_r_wrapper">
+                                        <span id="expect_min" class="span_util_date_r">00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <table class="tipBox tip_delivery_scheduled">
+                        <tbody>
+                            <tr>
+                                <td class="title">출고 예정일 안내</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    상품을 주문했을 때 상품을 받아볼 수 있는 출고 예정일입니다.<br>
+                                    클릭하시면 보다 자세한 내용을 확인하실 수 있습니다.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+            <li class="templete">
+                <div class="util_scale_02">
+                    <button class="util_scale_button_02" type="button" onclick="showTemplatePop();">
+                        <div class="div_util_hover_text_wrapper">
+                            <span class="">템플릿<br>다운로드</span>
+                        </div>
+                    </button>
+                </div>
+            </li>
+            <li class="guide">
+                <div class="util_scale_03">
+                    <button class="util_scale_button_03" type="button" onclick="window.open('/product/common/l_guide.html?cs=[TPH_Vcs]','window','width=860,height=800,left=0,top=0,scrollbars=yes').focus();">
+                        <div class="div_util_hover_text_wrapper">
+                            <span class="">작업가이드<br>보기</span>
+                        </div>
+                    </button>
+                </div>
+            </li>
+            <li class="mat" id="mat_btn">
+                <div class="util_scale_04_01">
+                    <button class="util_scale_button_04_01" type="button" onclick="matPreview();">
+                        <div class="div_util_hover_text_wrapper">
+                            <span class="">재질<br>보기</span>
+                        </div>
+                    </button>
+                </div>
+            </li>
+            <li class="mov" id="mov_btn" style="display:none;">
+                <div class="util_scale_04_02">
+                    <button class="util_scale_button_04_02" type="button" onclick="movPreview();">
+                        <div class="div_util_hover_text_wrapper">
+                            <span class="">동영상<br>보기</span>
+                        </div>
+                    </button>
+                </div>
+            </li>
+            <li class="product" id="pro_btn" style="display:none;">
+                <div class="util_scale_04_03">
+                    <button class="util_scale_button_04_03" type="button" onclick="productPreview();">
+                        <div class="div_util_hover_text_wrapper">
+                            <span class="">제품<br>보기</span>
+                        </div>
+                    </button>
+                </div>
+            </li>
+            <li>
+            </li>
+        </ul>
+        <ul class="util" id="mov_btns" style="display:none;">
+            <li class="mov_detail" id="mov_zoom_in">
+                <div class="util_scale_06">
+                    <button class="util_scale_button_06" type="button" onclick="movZoomIn();">
+                        <div class="div_util_hover_text_wrapper">
+                            <span class="">동영상 확대</span>
+                        </div>
+                    </button>
+                </div>
+            </li>
+
+            <li class="mov_detail" id="mov_zoom_out" style="display:none;">
+                <div class="util_scale_07">
+                    <button class="util_scale_button_07" type="button" onclick="movZoomOut();">
+                        <div class="div_util_hover_text_wrapper">
+                            <span class="">동영상 축소</span>
+                        </div>
+                    </button>
+                </div>
+            </li>
+
+<!--
+            <li class="detail_blue zoom" id="mov_zoom_out" style="display:none; margin-left:0px;">
+                <button type="button" onclick="movZoomOut();" style="width:195px;padding:0;">동영상 축소</button>
+            </li>
+-->
+            <li class="mov_close" id="mov_close">
+                <div class="util_scale_08">
+                    <button class="util_scale_button_08" type="button" onclick="closeMovPreview();">
+                        <div class="div_util_hover_text_wrapper">
+                            <span class="">동영상 닫기</span>
+                        </div>
+                    </button>
+                </div>
+            </li>
+        </ul>

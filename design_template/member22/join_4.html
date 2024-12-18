@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+</head>
+<body>
+<header class="top">
+    [TPH_I/common/header.html]
+</header>
+<section class="contents join">
+    <!-- <header class="title">
+        <ol class="location">
+            [TPH_I/common/home_btn.html]
+            <li><span>회원가입</span></li>
+            <li><span>회원유형선택</span></li>
+        </ol>
+    </header> -->
+    <img src="/design_template/images/member/join_title.png" alt="회원가입">
+    <ol class="joinSteps">
+        <li class="step1">회원유형 선택</li>
+        <li class="step2">약관 동의</li>
+        <li class="step3">정보 입력</li>
+        <li class="step4"><h3>가입 완료</h3></li>
+    </ol>
+    <section class="complete">
+            <img src="/design_template/images/member/welcome_2.png" alt="회원가입 완료안내">
+            <p class="sub">
+                로그인 후 <a href="/mypage/member_modify.html" target="_blank">마이페이지 > 회원정보 > 회원정보 변경</a>에서 입력하신 정보를 변경하시거나 추가 가입정보를 입력할 수 있습니다.<br><br>
+                추가 가입정보를 입력하시면 디프린팅을 더욱 편리하게 이용하실 수 있으며, 디프린팅에서 준비한 맞춤 혜택도 받으실 수 있습니다.
+            </p>
+        <input type="hidden" id="join_id" value="[TPH_Vid]">
+        <input type="hidden" id="join_pw" value="[TPH_Vpw]">
+        <div class="function complete">
+            <!-- 이전 A태그 버튼
+            <strong class="blue"><a style="cursor:pointer;" onclick="goLogin('/index.html');" target="_self">로그인 하기</a></strong>
+            <strong><a style="cursor:pointer;" onclick="goLogin('/mypage/member_modify.html');" target="_self">로그인 후 상세 정보 작성하기</a></strong>
+            -->
+            <button type="button" onclick="goLogin('/index.html');" class="prev">로그인 하기</button>
+            <button type="button" onclick="goLogin('/mypage/member_modify.html');" class="next">로그인 후 상세 정보 작성하기</button>
+        </div>
+    </section>
+</section>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</body>
+</html>

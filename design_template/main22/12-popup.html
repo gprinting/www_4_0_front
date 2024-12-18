@@ -1,0 +1,38 @@
+<script language="JavaScript">
+    function setCookieONE2( name, value, expiredays2 ) {
+    var todayDate2 = new Date();
+    todayDate2.setDate( todayDate2.getDate() + expiredays2 );
+    document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate2.toGMTString() + ";"
+    }
+    function closeWinONE2() {
+    if ( document.notice_form2.chkbox2.checked ){
+    setCookieONE2( "MlangLayer_CookieWindowONEWindow2", "done" , 1 );
+    }
+    document.all['popup_cookie_02'].style.visibility = "hidden";
+    }
+    </script>
+    <div id="popup_cookie_02" style="visibility: visible;">
+        <div class="main_24_pop_01">
+        <a href="/cscenter22/event3.html" target="_blank"><img src="[TPH_Vdesign_dir]/images22/event3_popup.png"></a>
+        </div>
+        <form name="notice_form2" class="main_24_pop_form02">
+            <label><input type="checkbox" name="chkbox2" value="checkbox" onclick="javascript:closeWinONE2();">오늘 하루 이 창을 열지 않음</label>
+            <button type="button" onclick="PopupHide2();" id="PopupHide2">[닫기]</button>
+        </form>
+    </div>
+    <script language="Javascript">
+    cookiedata2 = document.cookie;
+    if ( cookiedata2.indexOf("MlangLayer_CookieWindowONEWindow2=done") < 0 ){
+    document.all['popup_cookie_02'].style.visibility = "visible";
+    }
+    else {
+    document.all['popup_cookie_02'].style.visibility = "hidden";
+    }
+    </script>
+    <script>
+    $(function () {
+        $("#PopupHide2").on("click", function () {    
+            $("#popup_cookie_02").css({ "display": "none" });
+        });
+    });
+    </script>

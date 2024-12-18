@@ -1,0 +1,221 @@
+        <form id="frm" action="/proc/product/insert_esti.php" method="post">
+            <!-- 선택 -->
+            <h2 class="order_title_basic">주문기본사항</h2>
+            <div class="selection">
+                <dl>
+                    <dt><label for="printTitle">인쇄물제목</label></dt>
+                    <dd class="full"><div class="inputWrap"><input type="text" id="title" name="title" maxlength="30" value="[TPH_Vtitle]"></div></dd>
+
+                    <dt><label for="productName">상품명</label></dt>
+                    <dd>
+                        [TPH_Vcate_bot]
+                    </dd>
+
+                    <dt><label for="esti_paper">종이</label></dt>
+                    <dd style="width:535px;">
+                        <select id="esti_paper_sort" onchange="changePaperSort('esti', this.value);" style="width:160px;">
+                            <option value="-1">직접선택</option>
+                            [TPH_Vesti_paper_sort]
+                        </select>
+
+                        <input type="text" id="esti_ext_paper" name="esti_ext_paper" placeholder="종이가 없는경우 적어주세요" style="width:355px; display:none;" >
+
+                        <select id="esti_paper_name" onchange="changePaperName('esti', this.value);" style="width:157px;">
+                            [TPH_Vesti_paper_name]
+                        </select>
+                        <select id="esti_paper" name="esti_paper" style="width:183px;">
+                            [TPH_Vesti_paper]
+                        </select>
+                    </dd>
+
+                    <dt><label for="color">인쇄도수</label></dt>
+                    <dd class="colorDetails" style="width:535px;">
+                        <dl>
+                            <dt><label for="esti_bef_tmpt">전면</label></dt>
+                            <dd style="width:458px;">
+                                <select id="esti_bef_tmpt" name="esti_bef_tmpt" class="_relatedSummary" style="width:130px;">
+                                    [TPH_Vesti_bef_print_tmpt]
+                                </select>
+                                <select class="color_option" onchange="changeSpColor('bef', this.value);">
+                                    <option value="-1">별색없음</option>
+                                    <option value="1">별색추가</option>
+                                </select>
+                                <input type="text" id="esti_ext_bef_tmpt" name="esti_ext_bef_tmpt" placeholder="원하시는 별색을 넣어주세요" style="width:251px; text-align:left; display:none;">
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><label for="esti_aft_tmpt">후면</label></dt>
+                            <dd style="width:458px;">
+                                <select id="esti_aft_tmpt" name="esti_aft_tmpt" class="_relatedSummary" style="width:130px;">
+                                    [TPH_Vesti_aft_print_tmpt]
+                                </select>
+                                <select class="color_option" onchange="changeSpColor('aft', this.value);">
+                                    <option value="-1">별색없음</option>
+                                    <option value="1">별색추가</option>
+                                </select>
+                                <input type="text" id="esti_ext_aft_tmpt" name="esti_ext_aft_tmpt" placeholder="원하시는 별색을 넣어주세요" style="width:251px; text-align:left; display:none;">
+                            </dd>
+                        </dl>
+                    </dd>
+
+                    <dt><label for="color">인쇄유형</label></dt>
+                    <dd>
+                        <select id="esti_print_purp" name="esti_print_purp">
+                            [TPH_Vesti_print_purp]
+                        </select>
+                    </dd>
+                    <dt><label for="size">사이즈</label></dt>
+                    <dd class="_relatedSummary size">
+                        <select class="withBtn _size" id="size_dvs" name="esti_size_dvs" onchange="changeSizeDvs(this.value);">
+                            <option value="stan" class="_preset">규격사이즈</option>
+                            <option value="manu" class="_custom">비규격사이즈</option>
+                        </select>
+                        <select class="_preset" id="esti_size" name="esti_size" onchange="changeSize.exec('esti');">
+                            [TPH_Vesti_size]
+                        </select>
+                        <span id="esti_similar_size" divide="1" style="padding-left:10px; color:#f36f23; display:none;"></span>
+                        <dl>
+                            <dt>재단사이즈</dt>
+                            <dd class="_cuttingSize">
+                                <label>가로 <input id="esti_cut_wid_size" name="esti_cut_wid_size" type="text" maxlength="3" onestiur="aftRestrict.cutting.common('esti');">mm</label>,
+                                <label>세로 <input id="esti_cut_vert_size" name="esti_cut_vert_size" type="text" maxlength="3" onestiur="aftRestrict.cutting.common('esti');">mm</label>
+                            </dd>
+                            <dt>작업사이즈</dt>
+                            <dd class="_workingSize[TPH_Vesti_size_gap]" id="size_gap">
+                                <label>가로 <input id="work_wid_size" name="esti_work_wid_size" type="text" readonly>mm</label>,
+                                <label>세로 <input id="work_vert_size" name="esti_work_vert_size" type="text" readonly>mm</label>
+                            </dd>
+                        </dl>
+                    </dd>
+                    <dt class="amount"><label for="amount">수량</label></dt>
+                    <dd class="_relatedSummary amount">
+                        <select class="_amount" id="esti_amt" name="esti_amt" onchange="changeAmt(this.value);" amt_unit="[TPH_Vesti_amt_unit]">
+                            [TPH_Vesti_amt]
+                        </select>
+                        <span>x</span>
+                        <label>
+                            <select class="_set" name="esti_count" id="count">
+                            </select>
+                            건
+                        </label>
+                        <br />
+                        <div id="sheet_count_div">
+                            <span id="r_count_span"></span> R
+                        </div>
+                        <div class="range">
+                            <div class="bar">
+                                <div class="hr bg"></div>
+                                <div class="_anchor"><img src="[TPH_Vdesign_dir]/images/product/range_anchor.png" alt="▲"></div>
+                                <hr class="hr on">
+                            </div>
+                            <ul class="mark">
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+                
+                <!--
+                <div class="div_esti_memo_02 memo option" style="top:81px !important; right:35px; border-left:none; display:none;">
+                    <div>
+                        <dl>
+                            <dt></dt>
+                            <dd>
+                                <input type="text" id="esti_ext_paper" name="esti_ext_paper" placeholder="종이가 없는경우 적어주세요" />
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                                <input type="text" id="esti_ext_bef_tmpt" name="esti_ext_bef_tmpt" placeholder="전면도수가 없는경우 적어주세요" />
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                                <input type="text" id="esti_ext_aft_tmpt" name="esti_ext_aft_tmpt" placeholder="후면도수가 없는경우 적어주세요" />
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                                <input type="text" id="esti_ext_print_purp" name="esti_ext_print_purp" placeholder="인쇄방식이 없는경우 적어주세요" />
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                -->
+            
+            </div>
+            <!-- 선택 -->
+            <!-- 요청 -->
+            <!--
+            <div class="after _folding">
+                <dl>
+                    <dt id="opt_default_price" price="0">옵션</dt>
+                    <dd class="list" style="padding-left: 0px;" id="opt">
+                        [TPH_Vesti_opt]
+                        [TPH_Vesti_add_opt]
+                    </dd>
+                </dl>
+            </div>
+            -->
+            <!-- 요청 -->
+            <!-- 후공정 -->
+            <h2 class="order_title">후가공</h2>
+            <div class="after aft_sec esti_after _folding">
+                <button type="button" title="열기" class="_closed foldingbtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_bottom.png" alt="▼"></button>
+                <button type="button" title="닫기" class="_opened foldingbtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_top.png" alt="▲"></button>
+                <dl>
+                    <dt id="after_default_price" price="0">후공정</dt>
+                    <dd class="overview esti_overview">
+                        <ul>
+                        </ul>
+                    </dd>
+                    <dd class="_folder esti_after_list list" id="after">
+                        [TPH_Vesti_after]
+                        [TPH_Vesti_add_after]
+                    </dd>
+                    <dd class="list">
+                        <input type="text" id="esti_ext_after" name="esti_ext_after" placeholder="후공정이 없는경우 적어주세요" style="width:97%;" />
+                    </dd>
+                </dl>
+            </div><!-- 후공정 -->
+            <h2 class="order_title">주문내역 및 파일</h2>
+            <div class="summary">
+                <dl>
+                    <dt>주문내역</dt>
+                    <dd>
+                        <ul>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+
+            <!-- 공통 -->
+            <input type="hidden" id="prdt_dvs" name="prdt_dvs" value="esti" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+            <input type="hidden" id="file_seqno" name="file_seqno" value="" />
+            <input type="hidden" id="esti_amt_unit" name="esti_amt_unit" value="" /><!-- 수량단위 -->
+            <input type="hidden" id="esti_r_count" name="esti_r_count" value="" /><!-- 장수 -->
+            <input type="hidden" id="esti_detail" name="esti_detail" value="" /><!-- 주문상세 -->
+            <input type="hidden" id="esti_flattyp_yn" value="[TPH_Vesti_flattyp_yn]" /><!-- 낱장형여부 -->
+            <input type="hidden" id="esti_mono_yn"  value="1" /><!-- 계산형 구분 -->
+            <input type="hidden" id="esti_size_name" name="esti_size_name" value="" /><!-- 종이 정보 -->
+            <input type="hidden" id="esti_typ" name="esti_typ" value="[TPH_Vesti_page_dvs]" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+            <input type="hidden" name="esti_page" value="[TPH_Vesti_page]" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+
+            <input type="hidden" id="esti_amt_info" name="esti_amt_info" value="" />
+            <input type="hidden" id="esti_paper_info" name="esti_paper_info" value="" />
+            <input type="hidden" id="esti_bef_tmpt_info" name="esti_bef_tmpt_info" value="" />
+            <input type="hidden" id="esti_aft_tmpt_info" name="esti_aft_tmpt_info" value="" />
+            <input type="hidden" id="esti_print_purp_info" name="esti_print_purp_info" value="" />
+            <input type="hidden" id="esti_stan_info" name="esti_stan_info" value="" />
+            <input type="hidden" id="esti_after_info" name="esti_after_info" value="" />
+            <input type="hidden" id="is_admin" name="is_admin" value="[TPH_Vadmin]" /><!-- 낱장형여부 -->
+            <input type="hidden" name="opt_add" value="" />
+        </form>

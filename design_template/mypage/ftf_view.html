@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="div_sub_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_mypage_claim.jpg" alt="서브배너" />
+</div>
+<div class="contents contents_02 ftfInquery">
+    <div class="lnb">
+	    [TPH_I/mypage/common/lnb.html]
+    </div>
+    <h3 class="pageTitle"><img src="[TPH_Vdesign_dir]/images/title/ftf_view.png" alt="1:1 문의"></h3>
+    <div class="sp_sub_title member_modify_title">
+        <img src="/design_template/images/mypage/img_ftf_view_section_01.png" alt="1:1 문의 상세사항">
+    </div>
+    <table class="line input question">
+        <colgroup>
+            <col style="width:120px">
+            <col>
+        </colgroup>
+        <tbody>
+            <tr>
+                <th scope="row">1:1 문의 제목</th>
+                <td>[TPH_Vtitle]</td>
+            </tr>
+            <tr>
+                <th scope="row">문의 유형</th>
+                <td>[TPH_Vinq_typ]</td>
+            </tr>
+            <tr>
+                <th scope="row">신청자명</th>
+                <td>[TPH_Vmember_name]</td>
+            </tr>
+            <tr>
+                <th scope="row">연락처</th>
+                <td>[TPH_Vtel_num]</td>
+            </tr>
+            <tr>
+                <th scope="row">휴대전화</th>
+                <td>[TPH_Vcell_num]</td>
+            </tr>
+            <tr>
+                <th scope="row">문의 내용</th>
+                <td>
+                    [TPH_Vcont]
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">파일첨부</th>
+                <td>
+                    [TPH_Vinq_file_html] </div>
+            <tr>
+                <th scope="row">이메일</th>
+                <td>[TPH_Vmail][TPH_Vansw_mail]</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="sp_sub_title member_modify_title">
+        <img src="/design_template/images/mypage/img_ftf_view_section_02.png" alt="1:1 문의 답변">
+    </div>
+    <table class="line input answer">
+        <colgroup>
+            <col style="width:120px">
+            <col>
+        </colgroup>
+        <tbody>
+            <tr>
+                <th>첨부파일</th>
+                <td>[TPH_Vreply_file_html] </div>
+            </tr>
+            <tr>
+                <th>답변내용</th>
+                <td>
+                    [TPH_Vansw_cont]
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <form name="frm" id="frm">
+        <input type="hidden" name="searchParam" id="searchParam" value="[TPH_VsearchParam]" >
+    </form>
+    <div class="function narrow" style="text-align:center;">
+        <strong class="white"><button class="function" onclick="goList();">목록으로</button></strong>
+        <strong class="red"><button id="del_req" class="function" onclick="deleteReq([TPH_Vreq_seq], this.id);">삭제하기</button></strong>
+    </div>
+    [TPH_I/mypage/common/banner.html]
+</div>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

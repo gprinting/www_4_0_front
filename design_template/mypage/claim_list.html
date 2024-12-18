@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <style type="text/css">
+        ul.paging .first:after,
+        ul.paging .last:before { content: '···'; margin: 0 6px; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="div_sub_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_mypage_claim.jpg" alt="서브배너" />
+</div>
+<div class="contents contents_02 claimInfo">
+    <div class="lnb">
+        [TPH_I/mypage/common/lnb.html]
+    </div>
+    <h3 class="pageTitle"><img src="[TPH_Vdesign_dir]/images/title/claim_list.png" alt="클레임 내역"></h3>
+    <div class="searchCondition">
+        <div class="rowWrap">
+            <dl class="date">
+                <dt>조회기간</dt>
+                <dd>
+                    [TPH_I/common/datepicker.html]
+                </dd>
+            </dl>
+            <dl class="status last">
+                <dt>처리상태</dt>
+                <dd>
+                    <select id="state">
+                        <option value="">전체</option>
+                        <option value="요청">요청</option>
+                        <option value="처리중">처리중</option>
+                        <option value="합의">합의</option>
+                        <option value="완료">완료</option>
+                    </select>
+                </dd>
+            </dl>
+        </div>
+        <div class="rowWrap">
+            <dl class="faultType">
+                <dt>사고유형</dt>
+                <dd>
+                    <select id="dvs">
+                        <option value="">전체</option>
+                        <option value="인쇄잡티">인쇄잡티</option>
+                        <option value="파손">파손</option>
+                        <option value="환불">환불</option>
+                        <option value="반품">반품</option>
+                    </select>
+                </dd>
+            </dl>
+            <dl class="title last">
+                <dt>클레임제목</dt>
+                <dd><input id="title" onkeydown="searchKey(event);" name="title" type="text"></dd>
+            </dl>
+        </div>
+        <button onclick="searchTxt();" class="search">검색</button>
+    </div>
+    <table class="list searchResult _details update">
+        <caption>
+            <div class="resultNum" id="resultNum">
+            </div>
+            [TPH_I/common/list_num.html]
+        </caption>
+        <colgroup>
+            <col style="width:40px">
+            <col style="width:90px">
+            <col style="width:130px">
+            <col style="width:150px">
+            <col>
+            <col style="width:60px">
+            <col style="width:60px">
+            <col style="width:40px">
+        </colgroup>
+        <thead id="list">
+            <tr>
+                <th>번호</th>
+                <th>요청일</th>
+                <th>주문번호</th>
+                <th>인쇄물제목</th>
+                <th>클레임제목</th>
+                <th>사고유형</th>
+                <th>처리상태</th>
+                <th>상세</th>
+            </tr>
+        </thead>
+    </table>
+    <ul class="paging" id="paging">
+        <li><button class="on">1</button></li>
+    </ul>
+    <div class="function center">
+        <strong><button onclick="claimSelectMove();" class="function">클레임 요청</button></strong>
+    </div>
+    <input type="hidden" id="member_dvs" value="[TPH_Vmember_dvs]">
+    [TPH_I/mypage/common/banner.html]
+</div>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common22/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    
+ <main id="main" class="mypage wrap refund">
+        <header class="good pages">
+            <h2>
+                <span class="en">MY PAGE</span>
+                <span class="ko">마이페이지</span>
+            </h2>
+            <h3>
+                <ol>
+                    <li>결제</li>
+                    <li>계좌 관리</li>
+                </ol>
+            </h3>
+            <hr>
+        </header>
+        
+        [TPH_I/mypage22/common/lnb.html]
+        
+        <section class="contents">
+            <nav class="pageTab">
+                <a href="/mypage22/benefits_virtual_mng.html">가상계좌 관리</a>
+                <a href="/mypage22/benefits_refund_mng.html" class="on">환불계좌 관리</a>
+            </nav>
+
+            <dl class="boxC">
+                <dt>환불계좌</dt>
+                <dd>
+                    <span id="refund_info">고객님의 등록된 환불계좌가 없습니다.</span>
+                    <button class="function" onclick="layerPopup('l_virt_ba_refund', 'popup/l_virt_refund_account.html');">환불계좌 등록</button>
+                </dd>
+            </dl>
+            <hr class="end">
+            <header class="section list">환불 금액 대상 리스트</header>
+            <table class="list info searchResult noEllipsis">
+                <colgroup>
+                    <col class="no">
+                    <col class="date">
+                    <col class="price">
+                    <col class="">
+                    <col class="status">
+                    <col class="date">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>요청일자</th>
+                        <th class="price">요청금액</th>
+                        <th class="left">요청내용</th>
+                        <th>환불여부</th>
+                        <th>환불일자</th>
+                    </tr>
+                </thead>
+                <tbody id="list">
+                    <!--
+                    <tr>
+                        <td>1</td>
+                        <td>2017-08-28</td>
+                        <td>23,000 원</td>
+                        <td>가나다라마바사</td>
+                        <td>진행중</td>
+                        <td>2017-08-28</td>
+                    </tr>
+                    -->
+                </tbody>
+            </table>
+            <hr class="end">
+            <footer class="action">
+                <div class="left">
+                    <button class="exe" onclick="doRefundReq();">환불 요청하기</button>
+                </div>
+                <ul class="paging" id="paging">
+                    <li><button class="on">1</button></li>
+                </ul>
+            </footer>
+            <hr class="end">
+            <article class="caution">
+                <header class="icon">꼭 확인해주세요.</header>
+                <ul class="guide">
+                    <li>환불 승인 서류로 환불계좌와 예금주가 표시된 통장의 화면을 보내주세요.</li>
+                    <li>환불계좌 등록 시 <strong>환불계좌의 예금주와 화원명이 동일</strong>하게 등록해주셔야 정상적으로 처리됩니다.</li>
+                    <li>환불게좌 등록 시에 서류첨부가 어려운 경우는 팩스 (02)2260-9090 관리부로 예금주명과 회원명, 아이디와 연락처가 기재된 내용을 보내주시기 바랍니다. 파일첨부나 팩스송부가 되지 않을 경우에는 환불계좌 등록이 안 될 수 있으니 반드시 확인 후 연락을 주세요.</li>
+                    <li>환불금액은 매주 <strong>O요일, O요일에 전산으로 승인 처리</strong>되어<br> 환불계좌에 입금 됩니다.</li>
+                    <li>환불계좌 <strong>등록 이후에는 수정이 어려우니 유의</strong>해주시기 바랍니다.</li>
+                    <li>보다 자세한 사항은 <a class="link" href="/cscenter22/guide.html?type=membership" target="_blank">고객센터 이용안내</a>를 참조해 주시기 바랍니다.</li>
+                </ul>
+            </article>
+        </section>
+        [TPH_I/mypage22/common/banner.html]
+    </main>
+    <footer>
+        [TPH_I/common22/footer.html]
+    </footer>
+</body>
+</html>

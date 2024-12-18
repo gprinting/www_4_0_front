@@ -1,0 +1,73 @@
+        <form id="frm" action="/order/add_cart.html" method="post">
+            [TPH_Vhtml]
+
+            <div class="sub_title_wrapper">
+                <dl>
+                    <dt>&nbsp;</dt>
+                    <dd>* 거치대의 재고가 많지 않으므로 정확한 출고일은 담당자와 통화가 필요합니다.</dd>
+                </dl>
+            </div>
+
+            <!-- 가격 -->
+            <div class="summary">
+                <dl>
+                    <dt>주문내역</dt>
+                    <dd>
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+            <!-- 가격 -->
+            <div class="price _folding">
+                <button type="button" title="열기" class="_closed foldingBtn"><img src="/design_template/images/common/btn_circle_bottom.png" alt="▼"></button>
+                <button type="button" title="닫기" class="_opened foldingBtn"><img src="/design_template/images/common/btn_circle_top.png" alt="▲"></button>
+                <dl class="ordinary">
+                    <dt>정상판매가</dt>
+                    <dd class="description" style="text-decoration: none;">부가세 10% 포함</dd>
+                    <dd id="sell_price" val="0" class="price">0 원</dd>
+                </dl>
+                <dl class="_folder">
+                    <dd class="detail" id="sale">
+                        [TPH_Vao_rack_grade_sale]
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>결제금액</dt>
+                    <dd class="description">공급가 : <span id="supply_price" style="font-weight:bold;">0</span>원 + 부가세 : <span id="tax" style="font-weight:bold;">0</span>원</dd>
+                    <dd class="price"><span id="sale_price" val="0" style="font-size: 20px;">0</span> 원</dd>
+                </dl>
+                <!-- 2016/01/04 최대 혜택가 삭제함 -->
+
+            </div>
+            <!-- 가격 -->
+
+            <!-- 공통 -->
+            <input type="hidden" name="flag" value="flag">
+            <input type="hidden" id="expect_release_hour" name="expect_release_hour" value="" /><!-- 예상출고일 -->
+            <input type="hidden" id="prdt_dvs" name="prdt_dvs" value="ao_rack">
+            <input type="hidden" name="ao_rack_order_detail" value="">
+            <!-- 장바구니 이동여부 -->
+            <input type="hidden" name="cart_flag" id="cart_flag" value="Y">
+
+            <!-- 파라미터용 제품값 -->
+            <input type="hidden" name="title" value="배너거치대 구매">
+            <input type="hidden" id="ao_rack_cate_sortcode" name="ao_rack_cate_sortcode" value="[TPH_Vcs]">
+            <input type="hidden" id="ao_rack_cate_name" name="ao_rack_cate_name" value="[TPH_Vcate_name]">
+            <input type="hidden" name="ao_rack_paper" value="-1">
+            <input type="hidden" name="ao_rack_bef_tmpt" value="-1">
+            <input type="hidden" name="ao_rack_size" value="-1">
+            <input type="hidden" id="ao_rack_amt" name="ao_rack_amt" value="">
+
+            <!-- 가격정보 -->
+            <input type="hidden" name="ao_rack_member_sale_rate" id="ao_rack_member_sale_rate" value="[TPH_Vao_rack_member_sale_rate]" /><!-- 회원할인률 -->
+            <input type="hidden" name="ao_rack_grade_sale_rate" id="ao_rack_grade_sale_rate" value="[TPH_Vao_rack_grade_sale_rate]" /><!-- 등급할인률 -->
+            <input type="hidden" name="ao_rack_sell_price" value="">
+            <!-- 옵션 -->
+            <input type="hidden" name="opt_price" value="">
+            <input type="hidden" name="opt_add" value="">
+            <input type="hidden" name="opt_add_price" value="">
+            <input type="hidden" name="opt_add_info" value="">
+            <input type="hidden" name="opt_add_data" value="">
+        </form>

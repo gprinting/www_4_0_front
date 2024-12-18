@@ -1,0 +1,83 @@
+<header>
+    <h2>주문담당자 추가</h2>
+    <button id="order_close" class="close" title="닫기"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_x_white.png" alt="X"></button>
+</header>
+<article>
+    <table class="input to">
+        <colgroup>
+            <col width="100">
+            <col width="300">
+            <col width="110">
+            <col width="150">
+        </colgroup>
+        <tbody>
+            <tr>
+                <th scope="row">성명</th>
+                <td class="name"><input type="text" id="pop_member_name" name="pop_member_name" style="width:84px">(10자 이내)</td>
+            </tr>
+            <tr>
+                <th>아이디</th>
+                <td colspan="3">
+                    <input type="text" class="_id" id="member_id" name="pop_member_id" maxlength="20" onkeydown="showBtn(this);" style="width:84px">
+                    <button class="_idCheck" onclick="getIdOver(this);">중복 확인</button>
+                    <span class="description _idMessage">아이디는 7자 이상 20자 이하입니다.</span>
+                </td>
+            </tr>
+            <tr>
+                <th>비밀번호</th>
+                <td><div class="inputWrap"><input type="password" id="pop_passwd" name="pop_passwd" maxlength="20"></div></td>
+                <th>비밀번호 확인</th>
+                <td><div class="inputWrap"><input type="password" id="pop_passwd_re" name="pop_passwd_re" maxlength="20"></div></td>
+            </tr>
+            <tr>
+                <th scope="row">전화번호</th>
+                <td colspan="3">
+                    <select id="pop_tel_num1" name="pop_tel_num1">
+                        [TPH_Vtel_html]
+                    </select>
+                    <input type="text" id="pop_tel_num2" name="pop_tel_num2" maxlength="4" onkeyup="onlyNumber(event);">
+                    <input type="text" id="pop_tel_num3" name="pop_tel_num3" maxlength="4" onkeyup="onlyNumber(event);">
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">휴대전화번호</th>
+                <td colspan="3">
+                    <select id="pop_cel_num1" name="pop_cel_num1">
+                        [TPH_Vcel_html]
+                    </select>
+                    <input type="text" id="pop_cel_num2" name="pop_cel_num2" maxlength="4" onkeyup="onlyNumber(event);">
+                    <input type="text" id="pop_cel_num3" name="pop_cel_num3" maxlength="4" onkeyup="onlyNumber(event);">
+                </td>
+            </tr>
+            <tr>
+                <th>이메일</th>
+                <td colspan="3" class="info _email">
+                    <input type="text" id="pop_email_addr" name="pop_email_addr" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'');">
+                    <span>@</span>
+                    <input type="text" class="_domain" id="pop_email_domain" name="pop_email_domain" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9\.]/g,'');">
+                    <select class="_domain">
+                        <option class="_custom">직접입력</option>
+                        [TPH_Vemail_html]
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <input type="hidden" id="id_over_yn" name="id_over_yn" value="N">
+    <div class="function center">
+        <strong class="blue"><button onclick="regiOrderMng(); return false;">추가</button></strong>
+        <button onclick="confirmClosePopup(event, '입력하신 모든 내용이 사라집니다. 취소하시겠습니까?');">취소</button>
+    </div>
+    <script>
+        // e-mail
+        $('.l_officer select._domain').on('change', function () {
+            if ($(this).children('option:selected').hasClass('_custom')) {
+                $(this).prev().val('');
+                $(this).prev()[0].readOnly = false;
+            } else {
+                $(this).prev().val($(this).children('option:selected').text());
+                $(this).prev()[0].readOnly = true;
+            }
+        });
+    </script>
+</article>

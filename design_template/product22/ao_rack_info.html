@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common22/head.html]
+    [TPH_I/product22/common/product_head.html]
+    
+    <script src="[TPH_Vdesign_dir]/js/lib/jquery-1.11.2.min.js"></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+    <!-- test -->
+    <script src="http://testpg.easypay.co.kr/webpay/easypaycard_web.js"></script>
+    <!-- real -->
+    <!-- script src="https://pg.easypay.co.kr/webpay/easypaycard_web.js"></script-->
+    <script src="[TPH_Vdesign_dir]/js/design/common_design.js"></script>
+    <script src="[TPH_Vdesign_dir]/js/common/common.js"></script>
+    <script src="[TPH_Vdesign_dir]/js/lib/jquery-ui_dprinting.min.js"></script>
+    <script src="[TPH_Vdesign_dir]/js/common/[TPH_Vdir].js"></script>
+    <script src="[TPH_Vdesign_dir]/js/[TPH_Vdir]/[TPH_Vpage].js"></script>
+	<script src="[TPH_Vdesign_dir]/js/product/opt_lib.js"></script>
+
+    <!-- Start of gprinting Zendesk Widget script -->
+    <script>
+        /*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="gprinting.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();
+    /*]]>*/
+        window.zESettings = {
+            webWidget: {
+                offset: {horizontal : '30px'}
+            }
+        };
+    </script>
+    <!-- End of gprinting Zendesk Widget script -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108022578-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-108022578-1');
+    </script>
+
+    <script src="[TPH_Vdesign_dir]/js/lib/jquery.magnify.js"></script>
+    <link rel="stylesheet" href="[TPH_Vdesign_dir]/css/magnify.css">
+    <script src="[TPH_Vdesign_dir]/js/lib/jquery.elevatezoom.js"></script>
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    <main id="main" class="wrap product ao_rack">
+        <header>
+            [TPH_I/product22/common/sub_banner.html]
+            [TPH_I/product22/common/util.html]
+        </header>
+        
+        <div class="wrap">
+            <section class="rightWrap productOptions">
+                [TPH_I/product22/ao/ao_rack_info.html]
+                <footer class="action purchase">
+                    [TPH_I/product22/common/purchase.html]
+                </footer>
+            </section>
+            <section class="leftWrap">
+                [TPH_I/product22/common/picture.html]
+
+                [TPH_I/product22/common/banner.html]
+
+                [TPH_I/common22/is_login.html]
+            </section>
+        </div>
+
+        [TPH_I/product22/common/quick_esti.html]
+
+        [TPH_I/product22/common/detail_tab.html]
+    </main>
+
+    [TPH_I/common22/footer.html]
+
+    [TPH_I/product22/common/common_pop.html]
+</body>
+</html>

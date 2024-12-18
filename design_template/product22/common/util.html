@@ -1,0 +1,56 @@
+<section class="util">
+    <button type="button" class="expect" onclick="showDeliveryPop();" style="visibility: hidden;">
+        <div class="title">
+            지금 주문 시 출고 예정일시
+            <div class="tipButton">?</div>
+            <dl class="tipContents">
+                <dt>출고 예정일 안내</dt>
+                <dd>
+                    상품을 주문했을 때 상품을 받아볼 수 있는 출고 예정일입니다.<br>
+                    클릭하시면 보다 자세한 내용을 확인하실 수 있습니다.
+                </dd>
+            </dl>
+        </div>
+        <div class="result">
+            <span id="expect_date" class="date">00.00</span>
+            <span id="expect_day" class="day">Mon</span>
+            <span id="expect_hour" class="span_util_date_l">00</span>
+            :
+            <span id="expect_min" class="span_util_date_r">00</span>
+        </div>
+    </button>
+    <ul class="function" id="util_btns">
+        <li>
+            <button class="cubic templete" type="button" onclick="showTemplatePop();">템플릿 다운로드 <i></i></button>
+        </li>
+        <li>
+            <button class="cubic guide" type="button" onclick="window.open('/cscenter22/task_guide_cmp-nc-bs.html','window','width=860,height=800,left=0,top=0,scrollbars=yes').focus();">작업가이드 보기 <i></i></button>
+            <!--a href="[TPH_Vcs]" target="_blank" class="cubic guide">작업가이드 보기 <i></i></a-->
+        </li>
+        <li id="mat_btn">
+            <button class="cubic material" type="button" onclick="matPreview();">재질 보기 <i></i></button>
+        </li>
+        <li id="mov_btn" style="display:none;">
+            <button class="cubic mov" type="button" onclick="movPreview();">동영상보기 <i></i></button>
+        </li>
+        <li id="pro_btn" style="display:none;">
+            <button class="cubic product" type="button" onclick="productPreview();">제품 보기 <i></i></button>
+        </li>
+    </ul>
+    <ul class="util mov" id="mov_btns" style="display:none;">
+        <li id="mov_zoom_in">
+            <button class="cubic mov_detail" type="button" onclick="movZoomIn();">동영상 확대 <i></i></button>
+        </li>
+        <li id="mov_zoom_out" style="display:none;">
+            <button class="cubic mov_detail" type="button" onclick="movZoomOut();">동영상 축소 <i></i></button>
+        </li>
+    <!--
+        <li id="mov_zoom_out" style="display:none;">
+            <button class="cubic zoom" type="button" onclick="movZoomOut();">동영상 축소</button>
+        </li>
+    -->
+        <li id="mov_close">
+            <button class="cubic mov_close" type="button" onclick="closeMovPreview();">동영상 닫기</button>
+        </li>
+    </ul>
+</section>

@@ -1,0 +1,33 @@
+        <div class="sub_title_wrapper">
+            <div class="sub_title">
+                주문내역
+            </div>
+        </div>
+        <div class="basic_table_wrapper order_summary_wrapper">
+            <table class="basic_table order_summary">
+                <colgroup>
+                    <col style="width:20%;">
+                    <col style="">
+                    <col style="width:30%;">
+                </colgroup>
+                <tr>
+                    <th class="order_summary_title">상품내용</th>
+                    <td colspan="2" id="order_summary"></td>
+                </tr>
+                <tr>
+                    <th class="order_summary_title">판매가</th>
+                    <td>부가세 10% 포함</td>
+                    <td id="sell_price" val="[TPH_Vnc_sell_price]" style="text-align:right; text-decoration: line-through;">[TPH_Vnc_sell_price] 원</td>
+                </tr>
+                [TPH_Vnc_grade_sale]
+                [TPH_Vnc_event_sale]
+                <tr>
+                    <th class="order_summary_title">결제금액</th>
+                    <td colspan="2">공급가 : <span id="supply_price" class="order_summary_text_st">[TPH_Vnc_supply_price]</span>원 + 부가세 : <span id="tax" class="order_summary_text_st">[TPH_Vnc_tax]</span>원</td>
+                </tr>
+                <tr>
+                    <th class="order_summary_title">합계</th>
+                    <td class="order_sumary_totalprice" colspan="2"><span id="sale_price" val="[TPH_Vnc_sale_price]">[TPH_Vnc_sale_price]</span>원</td>
+                </tr>
+            </table>
+        </div>

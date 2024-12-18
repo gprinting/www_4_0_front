@@ -1,0 +1,37 @@
+<!-- 파일 업로드 팝업 -->
+<div class="popupMask l_orderInformation">
+    <section class="popup uploadFile">
+        <header class="popup">
+            <h2>[TPH_Vfile_pop_title]</h2>
+            <button class="close" title="닫기">닫기</button>
+        </header>
+        <article>
+            <div class="fileUpload">
+                <button type="button" name="order_file" id="order_file" class="softC">파일첨부</button>
+                <input type="file" id="uploader" style="display: none;" />
+                <input type="hidden" id="file_name">
+                <input type="hidden" id="file_size">
+                <input type="hidden" id="file_seqno">
+                <div class="fileList" id="work_file_dl">
+                    <dd>
+                        <div id="file_content" class="function" style="position: relative;margin-top: 0px;margin-bottom: 10px;">
+
+                        </div>
+                    </dd>
+                </div>
+            </div>
+            <iframe id="submit_ifr" name="submit_ifr" width="0" height="0" style="display:none;"></iframe>
+            
+            <hr class="end">
+            <footer class="action">
+                <button type="button" class="progress" id="pop_upload_btn" onclick="">파일전송</button>
+                <button type="button" class="close">취소</button>
+            </footer>
+            <ul class="guide">
+                <li>후공정 작업파일과 인쇄물 작업파일을 같이 압축해서 올려 주십시오.</li>
+                <li>후공정 작업파일은 한 파일로 작업하여 올려 주십시오.</li>
+            </ul>
+            <iframe id="submit_ifr" name="submit_ifr" width=0 height=0 style="display:none;"></iframe>
+        </article>
+    </section>
+</div><!-- 파일 업로드 팝업 -->

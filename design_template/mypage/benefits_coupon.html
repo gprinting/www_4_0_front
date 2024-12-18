@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <style type="text/css">
+        ul.paging .first:after,
+        ul.paging .last:before { content: '···'; margin: 0 6px; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="div_sub_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_member_info.jpg" alt="서브배너" />
+</div>
+<div class="contents contents_02 benefits">
+    <div class="lnb">
+        [TPH_I/mypage/common/lnb.html]
+    </div>
+    <h3 class="pageTitle"><img src="/design_template/images/title/benefits_coupon.png" alt="쿠폰조회"></h3>
+        [TPH_I/mypage/common/summary.html]
+    <div class="pageTab">
+        <ul>
+            <!--
+            <li><a href="/mypage/benefits_grade.html">회원등급</a></li>
+            -->
+            <li><a href="/mypage/benefits_event.html">이벤트</a></li>
+            <li><a href="/mypage/benefits_point.html">포인트</a></li>
+            <li class="on">쿠폰</li>
+            <li><a href="/mypage/benefits_category.html">카테고리별 할인</a></li>
+        </ul>
+    </div>
+    <table class="list searchResult noEllipsis">
+        <caption>
+            <div class="resultNum" id="resultNum">
+            </div>
+            [TPH_I/common/list_num.html]
+            <select onchange="searchList();" id="state" style="margin-right: 5px;">
+                <option value="">전체</option>
+                <option value="1">사용가능</option>
+                <option value="2">기한만료</option>
+            </select>
+        </caption>
+        <colgroup>
+            <col style="width:40px">
+            <col style="width:180px">
+            <col style="width:100px">
+            <col>
+            <col style="width:100px">
+            <col style="width:80px">
+            <col style="width:60px">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>쿠폰명</th>
+                <th>할인금액</th>
+                <th>사용조건</th>
+                <th>사용기한</th>
+                <th>발급일</th>
+                <th>상태</th>
+            </tr>
+        </thead>
+        <tbody id="cp_list">
+            <tr>
+                <td>10</td>
+                <td>디프린팅 VIP 쿠폰</td>
+                <td>&#8361;10,000</td>
+                <td class="subject">주문금액 <span class="request">&#8361;500,000</span> 이상</td>
+                <td>2015-03-05까지</td>
+                <td>2015-02-05</td>
+                <td>사용가능</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>디프린팅 VIP 쿠폰</td>
+                <td>&#8361;10,000</td>
+                <td class="subject">주문금액 <span class="request">&#8361;500,000</span> 이상</td>
+                <td>2015-03-05까지</td>
+                <td>2015-02-05</td>
+                <td>사용가능</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>디프린팅 VIP 쿠폰</td>
+                <td>&#8361;10,000</td>
+                <td class="subject">주문금액 <span class="request">&#8361;500,000</span> 이상</td>
+                <td>2015-03-05까지</td>
+                <td>2015-02-05</td>
+                <td>사용가능</td>
+            </tr>
+            <tr class="ended">
+                <td>7</td>
+                <td>디프린팅 VIP 쿠폰</td>
+                <td>&#8361;10,000</td>
+                <td class="subject">주문금액 <span class="request">&#8361;500,000</span> 이상</td>
+                <td>2015-02-05까지</td>
+                <td>2015-01-05</td>
+                <td>기한만료</td>
+            </tr>
+            <tr class="ended">
+                <td>6</td>
+                <td>디프린팅 VIP 쿠폰</td>
+                <td>&#8361;10,000</td>
+                <td class="subject">주문금액 <span class="request">&#8361;500,000</span> 이상</td>
+                <td>2015-02-05까지</td>
+                <td>2015-01-05</td>
+                <td>기한만료</td>
+            </tr>
+            <tr class="ended">
+                <td>5</td>
+                <td>디프린팅 VIP 쿠폰</td>
+                <td>&#8361;10,000</td>
+                <td class="subject">주문금액 <span class="request">&#8361;500,000</span> 이상</td>
+                <td>2015-02-05까지</td>
+                <td>2015-01-05</td>
+                <td>기한만료</td>
+            </tr>
+            <tr class="ended">
+                <td>4</td>
+                <td>디프린팅 VIP 쿠폰</td>
+                <td>&#8361;10,000</td>
+                <td class="subject">주문금액 <span class="request">&#8361;500,000</span> 이상</td>
+                <td>2015-02-05까지</td>
+                <td>2015-01-05</td>
+                <td>기한만료</td>
+            </tr>
+            <tr class="ended">
+                <td>3</td>
+                <td>디프린팅 VIP 쿠폰</td>
+                <td>&#8361;10,000</td>
+                <td class="subject">주문금액 <span class="request">&#8361;500,000</span> 이상</td>
+                <td>2015-02-05까지</td>
+                <td>2015-01-05</td>
+                <td>기한만료</td>
+            </tr>
+            <tr class="ended">
+                <td>2</td>
+                <td>디프린팅 VIP 쿠폰</td>
+                <td>&#8361;10,000</td>
+                <td class="subject">주문금액 <span class="request">&#8361;500,000</span> 이상</td>
+                <td>2015-02-05까지</td>
+                <td>2015-01-05</td>
+                <td>기한만료</td>
+            </tr>
+            <tr class="ended">
+                <td>1</td>
+                <td>디프린팅 VIP 쿠폰</td>
+                <td>&#8361;10,000</td>
+                <td class="subject">주문금액 <span class="request">&#8361;500,000</span> 이상</td>
+                <td>2015-02-05까지</td>
+                <td>2015-01-05</td>
+                <td>기한만료</td>
+            </tr>
+        </tbody>
+    </table>
+    <ul class="paging" id="paging">
+        <li><button class="on">1</button></li>
+    </ul>
+    [TPH_I/mypage/common/banner.html]
+</div>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

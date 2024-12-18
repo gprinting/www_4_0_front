@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common22/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    
+    <main id="main" class="mypage wrap paymentInfo">
+        <header class="good pages">
+            <h2>
+                <span class="en">MY PAGE</span>
+                <span class="ko">마이페이지</span>
+            </h2>
+            <h3>
+                <ol>
+                    <li>결제</li>
+                    <li>계좌 관리</li>
+                </ol>
+            </h3>
+            <hr>
+        </header>
+        
+        [TPH_I/mypage22/common/lnb.html]
+        
+        <div class="contents">
+            <nav class="pageTab">
+                <a href="/mypage22/benefits_virtual_mng.html" class="on">가상계좌 관리</a>
+                <!--a href="/mypage22/benefits_refund_mng.html">환불계좌 관리</a-->
+            </nav>
+            <h4 class="bank">현재 사용 가상계좌</h4>
+            <table class="list info noEllipsis">
+                <colgroup>
+                    <col class="accountHolder">
+                    <col class="bank">
+                    <col class="">
+                    <col class="status">
+                    <col class="btn">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col" class="left">입금자명</th>
+                        <th scope="col" class="left">은행</th>
+                        <th scope="col" class="left">계좌번호</th>
+                        <th scope="col">가상계좌상태</th>
+                        <th scope="col">수정</th>
+                    </tr>
+                </thead>
+                <tbody id="virt_ba_list">
+                </tbody>
+            </table>
+            <hr class="end">
+            <h4 class="exchange">가상계좌 입금은행 변경 내역</h4>
+            <table class="list info noEllipsis">
+                <colgroup>
+                    <col class="date">
+                    <col class="accountHolder">
+                    <col class="bank">
+                    <col class="">
+                    <col class="status">
+                    <col class="date">
+                    <col class="btn">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">계좌변경일</th>
+                        <th scope="col" class="left">예금주</th>
+                        <th scope="col" class="left">기존은행</th>
+                        <th scope="col" class="left">변경은행</th>
+                        <th scope="col">변경처리상태</th>
+                        <th scope="col">계좌변경처리일</th>
+                        <th scope="col">변경취소</th>
+                    </tr>
+                </thead>
+                <tbody id="virt_ba_change_list">
+                </tbody>
+            </table>
+            <hr class="end">
+            <footer class="action decide">
+                <div class="sub">
+                    <button id="btn_virt_ba_change" style="display: none;" onclick="layerPopup('l_virt_ba', 'popup/l_virt_bank_change.html');">가상계좌 입금은행 변경</button>
+                </div>
+                <button onclick="" class="exe">카드결제</button>
+            </footer>
+            [TPH_I/mypage22/common/banner.html]
+        </div>
+    </main>
+    <footer>
+        [TPH_I/common22/footer.html]
+    </footer>
+</body>
+</html>

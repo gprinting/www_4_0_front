@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <!--script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false"></script-->
+    <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <style type="text/css">
+        ul.paging .first:after,
+        ul.paging .last:before { content: '···'; margin: 0 6px; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="div_sub_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_businessregistration.jpg" alt="서브배너" />
+</div>
+<div class="contents contents_02 orderList">
+    <div class="lnb">
+        [TPH_I/mypage/common/lnb.html]
+    </div>
+    <table class="searchResult _orderDetails">
+        <caption>
+            <div class="resultNum" id="resultNum">
+            </div>
+        </caption>
+        <colgroup>
+            <col style="width:40px">
+            <col style="width:100px">
+            <col style="width:100px">
+            <col style="width:100px">
+            <col style="width:100px">
+            <col>
+            <col style="width:100px">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>등록번호</th>
+                <th>상호</th>
+                <th>대표자명</th>
+                <th>전화번호</th>
+                <th>주소</th>
+                <th>관리</th>
+            </tr>
+        </thead>
+        <tbody id="list">
+            <!--<tr class="waiting">
+                <td>3</td>
+                <td>201-02-05005</td>
+                <td>(주)컴퍼니</td>
+                <td>삼대표</td>
+                <td>03-9797-6464</td>
+                <td class="address">서울특별시 성동구 성수동1가 656-1748</td>
+                <td><button class="modify" onclick="layerPopup('l_businessRegistration', 'pop_registration_edit.html');">수정/삭제</button></td>
+            </tr>-->
+        </tbody>
+    </table>
+    <ul class="paging" id="paging">
+        <li><button class="on">1</button></li>
+    </ul>
+    <div class="function center">
+        <strong><button class="function" onclick="layerPopup('l_businessRegistration', 'popup/pop_registration_write.html');">신규 등록</button></strong>
+    </div>
+    [TPH_I/mypage/common/banner.html]
+</div>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

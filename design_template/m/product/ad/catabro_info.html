@@ -1,0 +1,753 @@
+            <form id="frm" action="/order/add_cart.html" method="post">
+                <!-- 공통  -->
+                <div class="basic_table_wrapper _info">
+                    <table class="basic_table">
+                        <colgroup>
+                            <col style="width:20%;">
+                            <col style="">
+                        </colgroup>
+                        <tr>
+                            <th>제목</th>
+                            <td>
+                                <input class="basic_input" type="text" id="title" name="title" value="[TPH_Vtitle]">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>상품명</th>
+                            <td>
+                                [TPH_Vcate_bot]
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>사이즈</th>
+                            <td>
+                                <table class="basic_detail_table">
+                                    <colgroup>
+                                        <col style="width:50%;">
+                                        <col style="width:45%;">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding-right:5% !important;">
+                                                <select class="basic_input Column_02 _summary _size_dvs" id="size_dvs" name="ad_size_dvs" onchange="changeSizeDvs(this.value);">
+                                                    <option value="stan" class="_preset">규격사이즈</option>
+                                                    <option value="manu" class="_custom">비규격사이즈</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select class="basic_input Column_02 _summary _size" id="ad_size" name="ad_size" def_cut_wid="[TPH_Vcover_def_cut_wid]" def_cut_vert="[TPH_Vcover_def_cut_vert]" def_val=[TPH_Vcover_def_stan_mpcode] onchange="changeSize.exec('ad');">
+                                                    [TPH_Vcover_size]
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <table class="order_size_form">
+                                    <colgroup>
+                                        <col style="width:30%;">
+                                        <col style="width:35%;">
+                                        <col style="width:35%;">
+                                    </colgroup>
+                                    <tr>
+                                        <td><span class="order_size_form_text">재단사이즈</span></td>
+                                        <td style="text-align: center;">
+                                            <span class="order_size_form_text">가로 </span>
+                                            <input class="input_type_text_size _cut_size _wid" type="text" maxlength="3" readonly="readonly" id="ad_cut_wid_size" name="ad_cut_wid_size">
+                                            <span class="order_size_form_text"> mm,</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span class="order_size_form_text">세로 </span>
+                                            <input class="input_type_text_size _cut_size _vert" type="text" maxlength="3" readonly="readonly" id="ad_cut_vert_size" name="ad_cut_vert_size">
+                                            <span class="order_size_form_text"> mm</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="order_size_form_text _workingSize[TPH_Vcover_size_gap]" id="ad_size_gap">작업사이즈</span></td>
+                                        <td style="text-align: center;">
+                                            <span class="order_size_form_text">가로 </span>
+                                            <input class="input_type_text_size _work_size _wid" type="text" maxlength="3" readonly="readonly" id="ad_work_wid_size" name="ad_work_wid_size">
+                                            <span class="order_size_form_text"> mm,</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span class="order_size_form_text">세로 </span>
+                                            <input class="input_type_text_size _work_size _vert" type="text" maxlength="3" readonly="readonly" id="ad_work_vert_size" name="ad_work_vert_size">
+                                            <span class="order_size_form_text"> mm</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>수량</th>
+                            <td>
+                                <select class="basic_input _summary _amt" id="ad_amt" name="ad_amt" onchange="changeAmt();" amt_unit="[TPH_Vcover_amt_unit]">
+                                    [TPH_Vcover_amt]
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>제본</th>
+                            <td>
+                                <table class="basic_detail_table">
+                                    <colgroup>
+                                        <col style="width:50%;">
+                                        <col style="width:45%;">
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding-right:5% !important;">
+                                                <select class="basic_input Column_02 _summary _binding_d1" id="ad_binding_depth1" name="ad_binding_depth1" onchange="loadBindingDepth2(this.value, 'ad');">
+                                                    [TPH_Vcover_binding_depth1]
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select class="basic_input Column_02 _summary _binding_d2" id="ad_binding_val" name="ad_binding_val" onchange="getAfterPrice.common('binding', 'ad');">
+                                                    [TPH_Vcover_binding_depth2]
+                                                </select>
+                                                <input type="hidden" id="ad_binding_price" name="ad_binding_price" value="[TPH_Vcover_binding_price]" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- 표지  -->
+                <div class="_info" title="표지">
+                    <div class="sub_title_wrapper">
+                        <div class="sub_title">
+                            표지
+                        </div>
+                    </div>
+                    <div class="basic_table_wrapper">
+                        <table class="basic_table">
+                            <colgroup>
+                                <col style="width:20%;">
+                                <col style="">
+                            </colgroup>
+                            <tr>
+                                <th>종이</th>
+                                <td>
+                                    <table class="basic_detail_table">
+                                        <colgroup>
+                                            <col style="width:50%;">
+                                            <col style="width:45%;">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td style="padding-right:5% !important;">
+                                                    <select class="basic_input Column_02 _summary _paper_sort" id="cover_paper_sort" onchange="changePaperSort('cover', this.value);">
+                                                        [TPH_Vcover_paper_sort]
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="basic_input Column_02 _summary _paper_name" id="cover_paper_name" onchange="loadPaperInfo('cover', this.value);">
+                                                        [TPH_Vcover_paper_name]
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>    
+                                    <select class="basic_input _summary _paper_info" id="cover_paper" name="cover_paper" onchange="changePaper('cover');">
+                                        [TPH_Vcover_paper]
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>인쇄도수</th>
+                                <td>
+                                    <table class="order_size_form">
+                                        <colgroup>
+                                            <col style="width:14%;">
+                                            <col style="">
+                                        </colgroup>
+                                        <tr>
+                                            <th>전면</th>
+                                            <td>
+                                                <select id="cover_bef_tmpt" name="cover_bef_tmpt" class="basic_input _summary _bef_tmpt" onchange="changeData('cover');">
+                                                    [TPH_Vcover_bef_print_tmpt]
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <table class="order_size_form">
+                                        <colgroup>
+                                            <col style="width:14%;">
+                                            <col style="">
+                                        </colgroup>
+                                        <tr>
+                                            <th>후면</th>
+                                            <td>
+                                                <select id="cover_aft_tmpt" name="cover_aft_tmpt" class="basic_input _summary _aft_tmpt" onchange="changeData('cover');">
+                                                    [TPH_Vcover_aft_print_tmpt]
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>인쇄용도</th>
+                                <td>    
+                                    <select class="basic_input" id="cover_print_purp" name="cover_print_purp" onchange="loadPrintTmpt('cover');">
+                                        [TPH_Vcover_print_purp]
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>페이지</th>
+                                <td>    
+                                    <select class="basic_input _summary _page" id="cover_page" name="cover_page" amt_unit="p" onchange="changePage('cover', this.value);">
+                                        [TPH_Vcover_page]
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                 <!-- 표지 후가공 -->
+                <div class="sub_title_wrapper">
+                    <div class="sub_title after_option_title_0">
+                        표지 후가공<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_on.png" alt="후가공 보기">
+                    </div>
+                    <div class="sub_title after_option_title_0_on" style="display:none;">
+                        표지 후가공<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_off.png" alt="후가공 닫기">
+                    </div>
+                </div>
+                <div class="basic_table_wrapper after_option_table_0" style="display:none;">
+                    [TPH_Vcover_add_after]
+                </div>
+
+                <!-- 내지1  -->
+                <div class="_info" title="내지1">
+                    <div class="sub_title_wrapper">
+                        <div class="sub_title">
+                            내지1
+                        </div>
+                    </div>
+                    <div class="basic_table_wrapper">
+                        <table class="basic_table">
+                            <colgroup>
+                                <col style="width:20%;">
+                                <col style="">
+                            </colgroup>
+                            <tr>
+                                <th>종이</th>
+                                <td>
+                                    <table class="basic_detail_table">
+                                        <colgroup>
+                                            <col style="width:50%;">
+                                            <col style="width:45%;">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td style="padding-right:5% !important;">
+                                                    <select class="basic_input Column_02 _summary _paper_sort" id="inner1_paper_sort" onchange="changePaperSort('inner1', this.value);">
+                                                        [TPH_Vinner1_paper_sort]
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="basic_input Column_02 _summary _paper_name" id="inner1_paper_name" onchange="loadPaperInfo('inner1', this.value);">
+                                                        [TPH_Vinner1_paper_name]
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>    
+                                    <select class="basic_input _summary _paper_info" id="inner1_paper" name="inner1_paper" onchange="changePaper('inner1');">
+                                        [TPH_Vinner1_paper]
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>인쇄도수</th>
+                                <td>
+                                    <table class="order_size_form">
+                                        <colgroup>
+                                            <col style="width:14%;">
+                                            <col style="">
+                                        </colgroup>
+                                        <tr>
+                                            <td>전면</td>
+                                            <td>
+                                                <select id="inner1_bef_tmpt" name="inner1_bef_tmpt" class="basic_input _summary _bef_tmpt" onchange="changeData('inner1');">
+                                                    [TPH_Vinner1_bef_print_tmpt]
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <table class="order_size_form">
+                                        <colgroup>
+                                            <col style="width:14%;">
+                                            <col style="">
+                                        </colgroup>
+                                        <tr>
+                                            <td>후면</td>
+                                            <td>
+                                                <select id="inner1_aft_tmpt" name="inner1_aft_tmpt" class="basic_input _summary _aft_tmpt" onchange="changeData('inner1');">
+                                                    [TPH_Vinner1_aft_print_tmpt]
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>인쇄용도</th>
+                                <td>    
+                                    <select class="basic_input" id="inner1_print_purp" name="inner1_print_purp" onchange="loadPrintTmpt('inner1');">
+                                        [TPH_Vinner1_print_purp]
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>페이지</th>
+                                <td>    
+                                    <select class="basic_input _summary _page" id="inner1_page" name="inner1_page" amt_unit="p" onchange="changePage('inner1', this.value);">
+                                        [TPH_Vinner1_page]
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 내지1 후가공 -->
+                <div class="sub_title_wrapper">
+                    <div class="sub_title after_option_title_01">
+                        내지1 후가공<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_on.png" alt="후가공 보기">
+                    </div>
+                    <div class="sub_title after_option_title_01_on" style="display:none;">
+                        내지1 후가공<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_off.png" alt="후가공 닫기">
+                    </div>
+                </div>
+                <div class="basic_table_wrapper after_option_table_01" style="display:none;">
+                    [TPH_Vinner1_add_after]
+                </div>
+
+                
+                <!-- 내지2  -->
+                <div class="_info" title="내지2">
+                    <div class="sub_title_wrapper">
+                        <div class="sub_title catalog_page_02_title">
+                            내지2
+                            <img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_on.png" alt="후가공 보기">
+                        </div>
+                        <div class="sub_title catalog_page_02_title_on" style="display:none;">
+                            내지2
+                            <img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_off.png" alt="후가공 닫기">
+                        </div>
+                    </div>
+                    <div class="basic_table_wrapper catalog_page_02_table" style="display:none;">
+                        <table class="basic_table">
+                            <colgroup>
+                                <col style="width:20%;">
+                                <col style="">
+                            </colgroup>
+                            <tr>
+                                <th>종이</th>
+                                <td>
+                                    <table class="basic_detail_table">
+                                        <colgroup>
+                                            <col style="width:50%;">
+                                            <col style="width:45%;">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td style="padding-right:5% !important;">
+                                                    <select class="basic_input Column_02 _summary _paper_sort" id="inner2_paper_sort" onchange="changePaperSort('inner2', this.value);">
+                                                        [TPH_Vinner1_paper_sort]
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="basic_input Column_02 _summary _paper_name" id="inner2_paper_name" onchange="loadPaperInfo('inner2', this.value);">
+                                                        [TPH_Vinner1_paper_name]
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>    
+                                    <select class="basic_input _summary _paper_info" id="inner2_paper" name="inner2_paper" onchange="changePaper('inner2');">
+                                        [TPH_Vinner1_paper]
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>인쇄도수</th>
+                                <td>
+                                    <table class="order_size_form">
+                                        <colgroup>
+                                            <col style="width:14%;">
+                                            <col style="">
+                                        </colgroup>
+                                        <tr>
+                                            <td>전면</td>
+                                            <td>
+                                                <select id="inner2_bef_tmpt" name="inner2_bef_tmpt" class="basic_input _summary _bef_tmpt" onchange="changeData('inner2');">
+                                                    [TPH_Vinner1_bef_print_tmpt]
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <table class="order_size_form">
+                                        <colgroup>
+                                            <col style="width:14%;">
+                                            <col style="">
+                                        </colgroup>
+                                        <tr>
+                                            <td>후면</td>
+                                            <td>
+                                                <select id="inner2_aft_tmpt" name="inner2_aft_tmpt" class="basic_input _summary _aft_tmpt" onchange="changeData('inner2');">
+                                                    [TPH_Vinner1_aft_print_tmpt]
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>인쇄용도</th>
+                                <td>    
+                                    <select class="basic_input" id="inner2_print_purp" name="inner2_print_purp" onchange="loadPrintTmpt('inner2');">
+                                        [TPH_Vinner1_print_purp]
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>페이지</th>
+                                <td>    
+                                    <select class="basic_input _summary _page" id="inner2_page" name="inner2_page" amt_unit="p" onchange="changePage('inner2', this.value);">
+                                        [TPH_Vinner1_page]
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 내지2 후가공 -->
+                <div class="sub_title_wrapper">
+                    <div class="sub_title after_option_title_02">
+                        내지2 후가공<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_on.png" alt="후가공 보기">
+                    </div>
+                    <div class="sub_title after_option_title_02_on" style="display:none;">
+                        내지2 후가공<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_off.png" alt="후가공 닫기">
+                    </div>
+                </div>
+                <div class="basic_table_wrapper after_option_table_02" style="display:none;">
+                    [TPH_Vinner2_add_after]
+                </div>
+
+                <!-- 내지3  -->
+                <div class="_info" title="내지3">
+                    <div class="sub_title_wrapper">
+                        <div class="sub_title catalog_page_03_title">
+                            내지3<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_on.png" alt="후가공 보기">
+                        </div>
+                        <div class="sub_title catalog_page_03_title_on" style="display:none;">
+                            내지3<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_off.png" alt="후가공 닫기">
+                        </div>
+                    </div>
+                    <div class="basic_table_wrapper catalog_page_03_table" style="display:none;">
+                        <table class="basic_table">
+                            <colgroup>
+                                <col style="width:20%;">
+                                <col style="">
+                            </colgroup>
+                            <tr>
+                                <th>종이</th>
+                                <td>
+                                    <table class="basic_detail_table">
+                                        <colgroup>
+                                            <col style="width:50%;">
+                                            <col style="width:45%;">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td style="padding-right:5% !important;">
+                                                    <select class="basic_input Column_02 _summary _paper_sort" id="inner3_paper_sort" onchange="changePaperSort('inner3', this.value);">
+                                                        [TPH_Vinner1_paper_sort]
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="basic_input Column_02 _summary _paper_name" id="inner3_paper_name" onchange="loadPaperInfo('inner3', this.value);">
+                                                        [TPH_Vinner1_paper_name]
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>    
+                                    <select class="basic_input _summary _paper_info" id="inner3_paper" name="inner3_paper" onchange="changePaper('inner3');">
+                                        [TPH_Vinner1_paper]
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>인쇄도수</th>
+                                <td>
+                                    <table class="order_size_form">
+                                        <colgroup>
+                                            <col style="width:14%;">
+                                            <col style="">
+                                        </colgroup>
+                                        <tr>
+                                            <td>전면</td>
+                                            <td>
+                                                <select id="inner3_bef_tmpt" name="inner3_bef_tmpt" class="basic_input _summary _bef_tmpt" onchange="changeData('inner3');">
+                                                    [TPH_Vinner1_bef_print_tmpt]
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <table class="order_size_form">
+                                        <colgroup>
+                                            <col style="width:14%;">
+                                            <col style="">
+                                        </colgroup>
+                                        <tr>
+                                            <td>후면</td>
+                                            <td>
+                                                <select id="inner3_aft_tmpt" name="inner3_aft_tmpt" class="basic_input _summary _aft_tmpt" onchange="changeData('inner3');">
+                                                    [TPH_Vinner1_aft_print_tmpt]
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>인쇄용도</th>
+                                <td>    
+                                    <select class="basic_input" id="inner3_print_purp" name="inner3_print_purp" onchange="loadPrintTmpt('inner3');">
+                                        [TPH_Vinner1_print_purp]
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>페이지</th>
+                                <td>    
+                                    <select class="basic_input _summary _page" id="inner3_page" name="inner3_page" amt_unit="p" onchange="changePage('inner3', this.value);">
+                                        [TPH_Vinner1_page]
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 내지3 후가공 -->
+                <div class="sub_title_wrapper">
+                    <div class="sub_title after_option_title_03">
+                        내지3 후가공<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_on.png" alt="후가공 보기">
+                    </div>
+                    <div class="sub_title after_option_title_03_on" style="display:none;">
+                        내지3 후가공<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_off.png" alt="후가공 닫기">
+                    </div>
+                </div>
+                <div class="basic_table_wrapper after_option_table_03" style="display:none;">
+                    [TPH_Vinner3_add_after]
+                </div>
+
+                <!-- 옵션 -->
+                <div class="sub_title_wrapper">
+                    <div class="sub_title option_title">
+                        옵션<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_on.png" alt="후가공 보기">
+                    </div>
+                    <div class="sub_title option_title_on" style="display:none;">
+                        옵션<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_off.png" alt="후가공 닫기">
+                    </div>
+                </div>
+
+                <div class="basic_table_wrapper option_table" style="display:none;">
+                    [TPH_Vadd_opt]
+                </div>
+                <!-- 옵션 끝 -->
+
+                <!-- 공통 -->
+                <input type="hidden" name="flag" value="N" /><!-- 낱장형여부 -->
+                <input type="hidden" id="common_prdt_dvs" name="common_prdt_dvs" value="ad" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+                <input type="hidden" id="prdt_dvs" name="prdt_dvs" value="cover|inner1|inner2|inner3" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+                <input type="hidden" name="cart_flag" id="cart_flag" value="Y" /><!-- 장바구니 이동여부 -->
+                <input type="hidden" id="ad_order_detail" name="ad_order_detail" value="" /><!-- 주문 상세 -->
+                <input type="hidden" name="ad_size_name" value="" /><!-- 사이즈명 -->
+                <input type="hidden" name="opt_price" value="" /><!-- 옵션금액 -->
+                <input type="hidden" name="opt_add" value="" /><!-- 추가옵션 맵핑코드 -->
+                <input type="hidden" name="opt_add_price" value="" /><!-- 추가옵션별 가격 -->
+                <input type="hidden" name="ad_amt_unit" value="" /><!-- 수량단위 -->
+                <input type="hidden" name="ad_sheet_count" value="" /><!-- 수량단위 -->
+                <input type="hidden" id="ad_print_purp" value="" />
+                <input type="hidden" id="ad_mono_yn" value="1" />
+                <!-- 가격정보 -->
+                <input type="hidden" name="ad_sell_price" value="[TPH_Vcover_sell_price]" /><!-- 판매금액 -->
+                <input type="hidden" name="ad_sale_price" value="" /><!-- 할인금액 -->
+                <input type="hidden" name="ad_member_sale_rate" id="ad_member_sale_rate" value="[TPH_Vcover_member_sale_rate]" /><!-- 회원할인률 -->
+                <input type="hidden" name="ad_grade_sale_rate" id="ad_grade_sale_rate" value="[TPH_Vcover_grade_sale_rate]" /><!-- 등급할인률 -->
+                <input type="hidden" id="ad_tmpt_dvs" value="[TPH_Vcover_tmpt_dvs]" /><!-- 도수구분 -->
+                <input type="hidden" id="after_basic" value="[TPH_Vbl_basic_after]" /><!-- 요약정보 표시용 변수 -->
+                <input type="checkbox" id="ad_binding" name="ad_chk_after[]" checked="checked" value="제본" aft="binding" style="display:none;" /><!-- 요약정보 표시용 변수 -->
+                <input type="hidden" name="ad_after_price" value="" /><!-- 후공정금액 -->
+
+                <!-- ########################################################### -->
+                <!--                           표  지                          -->
+                <!-- ########################################################### -->
+                <input type="hidden" id="cover_cate_sortcode" name="cover_cate_sortcode" value="" />
+                <input type="hidden" name="cover_cate_name" value="" />
+                <input type="hidden" name="cover_amt" value="" />
+                <input type="hidden" name="cover_amt_unit" value="" />
+                <input type="hidden" name="cover_size" value="" />
+                <input type="hidden" name="cover_cut_wid_size" value="" />
+                <input type="hidden" name="cover_cut_vert_size" value="" />
+                <input type="hidden" name="cover_work_wid_size" value="" />
+                <input type="hidden" name="cover_work_vert_size" value="" />
+                <input type="hidden" id="cover_typ" name="cover_typ" value="[TPH_Vcover_page_dvs]" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+                <!-- 종이 -->
+                <input type="hidden" name="cover_paper_name" value="" /><!-- 종이명 -->
+                <!-- 사이즈 -->
+                <input type="hidden" name="cover_size_name" value="" /><!-- 사이즈명 -->
+                <input type="hidden" name="cover_pos_num" value="" /><!-- 자리수 -->
+                <!-- 인쇄 -->
+                <input type="hidden" name="cover_bef_tmpt_name" value="" /><!-- 도수명 -->
+                <input type="hidden" name="cover_aft_tmpt_name" value="" /><!-- 도수명 -->
+                <input type="hidden" id="cover_mono_yn" value="[TPH_Vcover_mono_dvs]" />
+                <!-- 가격정보 -->
+                <input type="hidden" name="cover_paper_price" id="cover_paper_price" value="[TPH_Vcover_paper_price]" /><!-- 종이가격 -->
+                <input type="hidden" name="cover_print_price" id="cover_print_price" value="[TPH_Vcover_print_price]" /><!-- 인쇄가격 -->
+                <input type="hidden" name="cover_output_price" id="cover_output_price" value="[TPH_Vcover_output_price]" /><!-- 출력가격 -->
+                <input type="hidden" name="cover_after_price" value="" /><!-- 후공정금액 -->
+                <input type="hidden" name="cover_sell_price" id="cover_sell_price" value="[TPH_Vcover_org_sell_price]" /><!-- 판매금액 -->
+
+                <!-- ########################################################### -->
+                <!--                          내지1부분                          -->
+                <!-- ########################################################### -->
+                <input type="hidden" id="inner1_cate_sortcode" name="inner1_cate_sortcode" value="" />
+                <input type="hidden" name="inner1_cate_name" value="" />
+                <input type="hidden" name="inner1_amt" value="" />
+                <input type="hidden" name="inner1_amt_unit" value="" />
+                <input type="hidden" name="inner1_size" value="" />
+                <input type="hidden" name="inner1_cut_wid_size" value="" />
+                <input type="hidden" name="inner1_cut_vert_size" value="" />
+                <input type="hidden" name="inner1_work_wid_size" value="" />
+                <input type="hidden" name="inner1_work_vert_size" value="" />
+                <input type="hidden" id="inner1_typ" name="inner1_typ" value="내지1" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+                <!-- 종이 -->
+                <input type="hidden" name="inner1_paper_name" value="" /><!-- 종이명 -->
+                <!-- 사이즈 -->
+                <input type="hidden" name="inner1_size_name" value="" /><!-- 사이즈명 -->
+                <input type="hidden" name="inner1_pos_num" value="" /><!-- 자리수 -->
+                <!-- 인쇄 -->
+                <input type="hidden" name="inner1_bef_tmpt_name" value="" /><!-- 도수명 -->
+                <input type="hidden" name="inner1_aft_tmpt_name" value="" /><!-- 도수명 -->
+                <input type="hidden" id="inner1_mono_yn" value="[TPH_Vinner1_mono_dvs]" />
+                <!-- 가격정보 -->
+                <input type="hidden" name="inner1_paper_price" id="inner1_paper_price" value="[TPH_Vinner1_paper_price]" /><!-- 종이가격 -->
+                <input type="hidden" name="inner1_print_price" id="inner1_print_price" value="[TPH_Vinner1_print_price]" /><!-- 인쇄가격 -->
+                <input type="hidden" name="inner1_output_price" id="inner1_output_price" value="[TPH_Vinner1_output_price]" /><!-- 출력가격 -->
+                <input type="hidden" name="inner1_after_price" value="" /><!-- 후공정금액 -->
+                <input type="hidden" name="inner1_sell_price" id="inner1_sell_price" value="[TPH_Vinner1_org_sell_price]" /><!-- 판매금액 -->
+
+                <!-- ########################################################### -->
+                <!--                          내지2부분                          -->
+                <!-- ########################################################### -->
+                <input type="hidden" id="inner2_cate_sortcode" name="inner2_cate_sortcode" value="" />
+                <input type="hidden" name="inner2_cate_name" value="" />
+                <input type="hidden" name="inner2_amt" value="" />
+                <input type="hidden" name="inner2_amt_unit" value="" />
+                <input type="hidden" name="inner2_size" value="" />
+                <input type="hidden" name="inner2_cut_wid_size" value="" />
+                <input type="hidden" name="inner2_cut_vert_size" value="" />
+                <input type="hidden" name="inner2_work_wid_size" value="" />
+                <input type="hidden" name="inner2_work_vert_size" value="" />
+                <input type="hidden" id="inner2_typ" name="inner2_typ" value="내지2" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+                <!-- 종이 -->
+                <input type="hidden" name="inner2_paper_name" value="" /><!-- 종이명 -->
+                <!-- 사이즈 -->
+                <input type="hidden" name="inner2_size_name" value="" /><!-- 사이즈명 -->
+                <input type="hidden" name="inner2_pos_num" value="" /><!-- 자리수 -->
+                <!-- 인쇄 -->
+                <input type="hidden" name="inner2_bef_tmpt_name" value="" /><!-- 도수명 -->
+                <input type="hidden" name="inner2_aft_tmpt_name" value="" /><!-- 도수명 -->
+                <input type="hidden" id="inner2_mono_yn" value="[TPH_Vinner1_mono_dvs]" />
+                <!-- 가격정보 -->
+                <input type="hidden" name="inner2_paper_price" id="inner2_paper_price" value="[TPH_Vinner2_paper_price]" /><!-- 종이가격 -->
+                <input type="hidden" name="inner2_print_price" id="inner2_print_price" value="[TPH_Vinner2_print_price]" /><!-- 인쇄가격 -->
+                <input type="hidden" name="inner2_output_price" id="inner2_output_price" value="[TPH_Vinner2_output_price]" /><!-- 출력가격 -->
+                <input type="hidden" name="inner2_after_price" value="" /><!-- 후공정금액 -->
+                <input type="hidden" name="inner2_sell_price" id="inner2_sell_price" value="" /><!-- 판매금액 -->
+
+                <!-- ########################################################### -->
+                <!--                          내지3부분                          -->
+                <!-- ########################################################### -->
+                <input type="hidden" id="inner3_cate_sortcode" name="inner3_cate_sortcode" value="" />
+                <input type="hidden" name="inner3_cate_name" value="" />
+                <input type="hidden" name="inner3_amt" value="" />
+                <input type="hidden" name="inner3_amt_unit" value="" />
+                <input type="hidden" name="inner3_size" value="" />
+                <input type="hidden" name="inner3_cut_wid_size" value="" />
+                <input type="hidden" name="inner3_cut_vert_size" value="" />
+                <input type="hidden" name="inner3_work_wid_size" value="" />
+                <input type="hidden" name="inner3_work_vert_size" value="" />
+                <input type="hidden" id="inner3_typ" name="inner3_typ" value="내지3" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+                <!-- 종이 -->
+                <input type="hidden" name="inner3_paper_name" value="" /><!-- 종이명 -->
+                <!-- 사이즈 -->
+                <input type="hidden" name="inner3_size_name" value="" /><!-- 사이즈명 -->
+                <input type="hidden" name="inner3_pos_num" value="" /><!-- 자리수 -->
+                <!-- 인쇄 -->
+                <input type="hidden" name="inner3_bef_tmpt_name" value="" /><!-- 도수명 -->
+                <input type="hidden" name="inner3_aft_tmpt_name" value="" /><!-- 도수명 -->
+                <input type="hidden" id="inner3_mono_yn" value="[TPH_Vinner1_mono_dvs]" />
+                <!-- 가격정보 -->
+                <input type="hidden" name="inner3_paper_price" id="inner3_paper_price" value="[TPH_Vinner3_paper_price]" /><!-- 종이가격 -->
+                <input type="hidden" name="inner3_print_price" id="inner3_print_price" value="[TPH_Vinner3_print_price]" /><!-- 인쇄가격 -->
+                <input type="hidden" name="inner3_output_price" id="inner3_output_price" value="[TPH_Vinner3_output_price]" /><!-- 출력가격 -->
+                <input type="hidden" name="inner3_after_price" value="" /><!-- 후공정금액 -->
+                <input type="hidden" name="inner3_sell_price" id="inner3_sell_price" value="" /><!-- 판매금액 -->
+            </form>

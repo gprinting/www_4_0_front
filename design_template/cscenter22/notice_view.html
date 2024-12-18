@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common22/head.html]
+</head>
+<body>
+    <!-- 로그인 박스 -->
+    [TPH_I/common22/login.html]
+    <!-- //로그인 박스 -->
+    <!-- 헤더 -->
+     [TPH_I/common22/header.html]
+    <!-- //헤더 -->
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common22/side.html]
+    <!-- //사이드 메뉴 -->
+    
+    <main id="main" class="csCenter wrap notice">
+        <header class="good pages">
+            <h2>
+                <span class="en">CS CENTER</span>
+                <span class="ko">고객센터</span>
+            </h2>
+            <h3>
+                <ol>
+                    <li>커뮤니티</li>
+                    <li>공지사항</li>
+                </ol>
+            </h3>
+            <hr>
+        </header>
+        
+        [TPH_I/cscenter22/common/lnb.html]
+        
+        <section class="contents">
+            <header class="section view">공지 상세내용</header>
+            <article class="tableWrap">
+                <table class="sheetForm">
+                    <colgroup>
+                        <col class="th">
+                        <col>
+                        <col class="th">
+                        <col class="th">
+                        <col class="th">
+                        <col class="th">
+                        <col class="th">
+                        <col class="th">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>제목</th>
+                            <td colspan="7" class="subject">[TPH_Vtitle]</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">첨부파일</th>
+                            <td class="file">[TPH_Vattach]</td>
+                            <th scope="row">등록자</th>
+                            <td>관리자</td>
+                            <th scope="row">등록일</th>
+                            <td>[TPH_Vregi_date]</td>
+                            <th scope="row">조회</th>
+                            <td>[TPH_Vhits]</td>
+                        </tr>
+                        <tr>
+                            <td colspan="8" class="text">[TPH_Vcont]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+            <hr class="end">
+            <footer class="action decide">
+                <!--div class="neighbor">
+                    <span class="button prev">[TPH_Vpre_info]</span>
+                    <span class="button next">[TPH_Vnext_info]</span>
+                </div-->
+                    <button onclick="location.href='/cscenter22/notice_list.html'">목록으로</button>
+            </footer>
+        </section>
+    </main>
+
+    <!-- cs center 우측 컨텐츠 -->
+    [TPH_I/common22/cs_side_contents.html]
+
+    <footer>
+        [TPH_I/common22/footer.html]
+    </footer>
+</body>
+</html>

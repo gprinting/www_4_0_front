@@ -1,0 +1,93 @@
+<header class="popup">
+    <h2>배송지 수정</h2>
+    <button class="btn_popup_close close" title="닫기">닫기</button>
+</header>
+<article>
+    <table class="sheetForm">
+        <colgroup>
+            <col class="th">
+            <col>
+        </colgroup>
+        <tbody>
+            <tr>
+                <th scope="row">업체/상호명</th>
+                <td class="name"><input type="text" name="dlvr_name" id="dlvr_name" value="[TPH_Vdlvr_name]"></td>
+            </tr>
+            <tr>
+                <th scope="row">담당자</th>
+                <td class="name"><input type="text" name="recei" id="recei" value="[TPH_Vrecei]" maxlength="10"> <span class="guide">10자 이내</span></td>
+            </tr>
+            <tr>
+                <th scope="row">연락처</th>
+                <td>
+                    <ol class="tel">
+                        <li>
+                            <select id="tel_num" name="tel_num" value="[TPH_Vtel_num]">
+                                [TPH_VtelOpt]
+                            </select>
+                        </li>
+                        <li>
+                            <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4" id="tel_num2" name="tel_num2" value="[TPH_Vtel_num2]">
+                        </li>
+                        <li>
+                            <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4" id="tel_num3" name="tel_num3" value="[TPH_Vtel_num3]">
+                        </li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">휴대전화</th>
+                <td>
+                    <ol class="tel">
+                        <li>
+                            <select id="cell_num" name="cell_num" value="[TPH_Vcell_num]">
+                                [TPH_VcellOpt]
+                            </select>
+                        </li>
+                        <li>
+                            <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4" id="cell_num2" name="cell_num2" value="[TPH_Vcell_num2]">
+                        </li>
+                        <li>
+                            <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4" id="cell_num3" name="cell_num3" value="[TPH_Vcell_num3]">
+                        </li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">배송지 주소</th>
+                <td>
+                    <ol class="address">
+                        <li class="zipCode">
+                            <input type="text" id="zipcode" name="zipcode" value="[TPH_Vzipcode]" readonly>
+                            <button type="button" class="softC" onclick="getPostcode();">우편번호 찾기</button>
+                        </li>
+                        <li>
+                            <input type="text" id="addr" name="addr" class="address" value="[TPH_Vaddr]" readonly>
+                        </li>
+                        <li>
+                            <input type="text" id="addr_detail" name="addr_detail" class="address" value="[TPH_Vaddr_detail]">
+                        </li>
+                    </ol>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        $('.l_address select._domain').on('change', function () {
+            if ($(this).children('option:selected').hasClass('_custom')) {
+                $(this).prev().val('');
+                $(this).prev()[0].readOnly = false;
+            } else {
+                $(this).prev().val($(this).children('option:selected').text());
+                $(this).prev()[0].readOnly = true;
+            }
+        });
+    </script>
+    <footer class="action">
+        <button type="button" class="progress" onclick="edit('[TPH_Vseq]'); return false;">배송지 수정</button>
+        <button type="button" onclick="confirmClosePopup(event, '입력하신 모든 내용이 사라집니다. 취소하시겠습니까?');">취소</button>
+    </footer>
+    <ul class="guide">
+        <li>연락처 번호와 휴대폰 번호 중 하나는 반드시 입력해야 합니다.</li>
+    </ul>
+</article>

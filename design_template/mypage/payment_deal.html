@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <!-- <style type="text/css">
+        ul.paging .first:after,
+        ul.paging .last:before { content: '···'; margin: 0 6px; }
+    </style> -->
+</head>
+<body>
+<div class="wrapper">
+    <!-- 로그인 박스 -->
+    [TPH_I/common/login.html]
+
+    <!-- 헤더 -->
+    <div class="div_header_wrapper">
+        [TPH_I/common/header.html]
+
+        <!-- 사이드 메뉴 -->
+        [TPH_I/common/side.html]
+
+        <!-- 네비게이션 -->
+        [TPH_I/common/tnb.html]
+    </div>
+    <div class="div_sub_banner">
+        <img class="" src="/design_template/images/sp_banner/banner_payment.jpg" alt="서브배너" />
+        <div class="inner">
+            <div class="title_wrap">
+                <h1>결제</h1>
+                <p>거래내역 및 선입금 충전 등 결제와 관련된 페이지입니다.</p>
+            </div>
+        </div>
+    </div>
+    <div class="contents contents_02 paymentInfo">
+        <div class="lnb">
+            [TPH_I/mypage/common/lnb.html]
+        </div>
+        <h3 class="pageTitle"><div class="bar_left"></div>거래내역 조회</h3>
+        <div class="dealerInformation">
+            <div>
+                <div class="sp_sub_title member_modify_title">
+                    <p><span></span>공급자</p>
+                    <!-- <img src="/design_template/images/mypage/img_payment_deal_section_01.png" alt="공급자"> -->
+                </div>
+                <table class="basic_table">
+                    <colgroup>
+                        <col style="width:100px">
+                        <col style="width:110px">
+                        <col style="width:100px">
+                        <col style="width:110px">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row">등록번호</th>
+                        <td colspan="3" style="text-align:left;">[TPH_Vlicensee_num]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">상호</th>
+                        <td colspan="3" style="text-align:left;">[TPH_Vsell_site]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">대표자</th>
+                        <td colspan="3" style="text-align:left;">[TPH_Vrepre_name]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">사업장소재지</th>
+                        <td colspan="3" style="text-align:left;height:34px;">[TPH_Vaddr] [TPH_Vaddr_detail]</td>
+                    </tr>
+                    <!--
+                    <tr>
+                        <th scope="row">업태</th>
+                        <td>[TPH_Vbc]</td>
+                        <th scope="row">종목</th>
+                        <td>[TPH_Vtob]</td>
+                    </tr>
+                    -->
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <div class="sp_sub_title member_modify_title">
+                    <p><span></span>공급받는 자</p>
+                </div>
+                <table class="basic_table">
+                    <colgroup>
+                        <col style="width:100px">
+                        <col style="width:110px">
+                        <col style="width:100px">
+                        <col style="width:110px">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row">등록번호</th>
+                        <td colspan="3" style="text-align:left;">[TPH_Ved_licensee_num]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">상호</th>
+                        <td colspan="3" style="text-align:left;">[TPH_Ved_sell_site]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">대표자</th>
+                        <td colspan="3" style="text-align:left;">[TPH_Ved_repre_name]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">사업장소재지</th>
+                        <td colspan="3" style="text-align:left; height:34px;">[TPH_Ved_addr] [TPH_Ved_addr_detail]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">업태</th>
+                        <td colspan="3" style="text-align:left;">[TPH_Ved_bc]</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">종목</th>
+                        <td colspan="3" style="text-align:left;">[TPH_Ved_tob]</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="searchCondition">
+            <div class="rowWrap">
+                <dl class="date">
+                    <dt>주문일</dt>
+                    <dd>
+                        [TPH_I/common/datepicker.html]
+                    </dd>
+                </dl>
+            </div>
+            <button class="search" onclick="getPaymentList(10, 1);">검색</button>
+        </div>
+        <table class="list searchResult">
+            <caption class="center">
+                <div class="resultNum" id="resultNum">
+                </div>
+            </caption>
+            <colgroup>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>주문일</th>
+                <th>주문번호</th>
+                <th>주문내용</th>
+                <th>수량</th>
+                <th>건수</th>
+                <th>주문금액</th>
+                <th>할인금액</th>
+                <th>결제금액</th>
+            </tr>
+            </thead>
+            <tbody id="list">
+            </tbody>
+        </table>
+        <ul class="paging" id="paging">
+            <li><button class="on">1</button></li>
+        </ul>
+        <div class="paymentInfo_btn">
+            <button type="button" class="function c_btn-primary-reverse" onclick="downloadExcel();">엑셀로 다운로드</button>
+            <button type="button" class="function c_btn-primary" onclick="printLayerPopup();">인쇄</button>
+            <iframe id="file_ifr" src="" style="display:none; width:0px; height:0px;" width=0 height=0></iframe>
+        </div>
+        [TPH_I/mypage/common/banner.html]
+    </div>
+    <footer>
+        [TPH_I/common/footer.html]
+    </footer>
+</div>
+</body>
+</html>

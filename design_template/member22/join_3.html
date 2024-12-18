@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <!--script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false"></script-->
+    <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+    <script>
+    //우편번호 팝업
+    var getPostcode = function() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+               var fullAddr = ''; // 최종 주소 변수
+               var extraAddr = ''; // 조합형 주소 변수
+
+               // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+               if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                   fullAddr = data.roadAddress;
+
+               } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                   fullAddr = data.jibunAddress;
+               }
+
+               // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+               if (data.userSelectedType === 'R'){
+                   //법정동명이 있을 경우 추가한다.
+                   if(data.bname !== ''){
+                       extraAddr += data.bname;
+                   }
+                   // 건물명이 있을 경우 추가한다.
+                   if(data.buildingName !== ''){
+                       extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                   }
+                   // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                   fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+               }
+
+               // 우편번호와 주소 정보를 해당 필드에 넣는다.
+               document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
+               document.getElementById('addr').value = fullAddr;
+
+               // 커서를 상세주소 필드로 이동한다.
+               document.getElementById('addr_detail').focus();
+            }
+        }).open({
+            popupName: 'postcodePopup'
+        });
+    }
+
+    </script>
+</head>
+<body>
+<header class="top">
+    [TPH_I/common/header.html]
+</header>
+<section class="contents join">
+    <!-- <header class="title">
+        <ol class="location">
+            [TPH_I/common/home_btn.html]
+            <li><span>회원가입</span></li>
+            <li><span>회원유형선택</span></li>
+        </ol>
+    </header> -->
+    <img src="/design_template/images/member/join_title.png" alt="회원가입">
+    <ol class="joinSteps">
+        <li class="step1">회원유형 선택</li>
+        <li class="step2">약관 동의</li>
+        <li class="step3"><h3>정보 입력</h3></li>
+        <li class="step4">가입 완료</li>
+    </ol>
+
+    <form name="frm" id="frm" action="/member/join_4.html" method="post">
+    <section class="application">
+      [TPH_Vjoin_html]
+    </section>
+    <!--
+    <section class="application certificationType">
+        <h4>가상계좌 설정</h4>
+        <ul>
+            <li>가상계좌 은행을 <label><select id="bank_name" name="bank_name">[TPH_Vbank_html]</select></label> 설정 하겠습니다.</li>
+        </ul>
+    </section>
+    -->
+    <!--
+    <section class="application certificationType">
+        <h4>회원 본인 인증</h4>
+        <ul>
+            <li><label><input type="radio" name="certificationType" onclick="getCerti('cell');"> 휴대폰 인증</label></li>
+            <li><label><input type="radio" name="certificationType" onclick="getCerti('ipin');"> 아이핀 인증</label></li>
+        </ul>
+    </section>
+    -->
+    <input type="hidden" id="dvs" name="dvs" value="[TPH_Vdvs]">
+    </form>
+    <div class="function navigation">
+        <!-- 이전 A태그 버튼
+        <a  style="cursor: pointer;" onclick="backPage();" target="_self" class="prev">이전단계로</a>
+        -->
+        <button type="button" onclick="backPage();" class="prev">이전단계로</button>
+        <button type="button" onclick="goPage();" class="next">다음단계로</button>
+    </div>
+</section>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</body>
+</html>

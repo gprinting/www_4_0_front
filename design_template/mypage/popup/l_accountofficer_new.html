@@ -1,0 +1,70 @@
+<header>
+    <h2>회계담당자 추가</h2>
+    <button id="acc_close" class="close" title="닫기"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_x_white.png" alt="X"></button>
+</header>
+<article>
+    <table class="input to">
+        <colgroup>
+            <col width="85">
+            <col>
+            <col width="85">
+            <col>
+        </colgroup>
+        <tbody>
+            <tr>
+                <th scope="row">성명</th>
+                <td class="name"><input type="text" id="acc_name" name="acc_name" style="width:84px"> (10자 이내)</td>
+                <th scope="row">직급</th>
+                <td><div class="inputWrap"><input type="text" id="acc_posi" name="acc_posi"></div></td>
+            </tr>
+            <tr>
+                <th scope="row">전화번호</th>
+                <td colspan="3">
+                    <select id="acc_tel_num1" name="acc_tel_num1">
+                        [TPH_Vtel_html]
+                    </select>
+                    <input type="text" id="acc_tel_num2" name="acc_tel_num2" maxlength="4">
+                    <input type="text" id="acc_tel_num3" name="acc_tel_num3" maxlength="4">
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">휴대전화번호</th>
+                <td colspan="3">
+                    <select id="acc_cel_num1" name="acc_cel_num1">
+                        [TPH_Vcel_html]
+                    </select>
+                    <input type="text" id="acc_cel_num2" name="acc_cel_num2" maxlength="4">
+                    <input type="text" id="acc_cel_num3" name="acc_cel_num3" maxlength="4">
+                </td>
+            </tr>
+            <tr>
+                <th>이메일</th>
+                <td colspan="3" class="info _email">
+                    <input type="text" id="acc_email_addr" name="acc_email_addr">
+                    <span>@</span>
+                    <input type="text" class="_domain" id="acc_email_domain" name="acc_email_domain">
+                    <select class="_domain">
+                        <option class="_custom">직접입력</option>
+                        [TPH_Vemail_html]
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="function center">
+        <strong class="blue" onclick="regiAccMng(); return false;"><button >추가</button></strong>
+        <button onclick="confirmClosePopup(event, '입력하신 모든 내용이 사라집니다. 취소하시겠습니까?');">취소</button>
+    </div>
+    <script>
+        // e-mail
+        $('.l_officer select._domain').on('change', function () {
+            if ($(this).children('option:selected').hasClass('_custom')) {
+                $(this).prev().val('');
+                $(this).prev()[0].readOnly = false;
+            } else {
+                $(this).prev().val($(this).children('option:selected').text());
+                $(this).prev()[0].readOnly = true;
+            }
+        });
+    </script>
+</article>

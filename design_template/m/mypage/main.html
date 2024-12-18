@@ -1,0 +1,708 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+    [TPH_I/m/common/head.html]
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 네비게이션 -->
+        [TPH_I/m/common/nav.html]
+        <!-- 헤더 -->
+        [TPH_I/m/common/header.html]
+
+        <div class="contents">
+            <!-- 회원등급 start -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title">
+                    회원등급
+                </div>
+            </div>
+            <div class="mypage_main_table_wrapper">
+                <table class="mypage_main_table">
+                    <colgroup>
+                        <col style="width:25%;">
+                        <col style="width:25%;">
+                        <col style="width:25%;">
+                        <col style="width:25%;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td colspan="4">
+                                <div class="mypage_member_grade">
+                                    <div class="mypage_member_grade_img">
+                                        <img src="[TPH_Vdesign_dir]/images/common/img_[TPH_Vgrade].png" alt="등급이미지" />
+                                    </div>
+                                    <div class="mypage_member_grade_text">
+                                        <p>[TPH_Vname]님의 현재 등급</p>
+                                        <img src="[TPH_Vdesign_dir]/images/common/text_[TPH_Vgrade].png" alt="등급이미지" />
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img class="side_table_icon" src="[TPH_Vdesign_dir]/images/common/icon_side_cash.png" alt="선입금" />
+                                <p class="side_table_text">
+                                    선입금<br><span class="side_table_text_span">[TPH_Vprepay_price]</span>원
+                                </p>
+                            </td>
+                            <td>
+                                <img class="side_table_icon" src="[TPH_Vdesign_dir]/images/common/icon_mypage_cash_lack.png" alt="주문부족금액" />
+                                <p class="side_table_text">
+                                    주문부족금액<br><span class="side_table_text_span">[TPH_Vorder_lack_price]</span>원
+                                </p>
+                            </td>
+                            <td>
+                                <img class="side_table_icon" src="[TPH_Vdesign_dir]/images/common/icon_side_point.png" alt="포인트" />
+                                <p class="side_table_text">
+                                    포인트<br><span class="side_table_text_span">[TPH_Vown_point]</span>P
+                                </p>
+                            </td>
+                            <td>
+                                <img class="side_table_icon" src="[TPH_Vdesign_dir]/images/common/icon_side_coupon.png" alt="쿠폰" />
+                                <p class="side_table_text">
+                                    쿠폰<br><span class="side_table_text_span">[TPH_Vcp_count]</span>매
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 회원등급 end -->
+
+            <!-- 공정상태 start -->
+            <div class="mypage_status_table_wrapper">
+                <table class="mypage_status_top_info">
+                    <colgroup>
+                        <col style="width:75%;">
+                        <col style="width:25%;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p class="mypage_status_text_p">전체주문 <span class="mypage_status_text_span">157</span> / [TPH_Vperiod]</p>
+                            </td>
+                            <td>
+                                <select class="select_basic_table_top_02 " onchange="getOrderStatus(this.value)">
+                                    <option selected="selected" value="W">1주</option>
+                                    <option value="">2주</option>
+                                    <option value="">당월</option>
+                                    <option value="">전월</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <table class="mypage_status_table">
+                    <!--
+                    <caption>
+                        <p class="mypage_status_text">전체주문<span class="mypage_status_text_span">0</span></p>
+                    </caption>
+                    -->
+                    <colgroup>
+                        <col style="width:25%;">
+                        <col style="width:25%;">
+                        <col style="width:25%;">
+                        <col style="width:25%;">
+                    </colgroup>
+                    <tr>
+                        <td class="status_top_td">
+                            <img class="mypage_status_icon" src="[TPH_Vdesign_dir]/images/mypage/mypage_icon_02.png" alt="장바구니">
+                            <p class="mypage_status_text">장바구니<br>
+                                <span class="mypage_status_text_span">0</span>
+                            </p>
+                        </td>
+                        <td>
+                            <img class="mypage_status_icon" src="[TPH_Vdesign_dir]/images/mypage/mypage_icon_13.png" alt="주문">
+                            <p class="mypage_status_text">주문<br>
+                                <span class="mypage_status_text_span">0</span>
+                            </p>
+                        </td>
+                        <td>
+                            <img class="mypage_status_icon" src="[TPH_Vdesign_dir]/images/mypage/mypage_icon_03.png" alt="입금">
+                            <p class="mypage_status_text">입금<br>
+                                <span class="mypage_status_text_span">0</span>
+                            </p>
+                        </td>
+                        <td>
+                            <img class="mypage_status_icon" src="[TPH_Vdesign_dir]/images/mypage/mypage_icon_04.png" alt="접수">
+                            <p class="mypage_status_text">접수<br>
+                                <span class="mypage_status_text_span">0</span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img class="mypage_status_icon" src="[TPH_Vdesign_dir]/images/mypage/mypage_icon_05.png" alt="조판">
+                            <p class="mypage_status_text">조판<br>
+                                <span class="mypage_status_text_span">0</span>
+                            </p>
+                        </td>
+                        <td>
+                            <img class="mypage_status_icon" src="[TPH_Vdesign_dir]/images/mypage/mypage_icon_06.png" alt="출력">
+                            <p class="mypage_status_text">출력<br>
+                                <span class="mypage_status_text_span">0</span>
+                            </p>
+                        </td>
+                        <td>
+                            <img class="mypage_status_icon" src="[TPH_Vdesign_dir]/images/mypage/mypage_icon_07.png" alt="인쇄">
+                            <p class="mypage_status_text">인쇄<br>
+                                <span class="mypage_status_text_span">0</span>
+                            </p>
+                        </td>
+                        <td>
+                            <img class="mypage_status_icon" src="[TPH_Vdesign_dir]/images/mypage/mypage_icon_08.png" alt="후가공">
+                            <p class="mypage_status_text">후가공<br>
+                                <span class="mypage_status_text_span">0</span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img class="mypage_status_icon" src="[TPH_Vdesign_dir]/images/mypage/mypage_icon_09.png" alt="입고">
+                            <p class="mypage_status_text">입고<br>
+                                <span class="mypage_status_text_span">0</span>
+                            </p>
+                        </td>
+                        <td>
+                            <img class="mypage_status_icon" src="[TPH_Vdesign_dir]/images/mypage/mypage_icon_10.png" alt="출고">
+                            <p class="mypage_status_text">출고<br>
+                                <span class="mypage_status_text_span">0</span>
+                            </p>
+                        </td>
+                        <td>
+                            <img class="mypage_status_icon" src="[TPH_Vdesign_dir]/images/mypage/mypage_icon_11.png" alt="배송">
+                            <p class="mypage_status_text">배송<br>
+                                <span class="mypage_status_text_span">0</span>
+                            </p>
+                        </td>
+                        <td>
+                            <img class="mypage_status_icon" src="[TPH_Vdesign_dir]/images/mypage/mypage_icon_12.png" alt="완료">
+                            <p class="mypage_status_text">완료<br>
+                                <span class="mypage_status_text_span">0</span>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- 공정상태 end -->
+
+            <!-- 기본배송지 start -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title">
+                    기본배송지
+                    <a href="/mypage/delivery_address.html">
+                        <img class="btn_view_option" src="/design_template/m/images/common/btn_view_option_on.png" alt="더보기">
+                    </a>
+                </div>
+            </div>
+            <div class="basic_table_02_wrapper">
+                <table class="basic_table_02">
+                    <colgroup>
+                        <col style="width:10%;">
+                        <col style="">
+                    </colgroup>
+                    <tbody>
+                        [TPH_Vdlvr]
+                    </tbody>
+                </table>
+            </div>
+            <!-- 기본배송지 end -->
+
+            <!-- 기본배송지 start -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title">
+                    배송 유형 안내
+                </div>
+            </div>
+            <div class="basic_table_02_wrapper">
+                <table class="basic_table_02">
+                    <colgroup>
+                        <col style="width:10%;">
+                        <col style="">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>월배송 서비스</th>
+                            <td class="bottom_border">월배송 서비스를 이용하고 계십니다.</td>
+                        </tr>
+                        <tr>
+                            <th>남은 기간</th>
+                            <td class="bottom_border">남은 서비스 이용기간 : <span class="note_color">3일</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border:none;">
+                                <div class="button_wrapper" style="width:100%;">
+                                    <a href=""><button class="mypage_bottom_basic_btn_out" type="button" style="width:100%; font-size:1em; margin-top: 6px;">월배송 안내 보러가기</button></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 기본배송지 end -->
+
+            <div class="sub_title_wrapper">
+                <div class="sub_title">
+                    1:1 문의
+                    <a href="/mypage/ftf_list.html">
+                        <img class="btn_view_option" src="/design_template/m/images/common/btn_view_option_on.png" alt="더보기">
+                    </a>
+                </div>
+            </div>
+            <table class="board_type_table_top_02 mypage_bottom_table">
+                <colgroup>
+                    <col style="width:60%;">
+                    <col style="width:20%;">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>문의드려요 ^^</td>
+                        <td><div class="icon_table_01">답변대기</div></td>
+                    </tr>
+                    <tr>
+                        <td>궁금한 사항이 있습니다.</td>
+                        <td><div class="icon_table_02">답변완료</div></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="sub_title_wrapper">
+                <div class="sub_title">
+                    견적문의
+                    <a href="/mypage/estimate_list.html">
+                        <img class="btn_view_option" src="/design_template/m/images/common/btn_view_option_on.png" alt="더보기">
+                    </a>
+                </div>
+            </div>
+            <table class="board_type_table_top_02 mypage_bottom_table" style="margin-bottom:0%;">
+                <colgroup>
+                    <col style="width:60%;">
+                    <col style="width:20%;">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>빠른 견적 부탁드립니다.</td>
+                        <td><div class="icon_table_01">답변대기</div></td>
+                    </tr>
+                    <tr>
+                        <td>잡코리아 견적 문의</td>
+                        <td><div class="icon_table_02">답변완료</div></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- 푸터 -->
+        [TPH_I/m/common/footer.html]
+
+        <!-- 레이어팝업/주문취소 start -->
+        <div class="layerpopup layerpopup_order_cancel">
+            <div class="layerpopup_contents">
+                <div class="layerpopup_title">
+                    <p class="main_title">주문취소</p>
+                </div>
+                <table class="layerpopup_table">
+                    <tr>
+                        <td style="text-align:center; padding:0 !important;">
+                            주문을 취소하시겠습니까?
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="div_radius_frame_02">
+                                <div class="div_radius_frame_text">
+                                    <p>아래 '확인' 버튼을 클릭하면 즉시 취소됩니다.</p>
+                                    <p>취소한 주문은 전체 주문 목록에서 확인하실 수 있습니다.</p>
+                                    <p>공정 단계가 조판으로 넘어간 상태에서는 주문을 취소하실 수 없습니다.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="mypage_bottom_basic_btn_inner btn_layerpopup_hide" type="button">취소</button>
+                                <button class="mypage_bottom_color_btn_inner" type="button">확인</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- 레이어팝업/주문취소 end -->
+
+        <!-- 레이어팝업/시안보기 start -->
+        <div class="layerpopup layerpopup_sample_view">
+            <div class="layerpopup_contents">
+                <div class="layerpopup_title">
+                    <p class="main_title">시안보기</p>
+                </div>
+                <table class="layerpopup_table">
+                    <tr>
+                        <td>
+                            <img class="mypage_sample_img" src="[TPH_Vdesign_dir]/images/mypage/test.jpg" alt="시안보기 이미지" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="mypage_bottom_basic_btn_inner btn_layerpopup_hide" type="button">취소</button>
+                                <button class="mypage_bottom_color_btn_inner" type="button">PDF 다운로드</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- 레이어팝업/시안보기 end -->
+
+        <!-- 레이어팝업/파일재전송 start -->
+        <div class="layerpopup layerpopup_file_upload">
+            <div class="layerpopup_contents">
+                <div class="layerpopup_title">
+                    <p class="main_title">파일재전송</p>
+                </div>
+                <table class="layerpopup_table">
+                    <tr>
+                        <td style="text-align: center;">
+                            <span class="note_color" style="font-weight:400;">파일명.ai</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="filebox">
+                                <colgroup>
+                                    <col style="width:40%;">
+                                    <col style="width:60%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding:0 5% 0 0 !important;">
+                                            <label for="ex_filename">파일선택</label>
+                                        </td>
+                                        <td style="padding: 0 0 0 0 !important;">
+                                            <input class="upload-name" value="" disabled="disabled">
+                                        <input type="file" id="ex_filename" class="upload-hidden"> 
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="div_radius_frame_02">
+                                <div class="div_radius_frame_text">
+                                    <p>후공정 작업파일과 인쇄물 작업파일을 같이 압축해서 올려 주십시오.</p>
+                                    <p>후공정 작업파일은 한 파일로 작업하여 올려 주십시오.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="mypage_bottom_basic_btn_inner btn_layerpopup_hide" type="button">취소</button>
+                                <button class="mypage_bottom_color_btn_inner" type="button">업로드</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- 레이어팝업/파일재전송 end -->
+
+        <!-- 레이어팝업/클레임요청 start -->
+        <div class="layerpopup layerpopup_claim">
+            <div class="layerpopup_contents">
+                <table class="layerpopup_table">
+                    <tr>
+                        <td style="text-align:center;">
+                            배송완료시에 클레임요청이 가능합니다.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="mypage_bottom_color_btn_inner btn_layerpopup_hide" type="button">확인</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- 레이어팝업/클레임요청 end -->
+
+        <!-- 레이어팝업/메모 start -->
+        <div class="layerpopup layerpopup_memo">
+            <div class="layerpopup_contents">
+                <div class="layerpopup_title">
+                    <p class="main_title">메모</p>
+                </div>
+                <table class="layerpopup_table">
+                    <tr>
+                        <td>
+                            <textarea class="basic_input mypage_memo" style="height:100px; font-size:1.063em !important;" readonly="readonly" placeholder="메모를 보여주는 창입니다."></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="button_wrapper">
+                                <button class="mypage_bottom_color_btn_inner btn_layerpopup_hide" type="button">닫기</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- 레이어팝업/메모 end -->
+
+        <!-- 레이어팝업/배송지변경 start -->
+        <div class="layerpopup layerpopup_address_modify" style="display:block;">
+            <div class="layerpopup_contents">
+                <div class="layerpopup_title">
+                    <p class="main_title">배송지 변경</p>
+                </div>
+                <div class="basic_table_wrapper scroll">
+                    <table class="basic_table">
+                        <tbody>
+                            <tr>
+                                <th class="" style="padding-top:0% !important;">배송방법</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="dlvr_to_way" id="dlvr_to_way" class="basic_input dlvr_way" onchange="changeDlvrMethod.exec();">
+                                        <option value="01">택배</option>
+                                        <option value="04">퀵(오토바이)</option>
+                                        <option value="05">퀵(다마스)</option>
+                                        <option value="06">방문(인현동)</option>
+                                        <option value="07">방문(성수동)</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>배송비 지불</th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom:0% !important;">
+                                    <table class="basic_detail_table">
+                                        <colgroup>
+                                            <col style="width:50%;">
+                                            <col style="width:50%;">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td style="padding-bottom:0% !important;">
+                                                    <input type="radio" name="dlvr_sum_way" onchange="chkPrevDlvr(this.value);" value="01" checked="checked"><label for="" class="Column_02">선불</label>
+                                                </td>
+                                                <td style="padding-bottom:0% !important;">
+                                                    <input type="radio" name="dlvr_sum_way" onchange="chkPrevDlvr(this.value);" value="02"><label for="" class="Column_02">착불</label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <th>업체/상호명</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input class="basic_input" type="text" id="addr_detail" name="addr_detail" value="">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>수신자</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input class="basic_input" type="text" id="addr_detail" name="addr_detail" value="">
+                                </td>
+                            </tr>
+
+                            <!--
+                            <tr>
+                                <th>이메일</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table class="basic_detail_table">
+                                        <colgroup>
+                                            <col style="width:45%;">
+                                            <col style="width:10%;">
+                                            <col style="width:45%;">
+                                        </colgroup>
+                                        <tbody class="email _replyToEmail">
+                                            <tr>
+                                                <td>
+                                                    <input class="basic_input Column_02" type="text" id="email_addr" name="email_addr" value="test">
+                                                </td>
+                                                <td style="text-align:center;">@</td>
+                                                <td>
+                                                    <input type="text" class="basic_input Column_02" id="email_domain" name="email_domain" value="">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <input type="hidden" id="pre_domain" value="co.kr">
+                                                <td colspan="3" style="padding: 10px 0 !important;">
+                                                    <select class="basic_input Column_02">
+                                                        <option class="_custom">직접입력</option>
+                                                            <option value="naver.com">naver.com</option>
+                                                            <option value="nate.com">nate.com</option>
+                                                            <option value="gmail.com">gmail.com</option>
+                                                            <option value="hanmail.net">hanmail.net</option>
+                                                            <option value="daum.net">daum.net</option>
+                                                            <option value="hotmail.com">hotmail.com</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            -->
+                            <tr>
+                                <th>전화번호</th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom:0% !important;">
+                                    <table class="basic_detail_table">
+                                        <colgroup>
+                                            <col style="width:30%;">
+                                            <col style="width:40%;">
+                                            <col style="width:30%;">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <select id="tel_num1" name="tel_num1" class="basic_input Column_03">
+                                                        <option value="02">02</option>
+                                                        <option value="031">031</option>
+                                                        <option value="032">032</option>
+                                                        <option value="033">033</option>
+                                                        <option value="041">041</option>
+                                                        <option value="042">042</option>
+                                                        <option value="043">043</option>
+                                                        <option value="044">044</option>
+                                                        <option value="051">051</option>
+                                                        <option value="052">052</option>
+                                                        <option value="053">053</option>
+                                                        <option value="054">054</option>
+                                                        <option value="055">055</option>
+                                                        <option value="061">061</option>
+                                                        <option value="062">062</option>
+                                                        <option value="063">063</option>
+                                                        <option value="064">064</option>
+                                                        <option value="010">010</option>
+                                                        <option value="070">070</option>
+                                                    </select>
+                                                </td>
+                                                <td style="padding: 0% 5% 3% 5% !important;">
+                                                    <input class="basic_input Column_03" type="text" id="tel_num2" name="tel_num2" value="" maxlength="4">
+                                                </td>
+                                                <td>
+                                                    <input class="basic_input Column_03" type="text" id="tel_num3" name="tel_num3" value="" maxlength="4">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>휴대전화</th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom:0% !important;">
+                                    <table class="basic_detail_table">
+                                        <colgroup>
+                                            <col style="width:30%;">
+                                            <col style="width:40%;">
+                                            <col style="width:30%;">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <select id="cel_num1" name="cel_num1" class="basic_input Column_03">
+                                                        <option value="010">010</option>
+                                                        <option value="011">011</option>
+                                                        <option value="016">016</option>
+                                                        <option value="017">017</option>
+                                                        <option value="018">018</option>
+                                                    </select>
+                                                </td>
+                                                <td style="padding: 0% 5% 3% 5% !important;">
+                                                    <input class="basic_input Column_03" type="text" id="cel_num2" name="cel_num2" value="" maxlength="4">
+                                                </td>
+                                                <td>
+                                                    <input class="basic_input Column_03" type="text" id="cel_num3" name="cel_num3" value="" maxlength="4">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <!-- 주소 -->
+                            <tr>
+                                <th>주소</th>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 0% !important;">
+                                    <table class="basic_detail_table">
+                                        <colgroup>
+                                            <col style="width:100%;">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input class="basic_input Column_02" type="text" id="zipcode" name="zipcode" value="" readonly="readonly" style="width:40%; margin-right:5%;">
+                                                    <button class="btn_mini" type="button" style="width:40%; font-size:1em !important;" onclick="getPostcode('');">우편번호 찾기</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input class="basic_input" type="text" id="addr" name="addr" value="" readonly="readonly">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input class="basic_input" type="text" id="addr_detail" name="addr_detail" value="">
+                                </td>
+                            </tr>
+                            <!-- 주소 end -->
+
+                            <!-- 알림 수신 -->
+                            <tr>
+                                <td style="text-align: center; font-size: 1em;">배송금액 <span class="note_color">10,000원</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="button_wrapper">
+                                        <button class="mypage_bottom_basic_btn_inner btn_layerpopup_hide" type="button">취소</button>
+                                        <button class="mypage_bottom_color_btn_inner" type="button">배송지 수정</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- 레이어팝업/배송지변경 end -->
+
+        <!-- 레이어팝업 배경 start -->
+        <div class="layerpopup_bg" style="display:block;"></div>
+        <!-- 레이어팝업 배경 end -->
+
+    </div>
+</body> 
+</html>

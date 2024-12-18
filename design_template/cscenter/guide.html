@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/cs_head.html]
+</head>
+<body>
+<div class="wrapper">
+    <!-- 헤더 -->
+    [TPH_I/common/head.html]
+    [TPH_I/common/cs_header.html]
+
+<div class="div_sub_banner cs_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_guide.jpg" alt="서브배너" />
+</div>
+<div class="contents contents_02 cscenter guide">
+    <div class="lnb">
+        [TPH_I/cscenter/common/lnb.html]
+    </div>
+    <h3 class="pageTitle"><img src="[TPH_Vdesign_dir]/images/title/guide.png" alt="이용안내"></h3>
+    <input type="hidden" name="type" id="type" value="[TPH_Vtype]" />
+    <div class="pageTab">
+        <ul>[TPH_VpageTab]</ul>
+    </div>
+    <ul class="list" id="list">
+        <li style="display:[TPH_Vdisplay_etc];"><img src="[TPH_Vdesign_dir]/images/cscenter/use_guide_[TPH_Vtype_en].jpg" alt=""></li>
+        <li style="display:[TPH_Vdisplay_paper_dscr];">
+          <div class="paper_tab">
+            <button class="paper_dscr btn_active normal" dvs="normal">일반지</button>
+            <button class="paper_dscr high" dvs="high">고급지</button>
+            <button class="paper_dscr special" dvs="special">특수지</button>
+            <button class="paper_dscr sticker" dvs="sticker">스티커지</button>
+          </div>
+          <div id="paper_dscr_list">
+          </div>
+        </li>
+    </ul>
+    <ul class="paging" id="paging">
+    </ul>
+</div>
+
+<!-- cs center 우측 컨텐츠 -->
+[TPH_I/common/cs_side_contents.html]
+
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

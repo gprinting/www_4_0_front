@@ -1,0 +1,25 @@
+<div id="file_uploading" class="popupMask" style="">
+    <section class="popup uploading">
+        <header class="popup">
+            <h2>파일 업로드 중</h2>
+        </header>
+        <article>
+            <p class="boxC">
+                <em>파일을 올리는 중입니다. 잠시만 기다려주세요.</em>
+            </p>
+            <div id="file_progress" class="progressBar">
+                <em id="file_uploading_name"></em>
+            </div>
+            <input type="hidden" id="file_id" />
+            <hr class="end">
+            <ul class="guide">
+                <li><strong>업로드가 진행되는 동안에 다른 명령을 내릴 경우 업로드에 문제가 발생할 수 있습니다.</strong></li>
+                <li>취소 버튼으로 언제든지 업로드를 중단할 수 있습니다.</li>
+                <li>업로드가 완료되면 현재 창은 자동으로 닫힙니다.</li>
+            </ul>
+            <footer class="action">
+                <button type="button" onclick="cancelFileUpload();">취소</button>
+            </footer>
+        </article>
+    </section>
+</div>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <!-- <style type="text/css">
+        ul.paging .first:after,
+        ul.paging .last:before { content: '···'; margin: 0 6px; }
+    </style> -->
+</head>
+<body>
+<div class="wrapper">
+    <!-- 로그인 박스 -->
+    [TPH_I/common/login.html]
+
+    <!-- 헤더 -->
+    <div class="div_header_wrapper">
+        [TPH_I/common/header.html]
+
+        <!-- 사이드 메뉴 -->
+        [TPH_I/common/side.html]
+
+        <!-- 네비게이션 -->
+        [TPH_I/common/tnb.html]
+    </div>
+    <div class="div_sub_banner">
+        <img class="" src="/design_template/images/sp_banner/banner_mypage_claim.jpg" alt="서브배너" />
+        <div class="inner">
+            <div class="title_wrap">
+                <h1>1:1 문의</h1>
+                <p>문의사항이 있으신가요? 성심껏 답변해드리겠습니다.</p>
+            </div>
+        </div>
+    </div>
+    <div class="contents contents_02 ftfInquery">
+        <div class="lnb">
+            [TPH_I/mypage/common/lnb.html]
+        </div>
+        <h3 class="pageTitle"><div class="bar_left"></div>1:1 문의</h3>
+        <form name="searchFrm" id="searchFrm">
+            <div class="searchCondition">
+                <div class="rowWrap">
+                    <dl class="date">
+                        <dt>의뢰일</dt>
+                        <dd>
+                            [TPH_I/common/datepicker.html]
+                        </dd>
+                    </dl>
+                    <dl class="status last">
+                        <dt>답변상태</dt>
+                        <dd>
+                            <select id="answ_yn">
+                                <option value="">전체</option>
+                                <option value="N">대기</option>
+                                <option value="Y">완료</option>
+                            </select>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="rowWrap">
+                    <dl class="inqueryType">
+                        <dt>문의유형</dt>
+                        <dd>
+                            <select id="inq_typ">
+                                <option value="">전체</option>
+                                <option value="버그">버그</option>
+                                <option value="사고">사고</option>
+                                <option value="정보">정보</option>
+                                <option value="기타">기타</option>
+                            </select>
+                        </dd>
+                    </dl>
+                    <dl class="title last">
+                        <dt>문의제목</dt>
+                        <dd><input type="text" onkeydown="searchKey(event);" name="title" id="title" ></dd>
+                    </dl>
+                </div>
+                <button onclick="searchTxt();" type="button" class="search">검색</button>
+            </div>
+        </form>
+        <table class="list searchResult update">
+            <caption>
+                <div class="resultNum" id="resultNum">
+                </div>
+                [TPH_I/common/list_num.html]
+            </caption>
+            <colgroup>
+                <col style="width:60px">
+                <col style="width:90px">
+                <col style="width:90px">
+                <col>
+                <col style="width:90px">
+                <col style="width:70px">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>의뢰일</th>
+                <th>문의유형</th>
+                <th>문의제목</th>
+                <th>답변등록일</th>
+                <th>상태</th>
+            </tr>
+            </thead>
+            <tbody id="list">
+            <!--
+                        <tr class="waiting">
+                            <td>10</td>
+                            <td>2015-03-20</td>
+                            <td>인쇄/제작</td>
+                            <td class="subject"><a href="#none" target="_self">코팅을 빼면 출고가 어느정도 빨라지나요?코팅을 빼면 출고가 어느정도 빨라지나요?코팅을 빼면 출고가 어느정도 빨라지나요?</a></td>
+                            <td>2015-03-20</td>
+                            <td class="status"><img src="/design_template/images/mypage/text_question_waiting.png" alt="답변대기"></td>
+                        </tr>
+                        <tr class="waiting new">
+                            <td>9</td>
+                            <td>2015-03-20</td>
+                            <td>인쇄/제작</td>
+                            <td class="subject"><a href="#none" target="_self">코팅을 빼면 출고가 어느정도 빨라지나요?코팅을 빼면 출고가 어느정도 빨라지나요?코팅을 빼면 출고가 어느정도 빨라지나요?</a></td>
+                            <td>2015-03-20</td>
+                            <td class="status"><img src="/design_template/images/mypage/text_question_waiting.png" alt="답변대기"></td>
+                        </tr>
+                        <tr class="new">
+                            <td>8</td>
+                            <td>2015-03-20</td>
+                            <td>인쇄/제작</td>
+                            <td class="subject"><a href="#none" target="_self">코팅을 빼면 출고가 어느정도 빨라지나요?</a></td>
+                            <td>2015-03-20</td>
+                            <td class="status"><img src="/design_template/images/mypage/text_question_waiting.png" alt="답변대기"></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>2015-03-20</td>
+                            <td>인쇄/제작</td>
+                            <td class="subject"><a href="#none" target="_self">코팅을 빼면 출고가 어느정도 빨라지나요?</a></td>
+                            <td>2015-03-20</td>
+                            <td class="status"><img src="../../images/mypage/text_question_waiting.png" alt="답변대기"></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>2015-03-20</td>
+                            <td>인쇄/제작</td>
+                            <td class="subject"><a href="#none" target="_self">코팅을 빼면 출고가 어느정도 빨라지나요?</a></td>
+                            <td>2015-03-20</td>
+                            <td class="status"><img src="../../images/mypage/text_question_waiting.png" alt="답변대기"></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>2015-03-20</td>
+                            <td>인쇄/제작</td>
+                            <td class="subject"><a href="#none" target="_self">코팅을 빼면 출고가 어느정도 빨라지나요?</a></td>
+                            <td>2015-03-20</td>
+                            <td class="status"><img src="../../images/mypage/text_question_waiting.png" alt="답변대기"></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>2015-03-20</td>
+                            <td>인쇄/제작</td>
+                            <td class="subject"><a href="#none" target="_self">코팅을 빼면 출고가 어느정도 빨라지나요?</a></td>
+                            <td>2015-03-20</td>
+                            <td class="status"><img src="../../images/mypage/text_question_waiting.png" alt="답변대기"></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>2015-03-20</td>
+                            <td>인쇄/제작</td>
+                            <td class="subject"><a href="#none" target="_self">코팅을 빼면 출고가 어느정도 빨라지나요?</a></td>
+                            <td>2015-03-20</td>
+                            <td class="status"><img src="../../images/mypage/text_question_waiting.png" alt="답변대기"></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>2015-03-20</td>
+                            <td>인쇄/제작</td>
+                            <td class="subject"><a href="#none" target="_self">코팅을 빼면 출고가 어느정도 빨라지나요?</a></td>
+                            <td>2015-03-20</td>
+                            <td class="status"><img src="../../images/mypage/text_question_waiting.png" alt="답변대기"></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2015-03-20</td>
+                            <td>인쇄/제작</td>
+                            <td class="subject"><a href="#none" target="_self">코팅을 빼면 출고가 어느정도 빨라지나요?</a></td>
+                            <td>2015-03-20</td>
+                            <td class="status"><img src="../../images/mypage/text_question_waiting.png" alt="답변대기"></td>
+                        </tr>
+            -->
+            </tbody>
+        </table>
+        <form name="frm" id="frm">
+            <input type="hidden" id="seq" name="seq"/>
+            <input type="hidden" id="searchParam" name="searchParam" value="[TPH_VsearchParam]"/>
+        </form>
+        <ul class="paging" id="paging">
+            <li><button class="on">1</button></li>
+        </ul>
+        <div class="function center">
+            <strong><button onclick="ftfWrite();" class="function">1:1문의</button></strong>
+        </div>
+        [TPH_I/mypage/common/banner.html]
+    </div>
+    <footer>
+        [TPH_I/common/footer.html]
+    </footer>
+</div>
+</body>
+</html>

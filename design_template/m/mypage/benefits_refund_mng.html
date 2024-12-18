@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+    [TPH_I/m/common/head.html]
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 네비게이션 -->
+        [TPH_I/m/common/nav.html]
+        <!-- 헤더 -->
+        [TPH_I/m/common/header.html]
+
+        <div class="contents">
+            <!-- 상단 탭 start -->
+            <table class="page_tab" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-bottom:0;">
+                <colgroup>
+                    <col style="width:50%;">
+                    <col style="width:50%;">
+                </colgroup>
+                <tr>
+                    <td onclick="location.href='benefits_virtual_mng.html'">가상계좌 관리</td>
+                    <td onclick="location.href='benefits_refund_mng.html'" class="on">환불계좌 관리</td>
+                </tr>
+            </table>
+            <!-- 상단 탭 end -->
+
+            <!-- 환불계좌 관리 start -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title">
+                    환불계좌 관리
+                </div>
+            </div>
+            <div class="div_radius_frame">
+                <table class="mypage_radius_table">
+                    <colgroup>
+                        <col style="width:90%;">
+                        <col style="width:10%;">
+                    </colgroup>
+                    <tr>
+                        <td class="mypage_radius_title">
+                            나의 환불계좌
+                        </td>
+                        <td rowspan="2">
+                            <div class="btn_board_list_manage">
+                                <img class="btn_modify_01" src="[TPH_Vdesign_dir]/images/common/btn_list_detail_on.png" alt="아이콘" />
+                                <img class="btn_modify_01_on" src="[TPH_Vdesign_dir]/images/common/btn_list_detail_off.png" alt="아이콘" style="display:none;" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            고객님의 등록된 환불계좌가 없습니다.
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- 환불계좌 관리 end -->
+
+            <!-- 환불계좌 상세 start -->
+            <div class="basic_table_wrapper detail_table_01" style="display:none;">
+                <table class="basic_table">
+                    <colgroup>
+                        <col width="30%;">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>예금주</th>
+                            <td>
+                                <input class="basic_input" type="text" value="홍길똥" onfocus="clearText(this)">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>은행명</th>
+                            <td>
+                                <select class="basic_input">
+                                    <option selected="selected" value="">기업은행</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>계좌번호</th>
+                            <td>
+                                <input class="basic_input" type="text" value="1002-487-156661" onfocus="clearText(this)">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>첨부 파일</th>
+                            <td>
+                                <table class="filebox">
+                                    <colgroup>
+                                        <col style="width:35%;">
+                                        <col style="width:60%;">
+                                    </colgroup>
+                                    <tr>
+                                        <td style="padding:0 5% 0 0 !important;">
+                                            <label for="ex_filename">파일선택</label>
+                                        </td>
+                                        <td style="padding: 0 0 0 0 !important;">
+                                            <input class="upload-name" value="" disabled="disabled">
+                                        <input type="file" id="ex_filename" class="upload-hidden"> 
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="div_radius_frame_02">
+                                    <div class="div_radius_frame_text">
+                                        <p>환불 승인 서류는 환불계좌와 예금주가 표시된 통장의 화면을 보내주시면 되겠습니다.</p>
+                                        <p>환불계좌 등록시 <span class="note_color">"환불계좌의 예금주와 회원명이 동일인"</span>으로 표시된 내용을 등록해주셔야 환불계좌 등록처리가 됩니다.</p>
+                                        <p>환불계좌 등록시에 서류첨부가 어려운 경우는 팩스(02)2260-9090 관리부로 예금주명과 회원명, 아이디와 연락처가 기재된 내용을 보내주시기 바랍니다.<br>
+                                        파일첨부나 팩스송부가 되지 않을 경우에는 환불계좌 등록이 안 될 수 있으니 반드시 확인 후 연락을 주세요.</p>
+                                        <p>환불 금액이 발생하여 <span class="note_color">승인 완료는 매주 O요일, O요일에 환불전산 처리</span>가 되어 입금이 됩니다.</p>
+                                        <p>환불계좌 <span class="note_color">등록 이후에는 수정이 어려우니 유의</span>하시기 바랍니다.</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="button_wrapper">
+                                    <button class="mypage_bottom_basic_btn_inner" type="button">취소</button>
+                                    <button class="mypage_bottom_color_btn_inner" type="button">변경</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 환불계좌 상세 end -->
+
+            <!-- 환불 금액 대상 리스트 start -->
+            <div class="mypage_status_top_info_wrapper" style="margin-top:6%;">
+                <table class="mypage_status_top_info">
+                    <colgroup>
+                        <col style="width:70%;">
+                        <col style="width:30%;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="sub_title_02">환불 금액 대상 리스트</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <table class="board_type_table_top">
+                <colgroup>
+                    <col style="width:34%;">
+                    <col style="width:32%;">
+                    <col style="width:34%;">
+                </colgroup>
+                <tr>
+                    <th>주문일</th>
+                    <th>상품정보</th>
+                    <th>환불금액</th>
+                </tr>
+                <tr>
+                    <td>2017.08.28</td>
+                    <td>1002-475-488174</td>
+                    <td>10,000 원</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="board_type_detail_td detail_table_02" style="display:none;">
+                        <div class="mypage_detail_table_wrapper">
+                            <table class="mypage_detail_table">
+                                <colgroup>
+                                    <col width="20%;">
+                                    <col>
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">은행정보</th>
+                                        <td class="name">
+                                            <select class="input_type_select" style="font-size:1em !important;">
+                                                <option selected="selected" value="">기업은행</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="mypage_acc_change_text">
+                                                <p>가상계좌 은행 변경 신청은 매월 1회 이상 변경은 불가합니다.</p>
+                                                <p>가상계좌 은행 변경은 변경 신청 후 다음달(익월)부터 적용이 됩니다.</p>
+                                                <p>가상계좌는 회원 아이디당 1계좌 이상은 사용할 수 없습니다.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="text-align:center;">
+                                                <button class="mypage_bottom_basic_btn" type="button">취소</button>
+                                                <button class="mypage_bottom_color_btn" type="button" style="background-color:#e95664;">변경</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <!-- 환불 금액 대상 리스트 start -->
+        </div>
+
+        <!-- 푸터 -->
+        [TPH_I/m/common/footer.html]
+
+    </div>
+</body> 
+</html>

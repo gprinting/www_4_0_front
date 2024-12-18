@@ -1,0 +1,70 @@
+<header>
+    <h2>이메일 발송</h2>
+    <button class="close" title="닫기"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_x_white.png" alt="X"></button>
+</header>
+<article>
+    <ul class="_emailAddressType">
+        <li class="_preset">
+            <label>
+                <input type="radio" name="emailAddressType">
+                <h3>기본 이메일</h3>
+            </label>
+            <input type="text" class="account" readonly value="test">
+            <span class="symbol">@</span>
+            <input type="text" class="domain" readonly value="dprinting.biz">
+        </li>
+        <li class="_custom">
+            <label>
+                <input type="radio" name="emailAddressType">
+                <h3>직접 입력</h3>
+            </label>
+            <input type="text" class="account">
+            <span class="symbol">@</span>
+            <input type="text" class="domain" readonly>
+            <select class="domain">
+                <option>naver.com</option>
+                <option>daum.com</option>
+                <option>nate.com</option>
+                <option>gmail.com</option>
+                <option class="_custom">직접입력</option>
+            </select>
+        </li>
+    </ul>
+    <div class="function center">
+        <strong><button>이메일 발송</button></strong>
+        <button class="close">취소</button>
+    </div>
+    <script>
+        function emailAddressType () {
+            $('._emailAddressType input[type=text], ._emailAddressType select').attr('disabled', true);
+            $('._emailAddressType input[type=radio]:checked').closest('li').find('input[type=text], select').attr('disabled', false);
+        }
+        
+        function emailDomainType () {
+            //domain disabled by option
+            $('._emailAddressType li._custom input[type=text].domain').attr('readonly', !$('._emailAddressType select.domain option:selected').hasClass('_custom'));
+            
+            if ($('._emailAddressType select.domain option:selected').hasClass('_custom')) {
+                //custom일 경우
+                $('._emailAddressType li._custom input.domain').val('');
+            } else {
+                $('._emailAddressType li._custom input.domain').val($('._emailAddressType select.domain option:selected').text());
+            }
+        }
+        
+        $('._emailAddressType input[type=radio]').on('click', function () {
+            emailAddressType();
+        });
+        
+        $('._emailAddressType select').on('change', function () {
+            emailDomainType();
+        });
+        
+        if ($('._emailAddressType input[type=radio]:checked').length == 0) {
+            $('._emailAddressType > li:eq(0) input[type=radio]').attr('checked', true);
+        }
+        
+        emailAddressType();
+        emailDomainType();
+    </script>
+</article>

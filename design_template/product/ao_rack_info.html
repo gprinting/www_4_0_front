@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>디프린팅</title>
+    <link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/css/common.css">
+    <link rel="stylesheet" type="text/css" href="[TPH_Vdesign_dir]/css/main.css">
+    <link rel="stylesheet" href="[TPH_Vdesign_dir]/css/[TPH_Vdir].css">
+    <style type="text/css" media="all">
+    body {
+        position:relative;
+        padding:0;
+    }
+    h2 {
+        color:#fff;
+        font-size:90%;
+        font-family:arial;
+        margin:10px;
+        font-weight:bold;
+    }
+    h2 span {
+        font-size:105%;
+        font-weight:normal;
+    }
+#sideBar {
+        position: absolute;
+        width: auto;
+        /*height: auto;*/
+        top: 200px;
+        right:0;
+        background-image:url('[TPH_Vdesign_dir]/images/common/background.gif');
+        background-position:top left;
+        background-repeat:repeat-y;
+    }
+#sideBarTab {
+        float:left;
+        height:137px;
+        width:28px;
+    }
+#sideBarTab img {
+        border:0 solid #FFF;
+    }
+#sideBarContents {
+        overflow:hidden !important;
+    }
+#sideBarContentsInner {
+        width:200px;
+    }
+    .top .items {
+        border-top: medium none;
+    }
+    .table_sub_menu_list {
+        display : none;
+    }
+    .table_sub_menu_list {
+        display : none;
+    }
+    </style>
+
+    <script src="[TPH_Vdesign_dir]/js/lib/jquery-1.11.2.min.js"></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+    <script>
+        var popup = null;
+        var interval = null;
+
+        // 헤더고정
+        $(document).ready(function(){
+            //제품 사진
+            $('div.picture .thumb').on('click', function () {
+                $(this).closest('ul').children('._on').removeClass('_on');
+                $(this).closest('li').addClass('_on');
+                var target = $(this).attr('target');
+                var target2 = $(this).attr('target2');
+                $("#pic_view").attr("src", target);
+                $("#pic_view").attr("data-zoom-image", target2);
+                $("#zoom_pic .zoomWindow").css("background-image", "url(" + target2 + ")");
+            });
+        
+            //초기화
+            $('div.picture li:first-child .thumb').click();
+
+            $(window).scroll(function(){
+                var top = $(window).scrollTop();
+                
+                if (top < 82) {
+                    $(".sub").removeClass("no_bg");
+                    $("#header_01").removeClass("header_01");
+                    $("#header_02").removeClass("header_02");
+                    $(".div_fixed_wrapper").hide();
+                    $("#main_banner").css("margin-top", "0px");
+                } else {
+                    $(".sub").addClass("no_bg");
+                    $("#header_01").addClass("header_01");
+                    $("#header_02").addClass("header_02");
+                    $(".div_fixed_wrapper").show();
+                    $("#main_banner").css("margin-top", "204px");
+                }
+            });
+
+            // 사이드메뉴 top버튼
+            $("#div_side_menu_top").click(function() {
+                $("html, body").stop().animate({scrollTop:0}, 500, 'swing');
+            });
+
+            $(".login_layerpopup").click(function() {
+                hideLoginBox();
+                hideJoinBox();
+            });
+
+            var ieVersion = ieVersionChk();
+
+            if (0 < ieVersion && ieVersion < 9) {
+                $("#btn_kakao").hide();
+                $("#btn_fb").hide();
+                $("#btn_chat").hide();
+                $(".div_login_text").show();
+            }
+
+            // 빠른 견적서 디자인 스크립트
+            var scrollTop = $(window).scrollTop(),
+                scrollLeft = $(window).scrollLeft(),
+                headerMargin = $(".div_header_wrapper").outerHeight() + 140 - 10, // 이부분 140을 영역잡는걸로 바꿔야함. 도저히 안잡힘
+                quickEstimate = $('.quickEstimate'),
+                quickEstimateHeight = quickEstimate.outerHeight(),
+                quickEstimateHiddenHeight,
+                baseMargin = 50,
+                //baseMargin = 30,
+                bodyWidth = $('body').width(),
+                bodyHeight = $(document).height(),
+                footerHeight = $('footer').outerHeight(),
+                bottomDistance,
+                windowWidth = $(window).width(),
+                windowHeight = $(window).height(),
+                topForHidden = 0;
+
+            $(window).resize(function () {
+                windowWidth = $(window).width();
+                windowHeight = $(window).height();
+                bodyWidth = $('body').width(),
+                windowScroll();
+            });
+            
+            $(window).scroll(function () {
+                windowScroll();
+            });
+
+            windowScroll();
+
+            function windowScroll () {
+                //상하
+                scrollTop = $(window).scrollTop();
+                bodyHeight = $(document).height();
+
+                if (scrollTop > headerMargin - baseMargin) { //스크롤이 빠른견적서 상단보다 더 내려갈 경우 top 조정
+                    quickEstimate.css('top', baseMargin);
+                } else {
+                    quickEstimate.css('top', headerMargin - scrollTop);
+                }
+                quickEstimateHiddenHeight = quickEstimateHeight - windowHeight + baseMargin; //빠른견적서보다 창이 작은 경우
+                
+                if (quickEstimateHiddenHeight > 0 && scrollTop > headerMargin - baseMargin) {
+                    if(scrollTop - (headerMargin - baseMargin) > quickEstimateHiddenHeight) {
+                        topForHidden = quickEstimateHiddenHeight * -1;
+                        quickEstimate.css('top', topForHidden);
+                    } else {
+                        topForHidden = quickEstimate.css('top').replace('px','') - (scrollTop - (headerMargin - baseMargin));
+                        quickEstimate.css('top', topForHidden);
+                    }
+                    quickEstimateHiddenHeight = quickEstimateHiddenHeight + baseMargin;
+                } else if (quickEstimateHiddenHeight <= 0) {
+                    quickEstimateHiddenHeight = 0;
+                }
+                
+                bottomDistance = bodyHeight - (quickEstimateHeight + baseMargin * 2 + scrollTop + footerHeight - quickEstimateHiddenHeight); //하단과의 거리
+                if (bottomDistance > 0) {
+                    quickEstimate.css('margin-top', 0);
+                } else {
+                    quickEstimate.css('margin-top', bottomDistance);
+                }
+                
+                //좌우
+                if(windowWidth > bodyWidth) {
+                    quickEstimate.css('right', 0);
+                } else {
+                    scrollLeft = $(window).scrollLeft();
+                    quickEstimate.css('right', windowWidth - bodyWidth + scrollLeft);
+                }
+            }
+        });
+        
+        /**** 17.09.26 추가(IE 하위버전 대응) ****/
+        var showTopNavi = function(dvs) {
+            var affArea = dvs.substring(7, 9);
+            $('.table_sub_menu_list.sub_menu_list_' + affArea + '').show();
+        };
+        
+        var closeTopNavi = function(dvs) {
+            var affArea = dvs.substring(7, 9);
+            $('.table_sub_menu_list.sub_menu_list_' + affArea + '').hide();
+        }
+
+        var showMainContLayer = function(dvs) {
+            $('#main_' + dvs + '').show();
+            $('#img_' + dvs + '').stop(true).animate({opacity: 0.2}, 100);
+        };
+
+        var closeMainContLayer = function(dvs) {
+            $('#main_' + dvs + '').hide();
+            $('#img_' + dvs + '').stop(true).animate({opacity: 1}, 100);
+        };
+        /**** 17.09.26 ****/
+
+        // 메인메뉴 열기
+        var showMenuLayer = function(event) {
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            } else {
+                event.cancelBubble = true;
+            }
+            $("#table_menu_list").show("fast");
+            $("#btn_menu_list").hide();
+            $("#btn_menu_close").show();
+        };
+
+        // 메인메뉴 닫기
+        var closeMenuLayer = function() {
+            $("#table_menu_list").hide("fast");
+            $("#btn_menu_list").show();
+            $("#btn_menu_close").hide();
+        };
+
+        // 메인페이지 로그인 창 보이기
+        var showLoginBox = function() {
+            if ($("#login_box").css("display") == "block") {
+                hideLoginBox();
+            } else {
+                $(".login_layerpopup").show();
+                $("#login_box").show(); 
+            }
+        };
+         
+        // 메인페이지 로그인 창 숨기기
+        var hideLoginBox = function() {
+            $(".login_layerpopup").hide();
+            $("#login_box").hide(); 
+        };
+
+        // 회원가입 창 보이기
+        var showJoinBox = function() {
+            console.log('111');
+            if ($("#join_box").css("display") == "block") {
+                console.log('222');
+                hideJoinBox(); 
+            } else {
+                console.log('333');
+                hideLoginBox();
+                $(".login_layerpopup").show();
+                $("#join_box").show(); 
+            }
+        };
+
+        // 회원가입 창 숨기기
+        var hideJoinBox = function () {
+            $("#join_name").val("");
+            $("#join_id").val("");
+            $("#join_pw").val("");
+            $("#join_pw_check").val("");
+            $(".login_layerpopup").hide(); 
+            $("#join_box").hide();
+        };
+
+        // 이메일 형식 정규식 필터
+        var email_check = function (email) {
+            var regex = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/; 
+            return (email != '' && email != 'undefined' && regex.test(email)); 
+        };
+
+        // 회원 중복확인, 이메일 형식 확인
+        var chkDupMember = function () {
+
+            var mail = $("#join_id").val();
+
+            var url  = "/ajax/common/load_id_over_check.php";
+            var data = {
+                "mail" : mail
+            }
+            var callback = function(result) {
+                if (result == "false") {
+                    alert("사용할 수 없는 아이디입니다.");
+                    $("#chk_dup").val("");
+                } else {
+                    alert("사용 가능한 아이디입니다.");
+                    $("#chk_dup").val("1");
+                }
+            }
+
+            // 아이디 빈값일 경우
+            if (mail == "") {
+                alert("아이디를 입력해주세요."); 
+                $("#join_id").focus();
+                return false;
+            }
+            if (! email_check(mail)) {
+                alert("올바른 메일 주소가 아닙니다"); 
+                $("#join_id").focus();
+                return false;
+            }
+
+            ajaxCall(url, "text", data, callback);
+        };
+
+        // 마이페이지 메뉴박스 보이기
+        var showMypageMenu = function() {
+            if ($("#top_menu_mypage_list").css("display") == "block") {
+                hideMypageMenu();
+            } else {
+                $("#top_menu_mypage_list").show();      
+            }
+        };
+
+        // 회원가입 정보 입력
+        var memberJoin = function() {
+
+            var name  = $("#join_name").val();
+            var mail  = $("#join_id").val();
+            var pw    = $("#join_pw").val();
+            var pwChk = $("#join_pw_check").val();
+            
+            var url  = "/proc/common/insert_member_info.php";
+            var data = { 
+                "name" : name,
+                "mail" : mail,
+                "pw"   : pw
+            }   
+            var callback = function (result) {
+                if (result == "1") {
+                    alert("가입되었습니다. 가입한 아이디로 로그인 해 주세요.");
+                    hideJoinBox();
+                }
+            }
+
+            if (pw != pwChk) {
+                alert("비밀번호를 확인해주세요.");
+                $("#join_pw_check").focus();
+                return false;
+            }
+
+            ajaxCall(url, "text", data, callback);
+        }
+
+        // 마이페이지 메뉴박스 숨기기
+        var hideMypageMenu = function() {
+            $("#top_menu_mypage_list").hide();      
+        };
+         
+        // 메인페이지 소셜로그인
+        var showSocialLogin = function(dvs) {
+            switch(dvs) {
+                case "naver" :
+                    popup = window.open('/oauth/info_redir.php?dvs=naver','','width=500, height=760, scrollbars=no');
+                    break;
+                
+                case "kakao" :
+                    loginWithKakao();
+                    break;
+
+                case "fb" :
+                    fbLogin();
+                    break;
+
+                case "google" :
+                    popup = window.open('/oauth/info_redir.php?dvs=google','','width=500, height=760, scrollbars=no');
+                    break;
+            }
+        };
+
+        function test() {
+            alert();
+        }
+
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId   : '1942240162459456',
+                cookie  : true,
+                xfbml   : true,
+                version : 'v2.10'
+            });
+
+            FB.AppEvents.logPageView();   
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/ko_KR/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        } (document, 'script', 'facebook-jssdk')); 
+        var fbLogin = function() {
+            var callback = function(res1) {
+                console.log(res1);
+
+                FB.api(
+                    "/me?fields=id,name,email",
+                    "post",
+                    {
+                        "access_token" : res1.authResponse.accessToken,
+                        "fields" : "name,email"
+                    },
+                    function(res2) {
+                        $.ajax({
+                            type     : "POST",
+                            url      : "/oauth/oauth_callback_facebook.php",
+                            data     : res2,
+                            //dataType : "text",
+                            success  : function(result) {
+                                location.reload();
+                                console.log(result);
+                            }
+                        });
+                    }
+                );
+
+                //FB.logout(function(){});
+            };
+
+            FB.login(callback, {"scope" : "public_profile,email"});
+        };
+
+        Kakao.init('d8ed4e0171350fa18a476a22ab1c2412');
+        function loginWithKakao() {
+            Kakao.Auth.login({
+                success: function(authObj) {
+                    Kakao.API.request({
+                        url: '/v1/user/me',
+                        success: function(res) {
+                            $.ajax({
+                                type    : "POST",
+                                url     : "/oauth/oauth_callback_kakao.php", 
+                                data    : res,
+                                success : function(result) {
+                                    location.reload();
+                                    console.log(result);
+                                }
+                            });
+                        },
+                        fail: function(error) {
+                            alert(JSON.stringify(error));
+                        }
+                    });
+                },
+                fail: function(err) {
+                    alert(JSON.stringify(err));
+                }
+            });
+        };
+
+        // IE 버전 체크
+        var ieVersionChk = function() {
+
+            var word;
+            var version = -1;
+
+            var agent = navigator.userAgent.toLowerCase();
+            var name = navigator.appName;
+
+            // IE 구버전(10또는 그 이하)
+            if (name == "Microsoft Internet Explorer") {
+                word = "msie ";
+            } else {
+                // IE 11
+                if (agent.search("trident") > -1) {
+                    word = "trident/.*rv:";
+                // IE 12
+                } else if (agent.search("edge/") > -1) {
+                    word = "edge/";
+                }
+            }
+
+            var reg = new RegExp(word + "([0-9]{1,})(\\.{0,}[0-9]{0,1})");
+            if (reg.exec(agent) != null) {
+                version = RegExp.$1;
+            }
+
+            return parseInt(version);
+        };
+    </script>
+    <!-- test -->
+    <script src="http://testpg.easypay.co.kr/webpay/easypaycard_web.js"></script>
+    <!-- real -->
+    <!-- script src="https://pg.easypay.co.kr/webpay/easypaycard_web.js"></script-->
+    <script src="[TPH_Vdesign_dir]/js/design/common_design.js"></script>
+    <script src="[TPH_Vdesign_dir]/js/common/common.js"></script>
+    <script src="[TPH_Vdesign_dir]/js/lib/jquery-ui_dprinting.min.js"></script>
+    <script src="[TPH_Vdesign_dir]/js/common/[TPH_Vdir].js"></script>
+    <script src="[TPH_Vdesign_dir]/js/[TPH_Vdir]/[TPH_Vpage].js"></script>
+	<script src="[TPH_Vdesign_dir]/js/product/opt_lib.js"></script>
+
+    <!-- Start of gprinting Zendesk Widget script -->
+    <script>
+        /*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="gprinting.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();
+    /*]]>*/
+        window.zESettings = {
+            webWidget: {
+                offset: {horizontal : '30px'}
+            }
+        };
+    </script>
+    <!-- End of gprinting Zendesk Widget script -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145783810-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-145783810-1');
+    </script>
+
+    <script src="[TPH_Vdesign_dir]/js/lib/jquery.magnify.js"></script>
+    <link rel="stylesheet" href="[TPH_Vdesign_dir]/css/magnify.css">
+    <script src="[TPH_Vdesign_dir]/js/lib/jquery.elevatezoom.js"></script>
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="contents ad_catabro">
+    [TPH_I/product/common/sub_banner.html]
+
+    <div class="rightWrap productOptions">
+        [TPH_I/product/ao/ao_rack_info.html]
+
+        [TPH_I/product/common/purchase.html]
+    </div>
+    <div class="leftWrap">
+        [TPH_I/product/common/picture.html]
+
+        [TPH_I/product/common/banner.html]
+
+        [TPH_I/product/common/util.html]
+
+        [TPH_I/common/is_login.html]
+    </div>
+
+    [TPH_I/product/common/quick_esti.html]
+</div>
+
+[TPH_I/common/footer.html]
+
+[TPH_I/product/common/common_pop.html]
+</div>
+</body>
+</html>

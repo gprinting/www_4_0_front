@@ -1,0 +1,106 @@
+<script>
+$(document).ready(function() {
+    numKeyCheck('pop_tel_num2');
+    numKeyCheck('pop_tel_num3');
+    numKeyCheck('pop_cel_num3');
+    numKeyCheck('pop_cel_num3');
+
+});
+</script>
+
+<header>
+    <h2>주문담당자 수정/삭제</h2>
+    <button id="order_close" class="close" title="닫기"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_x_white.png" alt="X"></button>
+</header>
+<article>
+    <table class="input to">
+        <colgroup>
+            <col width="85">
+            <col>
+            <col width="85">
+            <col>
+        </colgroup>
+        <tbody>
+            <tr>
+                <th scope="row">성명</th>
+                <td class="name"><input type="text" id="pop_member_name" name="pop_member_name" value="[TPH_Vmember_name]"> (10자 이내)</td>
+                <th scope="row">직급</th>
+                <td><div class="inputWrap"><input type="text" id="pop_posi" name="pop_posi" value="[TPH_Vposi]"></div></td>
+            </tr>
+            <tr>
+                <th>아이디</th>
+                <td colspan="3">
+                    <input type="text" class="_id" value="[TPH_Vmember_id]" maxlength="10" readonly>
+                    <button class="_idCheck" style="display: none;">중복 확인</button>
+                    <span class="description _idMessage"></span>
+                </td>
+            </tr>
+            <tr>
+                <th>비밀번호</th>
+                <td><div class="inputWrap"><input type="password" id="pop_passwd" name="pop_passwd" maxlength="20"></div></td>
+                <th>비밀번호 확인</th>
+                <td><div class="inputWrap"><input type="password" id="pop_passwd_re" name="pop_passwd_re" maxlength="20"></div></td>
+            </tr>
+           <tr>
+                <th scope="row">전화번호</th>
+                <td colspan="3">
+                    <select id="pop_tel_num1" name="pop_tel_num1">
+                        [TPH_Vtel_html]
+                    </select>
+                    <input type="hidden" id="pre_pop_tel_num1" name="pre_pop_tel_num1" value="[TPH_Vtel_num1]">
+                    <input type="text" id="pop_tel_num2" name="pop_tel_num2" value="[TPH_Vtel_num2]" maxlength="4">
+                    <input type="text" id="pop_tel_num3" name="pop_tel_num3" value="[TPH_Vtel_num3]" maxlength="4">
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">휴대전화번호</th>
+                <td colspan="3">
+                    <select id="pop_cel_num1" name="pop_cel_num1">
+                        [TPH_Vcel_html]
+                    </select>
+                    <input type="hidden" id="pre_pop_cel_num1" name="pre_pop_cel_num1" value="[TPH_Vcel_num1]">
+                    <input type="text" id="pop_cel_num2" name="pop_cel_num2" value="[TPH_Vcel_num2]" maxlength="4">
+                    <input type="text" id="pop_cel_num3" name="pop_cel_num3" value="[TPH_Vcel_num3]" maxlength="4">
+                </td>
+            </tr>
+            <tr>
+                <th>이메일</th>
+                <td colspan="3" class="info _email">
+                    <input type="text" id="pop_email_addr" name="pop_email_addr" value="[TPH_Vemail_addr]">
+                    <span>@</span>
+                    <input type="text" class="_domain" id="pop_email_domain" name="pop_email_domain">
+                    <input type="hidden" id="pre_pop_domain" name="pre_pop_email_domain" value="[TPH_Vemail_domain]">
+                    <select class="_domain">
+                        <option class="_custom">직접입력</option>
+                        [TPH_Vemail_html]
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="function center">
+        <strong class="blue"><button onclick="modiOrderMng('[TPH_Vmember_seqno]'); return false;">수정</button></strong>
+        <strong><button onclick="delOrderMng('[TPH_Vmember_seqno]'); return false;">삭제</button></strong>
+        <button onclick="confirmClosePopup(event, '입력하신 모든 내용이 사라집니다. 취소하시겠습니까?');">취소</button>
+    </div>
+    <script>
+        $(document).ready(function() {
+
+            //이전 이메일 도메인 보여줌
+            var preDomain = $("#pre_pop_domain").val();
+            if (!checkBlank(preDomain)) {
+                $("#pop_email_domain").val(preDomain);
+            }
+        });
+        // e-mail
+        $('.l_officer select._domain').on('change', function () {
+            if ($(this).children('option:selected').hasClass('_custom')) {
+                $("#pop_email_domain").val("");
+                $("#pop_email_domain").readOnly = false;
+            } else {
+                $("#pop_email_domain").val($(this).children('option:selected').text());
+                $("#pop_email_domain").readOnly = true;
+            }
+        });
+    </script>
+</article>

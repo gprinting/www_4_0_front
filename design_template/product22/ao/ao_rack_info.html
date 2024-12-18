@@ -1,0 +1,95 @@
+<script src="https://www.google.com/recaptcha/api.js?render=6LezRKkpAAAAANaepcZDa5-Pnrx7A0HuY6_a1Clf"></script>
+<script>
+    function frm_submit(_){
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6LezRKkpAAAAANaepcZDa5-Pnrx7A0HuY6_a1Clf', {action: 'homepage'}).then(function(token) {
+                var response = document.getElementById("g-recaptcha-response");
+                if(typeof(response) != 'undefined' && response != null){
+                    document.getElementById('g-recaptcha-response').value = token;
+                    _.submit();
+                    return true;
+                }
+            });
+        });
+    }
+</script>
+<form id="frm" action="/order/add_cart.html" method="post" onsubmit="frm_submit(this); return false;">
+    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+    <ul class="options">
+        <li>
+            <h2 class="order_title_basic">기본<br>사항</h2>
+            [TPH_Vhtml]
+        </li>
+    </ul>
+
+    <p class="guide">거치대의 재고가 많지 않으므로 정확한 출고일은 담당자와 통화가 필요합니다.</p>
+    
+    <hr class="summary header">
+    <!-- 가격 -->
+    <div class="summary price _folding _off">
+        <button type="button" class="foldingBtn off">
+            할인상세
+            <span class="off">접기</span>
+            <span class="on">보기</span>
+        </button>
+        <dl class="ordinary">
+            <dt>정상판매가</dt>
+            <dd>
+                <span id="sell_price" val="0" class="price"><strong>0</strong> 원</span>
+                <span class="description">부가세 10% 포함</span>
+                <div class="detail" id="sale">
+                    [TPH_Vao_rack_grade_sale]
+                </div>
+            </dd>
+        </dl>
+    </div>
+    <div class="summary paymentPrice">
+        <dl>
+            <dt>결제금액</dt>
+            <dd>
+                <span class="price"><strong id="sale_price" val="0">0</strong> 원</span>
+                <span class="description">공급가 : <span id="supply_price">0</span>원 + 부가세 : <span id="tax">0</span>원</span>
+            </dd>
+        </dl>
+        <!-- 2016/01/04 최대 혜택가 삭제함 -->
+    </div>
+    <!-- 가격 -->
+    <div class="summary">
+        <dl>
+            <dt>주문내역</dt>
+            <dd>
+                <ul>
+                    <li></li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+
+    <!-- 공통 -->
+    <input type="hidden" name="flag" value="flag">
+    <input type="hidden" id="expect_release_hour" name="expect_release_hour" value="" /><!-- 예상출고일 -->
+    <input type="hidden" id="prdt_dvs" name="prdt_dvs" value="ao_rack">
+    <input type="hidden" name="ao_rack_order_detail" value="">
+    <!-- 장바구니 이동여부 -->
+    <input type="hidden" name="cart_flag" id="cart_flag" value="Y">
+
+    <!-- 파라미터용 제품값 -->
+    <input type="hidden" name="title" value="배너거치대 구매">
+    <input type="hidden" id="ao_rack_cate_sortcode" name="ao_rack_cate_sortcode" value="[TPH_Vcs]">
+    <input type="hidden" id="ao_rack_cate_name" name="ao_rack_cate_name" value="[TPH_Vcate_name]">
+    <input type="hidden" name="ao_rack_paper" value="-1">
+    <input type="hidden" name="ao_rack_bef_tmpt" value="-1">
+    <input type="hidden" name="ao_rack_size" value="-1">
+    <input type="hidden" id="ao_rack_amt" name="ao_rack_amt" value="">
+
+    <!-- 가격정보 -->
+    <input type="hidden" name="ao_rack_member_sale_rate" id="ao_rack_member_sale_rate" value="[TPH_Vao_rack_member_sale_rate]" /><!-- 회원할인률 -->
+    <input type="hidden" name="ao_rack_grade_sale_rate" id="ao_rack_grade_sale_rate" value="[TPH_Vao_rack_grade_sale_rate]" /><!-- 등급할인률 -->
+    <input type="hidden" name="ao_rack_sell_price" value="">
+    <!-- 옵션 -->
+    <input type="hidden" name="opt_price" value="">
+    <input type="hidden" name="opt_add" value="">
+    <input type="hidden" name="opt_add_price" value="">
+    <input type="hidden" name="opt_add_info" value="">
+    <input type="hidden" name="opt_add_data" value="">
+</form>

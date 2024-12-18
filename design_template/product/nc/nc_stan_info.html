@@ -1,0 +1,221 @@
+        <form id="frm" action="/order/add_cart.html" method="post">
+            <!-- 선택 -->
+            <h2 class="order_title_basic">주문기본사항</h2>
+            <div class="selection">
+                <dl>
+                    <dt><label for="printTitle">인쇄물제목</label></dt>
+                    <dd class="full"><div class="inputWrap"><input type="text" id="title" name="title" maxlength="30" value="[TPH_Vtitle]"></div></dd>
+                    <dt><label for="productName">상품명</label></dt>
+                    <dd>
+                        [TPH_Vcate_bot]
+                    </dd>
+                    <dt><label for="nc_paper">종이</label></dt>
+                    <dd>
+                        <select id="nc_paper" name="nc_paper" onchange="changePaper('nc', this.value);">
+                            [TPH_Vnc_paper]
+                        </select>
+                    </dd>
+                    <dt><label for="color">인쇄도수1</label></dt>
+                    <dd class="colorDetails">
+                        <select class="withBtn _relatedSummary _color" onchange="changeTmpt('nc');" id="nc_print_tmpt" name="nc_bef_tmpt">
+                            [TPH_Vnc_print_tmpt]
+                        </select>
+                        <!--
+                        <button type="button">별색템플릿</button>
+                        -->
+                    </dd>
+                    <dt><label for="size">사이즈</label></dt>
+                    <dd class="_relatedSummary size">
+                        <select class="withBtn _size" id="size_dvs" name="nc_size_dvs" onchange="changeSizeDvs(this.value);">
+                            <option value="stan" class="_preset">규격사이즈</option>
+                        </select>
+                        <select class="_preset" id="nc_size" name="nc_size" def_cut_wid="[TPH_Vnc_def_cut_wid]" def_cut_vert="[TPH_Vnc_def_cut_vert]" def_val="[TPH_Vnc_def_stan_mpcode]" onchange="changeData();">
+                            [TPH_Vnc_size]
+                        </select>
+                        <div class="_roomNumber" style="display:none;"> &nbsp;&nbsp;<label> <input type="text" id="nc_manu_pos_num" name="nc_manu_pos_num" value="1" readonly="readonly">자리 </label></div>
+                        <dl>
+                            <dt>재단사이즈</dt>
+                            <dd class="_cuttingSize">
+                                <label>가로 <input id="nc_cut_wid_size" name="nc_cut_wid_size" type="text" maxlength="3" onblur="aftRestrict.cutting.common('nc');">mm</label>,
+                                <label>세로 <input id="nc_cut_vert_size" name="nc_cut_vert_size" type="text" maxlength="3" onblur="aftRestrict.cutting.common('nc');">mm</label>
+                            </dd>
+                            <dt>작업사이즈</dt>
+                            <dd class="_workingSize[TPH_Vnc_size_gap]" id="size_gap">
+                                <label>가로 <input id="work_wid_size" name="nc_work_wid_size" type="text" readonly>mm</label>,
+                                <label>세로 <input id="work_vert_size" name="nc_work_vert_size" type="text" readonly>mm</label>
+                            </dd>
+                        </dl>
+                    </dd>
+                    <dt class="amount"><label for="amount">수량</label></dt>
+                    <dd class="_relatedSummary amount">
+                    <!-- 옵션가격 수량따라 변할 경우 changeData -> getOptPrice 구현 필요 -->
+                        <select class="_amount" id="nc_amt" name="nc_amt" onchange="changeAmt();" amt_unit="[TPH_Vnc_amt_unit]">
+                            [TPH_Vnc_amt]
+                        </select>
+                        <span>x</span>
+                        <label>
+                            <select class="_set" id="count" name="nc_count" onchange="changeCount();">
+                            </select>
+                            건
+                        </label>
+                        <div class="range">
+                            <div class="bar">
+                                <div class="hr bg"></div>
+                                <div class="_anchor"><img src="[TPH_Vdesign_dir]/images/product/range_anchor.png" alt="▲"></div>
+                                <hr class="hr on">
+                            </div>
+                            <ul class="mark">
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+                <div class="option _folding">
+                    <button type="button" class="_closed" title="열기"><img src="[TPH_Vdesign_dir]/images/common/btn_semicircle_right.png" alt="▶"></button>
+                    <button type="button" class="_opened" title="닫기"><img src="[TPH_Vdesign_dir]/images/common/btn_semicircle_left.png" alt="◀"></button>
+                    <div class="_folder">
+                        <dl>
+                            <dt>인쇄유형</dt>
+                            <dd>
+                                <select id="nc_mono_yn" name="nc_mono_yn" onchange="changeData();">
+                                    [TPH_Vnc_mono_dvs]
+                                </select>
+                            </dd>
+                            <dt>재질느낌</dt>
+                            <dd id="nc_paper_sense" class="select">[TPH_Vnc_paper_sense]</dd>
+                            <dt>인쇄방식</dt>
+                            <dd>
+                                <select id="nc_print_purp" name="nc_print_purp" onchange="loadPrintTmpt('nc');">
+                                    [TPH_Vnc_print_purp]
+                                </select>
+                            </dd>
+                            <div class="uv_descriptor">*UV특수옵셋 설명</div>
+                        </dl>
+                    </div>
+                </div>
+            </div><!-- 선택 -->
+            <!-- 요청 -->
+            <div class="after _folding">
+                <dl>
+                    <dt id="opt_default_price" price="0">옵션</dt>
+                    <dd class="list" style="padding-left: 0px;" id="opt">
+                        [TPH_Vnc_opt]
+                        [TPH_Vnc_add_opt]
+                    </dd>
+                </dl>
+            </div><!-- 요청 -->
+            <!-- 후가공 -->
+            <h2 class="order_title">후가공</h2>
+            <div class="after aft_sec nc_after _folding">
+                <button type="button" title="열기" class="_closed foldingbtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_bottom.png" alt="▼"></button>
+                <button type="button" title="닫기" class="_opened foldingbtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_top.png" alt="▲"></button>
+                <dl>
+                    <dt id="after_default_price" price="0">후가공</dt>
+                    <dd class="overview nc_overview">
+                        <ul>
+                        </ul>
+                    </dd>
+                    <dd class="_folder nc_after_list list" id="after">
+                        [TPH_Vnc_after]
+                        [TPH_Vnc_add_after]
+                    </dd>
+                </dl>
+            </div><!-- 후가공 -->
+            <h2 class="order_title">주문내역 및 파일</h2>
+            <div class="summary">
+                <dl>
+                    <dt>주문내역</dt>
+                    <dd>
+                        <ul>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+            <!-- 가격 -->
+            <div class="price _folding">
+                <button type="button" title="열기" class="_closed foldingBtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_bottom.png" alt="▼"></button>
+                <button type="button" title="닫기" class="_opened foldingBtn"><img src="[TPH_Vdesign_dir]/images/common/btn_circle_top.png" alt="▲"></button>
+                <dl class="ordinary">
+                    <dt>정상판매가</dt>
+                    <dd class="description" style="text-decoration: none;">부가세 10% 포함</dd>
+                    <dd id="sell_price" val="[TPH_Vnc_sell_price]" class="price">[TPH_Vnc_sell_price] 원</dd>
+                </dl>
+
+                <dl class="_folder">
+                    <dd class="detail" id="sale">
+                        [TPH_Vnc_grade_sale]
+                        [TPH_Vnc_event_sale]
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>결제금액</dt>
+                    <dd class="description">공급가 : <span id="supply_price" style="font-weight:bold;">[TPH_Vnc_supply_price]</span>원 + 부가세 : <span id="tax" style="font-weight:bold;">[TPH_Vnc_tax]</span>원</dd>
+                    <dd class="price"><span id="sale_price" val="[TPH_Vnc_sale_price]" style="font-size: 20px;">[TPH_Vnc_sale_price]</span> 원</dd>
+                </dl>
+                <!-- 2016/01/04 최대 혜택가 삭제함 -->
+
+            </div><!-- 가격 -->
+
+            <!-- 공통 -->
+            <input type="hidden" name="flag" value="flag" /><!-- chk -->
+            <input type="hidden" id="expect_release_hour" name="expect_release_hour" value="" /><!-- 예상출고일 -->
+            <input type="hidden" id="nc_flattyp_yn" name="nc_flattyp_yn" value="[TPH_Vnc_flattyp_yn]" /><!-- 낱장형여부 -->
+            <input type="hidden" id="prdt_dvs" name="prdt_dvs" value="nc" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+            <input type="hidden" id="file_seqno" name="file_seqno" value="" />
+            <input type="hidden" id="oper_sys" name="oper_sys" value="" />
+            <input type="hidden" name="nc_cate_name" value="" /><!-- 카테고리명-->
+            <input type="hidden" name="nc_amt_unit" value="" /><!-- 수량단위 -->
+            <input type="hidden" id="nc_tmpt_dvs" value="[TPH_Vnc_tmpt_dvs]" /><!-- 도수구분 -->
+            <input type="hidden" id="nc_typ" name="nc_typ" value="[TPH_Vnc_page_dvs]" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+            <input type="hidden" id="order_detail" name="nc_order_detail" value="" /><!-- 상품 페이지에 들어가있는 제품구분값 -->
+            <input type="hidden" id="nc_amt_sale_rate" value="[TPH_Vnc_amt_sale_rate]" />
+            <input type="hidden" id="nc_amt_sale_aplc" value="[TPH_Vnc_amt_sale_aplc]" />
+            <input type="hidden" id="expect_box_num" name="expect_box_num" value="" /><!-- 배송덩어리값 -->
+            <input type="hidden" id="expec_weight" name="expec_weight" value="" /><!-- 배송덩어리값 -->
+            <!-- 후가공, 주문요약 표시용 -->
+            <input type="hidden" id="after_basic" value="[TPH_Vnc_basic_after]" /><!-- 요약정보 표시용 변수 -->
+            <!-- 표시용 -->
+            <input type="hidden" name="cart_flag" id="cart_flag" value="Y" /><!-- 장바구니 이동여부 -->
+            <!-- 종이 -->
+            <input type="hidden" name="nc_paper_name" value="" /><!-- 종이명 -->
+            <!-- 인쇄 -->
+            <input type="hidden" name="nc_page" value="[TPH_Vnc_page]" /><!-- 페이지수 -->
+            <input type="hidden" name="nc_bef_tmpt_name" value="" /><!-- 도수명 -->
+            <!-- 사이즈 -->
+            <input type="hidden" name="nc_size_name" value="" /><!-- 사이즈명 -->
+            <!-- 가격정보 -->
+            <input type="hidden" name="nc_prdt_price" id="nc_prdt_price" value="[TPH_Vnc_prdt_price]" /><!-- 상품금액 -->
+            <input type="hidden" name="nc_sell_price" value="" /><!-- 판매금액 -->
+            <input type="hidden" name="nc_sale_price" value="" /><!-- 할인금액 -->
+            <input type="hidden" name="nc_member_sale_rate" id="nc_member_sale_rate" value="[TPH_Vnc_member_sale_rate]" /><!-- 회원할인률 -->
+            <input type="hidden" name="nc_grade_sale_rate" id="nc_grade_sale_rate" value="[TPH_Vnc_grade_sale_rate]" /><!-- 등급할인률 -->
+            <input type="hidden" name="nc_after_price" value="" /><!-- 후공정금액 -->
+            <input type="hidden" name="opt_price" value="" /><!-- 옵션금액 -->
+            <!-- 옵션 -->
+            <input type="hidden" name="opt_add" value="" /><!-- 추가후공정 맵핑코드 -->
+            <input type="hidden" name="opt_add_price" value="" /><!-- 추가옵션 가격 -->
+
+            <input type="hidden" id="order_cut_wid" value="[TPH_Vorder_cut_wid]" />
+            <input type="hidden" id="order_cut_vert" value="[TPH_Vorder_cut_vert]" />
+            <input type="hidden" id="order_count" value="[TPH_Vorder_count]" />
+            <input type="hidden" id="order_common_seqno" name="order_common_seqno" value="[TPH_Vorder_common_seqno]" />
+
+            <input type="hidden" id="after_name" name="after_name" value="" />
+            <input type="hidden" id="aft_depth" name="aft_depth" value="" />
+            <input type="hidden" id="aft_depth1" name="aft_depth1" value="" />
+            <input type="hidden" id="aft_depth2" name="aft_depth2" value="" />
+            <input type="hidden" id="aft_depth1_val" name="aft_depth1_val" value="" />
+            <input type="hidden" id="aft_depth1_vh" name="aft_depth1_vh" value="" />
+            <input type="hidden" id="aft_depth1_cnt" name="aft_depth1_cnt" value="" />
+            <input type="hidden" id="aft_depth1_dvs" name="aft_depth1_dvs" value="" />
+            <input type="hidden" id="aft_depth2_dvs" name="aft_depth2_dvs" value="" />
+            <input type="hidden" id="aft_depth1_wid" name="aft_depth1_wid" value="" />
+            <input type="hidden" id="aft_depth1_vert" name="aft_depth1_vert" value="" />
+            <input type="hidden" id="aft_depth2_wid" name="aft_depth2_wid" value="" />
+            <input type="hidden" id="aft_depth2_vert" name="aft_depth2_vert" value="" />
+
+            <input type="hidden" id="option_name" name="option_name" value="" />
+            <input type="hidden" id="opt_depth1" name="opt_depth1" value="" />
+            <input type="hidden" id="opt_depth2" name="opt_depth2" value="" />
+            <input type="hidden" id="opt_depth3" name="opt_depth3" value="" />
+            <input type="hidden" id="opt_cnt" name="opt_cnt" value="" />
+        </form>

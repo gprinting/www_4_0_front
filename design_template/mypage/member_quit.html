@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+</head>
+<body>
+<div class="wrapper">
+    <!-- 로그인 박스 -->
+    [TPH_I/common/login.html]
+
+    <!-- 헤더 -->
+    <div class="div_header_wrapper">
+        [TPH_I/common/header.html]
+
+        <!-- 사이드 메뉴 -->
+        [TPH_I/common/side.html]
+
+        <!-- 네비게이션 -->
+        [TPH_I/common/tnb.html]
+    </div>
+    <div class="div_sub_banner">
+        <img class="" src="/design_template/images/sp_banner/banner_member_info.jpg" alt="서브배너" />
+        <div class="inner">
+            <div class="title_wrap">
+                <h1>회원</h1>
+                <p>회원정보 관리 및 배송 관리를 하실 수 있는 페이지입니다.</p>
+            </div>
+        </div>
+    </div>
+    <div class="contents contents_02 memberInfo">
+        <div class="lnb">
+            [TPH_I/mypage/common/lnb.html]
+        </div>
+        <h3 class="pageTitle"><div class="bar_left"></div>회원탈퇴</h3>
+        <!-- <div class="quitMessage">
+            <strong>굿프린팅을 이용해 주셔서 감사합니다.</strong>
+        </div> -->
+        <div class="survey">
+            <!--
+            <img src="[TPH_Vdesign_dir]/images/order/quit.png" alt="회원탈퇴">
+            -->
+            <div class="wrap">
+                <p>
+                    불편한 사항 및 다양한 의견을 자유롭게 남겨주세요.<br/>고객님의 소중한 의견을 통해 더욱 발전하는 [TPH_Vcompany_name]가 되도록하겠습니다.
+                </p>
+                <div class="underline"></div>
+                <ul>
+                    <li><label><input type="checkbox" value="1" id="reduce_1"> 상품종류 부족</label></li>
+                    <li><label><input type="checkbox" value="2" id="reduce_2"> 상품가격 불만</label></li>
+                    <li><label><input type="checkbox" value="3" id="reduce_3"> 상품풀질 불만</label></li>
+                    <li><label><input type="checkbox" value="4" id="reduce_4"> 반품/교환 서비스 불만</label></li>
+                    <li><label><input type="checkbox" value="5" id="reduce_5"> 납기 및 배송 불만</label></li>
+                    <li><label><input type="checkbox" value="6" id="reduce_6"> AS 서비스 불만</label></li>
+                    <li><label><input type="checkbox" value="7" id="reduce_7"> 상담원 고객응대 불만</label></li>
+                    <li><label><input type="checkbox" value="8" id="reduce_8"> 쇼핑몰 불편 및 속도 불만</label></li>
+                    <li><label><input type="checkbox" value="9" id="reduce_9"> 이용빈도 낮음</label></li>
+                    <li><label><input type="checkbox" value="10" id="reduce_10"> 타인 주민번호 도용</label></li>
+                    <li><label><input type="checkbox" value="11" id="reduce_11"> 중복 가입</label></li>
+                    <li><label><input type="checkbox" value="12" id="reduce_12"> 이민</label></li>
+                    <li><label><input type="checkbox" value="13" id="reduce_13"> 재가입</label></li>
+                    <li><label><input type="checkbox" value="14" id="reduce_14"> 기타</label></li>
+                </ul>
+                <div class="textareaWrap">
+                    <textarea id="withdraw_reason"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="tip">
+            <h6 class="tip_title"><span><img src="[TPH_Vdesign_dir]/images/common/icon_circle_alert.svg" alt="관리"></span> 꼭 확인해주세요</h6>
+            <ol>
+                <li>탈퇴신청에 앞서 아래의 사항을 반드시 확인하기 바랍니다.</li>
+                <li>회원탈퇴를 하시면 <span>회원정보/적립금/포인트/쿠폰이 모두 소멸</span>되고 모든 거래내역과 개인 정보는 <span>14일간 유효</span>하며 이후 자동으로 삭제됩니다.</li>
+                <li>소멸된 적립금과 포인트, 쿠폰은 회원 탈퇴 후 <span>재가입시에도 복구되지 않습니다.</span></li>
+                <li>회원탈퇴 후 재가입은 14일 이후에 가능합니다.</li>
+            </ol>
+            <div class="btm_text">
+                <h6>보다 자세한 사항은 고객센터 이용안내를 참조해 주시기 바랍니다.</h6>
+                <a href="#none" onclick="goCscenter('/cscenter/guide.html?type=membership')">이용안내 바로가기</a>
+            </div>
+            <!--<a href="/cscenter/guide.html?type=membership">-->
+            <!-- <a href="#none" onclick="goCscenter('/cscenter/guide.html?type=membership')">
+                <img src="/design_template/images/order/order_quit.png" alt="포인트 안내">
+            </a> -->
+        </div>
+
+        <div class="function center">
+            <strong><button class="function" onclick="makeWithdrawal('[TPH_Vmember_seqno]'); return false;">탈퇴 신청</button></strong>
+        </div>
+        [TPH_I/mypage/common/banner.html]
+    </div>
+    <footer>
+        [TPH_I/common/footer.html]
+    </footer>
+</div>
+</body>
+</html>

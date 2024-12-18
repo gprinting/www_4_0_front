@@ -1,0 +1,31 @@
+<header class="popup">
+    <h2>환불 요청</h2>
+    <button class="close">닫기</button>
+</header>
+<article>
+    <table class="sheetForm horizontal">
+        <colgroup>
+            <col class="th">
+            <col class="">
+        </colgroup>
+        <tbody>
+            <tr>
+                <th scope="row">총 환불 가능금액</th>
+                <td><input type="text" id="refund_max" value="[TPH_Vrefund_max]" class="price" readonly> 원</td>
+            </tr>
+            <tr>
+                <th scope="row">환불 요청금액</th>
+                <td>
+                    <input type="text" name="refund_amount" id="refund_amount" class="price" placeholder="숫자만 기재해 주세요."> 원
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <footer class="action">
+        <button type="button" class="exe" onclick="regiRefundAmount(); return false;">확인</button>
+        <button type="button" class="close">취소</button>
+    </footer>
+    <ul class="guide">
+        <li>환불금액은 매주 <strong>O요일, O요일에 전산으로 승인 처리</strong>되어<br> 환불계좌에 입금 됩니다.</li>
+    </ul>
+</article>

@@ -1,0 +1,11 @@
+<input type="text" class="_date" id="from" name="from" value="[TPH_Vfrom]">
+<span class="hyphen">~</span>
+<input type="text" class="_date" id="to" name="to" value="[TPH_Vto]">
+<ul class="preset">
+    <li><button class="date_btn" type="button" onclick="dateSet(0); return false;">당일</button></li>
+    <li><button class="date_btn" type="button" onclick="dateSet(1); return false;">전일</button></li>
+    <li><button class="date_btn" type="button" onclick="dateSet(7); return false;">금주</button></li>
+    <li><button class="date_btn" type="button" onclick="dateSet(14, 7, 'lw'); return false;">전주</button></li>
+    <li><button class="date_btn" type="button" onclick="dateSet(0, 0, 'cm'); return false;">당월</button></li>
+    <li><button class="date_btn" type="button" onclick="dateSet(0, 0, 'lm'); return false;">전월</button></li>
+</ul>

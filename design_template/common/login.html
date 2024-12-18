@@ -1,0 +1,254 @@
+<!-- 로그인 영역 시작 -->
+<div id="login_box" class="div_login" style="display:none;">
+    <div class="layerPopupWrap logoinWrap">
+        <button class="btn_popup_close close" title="닫기" onclick="hideLoginBox();"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+        <div class="inner_padding">
+            <div class="layerPopup">
+                <div>
+                    <h2>로그인</h2>
+                </div>
+                <div class="layerPopup_contents">
+                    <em style="font-size:15px; letter-spacing: -1px;">로그인하시면 <span class="text_st_01">다양한 서비스</span>를 이용하실 수 있습니다.</em>
+                    “기존 아이디 대소문자 정확히 확인 후 로그인 하시기 바랍니다”
+                    
+                    <div class="login_form_wrapper">
+                        <div class="div_login_placeholder" id="div_id">
+                            <input id="id" class="input_login_id" type="text" onfocus="hidePlaceHd(this.id);" onkeyup="loginKey(event, '')">
+                            <span class="span_login_placeholder" id="id_placeholder" onclick="hidePlaceHd(this.id)">이메일</span>
+                        </div>
+                        <div class="div_login_placeholder" id="div_pw" style="margin-top:10px !important;">
+                            <input id="pw" class="input_login_pw" type="password" onfocus="hidePlaceHd(this.id);" onkeyup="loginKey(event, '')">
+                            <span class="span_login_placeholder" id="pw_placeholder" onclick="hidePlaceHd(this.id)">비밀번호</span>
+                        </div>
+                        <div class="id_idfind_wrapper">
+                            <table class="table_login_submenu">
+                                <tr>
+                                    <td class="td_id_save">
+                                        <input type="checkbox" class="id_save_checkbox" id="login_id_save">
+                                        <label for="login_id_save" class="id_save_label"><a id="id_save" class="a_login_id_save" href="#">아이디 저장</a></label>
+                                    </td>
+                                    <td class="td_id_find">
+                                        <a id="id_find" class="a_login_id_save" href="#none" onclick="showFindIdBox()">ID/PW찾기</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="btn_wrapper">
+                            <button type="button" class="c_btn-primary" onclick="login();" style="width:183px; margin:0 5px 0 0;">로그인</button>
+                            <button type="button" class="c_btn-primary-reverse" onclick="showJoinBoxBef();" style="width:183px; margin:0 0 0 5px;">간편회원가입</button>
+                        </div>
+
+                        <div class="div_social_box">
+                            <a href="#none" id="btn_naver" onclick="showSocialLogin('naver')">
+                                <div class="btn_social_login">
+                                    <img src="/design_template/images/common/btn_login_naver_on.jpg" alt="네이버로그인">
+                                    <img class="img_top" src="/design_template/images/common/btn_login_naver.jpg" alt="네이버로그인">
+                                </div>
+                            </a>
+                            <a href="#none" id="btn_kakao" onclick="showSocialLogin('kakao')">
+                                <div class="btn_social_login">
+                                    <img src="/design_template/images/common/btn_login_kakaotalk_on.jpg" alt="카카오로그인">
+                                    <img class="img_top" src="/design_template/images/common/btn_login_kakaotalk.jpg" alt="카카오로그인">
+                                </div>
+                            </a>
+                            <a href="#none" id="btn_fb" onclick="showSocialLogin('fb')">
+                                <div class="btn_social_login">
+                                    <img src="/design_template/images/common/btn_login_facebook_on.jpg" alt="페이스북로그인">
+                                    <img class="img_top" src="/design_template/images/common/btn_login_facebook.jpg" alt="페이스북로그인">
+                                </div>
+                            </a>
+                            <a href="#none" id="btn_google" onclick="showSocialLogin('google')">
+                                <div class="btn_social_login">
+                                    <img src="/design_template/images/common/btn_login_google_on.jpg" alt="구글로그인">
+                                    <img class="img_top" src="/design_template/images/common/btn_login_google.jpg" alt="구글로그인">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="div_login_text" style="display:none;">IE 8.0 이하에서는 카카오와 페이스북 로그인이 동작하지 않습니다.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 로그인 영역 끝 -->
+
+<!-- 회원가입 도입 영역 시작 -->
+<div id="join_box_bef" class="div_login" style="display:none;">
+    <div class="layerPopupWrap logoinWrap">
+        <button class="btn_popup_close close" title="닫기" onclick="hideJoinBoxBef();"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+        <div class="inner_padding">
+            <div class="layerPopup">
+                <div>
+                    <h2>간편회원가입</h2>
+                </div>
+                <div class="layerPopup_contents">
+                    <div class="login_form_wrapper">
+                        <div class="div_text_service"><img src="/design_template/images/common/member_sub_text.png" alt="다양한 혜택" /></div>
+                        <!-- <div class="div_text_service">
+                            <h1>"아직 회원이 아니신가요?"</h1>
+                            <p>지금 회원이 되신다면 등급 혜택 서비스로<br/>상품을 할인가로 구매하실 수 있습니다.</p>
+                        </div> -->
+                        <div class="btn_wrapper">
+                            <button type="button" class="c_btn-primary" onclick="showJoinBox();" style="width:100%; margin:0px; font-size:15px; font-weight:700;">간편회원가입</button>
+                        </div>
+                        <div class="div_social_box">
+                            <a href="#none" id="btn_naver" onclick="showSocialLogin('naver')">
+                                <div class="btn_social_login">
+                                    <img src="/design_template/images/common/btn_login_naver_on.jpg" alt="네이버로그인">
+                                    <img class="img_top" src="/design_template/images/common/btn_login_naver.jpg" alt="네이버로그인">
+                                </div>
+                            </a>
+                            <a href="#none" id="btn_kakao" onclick="showSocialLogin('kakao')">
+                                <div class="btn_social_login">
+                                    <img src="/design_template/images/common/btn_login_kakaotalk_on.jpg" alt="카카오로그인">
+                                    <img class="img_top" src="/design_template/images/common/btn_login_kakaotalk.jpg" alt="카카오로그인">
+                                </div>
+                            </a>
+                            <a href="#none" id="btn_fb" onclick="showSocialLogin('fb')">
+                                <div class="btn_social_login">
+                                    <img src="/design_template/images/common/btn_login_facebook_on.jpg" alt="페이스북로그인">
+                                    <img class="img_top" src="/design_template/images/common/btn_login_facebook.jpg" alt="페이스북로그인">
+                                </div>
+                            </a>
+                            <a href="#none" id="btn_google" onclick="showSocialLogin('google')">
+                                <div class="btn_social_login">
+                                    <img src="/design_template/images/common/btn_login_google_on.jpg" alt="구글로그인">
+                                    <img class="img_top" src="/design_template/images/common/btn_login_google.jpg" alt="구글로그인">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="div_login_text" style="display:none;">IE 8.0 이하에서는 카카오와 페이스북 로그인이 동작하지 않습니다.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 회원가입 도입 영역 끝 -->
+
+<!-- 회원가입 영역 시작 -->
+<div id="join_box" class="div_login" style="display:none;">
+    <div class="layerPopupWrap logoinWrap">
+        <button class="btn_popup_close close" title="닫기" onclick="hideJoinBox();"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+        <div class="inner_padding">
+            <div class="layerPopup">
+                <div>
+                    <h2>간편회원가입</h2>
+                </div>
+                <div class="layerPopup_contents">
+                    <div class="login_form_wrapper">
+                        <!-- 상호명-->
+                        <div class="div_login_form_title" style="margin-top:0px !important;">
+                            <p class="login_join_text">이름 또는 상호명</p>
+                        </div>
+                        <div class="div_login_placeholder">
+                            <input id="join_name" class="input_login_id" type="text" onfocus="hidePlaceHd(this.id)">
+                            <span class="span_login_placeholder" id="join_name_placeholder" onclick="hidePlaceHd(this.id)">한글 또는 영문 2글자 이상 입력해주세요.</span>
+                        </div>
+                        <!-- 이메일-->
+                        <div class="div_login_form_title">
+                            <p class="login_join_text">이메일(아이디)</p>
+                            <button type="button" class="button_member_idcf" onclick="chkDupMember();">이메일 중복확인</button>
+                        </div>
+                        <div class="div_login_placeholder">
+                            <input id="join_id" class="input_login_id" type="text" onfocus="hidePlaceHd(this.id)">
+                            <input type="hidden" id="chk_dup" />
+                            <span class="span_login_placeholder" id="join_id_placeholder" onclick="hidePlaceHd(this.id)">사용하시는 이메일 주소를 입력해주세요.</span>
+                        </div>
+                        <!-- 비밀번호-->
+                        <div class="div_login_form_title">
+                            <p class="login_join_text">비밀번호</p>
+                        </div>
+                        <div class="div_login_placeholder">
+                            <input id="join_pw" class="input_login_pw" style="margin-top:0px !important;" type="password" onfocus="hidePlaceHd(this.id)">
+                            <span class="span_login_placeholder" id="join_pw_placeholder" onclick="hidePlaceHd(this.id);">영문 숫자 조합 6~16자리를 입력해주세요.</span>
+                        </div>
+                        <!-- 비밀번호확인-->
+                        <div class="div_login_form_title">
+                            <p class="login_join_text">비밀번호 확인</p>
+                        </div>
+                        <div class="div_login_placeholder">
+                            <input id="join_pw_check" class="input_login_pw" style="margin-top:0px !important; margin-bottom:20px !important;" type="password" onfocus="hidePlaceHd(this.id)">
+                            <span class="span_login_placeholder" id="join_pw_check_placeholder" onclick="hidePlaceHd(this.id);">비밀번호를 확인하기위해 한번 더 입력해주세요.</span>
+                        </div>
+                        <div class="div_member_terms"><a href="/member/private.html" target="_blank">개인정보처리방침</a> 및 <a href="/member/agreement.html" target="_blank">이용약관</a>에 동의합니다. <input type="checkbox" class="id_save_checkbox" id="join_terms"></div>
+                        <div class="btn_wrapper" style="padding:0 0 5px 0;">
+                            <button type="button" class="c_btn-primary" onclick="memberJoin();" style="width:100%; margin:0px">가입하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- 회원가입 영역 끝 -->
+
+<!-- 아이디찾기 영역 시작 -->
+<div id="find_id_box" class="div_login" style="display:none;">
+    <div class="layerPopupWrap logoinWrap">
+        <button class="btn_popup_close close" title="닫기" onclick="hideFindIdBox();"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+        <div class="inner_padding">
+            <div class="layerPopup">
+                <div>
+                    <h2>아이디/비밀번호 찾기</h2>
+                </div>
+                <div class="layerPopup_contents">
+                    <div class="login_form_wrapper">
+                        <!-- 상호명-->
+                        <div class="div_login_form_title" style="margin-top:0px !important;">
+                            <p class="login_join_text">이름 또는 상호명</p>
+                        </div>
+                        <div class="div_login_placeholder">
+                            <input id="find_name" class="input_login_id" type="text" onfocus="hidePlaceHd(this.id)">
+                            <span class="span_login_placeholder" id="find_name_placeholder" onclick="hidePlaceHd(this.id)">가입시 등록한 이름을 입력해주세요.</span>
+                        </div>
+                        <!-- 이메일-->
+                        <div class="div_login_form_title">
+                            <p class="login_join_text">이메일(아이디)</p>
+                        </div>
+                        <div class="div_login_placeholder">
+                            <input id="find_id" class="input_login_id" type="text" onfocus="hidePlaceHd(this.id)">
+                            <span class="span_login_placeholder" id="find_id_placeholder" onclick="hidePlaceHd(this.id)">가입시 등록한 이메일 주소를 입력해주세요.</span>
+                        </div>
+                        <div class="tip">
+                            <ol>
+                                <li>회원 가입시 등록했던 이름(상호명)과 이메일 정보를 입력해주세요.</li>
+                                <li>회원님의 이메일 주소로 아이디와 임시 비밀번호가 발송됩니다.</li>
+                                <li>이메일 정보 확인이 불가능한 경우, 고객센터로 연락 주시기 바랍니다. 고객센터 : 02-2272-2901</li>
+                            </ol>
+                        </div>
+                        <span id="find_acc" style="display:flex;align-items:center;justify-content:center;margin-top:20px;">
+                                    <a href="#none" class="btn_common_login" style="margin-top:10px;" onclick="findAccount();">아이디 / 비밀번호 찾기</a>
+                                </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="result_id_box" class="div_login" style="display:none;">
+    <div class="layerPopupWrap logoinWrap">
+        <button class="btn_popup_close close" title="닫기" onclick="hideResultIdBox();"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+        <div class="inner_padding">
+            <div class="layerPopup">
+                <div>
+                    <h2>아이디 찾기</h2>
+                </div>
+                <div class="layerPopup_contents">
+                    <div class="login_form_wrapper">
+                        <div class="div_login_placeholder" style="margin-bottom:30px;">
+                            <span id="result_id"></span>
+                        </div>
+                        <span>
+                                    <a href="#none" class="btn_common_login" style="margin-top:10px;" onclick="goLoginBox()">돌아가기</a>
+                                </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 아이디찾기 영역 끝 -->

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="[TPH_Vdesign_dir]/css/mypage.css">
+    <script src="[TPH_Vdesign_dir]/js/uploader/plupload.full.min.js"></script>
+    <!--script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false"></script-->
+    <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+    <script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"></script>
+</head>
+<body>
+<!--
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+-->
+<div class="wrapper">
+    <!-- 로그인 박스 -->
+    [TPH_I/common/login.html]
+
+    <!-- 헤더 -->
+    <div class="div_header_wrapper">
+        [TPH_I/common/header.html]
+
+        <!-- 사이드 메뉴 -->
+        [TPH_I/common/side.html]
+
+        <!-- 네비게이션 -->
+        [TPH_I/common/tnb.html]
+    </div>
+    <div class="div_sub_banner">
+        <!-- <img class="" src="/design_template/images/sp_banner/banner_mypage_order_step_02.jpg" alt="서브배너"> -->
+        <img class="" src="/design_template/images/sp_banner/banner_mypage_order.jpg" alt="서브배너">
+        <div class="inner">
+            <div class="title_wrap">
+                <h1>주문서 작성</h1>
+                <p>주문정보와 배송정보를 입력하세요.</p>
+            </div>
+        </div>
+    </div>
+    <div class="contents sheet">
+        <form id="frm" method="post" action="/order/complete.html">
+            <div class="form order">
+                <h3 class="pageTitle"><div class="bar_left"></div>주문정보</h3>
+                [TPH_Vsheet_list]
+            </div>
+            <div class="form delivery">
+                <h3 class="pageTitle"><div class="bar_left"></div>배송정보</h3>
+
+                <table class="order_sheet_table basic_table from">
+                    <colgroup>
+                        <col width="130">
+                        <col width="">
+                        <col width="130">
+                        <col>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th colspan="2" style="text-align:left; padding-left:14px;">보내시는 분</th>
+                        <th colspan="2" style="text-align:right;">
+                            <label><input type="radio" name="fromPreset" checked="checked" onclick="changeFrom('memb');"> 회원정보와 동일</label>
+                            <label style="margin-right:14px;"><input type="radio" name="fromPreset" onclick="changeFrom('new');"> 새로운 정보 입력</label>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">업체/상호명</th>
+                        <td><input name="from_dlvr_name" id="from_dlvr_name" type="text" class="name"></td>
+                        <th scope="row">송신자</th>
+                        <td><input name="from_recei" id="from_recei" type="text" class="name"></td>
+                    </tr>
+                    <tr>
+                        <th>전화번호</th>
+                        <td>
+                            <select id="from_tel_num1" name="from_tel_num1">
+                                [TPH_Vtel_num]
+                            </select>
+                            <input id="from_tel_num2" name="from_tel_num2" maxlength="4" onkeyup="onlyNumber(event, this.value);" type="text">
+                            <input id="from_tel_num3" name="from_tel_num3" maxlength="4" onkeyup="onlyNumber(event, this.value);" type="text">
+                        </td>
+                        <th>휴대전화</th>
+                        <td>
+                            <select id="from_cell_num1" name="from_cell_num1">
+                                [TPH_Vcell_num]
+                            </select>
+                            <input id="from_cell_num2" name="from_cell_num2" maxlength="4" onkeyup="onlyNumber(event, this.value);" type="text">
+                            <input id="from_cell_num3" name="from_cell_num3" maxlength="4" onkeyup="onlyNumber(event, this.value);" type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>주소</th>
+                        <td colspan="3">
+                            <div class="rowWrap">
+                                <input type="text" id="from_zipcode" name="from_zipcode" readonly>
+                                <button type="button" onclick="getPostcode('from');" class="order_basic_button">우편번호 찾기</button>
+                            </div>
+                            <div class="rowWrap">
+                                <input type="text" id="from_addr_top" name="from_addr_top" class="address" readonly>
+                                <input type="text" id="from_addr_detail" name="from_addr_detail" class="address_detail">
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <br/><br/><br/>
+
+                <input type="hidden" id="total_product" value="" />
+                <!--
+                <input type="hidden" id="unselected_product" value="" />
+                <input type="hidden" id="parcel_quick_unselected_product" value="" />
+                -->
+                <input type="hidden" id="to_group" name="to_group" value="" />
+
+                <table class="order_sheet_table basic_table from to" id="to_1">
+                    <colgroup>
+                        <col width="130">
+                        <col width="">
+                        <col width="130">
+                        <col>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th colspan="2" style="text-align:left; padding-left:14px;">받으시는 분</th>
+                        <th colspan="2" style="text-align:right; position:relative;">
+                            <label>
+                                <input type="radio" onclick="changeTo('1', 'memb');" name="to_1_preset" class="to_1_preset_memb"> 회원정보와 동일
+                            </label>
+                            <label id="to_1_new_dlvr" style="margin-right:165px;">
+                                <input type="radio" onclick="changeTo('1', 'new');" checked="checked" name="to_1_preset" class="to_1_preset_new"> 새로운 정보 입력
+                            </label>
+                            <button type="button" id="to_1_select_mydlvr" class="dlvr_addr_pop" style="height:25px;" onclick="showDlvrAddrListPop('to_1');">배송지 선택</button>
+                            <button type="button" class="dlvr_addr_x" style="background:red;margin-left:10px;display:none;" id="removeTo_1" title="삭제" onclick="removeTo(1);"><label>받으시는 분 삭제</label></button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">배송방법</th>
+                        <td>
+                            <select name="to_1_dlvr_way" id="to_1_dlvr_way" class="dlvr_way" onchange="getDlvrCost.exec('to_1');">
+                                [TPH_Vdirect_dlvr]
+                                <option value="01">택배</option>
+                                <option value="04">퀵</option>
+                                <!--option value="05">퀵(다마스)</option-->
+                                <option value="06">방문(인현동)</option>
+                                <option value="07">방문(성수동)</option>
+                            </select>
+                            <input type="hidden" class="dlvr_price" id="to_1_dlvr_price" name="to_1_dlvr_price" value="0" />
+                        </td>
+                        <th scope="row">배송비 지불</th>
+                        <td>
+                            <label style="margin-right:24px;"><input type="radio" checked="checked" name="to_1_dlvr_sum_way" onchange="getDlvrCost.exec('to_1');" value="01"> 선불</label>
+                            <label><input type="radio"  name="to_1_dlvr_sum_way" onchange="getDlvrCost.exec('to_1');" value="02"> 착불</label>
+                            <label id="to_1_dlvr_warning" style="color:#FF0000"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">업체/상호명</th>
+                        <td><input name="to_1_dlvr_name" id="to_1_dlvr_name" type="text" class="name"></td>
+                        <th scope="row">수신자</th>
+                        <td><input name="to_1_recei" id="to_1_recei" type="text" class="name"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">전화번호</th>
+                        <td>
+                            <select id="to_1_tel_num1" name="to_1_tel_num1">
+                                [TPH_Vtel_num]
+                            </select>
+                            <input id="to_1_tel_num2" name="to_1_tel_num2" maxlength="4" onkeyup="onlyNumber(event, this.value);" type="text">
+                            <input id="to_1_tel_num3" name="to_1_tel_num3" maxlength="4" onkeyup="onlyNumber(event, this.value);" type="text">
+                        </td>
+                        <th scope="row">휴대전화</th>
+                        <td>
+                            <select id="to_1_cell_num1" name="to_1_cell_num1">
+                                [TPH_Vcell_num]
+                            </select>
+                            <input id="to_1_cell_num2" name="to_1_cell_num2" maxlength="4" onkeyup="onlyNumber(event, this.value);" type="text">
+                            <input id="to_1_cell_num3" name="to_1_cell_num3" maxlength="4" onkeyup="onlyNumber(event, this.value);" type="text">
+                        </td>
+                    </tr>
+                    <tr id="to_1_addr">
+                        <th scope="row">주소</th>
+                        <td colspan="3" style="position:relative;">
+                            <div class="rowWrap">
+                                <input type="text" id="to_1_zipcode" name="to_1_zipcode" onchange="getDlvrCost.exec('to_1');" readonly>
+                                <button type="button" class="postcode_btn" onclick="getPostcode('to_1');">우편번호 찾기</button>
+                            </div>
+                            <div class="rowWrap">
+                                <input type="text" id="to_1_addr_top" name="to_1_addr_top" class="address" readonly>
+                                <input type="text" id="to_1_addr_detail" name="to_1_addr_detail" class="address_detail">
+                            </div>
+                            <button type="button" class="addressRegist" onclick="showDlvrAddrRegiPop('to_1');">배송지 등록</button>
+                        </td>
+                    </tr>
+                    <tr id="to_1_dlvr_req">
+                        <th scope="row">배송시 요구사항</th>
+                        <td colspan="3">
+                            <div class="rowWrap">
+                                <select id="to_1_dlvr_req_sel" style="width:394px;" onchange="setDlvrReq('1', this);">
+                                    <option value="1">경비실에 맡겨주세요.</option>
+                                    <option value="2">부재시 경비실에 맡겨주세요.</option>
+                                    <option value="3">택배함에 넣어주세요.</option>
+                                    <option value="4">배송 전 연락주세요.</option>
+                                    <option value="5">부재시 연락주세요.</option>
+                                    <option value="">직접입력</option>
+                                </select>
+                                <input type="text" placeholder="50자 까지 작성 가능합니다." id="to_1_dlvr_req_txt" name="to_1_dlvr_req_txt" maxlength="50" value="" style="width:802px; display:none;">
+                                <button class="del" type="button" id="to_1_hide_dlvr_req_txt" onclick="showDlvrReqSel('1');" style="display:none;">X</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <!--
+                    <tr style="cursor: pointer;">
+                        <td colspan="4" id="addTo_1" class="addToTabel_btn" style="border:none; vertical-align: middle; text-align: center;" onclick="addToTable(1);">
+                            <div class="btn_addTo">
+                                <img src="/design_template/images/common/icon_plus.png" alt="받으시는 분 추가">받으시는 분 추가
+                            </div>
+                        </td>
+                    </tr>
+                    -->
+                    </tbody>
+                </table>
+                <input type="hidden" id="to_1_bl_group" name="to_1_bl_group" value="" />
+                <input type="hidden" id="to_1_nc_group" name="to_1_nc_group" value="" />
+                <input type="hidden" id="to_1_bl_price" name="to_1_bl_price" value="" />
+                <input type="hidden" id="to_1_nc_price" name="to_1_nc_price" value="" />
+                <input type="hidden" id="to_1_nc_expec_weight" name="to_1_nc_expec_weight" value="" />
+                <input type="hidden" id="to_1_bl_expec_weight" name="to_1_bl_expec_weight" value="" />
+                <input type="hidden" id="to_1_nc_boxcount" name="to_1_nc_boxcount" value="" />
+                <input type="hidden" id="to_1_bl_boxcount" name="to_1_bl_boxcount" value="" />
+            </div>
+
+            <div class="form payment">
+                <h3 class="pageTitle"><div class="bar_left"></div>결제정보</h3>
+                <ol class="priceInfomation">
+                    <li class="plus">
+                        <dl>
+                            <dt>상품금액</dt>
+                            <dd><span id="sell_price">[TPH_Vsell_price]</span>원</dd>
+                        </dl>
+                    </li>
+                    <li class="minus">
+                        <dl>
+                            <dt>배송비</dt>
+                            <dd>
+                            <span class="wrap">
+                                <span id="dlvr_price">0</span>원
+                                <span class="detail">(0)</span>
+                            </span>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="minus">
+                        <dl>
+                            <dt>
+                                쿠폰적용
+                                <button type="button" onclick="showCouponPop();" title="쿠폰 사용" class="point"><img src="[TPH_Vdesign_dir]/images/order/btn_usepoint.png" alt="사용"></button>
+                            </dt>
+                            <dd>
+                                <span id="cp_span">0</span>원
+                                <input type="hidden" id="coupon_price" name="coupon_price" value="0" />
+                                <input type="hidden" name="coupon_seqno" value="" />
+                                <input type="hidden" name="discount_product_seqno" value="" />
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="equal">
+                        <dl>
+                            <dt>
+                                포인트
+                                <button type="button" onclick="showPointPop();" title="포인트 사용" class="point"><img src="[TPH_Vdesign_dir]/images/order/btn_usepoint.png" alt="사용"></button>
+                            </dt>
+                            <dd>
+                                <span id="point_span">0</span><span class="unit">P</span>
+                                <input type="hidden" id="point" name="point" value="0" />
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>최종결제금액</dt>
+                            <dd>
+                                <strong id="pay_price" >[TPH_Vpay_price]</strong>원
+                                <input type="hidden" id="sum_pay_price" name="sum_pay_price" value="[TPH_Vpay_price]" />
+                            </dd>
+                        </dl>
+                    </li>
+                </ol>
+                <dl class="paymentType">
+                    <dt>
+                        <label><input type="radio" name="card_pay_yn" value="N" checked> 선입금</label>
+                        <label><input type="radio" name="card_pay_yn" value="VAC"> 가상계좌</label>
+                        <label><input type="radio" name="card_pay_yn" value="Y"> 카드결제</label>
+                        <label><input type="radio" name="card_pay_yn" value="NAVER"> <img src="/design_template/images/order/pay_icon_naverpay.png"></label>
+                    </dt>
+                    <dd>
+                        <ol>
+                            <li class="minus">
+                                <dl>
+                                    <dt>선입금</dt>
+                                    <dd>
+                                        <strong id="prepay_price">[TPH_Vprepay_price]</strong>원
+                                        <input type="hidden" name="prepay_price" value="[TPH_Vprepay_price]" />
+                                    </dd>
+                                </dl>
+                            </li>
+                            <li class="equal">
+                                <dl>
+                                    <dt>최종결제금액</dt>
+                                    <dd><strong id="pay_price_summary">[TPH_Vpay_price]</strong>원</dd>
+                                </dl>
+                            </li>
+                            <li>
+                                <dl>
+                                    <dt>결제 후 잔액</dt>
+                                    <dd>
+                                        <strong id="order_lack_price">[TPH_Vorder_lack_price]</strong>원
+                                    </dd>
+                                    <p id="lack_warn" class="total_price">※선입금이 부족하여 입금 후 접수가 진행됩니다.</p>
+                                </dl>
+                            </li>
+                        </ol>
+                    </dd>
+                </dl>
+
+                <!-- 영수증 발행 시작 -->
+                <dl class="reciept">
+                    [TPH_Vreceipt]
+                </dl> <!-- 영수증 발행 끝 -->
+            </div>
+            <div class="function center">
+                <strong><button type="button" onclick="chkEmergency('showConfirmPop');">결제하기</button></strong>
+                <strong class="blue"><button type="button" onclick="location.replace('/mypage/cart.html');">장바구니로 돌아가기</button></strong>
+            </div>
+
+            <input type="hidden" id="onefile_yn" value="[TPH_Vonefile_etprs_yn]" />
+            <input type="hidden" id="card_cpn" name="card_cpn" value="" />
+            <input type="hidden" id="aprvl_num" name="aprvl_num" value="" />
+            <input type="hidden" id="cno" name="cno" value="" />
+
+        </form>
+    </div>
+    <footer>
+        [TPH_I/common/footer.html]
+    </footer>
+
+    <!-- 주문확인 팝업 -->
+    <div class="modalMask l_confirm" style="z-index:2000;">
+        <div class="layerPopupWrap" style="margin-top:7vh">
+            <button class="btn_popup_close close" title="닫기"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+            <div class="inner_padding">
+                <div class="layerPopup">
+                    <div>
+                        <h2>주문서 확인</h2>
+                    </div>
+                    <div class="layerPopup_contents">
+                        <div class="scrollWrap">
+                            <h3 class="order_sheet_title">주문상품</h3>
+                            <table class="list order _details" id="confirm_table">
+                                <colgroup>
+                                    <col style="width:60px">
+                                    <col style="width:90px">
+                                    <col>
+                                    <col style="width:150px">
+                                    <col style="width:75px">
+                                    <col style="width:100px">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>담은날</th>
+                                    <th>상품정보</th>
+                                    <th>후가공</th>
+                                    <th>수량(건)</th>
+                                    <th>결제예정금액</th>
+                                </tr>
+                                </thead>
+                            </table>
+
+                            <h3 class="order_sheet_title">주문자 정보</h3>
+                            <table class="list order">
+                                <colgroup>
+                                    <col width="80">
+                                    <col width="100">
+                                    <col width="120">
+                                    <col width="120">
+                                    <col width="140">
+                                    <col>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>주문자명</th>
+                                    <th>회사명</th>
+                                    <th>전화번호</th>
+                                    <th>휴대전화번호</th>
+                                    <th>메일</th>
+                                    <th>주소</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>[TPH_Vmember_name]</td>
+                                    <td>[TPH_Vmember_group]</td>
+                                    <td>[TPH_Vmember_tel_num]</td>
+                                    <td>[TPH_Vmember_cell_num]</td>
+                                    <td>[TPH_Vmember_mail]</td>
+                                    <td>[[TPH_Vmember_zipcode]] [TPH_Vmember_addr]</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <h3 class="order_sheet_title">보내시는 분</h3>
+                            <table class="list order order_sheet_sender">
+                                <colgroup>
+                                    <col width="180">
+                                    <col width="120">
+                                    <col width="120">
+                                    <col>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>성명/상호</th>
+                                    <th>전화번호</th>
+                                    <th>휴대전화번호</th>
+                                    <th>주소</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td id="confirm_from_name"></td>
+                                    <td id="confirm_from_tel_num"></td>
+                                    <td id="confirm_from_cell_num"></td>
+                                    <td>
+                                        [<span id="confirm_from_zipcode"></span>] <span id="confirm_from_addr"></span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div id="confirm_to" style="margin-top:30px; margin-bottom:30px;">
+                            </div>
+
+                            <h3 class="order_sheet_title">결제 정보 및 방법</h3>
+                            <table class="list order">
+                                <colgroup>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                    <col>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>주문금액 합계</th>
+                                    <th>할인금액 합계</th>
+                                    <th>총 결제금액</th>
+                                    <th>결제 수단</th>
+                                    <th>선입금 잔액</th>
+                                    <th>결제 후 잔액</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td id="confirm_sum_price"></td>
+                                    <td id="confirm_sum_discount"></td>
+                                    <td id="confirm_pay_price"></td>
+                                    <td id="confirm_pay_way"></td>
+                                    <td id="confirm_prepay_price"></td>
+                                    <td id="confirm_order_lack_price"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <ul class="hyphen notice">
+                            <li>주문하신 내용이 올바른지 다시 확인해주세요.</li>
+                            <li>주문서의 내용이 맞는다면 <span class="text_st_01">[확인] 버튼</span>을 클릭하여 주문을 완료하세요.</li>
+                            <li>주문서에 수정할 부분이 있다면 <span class="text_st_01">[뒤로] 버튼</span>을 클릭해주세요.</li>
+                        </ul>
+                    </div>
+                    <div class="btn_wrapper">
+                        <button type="button" class="btn_type_02" onclick="chkEmergency('chkValue');">확인</button>
+                        <button type="button" class="btn_type_01 close">뒤로</button>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- 주문확인 팝업 -->
+
+        <!-- PG 결제관련 form -->
+        <form name="frm_pay" method="post" action="">
+            <!--------------------------->
+            <!-- ::: 공통 인증 요청 값 -->
+            <!--------------------------->
+
+            <!-- 가맹점 이름 // -->
+            <input type="hidden" id="EP_mall_nm"      name="EP_mall_nm"      value="[TPH_Vmall_nm]">
+            <!-- 가맹점 주문번호 // -->
+            <input type="hidden" id="EP_order_no"     name="EP_order_no"     value="">
+            <!-- 통화코드 // 00 : 원화-->
+            <input type="hidden" id="EP_currency"     name="EP_currency"     value="00">
+            <!-- 가맹점 CALLBACK URL // -->
+            <input type="hidden" id="EP_return_url"   name="EP_return_url"   value="[TPH_Vhost]/webpay_card/web/normal/new_order_res.php">
+            <!-- CI LOGO URL // -->
+            <input type="hidden" id="EP_ci_url"       name="EP_ci_url"       value="">
+            <!-- 언어 // -->
+            <input type="hidden" id="EP_lang_flag"    name="EP_lang_flag"    value="KOR">
+            <!-- 가맹점 CharSet // -->
+            <input type="hidden" id="EP_charset"      name="EP_charset"      value="UTF-8">
+            <!-- 사용자구분 // -->
+            <input type="hidden" id="EP_user_type"    name="EP_user_type"    value="2">
+            <!-- 가맹점 고객ID // -->
+            <input type="hidden" id="EP_user_id"      name="EP_user_id"      value="">
+            <!-- 가맹점 고객일련번호 // -->
+            <input type="hidden" id="EP_memb_user_no" name="EP_memb_user_no" value="">
+            <!-- 가맹점 고객명 // -->
+            <input type="hidden" id="EP_user_nm"      name="EP_user_nm"      value="[TPH_Vuser_nm]">
+            <!-- 가맹점 고객 E-mail // -->
+            <input type="hidden" id="EP_user_mail"    name="EP_user_mail"    value="[TPH_Vmember_mail]">
+            <!-- 가맹점 고객 연락처1 // -->
+            <input type="hidden" id="EP_user_phone1"  name="EP_user_phone1"  value="">
+            <!-- 가맹점 고객 연락처2 // -->
+            <input type="hidden" id="EP_user_phone2"  name="EP_user_phone2"  value="">
+            <!-- 가맹점 고객 주소 // -->
+            <input type="hidden" id="EP_user_addr"    name="EP_user_addr"    value="">
+            <!-- 가맹점 필드1 // -->
+            <input type="hidden" id="EP_user_define1" name="EP_user_define1" value="">
+            <!-- 가맹점 필드2 // -->
+            <input type="hidden" id="EP_user_define2" name="EP_user_define2" value="">
+            <!-- 가맹점 필드3 // -->
+            <input type="hidden" id="EP_user_define3" name="EP_user_define3" value="">
+            <!-- 가맹점 필드4 // -->
+            <input type="hidden" id="EP_user_define4" name="EP_user_define4" value="">
+            <!-- 가맹점 필드5 // -->
+            <input type="hidden" id="EP_user_define5" name="EP_user_define5" value="">
+            <!-- 가맹점 필드6 // -->
+            <input type="hidden" id="EP_user_define6" name="EP_user_define6" value="">
+            <!-- 상품정보구분 // -->
+            <input type="hidden" id="EP_product_type" name="EP_product_type" value="">
+            <!-- 서비스 기간 // (YYYYMMDD) -->
+            <input type="hidden" id="EP_product_expr" name="EP_product_expr" value="">
+
+            <!--------------------------->
+            <!-- ::: 카드 인증 요청 값 -->
+            <!--------------------------->
+
+            <!-- 사용가능한 카드 LIST // FORMAT->카드코드:카드코드: ... :카드코드 EXAMPLE->029:027:031 // 빈값 : DB조회-->
+            <input type="hidden" id="EP_usedcard_code"     name="EP_usedcard_code"     value="">
+            <!-- 할부개월 (카드코드-할부개월) -->
+            <input type="hidden" id="EP_quota"             name="EP_quota"             value="">
+            <!-- 해외안심클릭 사용여부(변경불가) // -->
+            <input type="hidden" id="EP_os_cert_flag"      name="EP_os_cert_flag"      value="2">
+            <!-- 무이자 여부 (Y/N) // -->
+            <input type="hidden" id="EP_noinst_flag"       name="EP_noinst_flag"       value="">
+            <!-- 무이자 기간(카드코드-더할할부개월) // -->
+            <input type="hidden" id="EP_noinst_term"       name="EP_noinst_term"       value="">
+            <!-- 카드사포인트 사용여부 (Y/N) // -->
+            <input type="hidden" id="EP_set_point_card_yn" name="EP_set_point_card_yn" value="">
+            <!-- 포인트카드 LIST  // -->
+            <input type="hidden" id="EP_point_card"        name="EP_point_card"        value="">
+            <!-- 조인코드 // -->
+            <input type="hidden" id="EP_join_cd"           name="EP_join_cd"           value="">
+            <!-- 국민앱카드 사용유무 // -->
+            <input type="hidden" id="EP_kmotion_useyn"     name="EP_kmotion_useyn"     value="">
+            <!-- 가맹점아이디 //
+            <input type="hidden" id="EP_mall_id"           name="EP_mall_id"           value="05528819"> real-->
+            <!--input type="hidden" id="EP_mall_id"           name="EP_mall_id"           value="T0009314"-->
+            <input type="hidden" id="EP_mall_id"           name="EP_mall_id"           value="T0011066">
+            <!-- 윈도우 타입 // -->
+            <input type="hidden" id="EP_window_type"       name="EP_window_type"       value="iframe">
+            <!--  결제수단 // -->
+            <input type="hidden" id="EP_pay_type"          name="EP_pay_type"          value="11">
+            <!--  상품명 // -->
+            <input type="hidden" id="EP_product_nm"        name="EP_product_nm"        value="">
+            <!--  상품금액 // -->
+            <input type="hidden" id="EP_product_amt"       name="EP_product_amt"       value="">
+
+            <!--------------------------------->
+            <!-- ::: 인증응답용 인증 요청 값 -->
+            <!--------------------------------->
+
+            <!--  응답코드 // -->
+            <input type="hidden" id="resCd"         name="resCd"         value="">
+            <!--  응답메세지 // -->
+            <input type="hidden" id="resMsg"        name="resMsg"        value="">
+            <!--  결제창 요청구분 // -->
+            <input type="hidden" id="shopOrderNo"          name="shopOrderNo"          value="">
+            <!--  결제수단 // -->
+            <input type="hidden" id="authorizationId"   name="authorizationId"   value="">
+            <!--  복합결제 여부 (Y/N) // -->
+            <input type="hidden" id="shopValue1" name="shopValue1" value="">
+            <!--  카드코드 (ISP:KVP카드코드 MPI:카드코드) // -->
+            <input type="hidden" id="shopValue2"      name="shopValue2"      value="">
+            <!--  MPI인 경우 ECI코드 // -->
+            <input type="hidden" id="shopValue3"       name="shopValue3"       value="">
+            <!--  거래구분 // -->
+            <input type="hidden" id="shopValue4"  name="shopValue4"  value="">
+            <!--  카드사 세이브 여부 (Y/N) // -->
+            <input type="hidden" id="shopValue5"     name="shopValue5"     value="">
+            <!--  추적번호 // -->
+            <input type="hidden" id="shopValue6"       name="shopValue6"       value="">
+            <!--  세션키 // -->
+            <input type="hidden" id="shopValue7"     name="shopValue7"     value="">
+        </form>
+
+        <iframe name="iframe_pay" id="iframe_pay" width="0" height="0" style="display:none;"></iframe>
+    </div>
+</body>
+</html>

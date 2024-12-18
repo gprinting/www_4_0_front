@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    [TPH_I/common/head.html]
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+<div class="wrapper">
+<!-- 로그인 박스 -->
+[TPH_I/common/login.html]
+
+<!-- 헤더 -->
+<div class="div_header_wrapper">
+    [TPH_I/common/header.html]
+
+    <!-- 사이드 메뉴 -->
+    [TPH_I/common/side.html]
+
+    <!-- 네비게이션 -->
+    [TPH_I/common/tnb.html]
+</div>
+<div class="div_sub_banner">
+    <img class="" src="/design_template/images/sp_banner/banner_mypage_claim.jpg" alt="서브배너" />
+</div>
+<div class="contents contents_02 claimInfo">
+    <div class="lnb">
+        [TPH_I/mypage/common/lnb.html]
+    </div>
+    <h3 class="pageTitle">클레임 처리내역</h3>
+    <input type="hidden" id="claim_seqno" value="[TPH_Vclaim_seqno]">
+    <table class="information question _details">
+        <colgroup>
+            <col width="120">
+            <col>
+            <col width="120">
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th colspan="4">클레임 상세사항</th>
+            </tr>
+        </thead>
+        <tbody class="_on">
+            <tr class="_orderDetails">
+                <td colspan="4">
+                    <div class="wrap">
+                       <!-- <figure><img src="[TPH_Vfile_path][TPH_Vsave_file_name]" alt="상품명"></figure> -->
+                        <dl>
+                            <dt>주문일</dt>
+                            <dd>[TPH_Vorder_regi_date]</dd>
+                            <dt>주문번호</dt>
+                            <dd>[TPH_Vorder_num]</dd>
+                      <!--      <dt>접수구분</dt>
+                            <dd>[TPH_Vreceipt_dvs]</dd> -->
+                        </dl>
+                        <dl>
+                            <dt>인쇄물 제목</dt>
+                            <dd>[TPH_Vtitle]</dd>
+                        </dl>
+                        <dl>
+                            <dt>상품내역</dt>
+                            <dd>[TPH_Vorder_detail]</dd>
+                        </dl>
+                        <dl>
+                            <dt>후공정</dt>
+                            <dd>
+                                <ul class="information">
+                                    [TPH_Vafter_html]
+                                </ul>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>수량/건</dt>
+                            <dd>[TPH_Vamt] x [TPH_Vcount]</dd>
+                        </dl>
+                        <dl>
+                            <dt>할인내역</dt>
+                            <dd>회원등급할인 [TPH_Vgrade_sale_price] / 이벤트할인 [TPH_Vevent_price]</dd>
+                        </dl>
+                        <dl>
+                            <dt>무게</dt>
+                            <dd>[TPH_Vexpec_weight]</dd>
+                            <dt>배송</dt>
+                            <dd>[TPH_Vdlvr_way]</dd>
+                        </dl>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <th scope="row">클레임 제목</th>
+                <td colspan="3">[TPH_Vclaim_title]</td>
+            </tr>
+            <tr>
+                <th scope="row">클레임 유형</th>
+                <td>[TPH_Vdvs]</td>
+                <th scope="row">클레임 견본</th>
+                <td><a href="/common/claim_file_down.php?seqno=[TPH_Vorder_claim_seqno]">[TPH_Vsample_origin_file_name]</a></td>
+            </tr>
+            <tr>
+                <th scope="row">클레임 내용</th>
+                <td colspan="3">[TPH_Vcust_cont]</td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="information answer">
+        <colgroup>
+            <col width="120">
+            <col>
+            <col width="120">
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th colspan="4">클레임 처리내역</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">담당자</th>
+                <td>[TPH_Vempl_name]</td>
+                <th scope="row">상태</th>
+                <td>[TPH_Vstate]</td>
+            </tr>
+            <tr>
+                <th scope="row">발생 비용</th>
+                <td>[TPH_Voccur_price]</td>
+                <th scope="row">고객 부담금</th>
+                <td>[TPH_Vcust_burden_price]</td>
+            </tr>
+            <tr>
+                <th scope="row">처리내용</th>
+                <td colspan="3">[TPH_Vmng_cont]</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="function narrow">
+        <strong class="blue right"><button onclick="claimListMove();" class="function">목록으로</button></strong>
+    </div>
+    [TPH_I/mypage/common/banner.html]
+</div>
+<footer>
+    [TPH_I/common/footer.html]
+</footer>
+</div>
+</body>
+</html>

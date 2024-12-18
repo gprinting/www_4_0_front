@@ -1,0 +1,198 @@
+        <form id="frm" action="/order/add_cart.html" method="post">
+            <!-- 공통  -->
+            <div class="basic_table_wrapper _info">
+                <table class="basic_table">
+                    <colgroup>
+                        <col style="width:20%;">
+                        <col style="">
+                    </colgroup>
+                    <tr>
+                        <th>제목</th>
+                        <td>
+                            <input class="basic_input" type="text" id="title" name="title" maxlength="30" value="[TPH_Vtitle]">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>상품명</th>
+                        <td>
+                            [TPH_Vcate_bot]
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>용지</th>
+                        <td>
+                            <select class="basic_input _summary _paper_info" id="ao_placard_paper" name="ao_placard_paper" onchange="changeData();">
+                                [TPH_Vao_placard_paper]
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>인쇄도수</th>
+                        <td>
+                            <select class="basic_input _summary _bef_tmpt" onchange="changeData();" id="ao_placard_print_tmpt" name="ao_placard_bef_tmpt">
+                                [TPH_Vao_placard_print_tmpt]
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>사이즈</th>
+                        <td>
+                            <select class="" name="ao_placard_size_dvs" style="display:none;">
+                                <option class="_custom">사이즈</option>
+                            </select>
+
+                            [TPH_Vsize_position]
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <table class="order_size_form">
+                                <colgroup>
+                                    <col style="width:30%;">
+                                    <col style="width:35%;">
+                                    <col style="width:35%;">
+                                </colgroup>
+                                <tr class="_cuttingSize _summary _placard_size">
+                                    <td><span class="order_size_form_text">제품사이즈</span></td>
+                                    <td style="text-align: center;">
+                                        <span class="order_size_form_text">가로 </span>
+                                        <input class="input_type_text_size" type="text" maxlength="5" id="ao_placard_cut_wid_size" name="ao_placard_cut_wid_size" onblur="chkAoMaxMinSize();" value="5000">
+                                        <select class="basic_input Column_02" id="ao_placard_sel_cut_wid_size" name="ao_placard_sel_cut_wid_size" style="display:none;" onchange="changeSize();">
+                                            [TPH_Vsize_option]
+                                        </select>
+                                        <span class="order_size_form_text"> mm,</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span class="order_size_form_text">세로 </span>
+                                        <input class="input_type_text_size" type="text" maxlength="5"  id="ao_placard_cut_vert_size" name="ao_placard_cut_vert_size" readonly="readonly" value="5000" onblur="chkAoMaxMinSize();" style="display:none;">
+                                        <select id="ao_placard_sel_cut_vert_size" name="ao_placard_sel_cut_vert_size" onchange="changeSize();">
+                                            [TPH_Vsize_option]
+                                        </select>
+                                        <span class="order_size_form_text"> mm</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="order_size_form_text _workingSize" >디자인사이즈</span></td>
+                                    <td style="text-align: center;">
+                                        <span class="order_size_form_text">가로 </span>
+                                        <input class="input_type_text_size" type="text" id="design_wid_size" name="ao_placard_design_wid_size" readonly="readonly">
+                                        <span class="order_size_form_text"> mm,</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span class="order_size_form_text">세로 </span>
+                                        <input class="input_type_text_size" type="text" id="design_vert_size" name="ao_placard_design_vert_size" readonly="readonly">
+                                        <span class="order_size_form_text"> mm</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    [TPH_Vwarning]
+                    <tr>
+                        <th>수량</th>
+                        <td>
+                            <select class="basic_input _summary _amt" id="ao_placard_amt" name="ao_placard_amt" onchange="changeAmt();" amt_unit="[TPH_Vao_placard_amt_unit]">
+                                [TPH_Vao_placard_amt]
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 기본 후가공 -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title">
+                    기본 후가공
+                </div>
+            </div>
+            <div class="basic_table_wrapper ao_basic_after">
+                [TPH_Vao_placard_basic_after]
+            </div>
+
+            <!-- 후가공 -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title after_option_title">
+                    후가공<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_on.png" alt="후가공 보기">
+                </div>
+                <div class="sub_title after_option_title_on" style="display:none;">
+                    후가공<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_off.png" alt="후가공 닫기">
+                </div>
+            </div>
+            <div class="basic_table_wrapper after_option_table" style="display:none;">
+                [TPH_Vao_placard_add_after]
+            </div>
+            <!-- 후가공 끝 -->
+    
+            <!-- 옵션 -->
+            <div class="sub_title_wrapper">
+                <div class="sub_title option_title">
+                    추가물품<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_on.png" alt="추가물품 보기">
+                </div>
+                <div class="sub_title option_title_on" style="display:none;">
+                    추가물품<img class="btn_view_option" src="[TPH_Vdesign_dir]/images/common/btn_view_option_off.png" alt="추가물품 닫기">
+                </div>
+            </div>
+    
+            <div class="basic_table_wrapper option_table" style="display:none;">
+                [TPH_Vao_placard_add_opt]
+            </div>
+            <!-- 옵션 끝 -->
+    
+            <!-- 공통 -->
+            <input type="hidden" name="flag" value="flag">
+            <input type="hidden" id="show_size">
+            <!-- chk -->
+            <input type="hidden" id="ao_placard_flattyp_yn" name="ao_placard_flattyp_yn" value="[TPH_Vao_placard_flattyp_yn]">
+            <!-- 낱장형여부 -->
+            <input type="hidden" id="prdt_dvs" name="prdt_dvs" value="ao_placard">
+            <!-- 상품 페이지에 들어가있는 제품구분값 -->
+            <input type="hidden" name="ao_placard_cate_name" value="">
+            <!-- 카테고리명-->
+            <input type="hidden" name="ao_placard_amt_unit" value="">
+            <!-- 수량단위 -->
+            <input type="hidden" id="ao_placard_tmpt_dvs" value="[TPH_Vao_placard_tmpt_dvs]">
+            <!-- 도수구분 -->
+            <input type="hidden" id="ao_placard_typ" name="ao_placard_typ" value="[TPH_Vao_placard_page_dvs]">
+            <!-- 상품 페이지에 들어가있는 제품구분값 -->
+            <input type="hidden" id="ao_placard_amt_sale_rate" value="[TPH_Vao_placard_amt_sale_rate]">
+            <input type="hidden" id="ao_placard_amt_sale_aplc" value="[TPH_Vao_placard_amt_sale_aplc]">
+            <!-- 요약정보 표시용 변수 -->
+            <!-- 표시용 -->
+            <input type="hidden" name="cart_flag" id="cart_flag" value="Y">
+            <!-- 장바구니 이동여부 -->
+            <!-- 종이 -->
+            <input type="hidden" name="ao_placard_paper_name" value="">
+            <!-- 종이명 -->
+            <!-- 인쇄 -->
+            <input type="hidden" name="ao_placard_page" value="[TPH_Vao_placard_page]">
+            <!-- 페이지수 -->
+            <input type="hidden" name="ao_placard_bef_tmpt_name" value="">
+            <!-- 도수명 -->
+            <!-- 사이즈 -->
+            <input type="hidden" name="ao_placard_size_name" value="">
+            <input type="hidden" name="ao_placard_size" value="[TPH_Vao_placard_def_stan_mpcode]">
+            <!-- 사이즈명 -->
+            <!-- 가격정보 -->
+            <input type="hidden" name="ao_placard_prdt_price" id="ao_placard_prdt_price" value="[TPH_Vao_placard_prdt_price]">
+            <!-- 상품금액 -->
+            <input type="hidden" name="ao_placard_sell_price" value="">
+            <!-- 판매금액 -->
+            <input type="hidden" name="ao_placard_sale_price" value="">
+            <!-- 할인금액 -->
+            <input type="hidden" name="ao_placard_member_sale_rate" id="ao_placard_member_sale_rate" value="[TPH_Vao_placard_member_sale_rate]">
+            <!-- 회원할인률 -->
+            <input type="hidden" name="ao_placard_grade_sale_rate" id="ao_placard_grade_sale_rate" value="[TPH_Vao_placard_grade_sale_rate]">
+            <!-- 등급할인률 -->
+            <input type="hidden" name="ao_placard_after_price" value="">
+            <!-- 후공정금액 -->
+            <input type="hidden" name="opt_price" value="">
+            <!-- 옵션금액 -->
+            <!-- 옵션 -->
+            <input type="hidden" name="opt_add" value="">
+            <!-- 추가후공정 맵핑코드 -->
+            <input type="hidden" name="opt_add_price" value="">
+            <!-- 추가옵션 가격 -->
+            <input type="hidden" name="opt_add_info" value="">
+            <!-- 추가옵션 세부정보 -->
+        </form>

@@ -1,0 +1,255 @@
+<link rel="stylesheet" href="[TPH_Vdesign_dir]/css/minitoggle.css" />
+
+<script src="[TPH_Vdesign_dir]/js/minitoggle.js"></script>
+<script src="[TPH_Vdesign_dir]/js/product/[TPH_Vpage].js"></script>
+<script src="[TPH_Vdesign_dir]/js/product/aft_lib.js"></script>
+<script src="[TPH_Vroot_design_dir]/js/product/aft_lib.js"></script>
+<script src="[TPH_Vroot_design_dir]/js/product/aft_restrict.js"></script>
+<script src="[TPH_Vroot_design_dir]/js/product/aft_[TPH_Vpage].js"></script>
+<script src="[TPH_Vroot_design_dir]/js/product/opt_lib.js"></script>
+<script src="[TPH_Vroot_design_dir]/js/product/opt_restrict.js"></script>
+<script>
+    //토글
+    $(document).ready(function() {
+        $('.toggle').minitoggle();
+
+        $('.toggle').on("toggle", function(e){
+            var action = $(this).attr("action");
+            var id = null;
+
+            if (action === "aft") {
+                id = getPrefix($(this).attr("dvs")) + $(this).attr("aft");
+            } else {
+                id = getPrefix("opt") + $(this).attr("idx");
+            }
+
+            if (!e.isActive) {
+                $(id + "_price_dd").html("0원");
+                $(id + "_price").html("0원");
+            }
+
+            $(id).trigger("click");
+        });
+
+        //체크박스 전체선택
+        $("#chk_round_all").click(function(){
+            var check = $("#chk_round_all").prop("checked");
+            $("input[name=nc_rounding_dvs]").prop("checked", check);
+        });
+
+        //옵션 보기
+        $(".option_title").click(function () {
+            $(".option_table").show();
+            $(".option_title").hide();
+            $(".option_title_on").show();
+        });
+
+        $(".option_title_on").click(function () {
+            $(".option_table").hide();
+            $(".option_title_on").hide();
+            $(".option_title").show();
+        });
+
+        $("td.[TPH_Vcate_sortcode]").addClass("on");
+
+        // 사이즈 변경시
+        $("._size").on("change", function() {
+            changeSizeData();
+        });
+
+        // 재단사이즈 변경시
+        $("._cut_size").on("blur", function() {
+            var gap = parseInt($("._workingSize").attr("class")
+                                                 .split("_gap").pop());
+            // 180111 이청산 추가 : 실사출력 쪽 NaN 입력 방지
+            if (!isNaN(gap)) {
+                var cutWid = parseInt($("._cut_size._wid").val());
+                var cutVert = parseInt($("._cut_size._vert").val());
+    
+                $("._work_size._wid").val(cutWid + gap);
+                $("._work_size._vert").val(cutVert + gap);
+            }
+
+            orderSummary();
+            calcManuPosNum.exec();
+        });
+
+        // 규격/비규격 변경시
+        $("#size_dvs").on("change", function() {
+            var dvs = $(this).val();
+
+            if (dvs === "stan") {
+                $("._cut_size").prop("readonly", true);
+                $("._summary._size").show();
+                changeSizeData();
+
+                if ($("._roomNumber").length > 0) {
+                    $("._roomNumber").hide();
+                }
+            } else {
+                $("._cut_size").prop("readonly", false);
+                $("._summary._size").hide();
+
+                if ($("._roomNumber").length > 0) {
+                    $("._roomNumber").show();
+                }
+            }
+        });
+
+        $("._summary").on("change", orderSummary);
+
+        changeSizeData();
+        orderSummary();
+    });
+
+    var changeSizeData = function() {
+        if ($("._size").length === 0) {
+            return false;
+        }
+
+        var arr = $("._size").find("option:selected").attr("class").split(" ");
+        var length = arr.length;
+
+        var cutSizeArr = [];
+        var workSizeArr = [];
+        var thomsonSizeArr = [];
+        var designSizeArr = [];
+
+        for (var i = 0; i < length; i++) {
+            var size = arr[i];
+
+            if (size.indexOf("_workingWH") > -1) {
+                workSizeArr = size.replace("_workingWH", '').split('-');
+            } else if (size.indexOf("_cuttingWH") > -1) {
+                cutSizeArr = size.replace("_cuttingWH", '').split('-');
+            } else if (size.indexOf("_thomsonWH") > -1) {
+                thomsonSizeArr = size.replace("_thomsonWH", '').split('-');
+            } else if (size.indexOf("_designWH") > -1) {
+                designSizeArr = size.replace("_designWH", '').split('-');
+            }
+        }
+
+        if ($("._cut_size").length > 0) {
+            $("._cut_size._wid").val(cutSizeArr[0]);
+            $("._cut_size._vert").val(cutSizeArr[1]);
+        }
+
+        if ($("._work_size").length > 0) {
+            $("._work_size._wid").val(workSizeArr[0]);
+            $("._work_size._vert").val(workSizeArr[1]);
+        }
+
+        if ($("._thomson_size").length > 0) {
+            $("._thomson_size._wid").val(thomsonSizeArr[0]);
+            $("._thomson_size._vert").val(thomsonSizeArr[1]);
+        }
+
+        if ($("._design_size").length > 0) {
+            $("._design_size._wid").val(designSizeArr[0]);
+            $("._design_size._vert").val(designSizeArr[1]);
+        }
+    };
+
+    var orderSummary = function() {
+        var summary = '';
+        var append = null;
+        var delim = ", ";
+
+        $("._info").each(function() {
+            var title = $(this).attr("title");
+
+            if (!checkBlank(title)) {
+                summary += "<br/>" + title + " : ";
+            }
+
+            var temp = '';
+            $(this).find("._summary").each(function() {
+                if ($(this).hasClass("_cate")) {
+                    append = $(this).find("option:selected").text();
+                    temp = appendStr(temp, append, delim);
+                } else if ($(this).hasClass("_size")) {
+                    var wid  = $("._cut_size._wid").val();
+                    var vert = $("._cut_size._vert").val();
+
+                    if ($("._size_dvs").val() === "manu") {
+                        append  = "비규격";
+                    } else {
+                        append  = $(this).find("option:selected").text();
+                    }
+
+                    append += '(' + wid  + '*';
+                    append += vert + ')';
+
+                    temp = appendStr(temp, append, delim);
+                } else if ($(this).hasClass("_placard_size")) {
+                    var wid  = getWid().val();
+                    var vert = getVert().val();
+
+                    append = wid  + '*' + vert;
+
+                    temp = appendStr(temp, append, delim);
+                } else if ($(this).hasClass("_size_typ")) {
+                    append  = $(this).find("option:selected").text();
+
+                    temp = appendStr(temp, append, delim);
+                } else if ($(this).hasClass("_amt")) {
+                    append  = $(this).find("option:selected").text();
+
+                    temp = appendStr(temp, append, delim);
+                } else if ($(this).hasClass("_count")) {
+                    append  = $(this).find("option:selected").text() + "건";
+
+                    temp = appendStr(temp, append, delim);
+                } else if ($(this).hasClass("_paper_sort")) {
+                    append  = $(this).find("option:selected").text();
+
+                    temp = appendStr(temp, append, delim);
+                } else if ($(this).hasClass("_paper_name")) {
+                    append  = $(this).find("option:selected").text();
+
+                    temp = appendStr(temp, append, delim);
+                } else if ($(this).hasClass("_paper_info")) {
+                    append  = $(this).find("option:selected").text();
+
+                    temp = appendStr(temp, append, delim);
+                } else if ($(this).hasClass("_bef_tmpt")) {
+                    append  = $(this).find("option:selected").text();
+
+                    temp = appendStr(temp, append, delim);
+                } else if ($(this).hasClass("_aft_tmpt")) {
+                    append  = $(this).find("option:selected").text();
+
+                    temp = appendStr(temp, append, delim);
+                } else if ($(this).hasClass("_page")) {
+                    append  = $(this).find("option:selected").text();
+
+                    temp = appendStr(temp, append, delim);
+                } else if ($(this).hasClass("_binding_d1")) {
+                    append  = $(this).find("option:selected").text();
+
+                    temp = appendStr(temp, append, delim);
+                } else if ($(this).hasClass("_binding_d2")) {
+                    append  = $(this).find("option:selected").text();
+
+                    temp = appendStr(temp, append, delim);
+                }
+            });
+
+            summary += temp;
+        });
+
+        $("#order_summary").html(summary);
+    };
+
+    var afterSumary = function() {
+        $(".after_option_table");
+    };
+
+    var appendStr = function(str, append, delim) {
+        if (!checkBlank(str)) {
+            str += delim;
+        }
+
+        return str += append;
+    };
+</script>
