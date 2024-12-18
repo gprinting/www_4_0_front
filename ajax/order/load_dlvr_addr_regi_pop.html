@@ -1,0 +1,19 @@
+<button class="btn_popup_close close" title="닫기"><img src="/design_template/images/common/btn_circle_x_white.png" alt="X"></button>
+<div class="inner_padding">
+    <div class="layerPopup">
+        <div>
+            <h2>나의 배송지 등록</h2>
+        </div>
+        <div class="layerPopup_contents">
+            <div>
+                <div class="dlvr_resi">업체/상호명
+                    <input id="pop_dlvr_name" type="text" value="<?=$_GET["dlvr_name"] ?>">
+                </div>
+            </div>
+        </div>
+        <div class="btn_wrapper">
+            <button type="button" class="btn_type_02" onclick="regiDlvrAddr.exec();">등록</button>
+            <button type="button" class="btn_type_01 close">취소</button>
+        </div>
+    </div>
+</div>
