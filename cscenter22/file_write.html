@@ -1,0 +1,76 @@
+<?
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/sess_common.php");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/Template.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/job/front/service/FileListDAO.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new FileListDAO();
+
+$seqno = $fb->form("seqno");
+
+$btn_html = "<strong><button class=\"function\" onclick=\"%s\">%s</button></strong>";
+
+//일련번호가 있을 경우
+if ($seqno) {
+    $param = array();
+    $param["seqno"] = $seqno;
+    $param["dvs"] = "view";
+
+    $rs = $dao->selectFileList($conn, $param);
+
+    $template->reg("title", $rs->fields["title"]); 
+    $template->reg("cont", $rs->fields["cont"]); 
+
+    //첨부파일
+    $param = array();
+    $param["table"] = "share_library_file";
+    $param["col"] = "origin_file_name, share_library_file_seqno";
+    $param["where"]["share_library_seqno"] = $seqno;
+
+    $rs = $dao->selectData($conn, $param);
+
+    $file_name = $rs->fields["origin_file_name"];
+    $html = <<<HTML
+            <tr>
+                <th scope="row">첨부 된 파일</th>
+                <td class="file">
+                    <div class="rowWrap">$file_name</div>
+                </td>
+            </tr>
+HTML;
+
+    $template->reg("file_info", $html); 
+    $template->reg("btn_html", sprintf($btn_html
+                             , "modiFileList('$seqno');"
+                             , "수정")); 
+    $template->reg("url", "/cscenter/file_view.html?seqno=$seqno"); 
+
+} else {
+    $template->reg("title", ""); 
+    $template->reg("cont", ""); 
+    $template->reg("file_info", ""); 
+    $template->reg("btn_html", sprintf($btn_html
+                             , "regiFileList();"
+                             , "등록")); 
+    $template->reg("url", "/cscenter/file_list.html"); 
+}
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/login_check.php");
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "cscenter"); 
+$template->reg("page", "file_write"); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

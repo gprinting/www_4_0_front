@@ -1,0 +1,76 @@
+<?
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once($_SERVER["INC"] . "/common_define/cscenter_define.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/job/front/common/FrontCommonDAO.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/Template.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new FrontCommonDAO();
+
+$type = $fb->form("type");
+
+// 로케이션 메뉴
+//$location_html  = "<li><a href=\"/cscenter/main.html\"><span>고객센터</span></a></li>";
+//$location_html .= "<li><a href=\"/cscenter/guide.html?type=membership\"><span>이용안내</span></a></li>";
+//$location_html .= "<li><a href=\"/cscenter/guide.html?type=" . $type . "\"><span>". GUIDE_MENU_HASH[$type] ."</span></a></li>";
+//
+//$template->reg("location", $location_html);
+
+// 상단탭선택
+$pageTab = "";
+
+$guide_menu_arr_count = count(GUIDE_MENU_ARR);
+for ($i=0; $i<$guide_menu_arr_count; $i++) {
+
+    $css = "";
+
+
+    if (GUIDE_MENU_ARR[$i][1] == "수동견적가이드") {
+        $css = "long ";
+    }
+
+    if (GUIDE_MENU_ARR[$i][1] == "포인트/쿠폰") {
+        $css = "long ";
+    }
+
+    if (GUIDE_MENU_HASH[$type] == GUIDE_MENU_ARR[$i][1]) {
+        $css .= "on";
+    }
+
+    $pageTab_html = "<li class=\"%s\" onclick=\"location.href='/cscenter/guide.html?type=%s'\" style=\"cursor:pointer;\">%s</li>";
+    $pageTab .= sprintf($pageTab_html, $css, GUIDE_MENU_ARR[$i][0], GUIDE_MENU_ARR[$i][1]);
+}
+
+$display_etc = "block";
+$display_paper_dscr = "none";
+
+if ($type === "paper_dscr") {
+    $display_etc = "none";
+    $display_paper_dscr = "block";
+}
+
+$template->reg("pageTab", $pageTab);
+$template->reg("type", GUIDE_MENU_HASH[$type]);
+$template->reg("type_en", $type);
+$template->reg("display_etc", $display_etc);
+$template->reg("display_paper_dscr", $display_paper_dscr);
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "cscenter"); 
+$template->reg("page", "guide"); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

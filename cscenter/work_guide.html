@@ -1,0 +1,61 @@
+<?
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once($_SERVER["INC"] . "/common_define/cscenter_define.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/job/front/common/FrontCommonDAO.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/Template.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new FrontCommonDAO();
+
+$dvs = $fb->form("dvs");
+
+// 상단탭
+$form = "<li onclick=\"location.href='/cscenter/work_guide.html?dvs=%s'\" class=\"%s\" style=\"cursor:pointer;\">%s</li>";
+$html = '';
+foreach (WORK_GUIDE_MENU_ARR as $key => $val) {
+    $css = "";
+    if ($dvs === $key) {
+        $css = "on";
+    }
+
+
+    $html .= sprintf($form, $key, $css, $val);
+}
+$template->reg("tab_html", $html);
+
+// 하위탭
+$form = "<button class=\"cate_tab %s %s\" dvs=\"%s\">%s</button>";
+$html = '';
+$cate_arr = WORK_GUIDE_CATE_MENU_ARR[$dvs];
+foreach ($cate_arr as $key => $val) {
+    $css = "";
+    if (empty($html)) {
+        $template->reg("cate", $key);
+        $css = "btn_active";
+    }
+
+    $html .= sprintf($form, $css, $key, $key, $val);
+}
+$template->reg("cate_html", $html);
+
+$template->reg("dvs", $dvs);
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "cscenter"); 
+$template->reg("page", "work_guide"); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

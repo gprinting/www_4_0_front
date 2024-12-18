@@ -1,0 +1,15 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+
+$template = new Template();
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "cscenter"); 
+$template->reg("page", "release_guide"); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+?>

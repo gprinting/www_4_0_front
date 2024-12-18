@@ -1,0 +1,90 @@
+<?
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once($_SERVER["INC"] . "/com/nexmotion/job/front/cscenter/ContactDAO.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/Template.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new ContactDAO();
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+$param = array();
+$param["cpn_admin_seqno"] = $fb->session("sell_site");
+
+$rs = $dao->selectContactPart($conn, $param);
+$html = "";
+
+while ($rs && !$rs->EOF) {
+
+    $team_html  = "<section class=\"team\"> ";
+    $team_html .= "  <h4><span>%s</span></h4> ";
+//    $team_html .= "  <p>팀소개</p> ";
+//    $team_html .= "  <dl class=\"time\"><dt>상담시간</dt><dd>09:30 ~ 19:00</dd> ";
+//    $team_html .= "  <dt>점심시간</dt><dd>12:30 ~ 13:30</dd></dl> ";
+    $team_html .= "  <ul>%s</ul> ";
+    $team_html .= "</section> ";
+
+    $param = array();
+    $param["depar_code"] = $rs->fields["depar_code"];
+    $member = $dao->selectContactPartMember($conn, $param);
+    $member_html = "";
+
+    while ($member && !$member->EOF) {
+       
+        if (!$member->fields["photo_path"]) { 
+            if ($member->fields["sex"] == "1")
+                $img = "/design_template/images/cscenter/contact_part_man.png";
+            else
+                $img = "/design_template/images/cscenter/contact_part_woman.png";
+        } else {
+            $img = $member->fields["photo_path"];
+        }
+
+        $member_html .= "<li> ";
+        $member_html .= "  <dl>";
+        $member_html .= "    <dd class=\"picture\"><img src=\"%s\"></dd>";
+        $member_html .= "    <dt>%s %s</dt>";
+        $member_html .= "    <dd>%s</dd>";
+        $member_html .= "  </dl>";
+        $member_html .= "</li> ";
+
+        $member_html = sprintf($member_html,
+                                $img,
+                                $member->fields["name"],
+                                $member->fields["posi_name"],
+                                $member->fields["tel_num"]);
+
+        $member->moveNext();
+    }
+
+    if ($member_html == "")
+        $member_html = "팀원이 없습니다.";
+
+    $team_html = sprintf($team_html,
+                        $rs->fields["depar_name"],
+                        $member_html);
+
+    $html .= $team_html;
+
+    $rs->moveNext();
+}
+
+$template->reg("list", $html); 
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "cscenter"); 
+$template->reg("page", "main"); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

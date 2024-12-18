@@ -1,0 +1,136 @@
+<?
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/Template.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/job/front/cscenter/NoticeDAO.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new NoticeDAO();
+
+$seqno = $fb->form("seqno");
+
+if (!$seqno) {
+    $util->errorGoBack("잘못 된 접근입니다.");
+    exit;
+}
+
+$param = array();
+$param["seqno"] = $seqno;
+
+$rs = $dao->selectNoticeView($conn, $param);
+
+$hits = intVal($rs->fields["hits"]) + 1;
+$regi_date = date("Y-m-d", strtotime($rs->fields["regi_date"]));
+
+$dvs = "";
+if ($rs->fields["dvs"] == 0) {
+    $dvs = "";
+} else if ($rs->fields["dvs"] == 1) {
+    $dvs = "<span class=\"important\">[호환성문제]</span>";
+} else if ($rs->fields["dvs"] == 2) {
+    $dvs = "<span class=\"alert\">[긴급]</span>";
+}
+
+$attach = "<a href=\"/common/notice_file_down.php?seqno=%s\">%s</a>";
+$attach = sprintf($attach, $rs->fields["notice_seqno"], $rs->fields["origin_file_name"]);
+$template->reg("attach", $attach); 
+
+$template->reg("title", $dvs . " " . $rs->fields["title"]); 
+$template->reg("name", $rs->fields["name"]); 
+$template->reg("hits", $hits); 
+$template->reg("cont", $rs->fields["cont"]); 
+$template->reg("regi_date", $regi_date); 
+
+//조회수 업데이트
+$param = array();
+$param["table"] = "notice";
+$param["col"]["hits"] = $hits;
+$param["prk"] = "notice_seqno";
+$param["prkVal"] = $seqno;
+
+$rs = $dao->updateData($conn, $param);
+
+$html  = "<td colspan=\"6\" class=\"subject\"><a href=\"/cscenter/notice_view.html%s\" target=\"_self\">%s</a></td>";
+$html .= "<td>%s</td>";
+
+$no_html  = "<td colspan=\"6\" class=\"subject noArticle\">%s</td>";
+$no_html .= "<td></td>";
+
+//이전글
+$param = array();
+$param["dvs"] = "pre";
+$param["pre_seqno"] = $seqno;
+
+$rs = $dao->selectNoticeList($conn, $param);
+
+if ($rs->EOF == 1) {
+    $pre_info = sprintf($no_html, "이전 글이 없습니다.");
+} else {
+    $pre_regi_date = date("Y-m-d", strtotime($rs->fields["regi_date"]));
+
+    $title = "";
+    if ($rs->fields["dvs"] == 0) {
+        $title = $rs->fields["title"];
+    } else if ($rs->fields["dvs"] == 1) {
+        $title = "<span class=\"important\">[호환성문제]</span> " . $rs->fields["title"];
+    } else if ($rs->fields["dvs"] == 2) {
+        $title = "<span class=\"alert\">[긴급]</span> " . $rs->fields["title"];
+    }
+
+    $pre_info = sprintf($html, "?seqno=" . $rs->fields["notice_seqno"]
+                             , $title
+                             , $pre_regi_date);
+}
+
+$template->reg("pre_info", $pre_info); 
+
+//다음글
+$param = array();
+$param["dvs"] = "next";
+$param["next_seqno"] = $seqno;
+
+$rs = $dao->selectNoticeList($conn, $param);
+
+if ($rs->EOF == 1) {
+    $next_info = sprintf($no_html, "다음 글이 없습니다.");
+} else {
+    $title = "";
+    if ($rs->fields["dvs"] == 0) {
+        $title = $rs->fields["title"];
+    } else if ($rs->fields["dvs"] == 1) {
+        $title = "<span class=\"important\">[호환성문제]</span> " . $rs->fields["title"];
+    } else if ($rs->fields["dvs"] == 2) {
+        $title = "<span class=\"alert\">[긴급]</span> " . $rs->fields["title"];
+    }
+
+    $next_regi_date = date("Y-m-d", strtotime($rs->fields["regi_date"]));
+    $next_info = sprintf($html, "?seqno=" . $rs->fields["notice_seqno"]
+                             , $title
+                             , $next_regi_date);
+}
+
+$template->reg("next_info", $next_info); 
+
+//일련번호
+$template->reg("seqno", $seqno); 
+
+
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "cscenter"); 
+$template->reg("page", "notice_view"); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

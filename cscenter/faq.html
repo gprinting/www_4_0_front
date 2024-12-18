@@ -1,0 +1,62 @@
+<?
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once($_SERVER["INC"] . "/common_define/cscenter_define.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/job/front/common/FrontCommonDAO.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/Template.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new FrontCommonDAO();
+
+$type = $fb->form("type");
+$searchWrd = $fb->form("searchWrd");
+
+// 로케이션 메뉴
+$location_html  = "<li><a href=\"/cscenter/main.html\"><span>고객센터</span></a></li>";
+$location_html .= "<li><a href=\"/cscenter/faq.html?type=membership\"><span>FAQ</span></a></li>";
+$location_html .= "<li><a href=\"/cscenter/faq.html?type=" . $type . "\"><span>". FAQ_MENU_HASH[$type] ."</span></a></li>";
+
+$template->reg("location", $location_html);
+$template->reg("search_word", $searchWrd);
+
+// 상단탭선택
+$pageTab = "";
+$pageTab_html = sprintf($pageTab_html, $css, $type, FAQ_MENU_ARR[$i][1]);
+
+
+for ($i = 0; $i < count(FAQ_MENU_ARR); $i++) {
+
+    $pageTab_html = "<li class=\"%s\"><a href=\"/cscenter/faq.html?type=%s\">%s</a></li>";
+    $css = "";
+
+    if (FAQ_MENU_ARR[$i][1] == "포인트/쿠폰")
+        $css = "long ";
+
+    if (FAQ_MENU_HASH[$type] == FAQ_MENU_ARR[$i][1])
+        $css .= "on";
+
+    $pageTab .= sprintf($pageTab_html, $css, FAQ_MENU_ARR[$i][0], FAQ_MENU_ARR[$i][1]);
+}
+
+$template->reg("pageTab", $pageTab);
+$template->reg("type", FAQ_MENU_HASH[$type]);
+
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "cscenter"); 
+$template->reg("page", "faq"); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

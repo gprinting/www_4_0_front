@@ -1,0 +1,38 @@
+<?
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/Template.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/job/front/common/FrontCommonDAO.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new FrontCommonDAO();
+
+$isAdm = $_SESSION["isadmin"];
+
+$regi_btn = "";
+//if ($fb->session("member_seqno")) {
+if ($isAdm == "1") {
+    $regi_btn  = "<strong>";
+    $regi_btn .= "<button class=\"function\" onclick=\"location.href='/cscenter/file_write.html'\">글쓰기";
+    $regi_btn .= "</button></strong>";
+    $template->reg("regi_btn", $regi_btn); 
+}
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "cscenter");
+$template->reg("page", "file_list"); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

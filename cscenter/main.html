@@ -1,0 +1,81 @@
+<?
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+//include_once($_SERVER["INC"] . "/com/nexmotion/job/front/common/FrontCommonDAO.inc");
+//include_once($_SERVER["INC"] . "/com/nexmotion/job/front/cscenter/FaqDAO.inc");
+//include_once($_SERVER["INC"] . "/com/nexmotion/job/front/cscenter/NoticeDAO.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/Template.inc");
+//include_once($_SERVER["INC"] . "/com/nexmotion/common/util/ConnectionPool.inc");
+//include_once($_SERVER["INC"] . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+
+//$connectionPool = new ConnectionPool();
+//$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+//$frontUtil = new FrontCommonUtil();
+//$dao = new FrontCommonDAO();
+//$faqDAO = new FaqDAO();
+//$noticeDao = new NoticeDAO();
+
+//FAQ TOP 10
+/*
+$rs = $faqDAO->selectFaqTopList($conn, $param);
+$faqTop = makeFAQTopListHtml($rs);
+$template->reg("faqTop10", $faqTop);
+
+//공지사항 요약
+$rs = $noticeDao->selectNoticeSummary($conn);
+
+$noticeHtml = "";
+$new = "";
+
+while ($rs && !$rs->EOF) {
+
+    //오늘날짜보다 차이 1일차면 new
+    if ( time() - strtotime($rs->fields["regi_date"]) < 60*60*24*1 ) 
+        $new = "new";
+    else
+        $new = "";
+
+    $html = "\n     <li class=\"%s\"><a href=\"/cscenter/notice_view.html?seqno=%s\" target=\"_self\">%s</a></li>";
+   
+    $dvs = "";
+    if ($rs->fields["dvs"] == "0") {
+        $dvs = "";
+    } else if ($rs->fields["dvs"] == "1") {
+        $dvs = "[호환성여부] ";
+    } else {
+        $dvs = "[긴급] ";
+    }
+
+    $html = sprintf( $html
+                   , $new 
+                   , $rs->fields["notice_seqno"] 
+                   //, str_cut($rs->fields["title"], 0, 20, "..")
+                   , $dvs . $rs->fields["title"]
+            );
+
+    $noticeHtml .= $html;
+    $rs->moveNext();
+}
+
+if ($noticeHtml == "") {
+    $noticeHtml = "<li>등록된 공지가 없습니다.</li>";
+}
+
+
+$template->reg("notice", $noticeHtml); 
+*/
+
+// 로그인 상태인지 체크하는부분 include
+//include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "cscenter"); 
+$template->reg("page", "main"); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+//$conn->Close();
+?>

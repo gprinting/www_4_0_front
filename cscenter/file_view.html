@@ -1,0 +1,126 @@
+<?
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/Template.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/job/front/service/FileListDAO.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$frontUtil = new FrontCommonUtil();
+$dao = new FileListDAO();
+
+$seqno = $fb->form("seqno");
+
+//상세
+$param = array();
+$param["seqno"] = $seqno;
+$param["dvs"] = "view";
+
+$rs = $dao->selectFileList($conn, $param);
+
+$hits = intVal($rs->fields["hits"]) + 1;
+$regi_date = date("Y-m-d", strtotime($rs->fields["regi_date"]));
+
+$html = <<<HTML
+            <button class="function" onclick="location.href='/service/file_write.html?seqno=$seqno'">수정</button>
+            <button class="function" onclick="delFileList('$seqno')">삭제</button>
+
+HTML;
+
+//수정, 삭제 버튼
+if ($fb->session("member_name") == $rs->fields["member_name"]) {
+    $template->reg("btn_html", $html); 
+}
+
+
+$template->reg("title", $rs->fields["title"]); 
+$template->reg("cont", str_replace("\n","<br>", $rs->fields["cont"])); 
+$template->reg("regi_date", $regi_date); 
+$template->reg("member_name", $rs->fields["member_name"]); 
+$template->reg("hits", $hits); 
+
+//조회수 업데이트
+$param = array();
+$param["table"] = "share_library";
+$param["col"]["hits"] = $hits;
+$param["prk"] = "share_library_seqno";
+$param["prkVal"] = $seqno;
+
+$rs = $dao->updateData($conn, $param);
+
+//첨부파일
+$param = array();
+$param["table"] = "share_library_file";
+$param["col"] = "origin_file_name, share_library_file_seqno";
+$param["where"]["share_library_seqno"] = $seqno;
+
+$rs = $dao->selectData($conn, $param);
+
+$template->reg("file_name", $rs->fields["origin_file_name"]); 
+$template->reg("file_seqno", $rs->fields["share_library_file_seqno"]); 
+
+$html  = "<td colspan=\"5\" class=\"subject\"><a href=\"/cscenter/file_view.html%s\" target=\"_self\">%s</a></td>";
+$html .= "<td colspan=\"2\">%s | %s</td>";
+
+$no_html  = "<td colspan=\"5\" class=\"subject noArticle\">%s</td>";
+$no_html .= "<td colspan=\"2\"></td>";
+
+//이전글
+$param = array();
+$param["dvs"] = "pre";
+$param["pre_seqno"] = $seqno;
+
+$rs = $dao->selectFileList($conn, $param);
+
+if ($rs->EOF == 1) {
+    $pre_info = sprintf($no_html, "이전 글이 없습니다.");
+} else {
+    $pre_regi_date = date("Y-m-d", strtotime($rs->fields["regi_date"]));
+    $pre_info = sprintf($html, "?seqno=" . $rs->fields["share_library_seqno"]
+                             , $rs->fields["title"]
+                             //, $rs->fields["member_name"]
+                             , "관리자"
+                             , $pre_regi_date);
+}
+
+$template->reg("pre_info", $pre_info); 
+
+//다음글
+$param = array();
+$param["dvs"] = "next";
+$param["next_seqno"] = $seqno;
+
+$rs = $dao->selectFileList($conn, $param);
+
+if ($rs->EOF == 1) {
+    $next_info = sprintf($no_html, "다음 글이 없습니다.");
+} else {
+    $next_regi_date = date("Y-m-d", strtotime($rs->fields["regi_date"]));
+    $next_info = sprintf($html, "?seqno=" . $rs->fields["share_library_seqno"]
+                             , $rs->fields["title"]
+                             //, $rs->fields["member_name"]
+                             , "관리자"
+                             , $next_regi_date);
+}
+
+$template->reg("next_info", $next_info); 
+
+//일련번호
+$template->reg("seqno", $seqno); 
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "cscenter"); 
+$template->reg("page", "file_view"); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

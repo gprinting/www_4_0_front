@@ -1,0 +1,32 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once(INC_PATH . "/com/nexmotion/common22/entity/FormBean.inc");
+
+$fb = new FormBean();
+$member_seqno = $fb->form("seqno");
+
+$html = <<<html
+    <button class="btn_popup_close close" title="닫기"><img src="/design_template/images/common22/btn_circle_x_white.png" alt="X"></button>
+    <div class="inner_padding">
+        <div class="layerPopup">
+            <div>
+                <h2>회원정보 동기화</h2>
+            </div>
+            <div class="layerPopup_contents">
+                <em class="text_st_01">기존 사이트 정보와 동기화 하시겠습니까?</em>
+                <ul class="hyphen notice">
+                    <li>굿프린팅 구버전부터 이용해주신 회원님 감사합니다.</li>
+                    <li>아래 '확인' 버튼을 클릭하면 동기화됩니다.</li>
+                    <li>원활한 주문을 위해서는 정보를 동기화하시는것이 좋습니다.</li>
+                </ul>
+            </div>
+            <div class="btn_wrapper">
+                <button type="button" class="btn_type_02" onclick="">확인</button>
+                <button type="button" class="btn_type_01 close">취소</button>
+            </div>
+        </div>
+    </div>
+html;
+
+echo $html;
+?>
