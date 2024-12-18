@@ -1,0 +1,427 @@
+<?
+/*
+ * Copyright (c) 2015-2016 Nexmotion, Inc.
+ * All rights reserved.
+ *
+ * REVISION HISTORY (reverse chronological order)
+ *=============================================================================
+ * 2016/09/02 엄준현 수정(order/cart.html -> mypage/cart.html)
+ * 2016/12/12 엄준현 수정(스티커 코팅/무코팅 처리로직 추가)
+ * 2016/12/13 엄준현 수정(예상무게 로직 변경)
+ *=============================================================================
+ *
+ */
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/job/front/order/CartDAO.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/PriceValidationUtil.inc");
+include_once(INC_PATH . "/common_lib/CalcPriceUtil.inc");
+include_once(INC_PATH . "/define/front/common_config.inc");
+include_once(INC_PATH . "/define/front/product_info_class.inc");
+include_once(INC_PATH . "/common_define/prdt_default_info.inc");
+include_once(INC_PATH . '/classes/dprinting/PriceCalculator/Common/DPrintingFactory.php');
+
+
+/***
+ * 리캡챠 검증
+ */
+if(true){
+    if(!isset($_POST['g-recaptcha-response'])) $_POST['g-recaptcha-response'] = '';
+    $verifyData = array(
+        "secret"=>"6LezRKkpAAAAAKOKwvikPcPjreYxApc7_SFrLVYt",
+        "response"=>$_POST['g-recaptcha-response'],
+    );
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $verifyData);
+    $verify = json_decode(curl_exec($ch), true);
+
+    if($verify['success']===true){
+        
+    }else{
+        $frontUtil->errorGoBack("봇 확인 절차에 실패했습니다. 다시 시도해주십시오.");
+        exit;
+    }
+}
+
+if ($is_login === false) {
+    $frontUtil->errorGoBack("로그인 후 확인 가능합니다.");
+    exit;
+}
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$fb = new FormBean();
+$dao = new CartDAO();
+$priceUtil = new PriceValidationUtil();
+
+$session = $fb->getSession();
+$fb = $fb->getForm();
+
+
+
+$new_fb = array();
+$prdt_dvs = $fb["prdt_dvs"];
+if(startsWith($fb["prdt_dvs"],"cover")) {
+    $prdt_dvs = "ad";
+}
+foreach ($fb as $key => $value) {
+    if(startsWith($key, $prdt_dvs)) {
+        $new_key = str_replace( $prdt_dvs . "_", "",$key);
+        $new_fb[$new_key] = $value;
+    }
+}
+
+foreach ($new_fb as $key => $value) {
+    $fb[$key] = $value;
+}
+$frontUtil = new FrontCommonUtil();
+$factory = new DPrintingFactory();
+
+if($fb["common_prdt_dvs"] != null) {
+    $prdt_dvs = $fb["common_prdt_dvs"];
+} else {
+    $prdt_dvs = $fb["prdt_dvs"];
+}
+
+$product = $factory->create($fb[$prdt_dvs . "_cate_sortcode"]);
+$product = $product->setInfo($fb);
+
+/*
+echo "<pre>";
+print_r($product);
+print_r($fb);
+$conn->debug = 1;
+*/
+
+// insert 실패시 에러메세지
+$err_msg = '';
+// 이동할 페이지
+$location = "Location: ";
+
+// Y -> 장바구니로 이동, N -> 주문서 작성으로 이동, A -> Ajax 장바구니추가
+$cart_flag = $fb["cart_flag"];
+
+// 비정상 접근 검출
+$flag = $fb["flag"];
+
+if (empty($flag) === true) {
+    $location .= "/main22/main.html";
+    $err_line = __LINE__;
+    goto MOVE;
+}
+
+//! 주문_공통 테이블
+//@ 제목, 빈값이면 뒤로가기
+$title = $fb["title"];
+if (empty($title)) {
+    echo "<script>" .
+        "    alert(\"인쇄물제목을  입력해주세요.\");" .
+        "    history.back();" .
+        "</script>";
+    exit;
+}
+
+$state_arr = $session["state_arr"];
+$after_en_arr = ProductInfoClass::AFTER_ARR;
+
+
+
+$file_seqno = $fb["file_seqno"];
+
+$order_common_seqno = "";
+if($fb["order_common_seqno"] != '') {
+    $order_common_seqno = $fb["order_common_seqno"];
+}
+
+if($fb["order_common_seqno"] == '4419'){
+    $frontUtil->errorGoBack("로그인 후 확인 가능합니다.");
+    exit;
+}
+
+$product->makeOrderCommonInsertParam($fb, $session);
+$p = $product->getProduct();
+
+$price = $product->cost();
+
+ 
+
+$p->order_common_param["sell_price"] =(floor($price["sell_price"]/10))*10;
+$p->order_common_param["pay_price"] = (floor($price["sell_price"]/10))*10;
+
+$insert_ret = $dao->insertOrderCommon($conn, $p->order_common_param);
+if ($insert_ret === false) {
+    $err_line = __LINE__;
+    $err_msg = "주문 데이터 입력에 실패했습니다.";
+    $conn->FailTrans();
+    $conn->RollbackTrans();
+    goto ERR;
+}
+
+if($order_common_seqno == "") {
+    $order_common_seqno = $conn->Insert_ID("order_common");
+    $p->order_common_param['order_common_seqno'] = $order_common_seqno;
+
+    $tmp_param = array();
+    $tmp_param["order_common_seqno"] = $order_common_seqno;
+    $order_num = $dao->selectOrderNum($conn, $tmp_param);
+
+    $p->order_common_param["order_num"] = $order_num;
+    $p->order_detail_param["order_detail_dvs_num"] = "S" . $order_num . "01";
+    $p->order_common_param["order_common_seqno"] = $p->order_detail_param["order_common_seqno"] = $order_common_seqno;
+}
+else {
+    $order_detail_rs = $dao->selectOrderDetailInfo($conn, $order_common_seqno);
+    $new_order_detail = $order_detail_rs["order_detail"] . " / "
+        . $order_detail_rs["amt"] . $order_detail_rs["amt_unit_dvs"]  . " / "
+        . $order_detail_rs["count"] . "건";
+
+    $param1['order_common_seqno'] = $order_common_seqno;
+    $param1['kind'] = "주문이력";
+    $param1['before'] = $old_order_detail;
+    $param1['after'] = $new_order_detail;
+    $param1['empl_id'] = "dpuser1";
+
+    $dao->insertOrderInfoHistory($conn, $param1);
+}
+$order_after_basic_param_arr = [];
+$order_after_add_param_arr = [];
+
+// 에러났을 경우 데이터 삭제할 때 사용
+$order_detail_dvs_num_arr = [];
+$order_detail_seqno_arr = [];
+
+$conn->StartTrans();
+$product->makeOrderDetailInsertParam($fb, $session);
+if($order_common_seqno != '') {
+    $dao->deleteOrderDetail($conn, $order_common_seqno);
+}
+
+$insert_ret = $dao->insertOrderDetail($conn, $p->order_detail_param);
+$product->makeOrderAfterHistoryInsertParam($fb);
+$cost = $product->cost();
+
+if($order_common_seqno != '') {
+    $dao->deleteOrderAfterHistoryBySeqno($conn, $order_common_seqno);
+}
+
+$cnt = count($p->order_after_history_param);
+for($i = 0; $i < $cnt; $i++) {
+    $p->order_after_history_param[$i]['order_detail_dvs_num'] = $p->order_detail_param["order_detail_dvs_num"];
+    $p->order_after_history_param[$i]['order_common_seqno'] = $order_common_seqno;
+    $p->order_after_history_param[$i]['price'] = $cost[$p->order_after_history_param[$i]['after_eng_name']];
+
+    if($p->order_after_history_param[$i]['after_name'] == "엠보싱"){
+        $p->order_after_history_param[$i]['after_name'] = "에폭시";
+    }
+
+    if($p->order_after_history_param[$i]['after_name'] == "라미넥스"){
+        $p->order_after_history_param[$i]['depth2'] = $fb['bl_laminex_cnt'];
+       $p->order_after_history_param[$i]['detail'] = $p->order_after_history_param[$i]['detail']." ".$fb['bl_laminex_cnt'];
+    }
+
+    $dao->insertOrderAfterHistory($conn, $p->order_after_history_param[$i]);
+}
+$conn->CompleteTrans();
+
+$conn->StartTrans();
+$product->makeOrderOptionHistoryInsertParam($fb);
+if($order_common_seqno != '') {
+    $dao->deleteOrderOptHistoryBySeqno($conn, $order_common_seqno);
+}
+
+$cnt = count($p->order_option_history_param);
+for($i = 0; $i < $cnt; $i++) {
+    $p->order_option_history_param[$i]['order_common_seqno'] = $order_common_seqno;
+    $p->order_option_history_param[$i]['opt_cnt'] =  $fb["opt_cnt"];    
+
+    $dao->insertOrderOptHistory($conn, $p->order_option_history_param[$i]);
+}
+$conn->CompleteTrans();
+// order_file 파일명 update 및 rename
+// 기존 파일명 검색 -> rename -> db update
+$conn->StartTrans();
+if (!empty($file_seqno) && $fb["order_common_seqno"] == '') {
+    unset($param);
+    $param["order_file_seqno"]   = $file_seqno;
+    $file_info = $dao->selectOrderFile($conn, $param);
+    $ext = array_pop(explode('.', $file_info["origin_file_name"]));
+
+    $param["order_common_seqno"] = $order_common_seqno;
+    $param["member_seqno"]       = $session["org_member_seqno"];
+    $param["save_file_name"]     = $param['order_file_seqno'] . '.' . $ext;
+    $dao->updateOrderFile($conn, $param);
+
+    $base_path = $_SERVER["SiteHome"]
+        . SITE_NET_DRIVE
+        . $file_info["file_path"];
+    $old_name = $file_info["save_file_name"];
+    $new_name = $p->order_common_param['order_num'] . '.' . $ext;
+
+    //@rename($base_path . $old_name, $base_path . $new_name);
+}
+$conn->CompleteTrans();
+
+// 자동
+// 자동 - 전단(A3이하, 8절이하 사이즈 / 아트지 90g / 3연이하)
+$isAuto = false;
+if($p->order_common_param["cate_sortcode"] == "005001001") {
+    $isAuto = true;
+    if($p->order_detail_param["stan_name"] == "A1"
+    || $p->order_detail_param["stan_name"] == "A2"
+    || $p->order_detail_param["stan_name"] == "2절(B2)"
+    || $p->order_detail_param["stan_name"] == "4절(B3)") {
+        $isAuto = false;
+    }
+
+    if($p->order_common_param["amt"] > 3) {
+        $isAuto = false;
+    }
+
+    if(strpos($p->order_common_param["order_detail"], "아트지 백색 90g") === false) {
+        $isAuto = false;
+    }
+}
+
+// 자동 - 명함(스노우지, 수입지)
+if($p->order_common_param["cate_sortcode"] == "003001001"
+    || $p->order_common_param["cate_sortcode"] == "003002001") {
+    $isAuto = true;
+}
+
+// 자동 - 스티커(사각 - 아트지, 은데드롱, 투명데드롱, 유포지지 / 도무송 - 보험)
+if($p->order_common_param["cate_sortcode"] == "004001001"
+ || $p->order_common_param["cate_sortcode"] == "004003001") {
+    $isAuto = true;
+    if(strpos($p->order_common_param["order_detail"], "아트지 강접 백색 90g") === false
+        && strpos($p->order_common_param["order_detail"], "은무데드롱 무광PET 은색 25g") === false
+        && strpos($p->order_common_param["order_detail"], "투명데드롱 PET 투명 38g") === false
+        && strpos($p->order_common_param["order_detail"], "유포지 무광PP 미색 80g") === false) {
+        $isAuto = false;
+    }
+}
+
+// 파일형식
+if($isAuto) {
+    if($ext != "cdr"
+        && $ext != "ai"
+        && $ext != "eps"
+        && $ext != "zip"
+        && $ext != "pdf"
+        && $ext != "jpg"
+        && $ext != "jpeg") {
+        $isAuto = false;
+    }
+}
+// 후가공
+if($isAuto) {
+    $cnt = count($p->order_after_history_param);
+    for ($i = 0; $i < $cnt; $i++) {
+        if($p->order_after_history_param[$i]["basic_yn"] == "N"
+        && $p->order_after_history_param[$i]["after_name"] != "귀도리") {
+            $isAuto = false;
+        }
+
+    }
+}
+if($isAuto) {
+    $dao->updateToAuto($conn, $order_common_seqno);
+}
+
+
+
+/*
+*/
+if ($cart_flag === 'Y') {
+    $location .= "/mypage22/cart.html";
+} else {
+    $location .= "/order22/sheet.html?seq=" . $order_common_seqno;
+}
+/*
+echo "</pre>";
+goto OPT_ERR;
+exit;
+*/
+
+// 세션값에 장바구니 값 추가
+$_SESSION["cart_prdt_count"] += 1;
+
+goto MOVE;
+
+exit;
+
+OPT_ERR:
+$param["table"] = "order_opt_history";
+$param["order_common_seqno"] = $order_common_seqno;
+$ret = $dao->deleteOrderData($conn, $param);
+AFT_ERR:
+unset($param);
+$param["order_detail_dvs_num"] = $order_detail_dvs_num_arr;
+$ret = $dao->deleteOrderAfterHistory($conn, $param);
+ORDER_DETAIL_FILE_ERR:
+$param["order_detail_seqno"] = $order_detail_seqno_arr;
+$ret = $dao->deleteOrderDetailCountFile($conn, $param);
+ORDER_DETAIL_ERR:
+$param["table"] = "order_detail";
+$param["order_common_seqno"] = $order_common_seqno;
+$ret = $dao->deleteOrderData($conn, $param);
+$param["table"] = "order_detail_brochure";
+$param["order_common_seqno"] = $order_common_seqno;
+$ret = $dao->deleteOrderData($conn, $param);
+ERR:
+// order_file
+$param["order_common_seqno"] = $order_common_seqno;
+
+if (!empty($file_seqno)) {
+    $param["member_seqno"] = $session["org_member_seqno"];
+    $param["order_file_seqno"] = $file_seqno;
+    $file_info = $dao->selectOrderFile($conn, $param);
+
+    $file_path = $_SERVER["SiteHome"]
+        . SITE_NET_DRIVE
+        . $file_info["file_path"]
+        . $file_info["save_file_name"];
+
+    if (is_file($file_path)) {
+        @unlink($file_path);
+    }
+
+    $ret = $dao->deleteOrderFile($conn, $param);
+}
+
+// order_common
+$param["table"] = "order_common";
+$ret = $dao->deleteOrderData($conn, $param);
+$conn->Close();
+
+$err_msg = $err_line . ':' . $err_msg;
+if ($cart_flag === 'A') {
+    echo $err_msg;
+} else {
+    echo "<script>alert('" . $err_msg . "');</script>";
+}
+
+exit;
+MOVE:
+//echo "<script>alert('" . $err_line . "');</script>";
+$conn->Close();
+
+if ($cart_flag === 'A') {
+    echo '';
+} else {
+    header($location);
+}
+
+exit;
+
+
+function startsWith($haystack, $needle){
+    return strncmp($haystack, $needle, strlen($needle)) === 0;
+}
+?>

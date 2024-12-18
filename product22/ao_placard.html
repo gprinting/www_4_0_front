@@ -1,0 +1,166 @@
+<?php
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . '/common_define/common_info.inc');
+include_once(INC_PATH . "/common_dao/ProductCommonDAO.inc");
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product22/info/AoInfo.php");
+
+define("PLACARD_DEF_WID", 5000);
+define("PLACARD_DEF_VERT", 900);
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$dao = new ProductCommonDAO();
+
+$dvs = "ao_placard";
+
+// 사진, 배너, 카테고리 셀렉트박스
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product22/info/common_info.php");
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/login_check.php");
+
+$order_common_seqno = $fb->form("order_common_seqno");
+if($order_common_seqno != null) {
+    $param['order_common_seqno'] = $order_common_seqno;
+    $rs = $dao->selectOrderOptions($conn, $param);
+    $order_detail = $rs->fields["order_detail"];
+    $title = $rs->fields["title"];
+    //echo $order_detail;
+    $options = explode('/', $order_detail);
+    $def_arr["paper"] = trim($options[1]);
+    $def_arr["work_size_wid"] = $rs->fields["work_size_wid"];
+    $def_arr["work_size_vert"] = $rs->fields["work_size_vert"];
+    $def_arr["cut_size_wid"] = $rs->fields["cut_size_wid"];
+    $def_arr["cut_size_vert"] = $rs->fields["cut_size_vert"];
+    $def_arr["order_count"] = $rs->fields["count"];
+    $def_arr["size"] = $rs->fields["stan_name"];
+    $def_arr["print"] = trim($options[3]);
+    $def_arr["amt"] = $rs->fields["amt"];
+    //echo $def_arr["print"];
+
+    if($rs->fields["after_name"] != null || $rs->fields["after_name"] != "") {
+        $after_name_arr = explode("|", $rs->fields["after_name"]);
+        $after_info_arr = explode(",", $rs->fields["after_info"]);
+        $after_depth1_arr = explode(",", $rs->fields["after_depth1"]);
+        $after_depth2_arr = explode(",", $rs->fields["after_depth2"]);
+        $after_depth3_arr = explode(",", $rs->fields["after_depth3"]);
+        $after_mpcode_arr = explode(",", $rs->fields["after_mpcode"]);
+        $i = 0;
+
+        foreach($after_name_arr as $value) {
+
+            $def_arr["after"][$value] = true;
+            $def_arr["after"][$value . "_info"] = $after_info_arr[$i];
+            $def_arr["after"][$value . "_depth1"] = $after_depth1_arr[$i];
+            $def_arr["after"][$value . "_depth2"] = $after_depth2_arr[$i];
+            $def_arr["after"][$value . "_depth3"] = $after_depth3_arr[$i];
+            $def_arr["after"][$value . "_mpcode"] = $after_mpcode_arr[$i++];
+        }
+    }
+
+    $template->reg("order_btn_name", "주문 수정");
+    $template->reg("order_common_seqno", $order_common_seqno);
+    $template->reg("title", $title);
+} else {
+    $template->reg("order_btn_name", "즉시 주문");
+}
+
+$flag_arr = array(
+    "affil_yn"      => false
+    ,"pos_yn"        => false
+    ,"mix_yn"        => false
+    ,"paper_name_yn" => false
+    ,"size_typ_yn"   => false
+    ,"mobile_flag"   => $is_mobile
+);
+$info = new AoInfo($conn,
+                   $template,
+                   $sortcode_b,
+                   $dvs,
+                   $flag_arr,
+                   $def_arr);
+
+// 현수막일 때 가로형/세로형 선택하는 것
+/*
+$size_position_html  = "<select class=\"ao_size_type\" id=\"size_type\" name=\"size_type\" onchange=\"changeSizeType(this.value);\">";
+$size_position_html .= "<option selected=\"selected\" value=\"가로분할\">가로형</option>";
+$size_position_html .= "<option value=\"세로분할\">세로형</option>";
+$size_position_html .= "<option value=\"직접입력\">직접입력</option>";
+$size_position_html .= "</select>";
+
+if ($is_mobile) {
+    $size_position_html  = "<select class=\"ao_size_type input_type_select\" id=\"size_type\" name=\"size_type\" onchange=\"changeSizeType(this.value);\">";
+    $size_position_html .= "<option selected=\"selected\" value=\"가로분할\">가로형</option>";
+    $size_position_html .= "<option value=\"세로분할\">세로형</option>";
+    $size_position_html .= "<option value=\"직접입력\">직접입력</option>";
+    $size_position_html .= "</select>";
+}
+
+$template->reg("size_position", $size_position_html); 
+
+// 가로, 세로 셀렉트박스 html
+$size_arr = [
+    400, 500, 600, 700, 800, 900,
+    1000, 1100, 1200, 1300, 1400
+];
+$size_option_html = '';
+
+foreach ($size_arr as $size) {
+    $attr = '';
+    if ($size === PLACARD_DEF_VERT) {
+        $attr = "selected=\"selected\"";
+    }
+
+    $size_option_html .= option($size, $size, $attr);
+}
+
+$template->reg("size_option", $size_option_html); 
+*/
+
+// 가로, 세로분할 셀렉트박스 html
+$divide_size_arr = [
+    1000, 1100, 1200, 1300, 1400,
+    1500, 1600, 1700, 1800
+];
+$divide_size_html = '';
+
+foreach ($divide_size_arr as $divide_size) {
+    $div_attr = '';
+    $divide_size_html .= option($divide_size, $divide_size, $div_attr);
+}
+
+$template->reg("divide_size", $divide_size_html); 
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "product"); 
+$template->reg("page", $dvs); 
+
+$cs = $_GET['cs'];
+
+if ($cs == "002005003") {
+    $info_file = "lfp-ct-bs-1";
+    $caution_file = "lfp-ct-bs-2";
+    $task_guide = "lfp-ct-bs";
+}
+
+// 상세 탭
+$tab = "
+    <img border=\"0\" src=\"" . $design_path . "/pub22/images/details/" . $info_file . ".jpg\" class=\"tab_detail_img\">
+    <img border=\"0\" src=\"" . $design_path . "/pub22/images/details/" . $caution_file . ".jpg\" class=\"tab_detail_img\">
+    <p class=\"forGuide\">
+        상세한 주문 방법을 알고 싶다면?<br><a href=\"/cscenter22/task_guide_" . $task_guide . ".html\" class=\"link\" target=\"_self\">작업가이드</a>를 확인하세요!
+    </p>
+";
+$template->reg("tab", $tab);
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path); 
+$template->htmlPrint($html_path); 
+
+$conn->Close();

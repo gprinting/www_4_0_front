@@ -1,0 +1,368 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/product/ProductAoDAO.inc");
+include_once(INC_PATH . '/common_define/common_info.inc');
+include_once(INC_PATH . '/define/front/product_ao_rack_info.inc');
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$util = new FrontCommonUtil();
+$dao = new ProductAoDAO();
+
+$dvs = "ao_rack_info";
+
+// 사진, 배너, 카테고리 셀렉트박스
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product/info/common_info.php");
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+$param = [];
+$param["cate_sortcode"] = $sortcode_b;
+$param["opt_name"] = "거치대";
+
+// 거치대 최대/최소사이즈 배열
+$min_max_arr = RACK_MIN_MAX_SIZE;
+// 낱개주문시 추가금액 배열
+$add_price_arr = RACK_ADD_PRICE;
+
+// 거치대 옵션 검색
+$rs = $dao->selectRackOpt($conn, $param);
+
+$merge_arr = [];
+$unitprice_arr = [];
+while ($rs && !$rs->EOF) {
+    $fields = $rs->fields;
+    $depth1 = $fields["depth1"];
+    $depth2 = $fields["depth2"];
+    $depth3 = $fields["depth3"];
+    $mpcode = $fields["mpcode"];
+    $unitprice = $fields["unitprice"];
+
+    $merge_arr[$depth1][$depth2][$depth3] = $mpcode;
+    $unitprice_arr[$depth1][$depth2][$depth3] = $unitprice;
+
+    $rs->MoveNext();
+}
+unset($rs);
+
+$idx = 0;
+$html = '';
+foreach ($merge_arr as $depth1 => $depth2_arr) {
+    $size_key_d2 = '';
+    $size_key_d3 = '';
+    $depth2_option = '';
+    $depth3_option = '';
+
+    $flag = true;
+    foreach ($depth2_arr as $depth2 => $depth3_arr) {
+        $depth2_option .= option($depth2, $depth2);
+
+        if ($flag) {
+            foreach ($depth3_arr as $depth3 => $mpcode) {
+                $depth3_option .= option($depth3, $mpcode);
+
+                $size_key_d2 = $depth2;
+                $size_key_d3 = $depth3;
+            }
+
+            $flag = false;
+        }
+    }
+
+    $size_arr = $min_max_arr[$depth1][$size_key_d2][$size_key_d3];
+    $min_wid  = $size_arr["MIN_WID"];
+    $min_vert = $size_arr["MIN_VERT"];
+    $max_wid  = $size_arr["MAX_WID"];
+    $max_vert = $size_arr["MAX_VERT"];
+
+    if (!$is_mobile) {
+        $html .= "<div class=\"selection\">";
+        $html .=     "<dl>";
+        // 품목
+        $html .=         "<dt style=\"width:100px !important; font-weight: 600;\"><label id=\"opt_" . $idx . "_depth1\">" . $depth1 . "</label></dt>";
+        $html .=         "<dd class=\"dd_order_ao_title_ct\">";
+        $html .=             "<select id=\"opt_" . $idx . "_depth2\" name=\"opt_" . $idx . "_depth2\" onchange=\"loadRackDepth3('" . $idx . "', this.value);\" style=\"width:40%;\">";
+        $html .=                 $depth2_option;
+        $html .=             "</select>";
+        $html .=             "<select id=\"opt_" . $idx . "_val\" name=\"opt_" . $idx . "_val\" onchange=\"changeRackMinMaxSize('" . $idx . "', this);\" style=\"width:40%; margin-left:5px;\">";
+        $html .=                 $depth3_option;
+        $html .=             "</select>";
+        $html .=         "</dd>";
+        // 사이즈
+        $html .=         "<dt style=\"width:100px !important; padding-top:10px;\"><label for=\"size\">사이즈</label></dt>";
+        $html .=         "<dd class=\"_relatedSummary size order_prdt_size_width_ct\">";
+        $html .=             "<dl>";
+        // 최저사이즈
+        $html .=                 "<dt style=\"width:98px;\">최저 거치 사이즈</dt>";
+        $html .=                 "<dd class=\"_cuttingSize dd_ao_cuttingSize_wrapper\" style=\"width:200px !important;\">";
+        $html .=                     "<label>가로 <input id=\"opt_" . $idx . "_min_wid\" name=\"opt_" . $idx . "_min_wid\" value=\"" . $min_wid. "\" type=\"text\" maxlength=\"5\" class=\"input_ao_cuttingSize\" readonly=\"readonly\">mm</label>,";
+        $html .=                     "<label>세로 <input id=\"opt_" . $idx . "_min_vert\" name=\"opt_" . $idx . "_min_vert\" value=\"" . $min_vert . "\" type=\"text\" maxlength=\"5\" class=\"input_ao_cuttingSize\" readonly=\"readonly\">mm</label>";
+        $html .=                     "</dd>";
+        // 최대사이즈
+        $html .=                     "<dt style=\"width:98px;\">최대 거치 사이즈</dt>";
+        $html .=                     "<dd class=\"_workingSize dd_ao_cuttingSize_wrapper\" style=\"width:200px !important;\">";
+        $html .=                     "<label>가로 <input id=\"opt_" . $idx . "_max_wid\" name=\"opt_" . $idx . "_max_wid\" value=\"" . $max_wid . "\" type=\"text\" class=\"input_ao_cuttingSize\" readonly=\"readonly\">mm</label>,";
+        $html .=                     "<label>세로 <input id=\"opt_" . $idx . "_max_vert\" name=\"opt_" . $idx . "_max_vert\" value=\"" . $max_vert . "\" type=\"text\" class=\"input_ao_cuttingSize\" readonly=\"readonly\">mm</label>";
+        $html .=                 "</dd>";
+        $html .=             "</dl>";
+        $html .=         "</dd>";
+        // 수량
+        $html .=         "<dt class=\"amount\" style=\"width:100px !important;\"><label for=\"amount\">수량</label></dt>";
+
+        if (strpos($depth1, "실내용") !== false) {
+            $html .=         "<dd class=\"_relatedSummary amount\">";
+            $html .=             "<label>";
+            $html .=                 "<input type=\"text\" id=\"opt_" . $idx . "_amt\" name=\"opt_amt\" maxlength=\"5\" value=\"0\" class=\"input_count\" style=\"margin-right:4px; text-align:center;\" onkeydown=\"onlyNumber(event);\" onblur=\"loadRackPrice('" . $idx . "');\">";
+            $html .=                 "<span class=\"amt_unit\">개</span>";
+            $html .=             "</label>";
+            $html .=             "&nbsp;&nbsp;";
+            $html .=             "<span class=\"amt_detail\">";
+            $html .=                 "<label id=\"opt_" . $idx . "_box\">";
+            $html .=                     "0";
+            $html .=                 "</label>&nbsp;박스&nbsp;+&nbsp;";
+            $html .=                 "낱개&nbsp;<label id=\"opt_" . $idx . "_ea\">";
+            $html .=                     "0";
+            $html .=                 "</label>개";
+            $html .=             "</span>";
+            $html .=         "</dd>";
+        } else if (strpos($depth1, "실외용") !== false) {
+            $html .=         "<dd class=\"_relatedSummary amount\">";
+            $html .=             "<label>";
+            $html .=                 "<input type=\"text\" id=\"opt_" . $idx . "_amt\" name=\"opt_amt\" maxlength=\"5\" value=\"0\" class=\"input_count\" style=\"margin-right:4px; text-align:center;\" onkeydown=\"onlyNumber(event);\" onblur=\"loadRackPrice('" . $idx . "');\">";
+            $html .=                 "<span class=\"amt_unit\">박스</span>";
+            $html .=             "</label>";
+            $html .=         "</dd>";
+        } else {
+            $html .=         "<dd class=\"_relatedSummary amount\">";
+            $html .=             "<label>";
+            $html .=                 "<input type=\"text\" id=\"opt_" . $idx . "_amt\" name=\"opt_amt\" maxlength=\"5\" value=\"0\" class=\"input_count\" style=\"margin-right:4px; text-align:center;\" onkeydown=\"onlyNumber(event);\" onblur=\"loadRackPrice('" . $idx . "');\">";
+            $html .=                 "<span class=\"amt_unit\">박스</span>";
+            $html .=             "</label>";
+            $html .=         "</dd>";
+        }
+
+        $html .=         "<dt>금액</dt>";
+        $html .=         "<dd style=\"text-align:right;\">";
+        $html .=             "<label id=\"opt_" . $idx . "_price_dd\" style=\"font-weight:bold;\">";
+        $html .=                 "0";
+        $html .=             "</label>&nbsp;원";
+        $html .=             "<input type=\"checkbox\" name=\"chk_opt\" id=\"opt_" . $idx . "\" value=\"거치대\" price=\"0\" checked=\"checked\" style=\"display:none;\" />";
+        $html .=             "<input type=\"hidden\" id=\"opt_" . $idx . "_info\" name=\"opt_info\" value=\"\" />";
+        $html .=             "<input type=\"hidden\" id=\"opt_" . $idx . "_data\" name=\"opt_data\" value=\"\" />";
+        $html .=         "</dd>";
+        $html .=     "</dl>";
+        $html .= "</div>";
+        ///////////////////////////////////
+    } else {
+        ///////////////////////////////////
+        $html .= "<div class=\"sub_title_wrapper selection\">";
+        $html .=     "<div class=\"sub_title\" id=\"opt_" . $idx . "_depth1\">";
+        $html .=         $depth1;
+        $html .=     "</div>";
+        $html .= "</div>";
+        $html .= "<div class=\"basic_table_wrapper\">";
+        $html .=     "<table class=\"basic_table\">";
+        $html .=         "<colgroup>";
+        $html .=             "<col style=\"width:20%;\">";
+        $html .=             "<col style=\"\">";
+        $html .=         "</colgroup>";
+        $html .=         "<tr>";
+        $html .=             "<th>상품</th>";
+        $html .=             "<td>";
+        $html .=                 "<table class=\"basic_detail_table\">";
+        $html .=                     "<colgroup>";
+        $html .=                         "<col style=\"width:50%;\">";
+        $html .=                         "<col style=\"width:45%;\">";
+        $html .=                     "</colgroup>";
+        $html .=                     "<tbody>";
+        $html .=                         "<tr>";
+        $html .=                             "<td style=\"padding-right:5% !important;\">";
+        $html .=                                 "<select class=\"basic_input Column_02\" id=\"opt_" . $idx . "_depth2\" name=\"opt_" . $idx . "_depth2\" onchange=\"loadRackDepth3('" . $idx . "', this.value);\">";
+        $html .=                                     $depth2_option;
+        $html .=                                 "</select>";
+        $html .=                             "</td>";
+        $html .=                             "<td>";
+        $html .=                                 "<select class=\"basic_input Column_02\" id=\"opt_" . $idx . "_val\" name=\"opt_" . $idx . "_val\" onchange=\"changeRackMinMaxSize('" . $idx . "', this);\">";
+        $html .=                                     $depth3_option;
+        $html .=                                 "</select>";
+        $html .=                             "</td>";
+        $html .=                         "</tr>";
+        $html .=                     "</tbody>";
+        $html .=                 "</table>";
+        $html .=             "</td>";
+        $html .=         "</tr>";
+        $html .=         "<tr>";
+        $html .=             "<th>사이즈</th>";
+        $html .=             "<td>";
+        $html .=                 "<table class=\"order_size_form\">";
+        $html .=                     "<colgroup>";
+        $html .=                         "<col style=\"width:33%;\">";
+        $html .=                         "<col style=\"width:34%;\">";
+        $html .=                         "<col style=\"width:33%;\">";
+        $html .=                     "</colgroup>";
+        $html .=                     "<tr>";
+        $html .=                         "<td><span class=\"order_size_form_text\">최저거치사이즈</span></td>";
+        $html .=                         "<td style=\"text-align:center;\">";
+        $html .=                         "<span class=\"order_size_form_text\">가로 </span>";
+        $html .=                         "<input class=\"input_type_text_size\" id=\"opt_" . $idx . "_min_wid\" name=\"opt_" . $idx . "_min_wid\" value=\"" . $min_wid. "\" type=\"text\" maxlength=\"5\" readonly=\"readonly\">";
+        $html .=                         "<span class=\"order_size_form_text\"> mm,</span>";
+        $html .=                         "</td>";
+        $html .=                         "<td style=\"text-align:right;\">";
+        $html .=                         "<span class=\"order_size_form_text\">세로 </span>";
+        $html .=                         "<input class=\"input_type_text_size\" id=\"opt_" . $idx . "_min_vert\" name=\"opt_" . $idx . "_min_vert\" value=\"" . $min_vert . "\" type=\"text\" maxlength=\"5\" readonly=\"readonly\">";
+        $html .=                         "<span class=\"order_size_form_text\"> mm</span>";
+        $html .=                         "</td>";
+        $html .=                     "</tr>";
+        $html .=                     "<tr>";
+        $html .=                         "<td><span class=\"order_size_form_text\">최대거치사이즈</span></td>";
+        $html .=                         "<td style=\"text-align:center;\">";
+        $html .=                             "<span class=\"order_size_form_text\">가로 </span>";
+        $html .=                             "<input class=\"input_type_text_size\" type=\"text\" id=\"opt_" . $idx . "_max_wid\" name=\"opt_" . $idx . "_max_wid\" value=\"" . $max_wid . "\" readonly=\"readonly\">";
+        $html .=                             "<span class=\"order_size_form_text\"> mm,</span>";
+        $html .=                         "</td>";
+        $html .=                         "<td style=\"text-align:right;\">";
+        $html .=                             "<span class=\"order_size_form_text\">세로 </span>";
+        $html .=                             "<input class=\"input_type_text_size\" type=\"text\" id=\"opt_" . $idx . "_max_vert\" name=\"opt_" . $idx . "_max_vert\" value=\"" . $max_vert . "\" readonly=\"readonly\">";
+        $html .=                             "<span class=\"order_size_form_text\"> mm</span>";
+        $html .=                         "</td>";
+        $html .=                     "</tr>";
+        $html .=                 "</table>";
+        $html .=             "</td>";
+        $html .=         "</tr>";
+        $html .=         "<tr>";
+        $html .=            "<th>수량</th>";
+        $html .=            "<td>";
+        $html .=                 "<table class=\"basic_detail_table\">";
+        $html .=                     "<colgroup>";
+        $html .=                         "<col style=\"width:50%;\">";
+        $html .=                         "<col style=\"width:45%;\">";
+        $html .=                     "</colgroup>";
+        $html .=                     "<tbody>";
+        $html .=                         "<tr>";
+        $html .=                             "<td style=\"padding-right:5% !important;\">";
+        $html .=                                 "<input class=\"basic_input Column_02 input_count\" id=\"opt_" . $idx . "_amt\" name=\"opt_amt\" maxlength=\"5\" value=\"0\" type=\"text\" maxlength=\"3\" value=\"\" onblur=\"loadRackPrice('" . $idx . "');\">";
+        $html .=                             "</td>";
+        $html .=                             "<td>";
+        if (strpos($depth1, "실내용") !== false) {
+            // 실내용 거치대
+            $html .=                             "<span class=\"amt_unit\">개</span>&nbsp;&nbsp;";
+            $html .=                             "<span><span id=\"opt_" . $idx . "_box\">0</span> 박스 + 낱개 <span id=\"opt_" . $idx . "_ea\">0</span>개</span>";
+        } else if (strpos($depth1, "실외용") !== false) {
+            // 실외용 거치대
+            $html .=                             "<span class=\"amt_unit\">박스</span>&nbsp;&nbsp;";
+        } else {
+            // 미니배너 거치대
+            $html .=                             "<span class=\"amt_unit\">박스</span>&nbsp;&nbsp;";
+        }
+        $html .=                             "</td>";
+        $html .=                         "</tr>";
+        $html .=                     "</tbody>";
+        $html .=                 "</table>";
+        $html .=            "</td>";
+        $html .=         "</tr>";
+        $html .=         "<tr>";
+        $html .=             "<th>금액</th>";
+        $html .=             "<td class=\"order_sumary_totalprice\" colspan=\"2\"><span id=\"opt_" . $idx . "_price_dd\">0</span>원</td>";
+        $html .=             "<input type=\"checkbox\" name=\"chk_opt\" id=\"opt_" . $idx . "\" value=\"거치대\" price=\"0\" checked=\"checked\" style=\"display:none;\" />";
+        $html .=             "<input type=\"hidden\" id=\"opt_" . $idx . "_info\" name=\"opt_info\" value=\"\" />";
+        $html .=             "<input type=\"hidden\" id=\"opt_" . $idx . "_data\" name=\"opt_data\" value=\"\" />";
+        $html .=         "</tr>";
+        $html .=     "</table>";
+        $html .= "</div>";
+    }
+
+    $idx++;
+}
+$template->reg("html", $html);
+
+// 등급할인 html
+if ($is_login) {
+    // 로그인한 상태라면 카테고리 회원 할인과 회원 수량별 할인정보 가져옴
+    unset($param);
+    $param["cate_sortcode"] = $sortcode_b;
+    $param["member_seqno"]  = $_SESSION["org_member_seqno"];
+    $member_sale_rate = $dao->selectCateMemberSaleRate($conn, $param);
+} else {
+    $dscr = "로그인시 할인받으실 수 있는 금액입니다.";
+    $member_sale_rate           = 0;
+    $amt_member_sale_rate       = 0;
+    $amt_member_sale_aplc_price = 0;
+
+    $sale_price = $sell_price;
+}
+
+// 14-1 등급할인, 카테고리 회원할인 적용
+$grade = empty($_SESSION["grade"]) ? '20' : $_SESSION["grade"];
+
+$param["cate_sortcode"] = $sortcode_b;
+$param["grade"]         = $grade;
+$grade_sale_rate = $dao->selectGradeSaleRate($conn, $param);
+$grade_sale = $util->calcPrice($grade_sale_rate, $sell_price);
+$grade_sale = $util->ceilVal($grade_sale);
+
+$sale_price   = $sell_price + $grade_sale;
+$sale_price   = $util->ceilVal($sale_price);
+$member_sale  = $util->calcPrice($member_sale_rate, $sale_price);
+$member_sale  = $util->ceilVal($member_sale);
+
+$sale_price  += $member_sale;
+
+$arr = array(
+    "dscr"             => $dscr,
+    "rate"             => $grade_sale_rate,
+    "member_sale_rate" => $member_sale_rate,
+    "grade"            => $grade,
+    "price"            => $util->ceilVal($grade_sale + $member_sale)
+);
+
+$grade_sale_html = makeGradeSaleDl($arr);
+unset($arr);
+
+$template->reg("ao_rack_member_sale_rate", $member_sale_rate);
+$template->reg("ao_rack_grade_sale_rate", $grade_sale_rate);
+$template->reg("ao_rack_grade_sale", $grade_sale_html);
+
+// 빠른견적서
+$name_en_arr = RACK_NAME_EN;
+$html  = "\n <dl>";
+foreach ($merge_arr as $depth1 => $depth2_arr) {
+    $name_en = $name_en_arr[$depth1];
+
+    $html .= "\n     <dt style=\"width:77px;\">" . $depth1 . "</dt>";
+    $html .= "\n     <dd><span id=\"esti_" . $name_en . "\">0</span> 원</dd>";
+}
+$html .= "\n     <dt>공급가</dt>";
+$html .= "\n     <dd><span id=\"esti_supply\">0</span> 원</dd>";
+$html .= "\n </dl>";
+
+$html .= "\n <dl class=\"price\">";
+$html .= "\n     <dt>부가세</dt>";
+$html .= "\n     <dd><span id=\"esti_tax\">0</span> 원</dd>";
+$html .= "\n     <dt>정상판매가</dt>";
+$html .= "\n     <dd><span id=\"esti_sell_price\">0</span> 원</dd>";
+$html .= "\n     <dt>할인금액</dt>";
+$html .= "\n     <dd><span id=\"esti_sale_price\">-0</span> 원</dd>";
+$html .= "\n     <dt>결제금액</dt>";
+$html .= "\n     <dd><strong id=\"esti_pay_price\">0</strong> 원</dd>";
+$html .= "\n </dl>";
+
+$template->reg("quick_esti", $html);
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "product");
+$template->reg("page", $dvs);
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path); 
+$template->htmlPrint($html_path); 
+
+$conn->Close();
+?>

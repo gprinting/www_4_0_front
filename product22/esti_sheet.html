@@ -1,0 +1,60 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/common_dao/ProductCommonDAO.inc");
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product22/info/SheetCutInfo.php");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$dao = new ProductCommonDAO();
+
+$dvs = "esti";
+
+$fb = new FormBean();
+$session = $fb->getSession();
+
+// 사진, 배너, 카테고리 셀렉트박스
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product22/info/common_info.php");
+
+// cate_tab.html on 클래스 추가용
+$template->reg("cate_sortcode", $sortcode_b); 
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/login_check.php");
+
+$flag_arr = array(
+    "affil_yn"      => true
+    ,"pos_yn"        => true
+    ,"mix_yn"        => false
+    ,"paper_sort_yn" => true
+    ,"paper_name_yn" => true
+    ,"size_typ_yn"   => false
+    ,"mobile_flag"   => $is_mobile
+);
+$info = new SheetCutInfo($conn,
+                         $template,
+                         $sortcode_b,
+                         "esti",
+                         $flag_arr);
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "product"); 
+$template->reg("page", $dvs); 
+
+// 파일업로드 스크립트 견적용으로 변경
+$template->reg("file_list_id", "esti_file_list"); 
+$template->reg("file_upload_url", "/proc/product/upload_esti_file.php"); 
+$template->reg("file_button_id", "esti_file");
+$template->reg("admin", $session["isadmin"]);
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path);
+$template->htmlPrint($html_path);
+
+$conn->Close();
+?>

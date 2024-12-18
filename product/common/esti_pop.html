@@ -1,0 +1,63 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/common_dao/ProductCommonDAO.inc");
+include_once(INC_PATH . "/com/nexmotion/html/front/product/EstimatePop.inc");
+include_once(INC_PATH . "/common_define/prdt_default_info.inc");
+
+//$json_text = $_GET["json"];
+$json_text = $_POST["json"];
+
+// 실제 html 생성부분
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product/common/esti_pop_common.php");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+
+//print_r($param);
+
+$cate_name = $param["cate_name_arr"][0];
+
+$html_top = getHtmlTop($param);
+// 책자형
+//if ($booklet === "Y") {
+if ((strpos($cate_name, "카다로그") !== false) || // 카다로그
+        (strpos($cate_name, "NCR")  !== false) || // 마스터 NCR
+        (strpos($cate_name, "책자") !== false)) { // 책자견적
+    $html_mid = getBookletHtmlMid($param);
+    $html_mid_bot = getCalcHtmlMidBot($param, $aft_arr);
+// 계산형
+} else if ((strpos($cate_name, "독판전단") !== false) || // 독판전단
+        (strpos($cate_name, "양식지") !== false) || // 마스터 양식지
+        (strpos($cate_name, "낱장") !== false)) { // 낱장견적
+    $html_mid = getHtmlMid($param);
+    $html_mid_bot = getCalcHtmlMidBot($param, $aft_arr);
+
+// 확정형
+} else {
+    $html_mid = getHtmlMid($param);
+    $html_mid_bot = getHtmlMidBot($param, $aft_arr);
+}
+
+//$html_mid_bot = getHtmlMidBot($param, $aft_arr);
+$html_aft = getHtmlAft($param, $aft_arr);
+$html_etc = getHtmlEtc($param);
+
+$template->reg("json_data", $json_text);
+$template->reg("html_top", $html_top);
+$template->reg("html_mid", $html_mid);
+$template->reg("html_bot", $html_mid_bot);
+$template->reg("html_aft", $html_aft);
+$template->reg("html_etc", $html_etc);
+
+//design_dir 경로
+$template->reg("root_design_dir", "/design_template");
+$template->reg("design_dir" , "/design_template");
+$template->htmlPrint($_SERVER["PHP_SELF"]);
+
+$conn->Close();
+?>

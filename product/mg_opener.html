@@ -1,0 +1,46 @@
+<?
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/Template.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once($_SERVER["INC"] . "/common_dao/ProductCommonDAO.inc");
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product/info/SheetTomsonInfo.php");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$dao = new ProductCommoNDAO();
+
+$dvs = "mg";
+
+// 명함 상품 정보 처리부분 include
+// 사진, 배너, 카테고리 셀렉트박스
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product/info/common_info.php");
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+$flag_arr = array(
+    "affil_yn"    => false,
+    "pos_yn"      => false,
+    "mix_yn"      => false,
+    "size_typ_yn" => false,
+    "mobile_flag" => $is_mobile
+);
+$info = new SheetTomsonInfo($conn,
+                            $template,
+                            $sortcode_b,
+                            $dvs,
+                            $flag_arr);
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "product"); 
+$template->reg("page", $dvs); 
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path); 
+$template->htmlPrint($html_path); 
+
+$conn->Close();
+?>

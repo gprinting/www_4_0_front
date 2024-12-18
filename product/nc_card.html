@@ -1,0 +1,115 @@
+<?
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/Template.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once($_SERVER["INC"] . "/common_dao/ProductCommonDAO.inc");
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product/info/SheetCutInfo.php");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$fb = new FormBean();
+$template = new Template();
+$dao = new ProductCommonDAO();
+
+$dvs = "nc";
+
+// 명함 상품 정보 처리부분 include
+// 사진, 배너, 카테고리 셀렉트박스
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product/info/common_info.php");
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+$order_common_seqno = $fb->form("order_common_seqno");
+if($order_common_seqno != null) {
+    $param['order_common_seqno'] = $order_common_seqno;
+    $rs = $dao->selectOrderOptions($conn, $param);
+    $order_detail = $rs->fields["order_detail"];
+    $title = $rs->fields["title"];
+    //echo $order_detail;
+    $options = explode('/', $order_detail);
+    $def_arr["paper"] = trim($options[1]);
+    $def_arr["work_size_wid"] = $rs->fields["work_size_wid"];
+    $def_arr["work_size_vert"] = $rs->fields["work_size_vert"];
+    $def_arr["cut_size_wid"] = $rs->fields["cut_size_wid"];
+    $def_arr["cut_size_vert"] = $rs->fields["cut_size_vert"];
+    $def_arr["order_count"] = $rs->fields["count"];
+    $def_arr["size"] = $rs->fields["stan_name"];
+    $def_arr["print"] = trim($options[3]);
+    $def_arr["amt"] = $rs->fields["amt"];
+    //echo $def_arr["print"];
+
+    $template->reg("order_btn_name", "주문 수정");
+    $template->reg("order_common_seqno", $order_common_seqno);
+    $template->reg("title", $title);
+} else {
+    $template->reg("order_btn_name", "즉시 주문");
+}
+
+$flag_arr = array(
+    "affil_yn"      => false
+    ,"pos_yn"        => false
+    ,"mix_yn"        => false
+    ,"paper_name_yn" => false
+    ,"size_typ_yn"   => false
+    ,"mobile_flag"   => $is_mobile
+);
+
+$info = new SheetCutInfo($conn,
+                         $template,
+                         $sortcode_b,
+                         $dvs,
+                         $flag_arr,
+                         $def_arr);
+
+// 백판사이즈 관련로직 추가
+$html  = "<dt>백판사이즈</dt>";
+$html .= "<dd>";
+$html .= "   <label>가로 <input id=\"back_wid_size\" name=\"nc_back_wid_size\" type=\"text\" value=\"%s\" %s>mm</label>,";
+$html .= "   <label>세로 <input id=\"back_vert_size\" name=\"nc_back_vert_size\" type=\"text\" value=\"%s\" %s>mm</label>";
+$html .= "</dd>";
+
+$pos_html .= "<dt>백판위치</dt>";
+$pos_html .= "<dd>";
+$pos_html .= "   <input type=\"radio\" id=\"back_pos_both\" name=\"back_pos_dvs\" value=\"양면\" %s />&nbsp;양면";
+$pos_html .= "   &nbsp;&nbsp;<input type=\"radio\" id=\"back_pos_bef\" name=\"back_pos_dvs\" value=\"전면\" %s />&nbsp;전면";
+$pos_html .= "   &nbsp;&nbsp;<input type=\"radio\" id=\"back_pos_aft\" name=\"back_pos_dvs\" value=\"후면\" %s />&nbsp;후면";
+$pos_html .= "</dd>";
+
+$cate_name = $dao->selectCateName($conn, $sortcode_b);
+
+$disabled_attr = '';
+$checked_attr  = '';
+if (strpos($cate_name, "누드") !== false) {
+    // 명함명에 누드가 들어가는 명함은 라디오버튼 전면만 활성화
+    $disabled_attr = "disabled=\"disabled\"";
+    $checked_attr  = "checked=\"checked\"";
+}
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "product"); 
+$template->reg("page", $dvs); 
+
+// 상세 탭
+$tab = "
+    <table width=\"1180\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"detail_doc product_detail_doc\" id=\"tab1\" style=\"display: table;\">
+        <tbody>
+            <tr>
+                <td>
+                    <p><img border=\"0\" src=\"" . $design_path . "/images/product/tab/info_nc03.jpg\" class=\"tab_detail_img\"></p>
+                    <p><img border=\"0\" src=\"" . $design_path . "/images/product/tab/caution_nc03.jpg\" class=\"tab_detail_img\"></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+";
+$template->reg("tab", $tab);
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path); 
+$template->htmlPrint($html_path); 
+
+$conn->Close();
+?>

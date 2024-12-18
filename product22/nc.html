@@ -1,0 +1,226 @@
+<?
+header("Cache-Control: no-cache, must-revalidate");
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/sess_common.php");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/Template.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once($_SERVER["INC"] . "/common_dao/ProductCommonDAO.inc");
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product22/info/SheetCutInfo.php");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$fb = new FormBean();
+$template = new Template();
+$dao = new ProductCommonDAO();
+
+$dvs = "nc";
+
+// 명함 상품 정보 처리부분 include
+// 사진, 배너, 카테고리 셀렉트박스
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product22/info/common_info.php");
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/login_check.php");
+
+$order_common_seqno = $fb->form("order_common_seqno");
+$cs = $fb->form("cs");
+$link = $fb->form("link");
+
+$template->reg("link_name", $link);
+
+if($order_common_seqno != null) {
+    $param['order_common_seqno'] = $order_common_seqno;
+    $rs = $dao->selectOrderOptions($conn, $param);
+    $order_detail = $rs->fields["order_detail"];
+    $title = $rs->fields["title"];
+    //echo $order_detail;
+    $options = explode('/', $order_detail);
+    $def_arr["paper"] = trim($options[1]);
+    $def_arr["work_size_wid"] = $rs->fields["work_size_wid"];
+    $def_arr["work_size_vert"] = $rs->fields["work_size_vert"];
+    $def_arr["cut_size_wid"] = $rs->fields["cut_size_wid"];
+    $def_arr["cut_size_vert"] = $rs->fields["cut_size_vert"];
+    $def_arr["order_count"] = $rs->fields["count"];
+    $def_arr["size"] = $rs->fields["stan_name"];
+    $def_arr["print"] = trim($options[3]);
+    $def_arr["amt"] = $rs->fields["amt"];
+
+    if($rs->fields["after_name"] != null || $rs->fields["after_name"] != "") {
+        $after_name_arr = explode("|", $rs->fields["after_name"]);
+        $after_info_arr = explode(",", $rs->fields["after_info"]);
+        $after_depth1_arr = explode(",", $rs->fields["after_depth1"]);
+        $after_depth2_arr = explode(",", $rs->fields["after_depth2"]);
+        $after_depth3_arr = explode(",", $rs->fields["after_depth3"]);
+        $after_mpcode_arr = explode(",", $rs->fields["after_mpcode"]);
+        $i = 0;
+
+	$foil_cheched_1 = "false";
+	$foil_cheched_2 = "false";
+
+        foreach($after_name_arr as $value) {
+
+            if ($value == "박") {
+                    $def_arr["after"][$value] = true;
+                if ($foil_cheched_1 == "false") {
+                    $foil_cheched_1 = "true";
+                    $def_arr["after"]["foil"][0][$value] = true;
+                    $def_arr["after"]["foil"][0][$value . "_info"] = $after_info_arr[$i];
+                    $def_arr["after"]["foil"][0][$value . "_depth1"] = $after_depth1_arr[$i];
+                    $def_arr["after"]["foil"][0][$value . "_depth2"] = $after_depth2_arr[$i];
+                    $def_arr["after"]["foil"][0][$value . "_depth3"] = $after_depth3_arr[$i];
+                    $def_arr["after"]["foil"][0][$value . "_mpcode"] = $after_mpcode_arr[$i++];
+
+                } else if ($foil_cheched_1 == "true" && $foil_cheched_2 == "false") {
+	            $foil_cheched_2 = "true";
+                    $def_arr["after"]["foil"][1][$value] = true;
+                    $def_arr["after"]["foil"][1][$value . "_info"] = $after_info_arr[$i];
+                    $def_arr["after"]["foil"][1][$value . "_depth1"] = $after_depth1_arr[$i];
+                    $def_arr["after"]["foil"][1][$value . "_depth2"] = $after_depth2_arr[$i];
+                    $def_arr["after"]["foil"][1][$value . "_depth3"] = $after_depth3_arr[$i];
+                    $def_arr["after"]["foil"][1][$value . "_mpcode"] = $after_mpcode_arr[$i++];
+
+                } else if ($foil_cheched_1 == "true" && $foil_cheched_2 == "true") {
+                    $def_arr["after"]["foil"][2][$value] = true;
+                    $def_arr["after"]["foil"][2][$value . "_info"] = $after_info_arr[$i];
+                    $def_arr["after"]["foil"][2][$value . "_depth1"] = $after_depth1_arr[$i];
+                    $def_arr["after"]["foil"][2][$value . "_depth2"] = $after_depth2_arr[$i];
+                    $def_arr["after"]["foil"][2][$value . "_depth3"] = $after_depth3_arr[$i];
+                    $def_arr["after"]["foil"][2][$value . "_mpcode"] = $after_mpcode_arr[$i++];
+                }
+            } else {
+                $def_arr["after"][$value] = true;
+                $def_arr["after"][$value . "_info"] = $after_info_arr[$i];
+                $def_arr["after"][$value . "_depth1"] = $after_depth1_arr[$i];
+                $def_arr["after"][$value . "_depth2"] = $after_depth2_arr[$i];
+                $def_arr["after"][$value . "_depth3"] = $after_depth3_arr[$i];
+                $def_arr["after"][$value . "_mpcode"] = $after_mpcode_arr[$i++];
+            }
+        }
+    }
+    
+
+    $template->reg("order_common_seqno", $order_common_seqno);
+    $template->reg("title", $title);
+    $template->reg("order_btn_name", "주문 수정");
+} else {
+    $template->reg("order_btn_name", "즉시 주문");
+}
+
+$flag_arr = array(
+     "affil_yn"      => false
+    ,"pos_yn"        => false
+    ,"mix_yn"        => false
+    ,"paper_name_yn" => false
+    ,"size_typ_yn"   => false
+    ,"mobile_flag"   => $is_mobile
+    ,"link"   => $link
+);
+
+$info = new SheetCutInfo($conn,
+                         $template,
+                         $sortcode_b,
+                         $dvs,
+                         $flag_arr,
+                         $def_arr);
+
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "product"); 
+$template->reg("page", $dvs);
+
+if($sortcode_b == "003001002"
+    || $sortcode_b == "003008001"
+    || $sortcode_b == "003010001"
+    || $sortcode_b == "003011001"
+    || $sortcode_b == "003002003"
+    //|| $sortcode_b == "003006001"
+    || $sortcode_b == "003007002"
+    || $sortcode_b == "003007003"
+    || $sortcode_b == "003012001") {
+    $template->reg("hide_manu", "style='display:none;'");
+} else {
+    $template->reg("hide_manu", "");
+}
+
+$info_file = "";
+$caution_file = "";
+
+if ($cs == "003001001") {
+    $info_file = "cmp-nc-bs-1";
+    $caution_file = "cmp-nc-bs-2";
+    $task_guide = "cmp-nc-bs";
+} else if ($cs == "003002001") {
+    $info_file = "cmp-nc-pm-1";
+    $caution_file = "cmp-nc-pm-2";
+    $task_guide = "cmp-nc-pm";
+    if($link == "VIP") {
+        $info_file = "cmp-nc-vip-1";
+        $caution_file = "cmp-nc-vip-2";
+    }
+    if($link == "UV") {
+        $info_file = "cmp-nc-uv-1";
+        $caution_file = "cmp-nc-uv-2";
+    }
+    if($link == "coupon") {
+        $info_file = "cmp-nc-cp-1";
+        $caution_file = "cmp-nc-cp-2";
+    }
+    if($link == "photocard") {
+        $info_file = "cmp-nc-pc-1";
+        $caution_file = "cmp-nc-pc-2";
+    }
+    if($link == "express") {
+        $info_file = "cmp-nc-pm-1";
+        $caution_file = "cmp-nc-pm-2";
+    }
+} else if ($cs == "003002002") {
+    $info_file = "cmp-nc-hi-1";
+    $caution_file = "cmp-nc-hi-2";
+    $task_guide = "cmp-nc-ef";
+} else if ($cs == "003007001") {
+    $info_file = "cmp-nc-ef2-1";
+    $caution_file = "cmp-nc-ef2-2";
+    $task_guide = "cmp-nc-ef";
+} else if ($cs == "003007002") {
+    $info_file = "cmp-nc-gd-1";
+    $caution_file = "cmp-nc-gd-2";
+    $task_guide = "cmp-nc-gd";
+} else if ($cs == "003007003") {
+    $info_file = "cmp-nc-ef-1";
+    $caution_file = "cmp-nc-ef-2";
+    $task_guide = "cmp-nc-ef";
+} else if ($cs == "003008001") {
+    $info_file = "cmp-nc-rd-1";
+    $caution_file = "cmp-nc-rd-2";
+    $task_guide = "cmp-nc-rd";
+} else if ($cs == "003010001") {
+    $info_file = "cmp-nc-sd-1";
+    $caution_file = "cmp-nc-sd-2";
+    $task_guide = "cmp-nc-rd";
+} else if ($cs == "003011001") {
+    $info_file = "cmp-nc-eg-1";
+    $caution_file = "cmp-nc-eg-2";
+    $task_guide = "cmp-nc-rd";
+} else if ($cs == "003012001") {
+    $info_file = "cmp-nc-dw-1";
+    $caution_file = "cmp-nc-dw-2";
+    $task_guide = "cmp-nc-rd";
+}
+
+// 상세 탭
+$tab = "
+    <img border=\"0\" src=\"" . $design_path . "/pub22/images/details/" . $info_file . ".jpg\" class=\"tab_detail_img\">
+    <img border=\"0\" src=\"" . $design_path . "/pub22/images/details/" . $caution_file . ".jpg\" class=\"tab_detail_img\">
+    <p class=\"forGuide\">
+        상세한 주문 방법을 알고 싶다면?<br><a href=\"/cscenter22/task_guide_" . $task_guide . ".html\" class=\"link\" target=\"_self\">작업가이드</a>를 확인하세요!
+    </p>
+";
+$template->reg("tab", $tab);
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path);
+$template->htmlPrint($html_path);
+
+$conn->Close();
+?>

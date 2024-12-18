@@ -1,0 +1,116 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/common_dao/ProductCommonDAO.inc");
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product22/info/SheetCutInfo.php");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$dao = new ProductCommonDAO();
+
+$dvs = "ad";
+
+// 사진, 배너, 카테고리 셀렉트박스
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product22/info/common_info.php");
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/login_check.php");
+
+$order_common_seqno = $fb->form("order_common_seqno");
+if($order_common_seqno != null) {
+    $param['order_common_seqno'] = $order_common_seqno;
+    $rs = $dao->selectOrderOptions($conn, $param);
+    $order_detail = $rs->fields["order_detail"];
+    $title = $rs->fields["title"];
+    //echo $order_detail;
+    $options = explode('/', $order_detail);
+    $def_arr["paper_name"] = explode(' ', trim($options[1]))[0]; 
+    $def_arr["paper"] = explode(' ', trim($options[1]))[1] . " " . explode(' ', trim($options[1]))[2]; 
+    $def_arr["work_size_wid"] = $rs->fields["work_size_wid"];
+    $def_arr["work_size_vert"] = $rs->fields["work_size_vert"];
+    $def_arr["cut_size_wid"] = $rs->fields["cut_size_wid"];
+    $def_arr["cut_size_vert"] = $rs->fields["cut_size_vert"];
+    $def_arr["order_count"] = $rs->fields["count"];
+    $def_arr["size"] = $rs->fields["stan_name"];
+    $def_arr["print"] = trim($options[3]);
+    $def_arr["amt"] = $rs->fields["amt"];
+    //echo $def_arr["print"];
+
+    if($rs->fields["after_name"] != null || $rs->fields["after_name"] != "") {
+        $after_name_arr = explode("|", $rs->fields["after_name"]);
+        $after_info_arr = explode(",", $rs->fields["after_info"]);
+        $after_depth1_arr = explode(",", $rs->fields["after_depth1"]);
+        $after_depth2_arr = explode(",", $rs->fields["after_depth2"]);
+        $after_depth3_arr = explode(",", $rs->fields["after_depth3"]);
+        $after_mpcode_arr = explode(",", $rs->fields["after_mpcode"]);
+        $i = 0;
+
+        foreach($after_name_arr as $value) {
+
+            $def_arr["after"][$value] = true;
+            $def_arr["after"][$value . "_info"] = $after_info_arr[$i];
+            $def_arr["after"][$value . "_depth1"] = $after_depth1_arr[$i];
+            $def_arr["after"][$value . "_depth2"] = $after_depth2_arr[$i];
+            $def_arr["after"][$value . "_depth3"] = $after_depth3_arr[$i];
+            $def_arr["after"][$value . "_mpcode"] = $after_mpcode_arr[$i++];
+        }
+    }
+
+    $template->reg("order_btn_name", "주문 수정");
+    $template->reg("order_common_seqno", $order_common_seqno);
+    $template->reg("title", $title);
+} else {
+    $template->reg("order_btn_name", "즉시 주문");
+}
+
+$flag_arr = array(
+    "affil_yn"      => true
+    ,"pos_yn"        => true
+    ,"mix_yn"        => false
+    ,"paper_name_yn" => true
+    ,"size_typ_yn"   => false
+    ,"mobile_flag"   => $is_mobile
+);
+$info = new SheetCutInfo($conn,
+                         $template,
+                         $sortcode_b,
+                         $dvs,
+                         $flag_arr,
+                         $def_arr);
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$cs = $_GET['cs'];
+
+$template->reg("dir", "product"); 
+$template->reg("page", $dvs); 
+
+if ($cs == "001003001") {
+    $info_file = "cmp-pr-pt-1";
+    $caution_file = "cmp-pr-pt-2";
+    $task_guide = "cmp-pr-pt";
+} else if ($cs == "002003001") {
+    $info_file = "lfp-od-pt-1";
+    $caution_file = "lfp-od-pt-2";
+    $task_guide = "lfp-od-pt";
+}
+// 상세 탭
+$tab = "
+    <img border=\"0\" src=\"" . $design_path . "/pub22/images/details/" . $info_file . ".jpg\" class=\"tab_detail_img\">
+    <img border=\"0\" src=\"" . $design_path . "/pub22/images/details/" . $caution_file . ".jpg\" class=\"tab_detail_img\">
+    <p class=\"forGuide\">
+        상세한 주문 방법을 알고 싶다면?<br><a href=\"/cscenter22/task_guide_" . $task_guide . ".html\" class=\"link\" target=\"_self\">작업가이드</a>를 확인하세요!
+    </p>
+";
+$template->reg("tab", $tab);
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path); 
+$template->htmlPrint($html_path); 
+
+$conn->Close();
+?>

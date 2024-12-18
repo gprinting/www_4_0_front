@@ -1,0 +1,31 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product/info/BookletInfo.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/common_dao/ProductCommonDAO.inc");
+include_once(INC_PATH . '/common_define/common_info.inc');
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$dao = new ProductCommonDAO();
+
+// 사진, 배너, 카테고리 셀렉트박스
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product/info/common_info.php");
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "product"); 
+$template->reg("page", "ao_placard_info"); 
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template"); 
+$template->htmlPrint($_SERVER["PHP_SELF"]); 
+
+$conn->Close();
+?>

@@ -1,0 +1,445 @@
+<?
+define("INC_PATH", $_SERVER["INC"]);
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/sess_common.php");
+include_once(INC_PATH . "/com/nexmotion/common/util/Template.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/FrontCommonUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/ReleaseExpectUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/common/util/front/NonStandardUtil.inc");
+include_once(INC_PATH . "/com/nexmotion/job/front/order/SheetDAO.inc");
+include_once(INC_PATH . "/common_define/common_info.inc");
+include_once(INC_PATH . "/classes/dprinting/PriceCalculator/Common/DPrintingFactory.php");
+
+$frontUtil = new FrontCommonUtil();
+
+if ($is_login === false) {
+    $frontUtil->errorGoBack("로그인 후 확인 가능합니다.");
+    exit;
+}
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$fb = new FormBean();
+$dao = new SheetDAO();
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common/login_check.php");
+
+// 결재중인 상태임을 표시, 주문완료에서 새로고침시 중복처리 되는거 방지용
+$fb->addSession("proc", '1');
+
+$session = $fb->getSession();
+
+$price_info_arr = [];
+
+$seqno = explode('|', $fb->form("seq"));
+$seqno = $dao->arr2paramStr($conn, $seqno);
+
+// 당일판 시간 검사하고 예상배송일 업데이트 하는 함수
+$emergency_order = chkEmergencyRelease($conn, $dao, $frontUtil,
+    $seqno, $session["org_member_seqno"]);
+
+//$conn->debug = 1;
+//print_r($session);
+
+$state_arr = $session["state_arr"];
+
+// 원파일 업체 여부
+$onefile_etprs_yn = $session["onefile_etprs_yn"];
+$template->reg("onefile_etprs_yn", $onefile_etprs_yn);
+
+// 주문 리스트 생성
+$param = [];
+$param["member_seqno"] = $session["org_member_seqno"];
+$param["order_state"]  = $state_arr["주문대기"];
+$param["order_common_seqno"] = $seqno;
+$param["dvs"]          = "SHEET";
+
+$sheet_list = $dao->selectCartOrderList($conn, $param);
+
+if ($sheet_list->EOF) {
+    $conn->Close();
+    echo "<script>location.replace('/mypage/order_all.html');</script>";
+    exit;
+}
+
+$sheet_list = makeSheetOrderListHtml($conn, $dao,
+    $sheet_list,
+    $frontUtil,
+    $emergency_order,
+    $price_info_arr);
+
+$template->reg("sheet_list", $sheet_list);
+
+// 연락처, 휴대전화 앞부분 생성
+$tel_num_arr = TEL_NUM;
+$count_tel_num_arr = count($tel_num_arr);
+$tel_num = "";
+
+for ($i = 0; $i < $count_tel_num_arr; $i++) {
+    $val = $tel_num_arr[$i];
+    $tel_num .= option($val, $val);
+}
+$template->reg("tel_num", $tel_num);
+
+$cell_num_arr = CEL_NUM;
+$count_cell_num_arr = count($cell_num_arr);
+$cell_num = "";
+
+for ($i = 0; $i < $count_cell_num_arr; $i++) {
+    $val = $cell_num_arr[$i];
+    $cell_num .= option($val, $val);
+}
+$template->reg("cell_num", $cell_num);
+
+// 가격정보 생성
+unset($param);
+$param["member_seqno"] = $session["org_member_seqno"];
+$prepay_rs = $dao->selectMemberPrepay($conn, $param);
+$prepay_price = doubleval($prepay_rs["prepay_price_money"]) + doubleval($prepay_rs["prepay_price_card"]);
+
+$sum_discount = $price_info_arr["grade"] +
+    $price_info_arr["member"] +
+    $price_info_arr["event"];
+$order_lack_price = $prepay_price - $price_info_arr["sum"];
+$order_lack_price = $order_lack_price > 0 ? 0 : $order_lack_price;
+$sum_order_price = $price_info_arr["sell"];
+$pay_price = $sum_order_price + $sum_discount;
+
+// 주문금액
+//$template->reg("sell_price", number_format($price_info_arr["sell"]));
+$template->reg("sell_price", number_format($pay_price));
+// 주문금액합계
+$template->reg("sum_order_price", number_format($sum_order_price));
+// 회원등급할인
+$template->reg("grade_sale_price", number_format($price_info_arr["grade"]));
+// 이벤트
+$template->reg("event_sale_price", number_format($price_info_arr["event"]));
+// 할인금액 합계
+$template->reg("sum_discount", number_format($sum_discount));
+// 최종결재금액
+$template->reg("pay_price", number_format($pay_price));
+// 선입금
+$template->reg("prepay_price", number_format($prepay_price));
+// 주문부족금액
+$template->reg("order_lack_price", number_format($order_lack_price));
+
+// 카드결제여부 생성
+$card_pay_yn = $session["card_pay_yn"];
+$card_yn_html = '';
+if ($card_pay_yn === 'Y') {
+    $card_html = "<label><input type=\"radio\" name=\"card_pay_yn\" value=\"Y\" class=\"_card\"> 카드결제</label>";
+}
+$template->reg("card_pay_yn", $card_html);
+
+// 결제확인 팝업 정보생성
+$member_info = $dao->selectMemberInfo($conn, $session["org_member_seqno"]);
+
+// 주문자명
+$template->reg("member_name", $session["name"]);
+// 회사명
+$template->reg("member_group", $session["group_name"]);
+// 전화번호
+$template->reg("member_tel_num", $member_info["tel_num"]);
+// 휴대전화번호
+$template->reg("member_cell_num", $member_info["cell_num"]);
+// 메일
+$template->reg("member_mail", $member_info["mail"]);
+// 주소
+$member_addr = $member_info["addr"] . ' ' . $member_info["addr_detail"];
+$template->reg("member_zipcode", $member_info["zipcode"]);
+$template->reg("member_addr", $member_addr);
+// 영수증 발행구분
+$template->reg("receipt", getReceiptHtml());
+
+//180514 추가
+//직배회원인지 검색
+$period_info   = $dao->selectDirectDlvrEndPeriod($conn, $session["org_member_seqno"]);
+
+//오늘 날짜
+$today = date("Y-m-d");
+$direct_dlvr_yn = "";
+
+//오늘 날짜보다 직배만료일자가 작을 시 직배정보 업데이트
+if ($period_info["end_period"] < $today || empty($period_info["end_period"])) {
+    $upd_direct = $dao->updateMemberDirectDlvr($conn, $session["org_member_seqno"]);
+    $direct_dlvr_yn = "N";
+} else {
+    $direct_dlvr_yn = "Y";
+}
+
+//배송정보 생성
+//$delivery_info = $dao->selectDirectDlvrInfo($conn, $session["org_member_seqno"]);
+
+
+// 배송방법
+//if($delivery_info['direct_dlvr_yn'] == 'Y') {
+if($direct_dlvr_yn == 'Y') {
+    $template->reg("direct_dlvr",
+        getDlvrDirectHtml($delivery_info['direct_dlvr_yn']));
+}
+
+/***********************************************************************************
+ *** 개발 영역 : 택배운임료 불러오기
+ *** 개  발  자 : 조현식
+ *** 개발 날짜 : 2016.06.28
+ ***********************************************************************************/
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "order");
+$template->reg("page", "sheet");
+
+// pg사 파라미터
+$template->reg("host", "https://" . $_SERVER['HTTP_HOST']);
+$user_nm = $session["group_name"];
+if (!empty($user_nm)) {
+    $user_nm = $user_nm . ' ' . $session["name"];
+} else {
+    $user_nm = $session["name"];
+}
+$template->reg("user_nm", $user_nm);
+$template->reg("mall_nm", "(주)굿프린팅");
+
+//design_dir 경로
+$template->reg("design_dir", "/design_template");
+$template->htmlPrint($_SERVER["PHP_SELF"]);
+
+$conn->Close();
+exit;
+
+/******************************************************************************
+ * 함수 영역
+ *****************************************************************************/
+
+/**
+ * @brief 회원구분에 따른 영수증 발행 html 반환
+ *
+ * @param $member_dvs = 회원구분값
+ *
+ * @return html
+ */
+function getReceiptHtml() {
+    return <<<html
+            <!-- 세금계산서 시작 -->
+            <dt><label><input type="radio" name="public_dvs" dvs="tax" value="세금계산서" checked="checked"> 세금계산서</label></dt>
+            <dd class="tax">
+                <div class="wrap">
+                    <ul class="data">
+                        <li><label><input type="radio" name="dataType" onclick="getMemberInfo();" disabled checked> 회원정보와 동일</label></li>
+                        <li><label><input type="radio" name="dataType" onclick="initPublicInput();" disabled class="_edit _new"> 별도 기입</label></li>
+                    </ul>
+                    <ul class="input" style="display:none;">
+                        <li><label>회원명 : <input type="text" name="member_name" id="receipt_member_name" disabled readonly></label></li>
+                        <li><label>공급받는자 : <input type="text" name="supply_corp" id="supply_corp" disabled readonly></label></li>
+                        <li><label>사업자번호 : <input type="text" name="crn" id="crn" disabled readonly></label></li>
+                        <li><label>대표자 : <input type="text" name="repre_name" id="repre_name" disabled readonly></label></li>
+                        <li class="address"><label>주소 : <input type="text" name="zipcode" id="zipcode" style="width:40px; margin-right:5px;" disabled readonly><input type="text" name="addr" id="addr" disabled readonly></label></li>
+                        <li><label>업태 : <input type="text" name="bc" id="bc" disabled readonly></label></li>
+                        <li><label>종목 : <input type="text" name="tob" id="tob" disabled readonly></label></li>
+                    </ul>
+                </div>
+            </dd><!-- 세금계산서 끝 -->
+
+            <!-- 현금영수증 시작 -->
+            <dt><label><input type="radio" name="public_dvs" dvs="cash" value="현금영수증"> 현금영수증</label></dt>
+            <dd class="cash">
+                <div class="wrap">
+                    <label>
+                        증빙구분
+                        <select name="evid_dvs">
+                            <option value="소득공제">소득공제용</option>
+                            <option value="지출증빙">지출증빙용</option>
+                        </select>
+                    </label>
+                    <input type="text" name="cashreceipt_num">
+                </div>
+            </dd><!-- 현금영수증 끝 -->
+
+            <dt><label><input type="radio" name="public_dvs" dvs="none" class="_disabled" value="미발행" checked="checked"> 미발행</label></dt>
+html;
+}
+
+/**
+ * @brief 직배여부에 따라 배송방법 html 반환
+ *
+ * @param $direct_dlvr_yn = 직배여부
+ *
+ * @return html
+ */
+function getDlvrDirectHtml($direct_dlvr_yn) {
+    if ($direct_dlvr_yn === 'Y') {
+        return <<<html
+            <option value="02" selected="selected">직배</option>
+html;
+    }
+
+    return '';
+}
+
+/**
+ * @brief 당일판/예상출고일 관련 처리 함수
+ *
+ * @param $conn         = db connection
+ * @param $dao          = SheetDAO
+ * @param $frontUtil    = FrontCommonUtil
+ * @param $order_seqno  = 주문 공통 일련번호 문자열
+ * @param $member_seqno = 회원 일련번호
+ *
+ * @return 당일판 가진 주문 seqno 배열
+ */
+function chkEmergencyRelease($conn, $dao, $frontUtil,
+                             $order_seqno, $member_seqno) {
+    $releaseUtil = new ReleaseExpectUtil();
+    $nsUtil = new NonStandardUtil([
+        "conn" => $conn
+        ,"dao" => $dao
+    ]);
+
+    $ret = [];
+
+    $param = [];
+    $param["order_common_seqno"] = $order_seqno;
+    $param["member_seqno"] = $member_seqno;
+
+    $col  = "order_common_seqno";
+    $col .= ",cate_sortcode";
+    $col .= ",amt";
+    $col .= ",expec_release_date";
+
+    $rs = $dao->selectOrderCommon($conn, $param, $col);
+
+    while ($rs && !$rs->EOF) {
+        $fields = $rs->fields;
+        $order_common_seqno = $fields["order_common_seqno"];
+        $cate_sortcode      = $fields["cate_sortcode"];
+        $amt                = $fields["amt"];
+        $expec_release_date = $fields["expec_release_date"];
+
+        // 주문상세 검색
+        $flattyp_yn = $dao->selectCateFlattypYn($conn, $cate_sortcode);
+        $param["order_common_seqno"] = $order_common_seqno;
+        //$col  = "cate_paper_tot_mpcode";
+        $col  = "cate_paper_mpcode";
+        $col .= ",stan_name";
+        $col .= ",cut_size_wid";
+        $col .= ",cut_size_vert";
+        $col .= ",page_amt";
+        $col .= ",after_use_yn";
+        if ($flattyp_yn === 'Y') {
+            $detail_rs = $dao->selectOrderDetail($conn, $param, $col);
+        } else {
+            $detail_rs = $dao->selectOrderDetail($conn, $param, $col, false);
+        }
+
+        // 종이정보 검색
+        $paper_mpcode = $detail_rs->fields["cate_paper_mpcode"];
+
+        $paper_rs = $dao->selectCatePaperInfo($conn, $paper_mpcode);
+        $paper_info = sprintf("%s %s %s %s", $paper_rs["name"]
+            , $paper_rs["dvs"]
+            , $paper_rs["color"]
+            , $paper_rs["basisweight"]);
+
+        // 사이즈 정보 검색
+        $size_info = $detail_rs->fields["stan_name"];
+        $cut_wid   = $detail_rs->fields["cut_size_wid"];
+        $cut_vert  = $detail_rs->fields["cut_size_vert"];
+        if ($size_info === "비규격") {
+            $temp = [];
+            $temp["cate_sortcode"] = $cate_sortcode;
+            $temp["paper_mpcode"]  = $paper_mpcode;
+            $stan_mpcode_rs = $dao->selectCateStanMpcodeByPrice($conn, $temp);
+
+            $mpcode_arr = [];
+            while ($stan_mpcode_rs && !$stan_mpcode_rs->EOF) {
+                $mpcode_arr[] = $stan_mpcode_rs->fields["cate_stan_mpcode"];
+
+                $stan_mpcode_rs->MoveNext();
+            }
+
+            unset($temp);
+            $temp["cate_sortcode"] = $cate_sortcode;
+            $temp["cut_wid"]       = $cut_wid;
+            $temp["cut_vert"]      = $cut_vert;
+            $temp["mpcode"]        = $dao->arr2paramStr($conn, $mpcode_arr);
+
+            $size_info = $nsUtil->getSimilarSizeInfo($param)["name"];
+            unset($temp);
+            unset($stan_mpcode_rs);
+        }
+
+        // 페이지 배열 생성
+        $page_arr = [];
+        $is_after = false;
+        while ($detail_rs && !$detail_rs->EOF) {
+            $fields = $detail_rs->fields;
+
+            $page_arr[] = $fields["page_amt"];
+
+            $detail_rs->MoveNext();
+        }
+        unset($detail_rs);
+
+        // 후가공 정보 생성
+        $after_info = '';
+        $param["basic_yn"] = 'N';
+        $after_rs = $dao->selectOrderAfterHistory($conn, $param);
+        while ($after_rs && !$after_rs->EOF) {
+            $fields = $after_rs->fields;
+
+            $after_info .= $fields["name"] . ' ';
+            $after_info .= '[' . $fields["depth1"];
+            $after_info .= '/' . $fields["depth2"];
+            $after_info .= '/' . $fields["depth3"] . ']|';
+
+            $after_rs->MoveNext();
+        }
+        unset($after_rs);
+
+        // 당일판 있는지 체크되어있는지 확인
+        $opt_rs= $dao->selectOrderOptEmergency($conn, $order_common_seqno);
+        $emergency = true;
+        if (!empty($opt_rs)
+            && !$frontUtil->chkAvailEmergency($opt_rs["depth1"])) {
+            $emergency = false;
+
+            $dao->deleteOrderOptHistory($conn,
+                $opt_rs["order_opt_history_seqno"]);
+        } else {
+            $ret[$order_common_seqno] = $opt_rs["depth1"];
+        }
+
+        unset($param);
+        $param = [
+            "cate_sortcode" => $cate_sortcode
+            ,"paper_info"   => $paper_info
+            ,"size_info"    => $size_info
+            ,"amt"          => $amt
+            ,"page_arr"     => $page_arr
+            ,"after_info"   => substr($after_info, 0, -1)
+            ,"emergency"    => $emergency
+        ];
+        $releaseUtil->setData($param);
+        $date_arr = $releaseUtil->calcReleaseExpectTime();
+
+        $date = sprintf("%s-%s-%s %s:%s:%s", $date_arr["year"]
+            , $date_arr["month"]
+            , $date_arr["day"]
+            , $date_arr["hour"]
+            , $date_arr["min"]
+            , $date_arr["sec"]);
+
+        if ($expec_release_date !== $date) {
+            unset($param);
+            $param["order_common_seqno"] = $order_common_seqno;
+            $param["expec_release_date"] = $date;
+            $dao->updateOrderExpecRelease($conn, $param);
+        }
+
+        $rs->MoveNext();
+    }
+
+    return $ret;
+}
+?>

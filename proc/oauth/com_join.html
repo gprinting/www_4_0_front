@@ -1,0 +1,94 @@
+<html>
+<head>
+<script src="/design_template/js/lib/jquery-1.11.2.min.js"></script>
+<script>
+var chkDup = function() {
+    var id  = $("#join_id").val();
+    var dom = $("#join_domain").val();
+    var idw = id + "@" + dom;
+
+    if (idw != "") {
+        $.ajax({
+            type    : "POST",
+            url     : "/test-devel/vali_check.php",
+            data    : {
+                "idw" : idw
+            },
+            success : function(result) {
+                if (result == "검색결과없음") {
+                    alert("사용할 수 있는 아이디입니다.");
+                    $("#chk_dup").val("ok");
+                } else {
+                    alert("중복되는 아이디가 이미 있습니다. 다른 아이디를 입력해 주세요.");
+                    $("#join_id").focus(); 
+                }
+            } 
+        });   
+    }   
+};
+var chkInfo = function() {
+    var jid = $("#join_id").val();
+    var jdo = $("#join_domain").val();
+    var jpw = $("#join_pw").val();
+    var cpw = $("#chk_pw").val();
+    var cdp = $("#chk_dup").val();
+
+    if (jid == "") {
+        alert("아이디를 입력해주세요.");
+        return false;
+    }
+
+    if (jdo == "") {
+        alert("도메인을 입력해주세요.");
+        return false;
+    }
+    
+    if (cdp != "ok") {
+        alert("아이디 중복체크를 해주세요.");
+        return false;
+    }
+
+    if (jpw == "") {
+        alert("비밀번호를 입력해주세요.");
+        return false;
+    }
+
+    if (jpw.length < 8) {
+        alert("비밀번호는 최소 8자 이상이어야 합니다.");
+        return false;
+    }
+
+    if (jpw != cpw) {
+        alert("비밀번호가 일치하지 않습니다.");
+        return false;
+    }
+
+    var jem = jid + "@" + jdo;
+
+    $.ajax({
+            type    : "POST",
+            url     : "/test-devel/insert_com_member.php",
+            data    : {
+                "jem" : jem,
+                "jpw" : jpw
+            },
+            success : function(result) {
+                console.log(result);
+                if (result == "등록 성공") {
+                    alert("가입이 완료되었습니다!");
+                    window.close();
+                }
+            } 
+        });
+};
+</script>
+</head>
+<body>
+아이디(이메일 형식) <br /><input type="text" id="join_id" /> @ <input type="text" id="join_domain">
+<button type="button" onclick="chkDup();">중복확인</button><br />
+<input type="hidden" id="chk_dup"/>
+비밀번호 <span id="chk_pw_let"></span><br /><input type="password" id="join_pw" /><br />
+비밀번호 확인 <br /><input type="password" id="chk_pw" /><br />
+<button type="button" onclick="chkInfo();">가입</button><br />
+</body>
+</html>

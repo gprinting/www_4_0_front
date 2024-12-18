@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <script src="/design_template/js/lib/jquery-1.11.2.min.js"></script>
+        <script src="/design_template/js/common/common.js"></script>
+
+        <script>
+            var calc = function() {
+                var url = "/test-devel/calc_actual_price.php";
+                var data = {
+                    "w" : $("#w").val(),
+                    "h" : $("#h").val()
+                };
+                var callback = function(result) {
+                    $("#result").html(result);
+                };
+
+                ajaxCall(url, "html", data, callback);
+            };
+        </script>
+    </head>
+
+    <body>
+        가로
+        <input type="text" value="5000" id="w" /> mm x 
+        <select id="h">
+            <option value="400">400</option>
+            <option value="500">500</option>
+            <option value="600">600</option>
+            <option value="700">700</option>
+            <option value="800">800</option>
+            <option value="900">900</option>
+            <option value="1000">1000</option>
+            <option value="1100">1100</option>
+            <option value="1200">1200</option>
+            <option value="1300">1300</option>
+            <option value="1400">1400</option>
+            <option value="1500">1500</option>
+            <option value="1600">1600</option>
+            <option value="1700">1700</option>
+            <option value="1800">1800</option>
+        </select>
+        mm
+
+        </br>
+
+        <button type="button" onclick="calc();">계산</button>
+
+        </br>
+
+        <div id="result">
+           결과값 :  
+        </div>
+    </body>
+</html>

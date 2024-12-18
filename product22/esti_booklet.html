@@ -1,0 +1,119 @@
+<?
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/sess_common.php");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/Template.inc");
+include_once($_SERVER["INC"] . "/com/nexmotion/common/util/ConnectionPool.inc");
+include_once($_SERVER["INC"] . "/common_dao/ProductCommonDAO.inc");
+include_once($_SERVER["INC"] . '/common_define/common_info.inc');
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product22/info/BookletInfo.php");
+
+$connectionPool = new ConnectionPool();
+$conn = $connectionPool->getPooledConnection();
+
+$template = new Template();
+$dao = new ProductCommonDAO();
+
+$fb = new FormBean();
+$session = $fb->getSession();
+$dvs = "esti";
+
+// 사진, 배너, 카테고리 셀렉트박스
+include_once($_SERVER["DOCUMENT_ROOT"] . "/product22/info/common_info.php");
+
+// cate_tab.html on 클래스 추가용
+$template->reg("cate_sortcode", $sortcode_b); 
+
+// 로그인 상태인지 체크하는부분 include
+include_once($_SERVER["DOCUMENT_ROOT"] . "/common22/login_check.php");
+$flag_arr = array(
+    "esti_flag"     => true
+    ,"affil_yn"      => true
+    ,"pos_yn"        => true
+    ,"mix_yn"        => true
+    ,"paper_sort_yn" => true
+    ,"size_typ_yn"   => false
+    ,"calc_flag"     => true
+    ,"common_flag"   => false
+    ,"after_flag"    => false
+    ,"mobile_flag"   => $is_mobile
+);
+// 표지
+$cover = new BookletInfo($conn,
+                         $template,
+                         $sortcode_b,
+                         "cover",
+                         $flag_arr);
+$cover->init();
+
+$amt         = $cover->getAmt();
+$pos_num     = $cover->getPosNum();
+$affil       = $cover->getAffil();
+$stan_mpcode = $cover->getStanMpcode();
+$flag_arr["common_flag"] = true;
+// 내지1
+$inner1 = new BookletInfo($conn,
+                          $template,
+                          $sortcode_b,
+                          "inner1",
+                          $flag_arr);
+$inner1->setAmt($amt);
+$inner1->setPosNum($pos_num);
+$inner1->setAffil($affil);
+$inner1->setStanMpcode($stan_mpcode);
+$inner1->init();
+// 내지2
+$flag_arr["after_flag"] = true;
+$inner2 = new BookletInfo($conn,
+                          $template,
+                          $sortcode_b,
+                          "inner2",
+                          $flag_arr);
+$inner2->setPosNum($pos_num);
+$inner2->setAffil($affil);
+$inner2->init();
+// 내지3
+$inner3 = new BookletInfo($conn,
+                         $template,
+                         $sortcode_b,
+                         "inner3",
+                         $flag_arr);
+$inner3->setPosNum($pos_num);
+$inner3->setAffil($affil);
+$inner3->init();
+
+// 옵션 html 생성
+$param = array();
+$param["cate_sortcode"] = $sortcode_b;
+$param["dvs"]           = $dvs;
+$opt = $dao->selectCateOptHtml($conn, $param);
+$template->reg("opt", $opt["html"]); 
+
+$template->reg("add_opt", ''); 
+if (empty($opt["info_arr"]) === false) {
+    $add_opt = $opt["info_arr"]["name"];
+    $add_opt = $dao->parameterArrayEscape($conn, $add_opt);
+    $add_opt = $frontUtil->arr2delimStr($add_opt);
+
+    $param["opt_name"] = $add_opt;
+    $param["opt_idx"]  = $opt["info_arr"]["idx"];
+    $add_opt = $dao->selectCateAddOptInfoHtml($conn, $param);
+    unset($param);
+    $template->reg("add_opt", $add_opt); 
+}
+$template->reg("admin", $session["isadmin"]);
+
+// 기본사용 자바스크립트, css 파일 불러오는 용
+$template->reg("dir", "product"); 
+$template->reg("page", $dvs . "_booklet"); 
+
+// 파일업로드 스크립트 견적용으로 변경
+$template->reg("file_list_id", "esti_file_list"); 
+$template->reg("file_upload_url", "/proc/product/upload_esti_file.php"); 
+$template->reg("file_button_id", "esti_file"); 
+
+//design_dir 경로
+$template->reg("root_design_dir", $root_design_dir);
+$template->reg("design_dir", $design_path); 
+$template->htmlPrint($html_path); 
+
+$conn->Close();
+?>
